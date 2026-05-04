@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   Salesforce CRM Security Hardening — A Defender's Encyclopedia for the Frontier-AI Era
-  Document version 1.4.6 · Last modified 2026-05-04
+  Document version 1.4.7 · Last modified 2026-05-04
   Copyright (c) 2026 Dr. Paul Coleman. All rights reserved.
 
   A vendor-neutral hardening reference for the customer side of the Salesforce
@@ -28,7 +28,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Salesforce CRM Security Hardening &mdash; A Defender's Encyclopedia for the Frontier-AI Era</title>
-<meta name="document-version" content="1.4.6">
+<meta name="document-version" content="1.4.7">
 <meta name="last-modified" content="2026-05-04">
 <meta name="source-snapshot" content="2026-05-04">
 <meta name="description" content="Vendor-neutral Salesforce CRM security hardening reference: identity, access, Experience Cloud guest hardening, Connected Apps + AppExchange supply chain, mTLS, secure Apex/LWC/Flow, encryption, detection &amp; response, DevSecOps, and defensive AI augmentation. Threat-informed (UNC6040, UNC6395, Krebs guest exposure, Drift OAuth chain) and standards-aligned (NIST CSF 2.0, OWASP).">
@@ -1338,7 +1338,7 @@ pre.mermaid g.node[onclick]:hover > path {
     </div>
     <div>
       <h1>Salesforce CRM Security Hardening</h1>
-      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.4.6 &middot; last modified 2026-05-04</span>
+      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.4.7 &middot; last modified 2026-05-04</span>
     </div>
   </div>
   <div class="doc-meta">
@@ -4506,7 +4506,7 @@ flowchart LR
         S2[Logs: Audit + Login History]:::detect
         S3[Events: Real-Time EM]:::detect
         S4[Anomaly: Threat Detection]:::detect
-        S5[AI silent-compromise indicators]:::detect
+        S5[AI silent-compromise<br/>indicators]:::detect
     end
 
     T[Triage<br/>signal -&gt; ticket]:::triage
@@ -4998,15 +4998,15 @@ flowchart LR
 
     subgraph PILLARS["AI overlay across Pillars I-IX"]
         direction TB
-        P1[I: Identity audit, SAML claim review]:::pillar
-        P2[II: PermSet drift, migration plan]:::pillar
-        P3[III: Guest profile audit, scanner authoring]:::pillar
-        P4[IV: OAuth grant analysis, ISV risk scoring]:::pillar
-        P5[V: Cert rotation runbook, NC inventory]:::pillar
-        P6[VI: Apex code review, SOQL injection scan]:::pillar
-        P7[VII: Classification proposal, retention draft]:::pillar
-        P8[VIII: Anomaly policy authoring, IRP companion]:::pillar
-        P9[IX: PR review, repo scanner triage]:::pillar
+        P1[I &middot; Identity audit<br/>SAML claim review]:::pillar
+        P2[II &middot; PermSet drift<br/>migration planning]:::pillar
+        P3[III &middot; Guest profile audit<br/>scanner authoring]:::pillar
+        P4[IV &middot; OAuth grant analysis<br/>ISV risk scoring]:::pillar
+        P5[V &middot; Cert runbook<br/>credential inventory]:::pillar
+        P6[VI &middot; Apex code review<br/>SOQL injection scan]:::pillar
+        P7[VII &middot; Classification proposal<br/>retention draft]:::pillar
+        P8[VIII &middot; Anomaly authoring<br/>IRP companion]:::pillar
+        P9[IX &middot; PR review<br/>scanner triage]:::pillar
     end
 
     AI --&gt; TL --&gt; PILLARS
@@ -6165,6 +6165,12 @@ DIFF:
   <table>
     <thead><tr><th>Version</th><th>Date</th><th>Change</th><th>Author</th></tr></thead>
     <tbody>
+      <tr>
+        <td><strong>1.4.7</strong></td>
+        <td>2026-05-04</td>
+        <td>Preemptive label-clipping fix on the diagrams converted in v1.4.6. Pillar X "Defender's AI Stack" subgraph children (P1&ndash;P9) had single-line labels (e.g. "I: Identity audit, SAML claim review") that risked clipping when Mermaid scaled the SVG to fit a narrow card column &mdash; rewrote each as a two-line label with explicit <code>&lt;br/&gt;</code> at a natural break point. Pillar VIII "AI silent-compromise indicators" detect-signal node similarly wrapped. The user reported the clipping symptom against the deployed v1.4.4 page; that report's actual diagram (the original Pillar VIII <code>stateDiagram-v2</code>) was already replaced wholesale in v1.4.6 &mdash; pushing v1.4.x to <code>main</code> resolves the deployed clipping at root.</td>
+        <td>Dr. Paul Coleman</td>
+      </tr>
       <tr>
         <td><strong>1.4.6</strong></td>
         <td>2026-05-04</td>
