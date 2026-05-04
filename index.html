@@ -6163,6 +6163,18 @@ DIFF:
     <thead><tr><th>Version</th><th>Date</th><th>Change</th><th>Author</th></tr></thead>
     <tbody>
       <tr>
+        <td><strong>1.4.9</strong></td>
+        <td>2026-05-04</td>
+        <td>Diagram-density and viewport policy. <strong>"Ten Hardening Pillars &mdash; The Map" diagram restructured</strong> from a 4-subgraph layout (where the STANDARD PILLARS subgraph stacked 5 nodes vertically and made the whole diagram tall) into a single horizontal row of 9 pillar nodes plus the cross-cutting overlay (Pillar 10) sitting above &mdash; gistable in one viewport on a 1900&times;1200 desktop. <strong>Pillar 10 "Defender's AI Stack" diagram</strong> similarly restructured from a 9-node vertical subgraph to a fan-out where the Trust Layer routes to all 9 pillars in a horizontal row. <strong>New "Desktop-only viewing" disclaimer</strong> added to the Disclaimer card and to the repo README explaining that the document is designed for screens 1900&times;1200 or larger and degrades on mobile / small tablet (sidebar nav, dual-tab fold, search box, maturity-scorecard sliders all assume a wide canvas and a pointing device); reading-on-the-go users should use the print stylesheet for an offline / PDF render. Caught one Roman-numeral straggler in the maturity-scorecard JS (<code>"prioritize Pillars 1-IV"</code> &rarr; <code>"Pillars 1-4"</code>).</td>
+        <td>Dr. Paul Coleman</td>
+      </tr>
+      <tr>
+        <td><strong>1.4.8</strong></td>
+        <td>2026-05-04</td>
+        <td>Numbering accessibility patch. Roman-numeral pillar identifiers (<code>Pillar I</code> through <code>Pillar X</code>; subsection refs like <code>VIII.6</code>) were terse for less-technical readers, especially as numbers grew. Bulk-converted display text to Arabic numerals across <strong>590 occurrences in index.html</strong> + 17 in repo README + 21 in reference-impl/README + 122 across the JSON data files (751 total). <strong>Anchor IDs preserved unchanged</strong> (<code>#pillar-i</code>, <code>#i-mfa-matrix</code>, etc.) so external bookmarks, sidebar nav links, and 316 internal cross-references continue to resolve. Mermaid diagram node IDs (<code>I</code>, <code>II</code>, <code>III</code>...) preserved as variable names; only their labels changed (<code>I[I &middot; Identity ...]</code> &rarr; <code>I[1 &middot; Identity ...]</code>) so edges (<code>I --&gt; II</code>) still work without restructure.</td>
+        <td>Dr. Paul Coleman</td>
+      </tr>
+      <tr>
         <td><strong>1.4.7</strong></td>
         <td>2026-05-04</td>
         <td>Preemptive label-clipping fix on the diagrams converted in v1.4.6. Pillar 10 "Defender's AI Stack" subgraph children (P1&ndash;P9) had single-line labels (e.g. "I: Identity audit, SAML claim review") that risked clipping when Mermaid scaled the SVG to fit a narrow card column &mdash; rewrote each as a two-line label with explicit <code>&lt;br/&gt;</code> at a natural break point. Pillar 8 "AI silent-compromise indicators" detect-signal node similarly wrapped. The user reported the clipping symptom against the deployed v1.4.4 page; that report's actual diagram (the original Pillar 8 <code>stateDiagram-v2</code>) was already replaced wholesale in v1.4.6 &mdash; pushing v1.4.x to <code>main</code> resolves the deployed clipping at root.</td>
