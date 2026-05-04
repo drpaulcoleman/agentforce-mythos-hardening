@@ -28,7 +28,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Mythos Imperative &mdash; Salesforce CRM Security Hardening</title>
-<meta name="document-version" content="1.5.10">
+<meta name="document-version" content="1.5.11">
 <meta name="last-modified" content="2026-05-04">
 <meta name="source-snapshot" content="2026-05-04">
 <meta name="description" content="The Mythos Imperative: a vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars from Identity to Defensive AI; twenty-two appendices.">
@@ -38,7 +38,7 @@
 
 <!-- Open Graph / social-share metadata -->
 <meta property="og:type" content="article">
-<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.10">
+<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.11">
 <meta property="og:description" content="Vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars, 16+ appendices, fully attributed.">
 <meta property="og:url" content="https://drpaulcoleman.github.io/agentforce-mythos-hardening/">
 <meta property="og:site_name" content="Salesforce CRM Security Hardening">
@@ -49,7 +49,7 @@
 
 <!-- Twitter / X card metadata -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.10">
+<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.11">
 <meta name="twitter:description" content="Threat-informed Salesforce hardening reference. Ten pillars from Identity to Defensive AI, with a companion Salesforce DX reference implementation.">
 
 <!-- Errata / contributions -->
@@ -1702,7 +1702,7 @@ pre.mermaid g.node[onclick]:hover > path {
     </div>
     <div>
       <h1><span class="phase-tag">The Mythos Imperative</span><span class="phase-sep">&mdash;</span>Salesforce CRM Security Hardening</h1>
-      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.10 &middot; last modified 2026-05-04</span>
+      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.11 &middot; last modified 2026-05-04</span>
     </div>
   </div>
   <div class="doc-meta">
@@ -1968,6 +1968,7 @@ pre.mermaid g.node[onclick]:hover > path {
     Encryption and Detection only matter once data is classified.</strong>
   </p>
   <pre class="mermaid">
+%%{init: {'flowchart': {'htmlLabels': true, 'nodeSpacing': 50, 'rankSpacing': 70, 'padding': 14}}}%%
 flowchart LR
     classDef foundation fill:#04844B,stroke:#04844B,color:#FFF;
     classDef priority fill:#C23934,stroke:#C23934,color:#FFF;
@@ -1975,18 +1976,18 @@ flowchart LR
     classDef overlay fill:#9050E9,stroke:#9050E9,color:#FFF;
 
     %% Defensive AI overlay sits above the row, dotted edges to the pillars it touches
-    PX[10 &middot; Defensive AI<br/>cross-cutting overlay]:::overlay
+    PX["<b>10 &middot; Defensive AI</b>&lt;br/&gt;cross-cutting overlay"]:::overlay
 
     %% Pillars 1-9 in a single horizontal row, ordered by dependency
-    P1[1 &middot; Identity]:::foundation
-    P2[2 &middot; Access]:::foundation
-    P3[3 &middot; Experience<br/>Cloud &#9733;]:::priority
-    P4[4 &middot; Connected<br/>Apps &amp; ISVs]:::priority
-    P5[5 &middot; API + mTLS]:::standard
-    P6[6 &middot; Code &amp; Flow]:::standard
-    P7[7 &middot; Data]:::standard
-    P8[8 &middot; Detect &amp; Respond]:::standard
-    P9[9 &middot; DevSecOps]:::standard
+    P1["<b>1 &middot; Identity</b>"]:::foundation
+    P2["<b>2 &middot; Access</b>"]:::foundation
+    P3["<b>3 &middot; Experience&lt;br/&gt;Cloud</b> &#9733;"]:::priority
+    P4["<b>4 &middot; Connected&lt;br/&gt;Apps &amp; ISVs</b>"]:::priority
+    P5["<b>5 &middot; API + mTLS</b>"]:::standard
+    P6["<b>6 &middot; Code &amp; Flow</b>"]:::standard
+    P7["<b>7 &middot; Data</b>"]:::standard
+    P8["<b>8 &middot; Detect &amp; Respond</b>"]:::standard
+    P9["<b>9 &middot; DevSecOps</b>"]:::standard
 
     P1 --&gt; P2
     P2 --&gt; P3
@@ -2117,7 +2118,7 @@ gantt
 
 <!-- TECH · Hero ---------------------------------------------------------- -->
 <div class="card hero" id="hero" data-search="hero overview salesforce crm security hardening defender encyclopedia frontier ai mythos">
-  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.10 &middot; last modified 2026-05-04</p>
+  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.11 &middot; last modified 2026-05-04</p>
   <h1>The <span class="accent">Mythos Imperative</span><br/><span style="font-size:24px; font-weight:700; opacity:0.92; display:block; margin-top:6px;">A Defender's Encyclopedia for the Frontier-AI Era</span></h1>
   <p class="lede" style="border-left: 3px solid var(--sf-orange); padding: 6px 0 6px 16px; margin-left: 0;">
     <strong style="color: var(--sf-orange); letter-spacing: 0.04em;">Why this exists, why now.</strong>
@@ -2317,32 +2318,33 @@ gantt
     its existence narrowed the blast radius of this incident.</li>
   </ol>
   <pre class="mermaid">
+%%{init: {'flowchart': {'htmlLabels': true, 'nodeSpacing': 50, 'rankSpacing': 70, 'padding': 14}}}%%
 flowchart LR
     classDef vec fill:#C23934,stroke:#C23934,color:#FFF;
     classDef pivot fill:#FF9A3C,stroke:#FF9A3C,color:#FFF;
     classDef target fill:#1E4D7B,stroke:#0070D2,color:#FFF;
     classDef ctrl fill:#04844B,stroke:#04844B,color:#FFF;
 
-    V1[Vishing &mdash; UNC6040]:::vec
-    V2[ISV repo compromise &mdash; UNC6395]:::vec
-    V3[Misconfigured guest profile]:::vec
-    V4[Browser extension supply chain]:::vec
-    V5[Web-form prompt injection]:::vec
-    V6[Mythos vendor compromise]:::vec
+    V1["Vishing&lt;br/&gt;(UNC6040)"]:::vec
+    V2["ISV repo compromise&lt;br/&gt;(UNC6395)"]:::vec
+    V3["Misconfigured&lt;br/&gt;guest profile"]:::vec
+    V4["Browser extension&lt;br/&gt;supply chain"]:::vec
+    V5["Web-form&lt;br/&gt;prompt injection"]:::vec
+    V6["Mythos vendor&lt;br/&gt;compromise"]:::vec
 
-    P1[OAuth grant / Data Loader]:::pivot
-    P2[Connected App refresh token]:::pivot
-    P3[Guest user record query]:::pivot
-    P4[Authenticated session cookie]:::pivot
-    P5[AI agent context manipulation]:::pivot
+    P1["OAuth grant /&lt;br/&gt;Data Loader"]:::pivot
+    P2["Connected App&lt;br/&gt;refresh token"]:::pivot
+    P3["Guest user&lt;br/&gt;record query"]:::pivot
+    P4["Authenticated&lt;br/&gt;session cookie"]:::pivot
+    P5["AI agent context&lt;br/&gt;manipulation"]:::pivot
 
-    T[Salesforce data &amp; PII]:::target
+    T["Salesforce&lt;br/&gt;data &amp; PII"]:::target
 
-    C1[FIDO2 + High Assurance]:::ctrl
-    C2[Block Uninstalled Apps + token rotation]:::ctrl
-    C3[Guest profile audit + Restriction Rules]:::ctrl
-    C4[Endpoint allowlist + dedicated profile]:::ctrl
-    C5[Form input filters + Trust Layer]:::ctrl
+    C1["FIDO2 +&lt;br/&gt;High Assurance"]:::ctrl
+    C2["Block Uninstalled +&lt;br/&gt;token rotation"]:::ctrl
+    C3["Guest profile audit +&lt;br/&gt;Restriction Rules"]:::ctrl
+    C4["Endpoint allowlist +&lt;br/&gt;dedicated profile"]:::ctrl
+    C5["Form input filters +&lt;br/&gt;Trust Layer"]:::ctrl
 
     V1 --&gt; P1 --&gt; T
     V2 --&gt; P2 --&gt; T
@@ -3045,12 +3047,12 @@ flowchart LR
     classDef enforce fill:#9050E9,stroke:#9050E9,color:#FFF;
     classDef result fill:#16325C,stroke:#0070D2,color:#FFF;
 
-    A["1 &middot; FOUNDATION<br/>Org-Wide Defaults<br/>(Private)"]:::gate
-    B["2 &middot; WIDENING<br/>Hierarchy &middot; Sharing Rules<br/>Manual &middot; Apex Managed"]:::widen
-    C["3 &middot; NARROW<br/>Restriction Rules<br/>(can REMOVE access)"]:::narrow
-    D["4 &middot; OBJECT / FIELD GATES<br/>Permissions via PSG<br/>Field-Level Security"]:::gate
-    E["5 &middot; APEX RUN-MODE<br/>USER_MODE /<br/>SECURITY_ENFORCED"]:::enforce
-    J{"Record<br/>visible?"}:::result
+    A["1 &middot; FOUNDATION&lt;br/&gt;Org-Wide Defaults&lt;br/&gt;(Private)"]:::gate
+    B["2 &middot; WIDENING&lt;br/&gt;Hierarchy &middot; Sharing Rules&lt;br/&gt;Manual &middot; Apex Managed"]:::widen
+    C["3 &middot; NARROW&lt;br/&gt;Restriction Rules&lt;br/&gt;(can REMOVE access)"]:::narrow
+    D["4 &middot; OBJECT / FIELD GATES&lt;br/&gt;Permissions via PSG&lt;br/&gt;Field-Level Security"]:::gate
+    E["5 &middot; APEX RUN-MODE&lt;br/&gt;USER_MODE /&lt;br/&gt;SECURITY_ENFORCED"]:::enforce
+    J{"Record&lt;br/&gt;visible?"}:::result
 
     A --&gt; B --&gt; C --&gt; D --&gt; E --&gt; J
   </pre>
@@ -3439,13 +3441,13 @@ flowchart LR
     classDef code fill:#FF9A3C,stroke:#FF9A3C,color:#000;
     classDef leak fill:#C23934,stroke:#C23934,color:#FFF;
 
-    A["Anonymous Visitor<br/>(no auth)<br/>hits public URL"]:::anon
-    B["Guest User Profile<br/>profile-bound,<br/>license-bound"]:::guest
-    C["Sharing Scope<br/>OWD = Private<br/>+ Guest Sharing Rules"]:::guest
-    D["Reachable Query Surface<br/>SOQL via Aura / LWC<br/>GraphQL &middot; CMS &middot; Files"]:::query
-    E["Apex Controller<br/>runs as Guest User<br/>(USER_MODE? FLS? Sharing?)"]:::code
-    F["Records Returned<br/>HTTP / JSON / file"]:::leak
-    G["Search-engine Cache<br/>(Bing, Google)"]:::leak
+    A["Anonymous Visitor&lt;br/&gt;(no auth)&lt;br/&gt;hits public URL"]:::anon
+    B["Guest User Profile&lt;br/&gt;profile-bound,&lt;br/&gt;license-bound"]:::guest
+    C["Sharing Scope&lt;br/&gt;OWD = Private&lt;br/&gt;+ Guest Sharing Rules"]:::guest
+    D["Reachable Query Surface&lt;br/&gt;SOQL via Aura / LWC&lt;br/&gt;GraphQL &middot; CMS &middot; Files"]:::query
+    E["Apex Controller&lt;br/&gt;runs as Guest User&lt;br/&gt;(USER_MODE? FLS? Sharing?)"]:::code
+    F["Records Returned&lt;br/&gt;HTTP / JSON / file"]:::leak
+    G["Search-engine Cache&lt;br/&gt;(Bing, Google)"]:::leak
     H["Attacker"]:::leak
 
     A --&gt; B --&gt; C --&gt; D --&gt; E --&gt; F
@@ -4496,18 +4498,18 @@ flowchart LR
     classDef gate fill:#0070D2,stroke:#0070D2,color:#FFF;
     classDef terminal fill:#16325C,stroke:#0070D2,color:#FFF;
 
-    A["Request hits Apex<br/>controller, endpoint,<br/>or Flow trigger"]:::gate
-    B{"Apex or<br/>Flow path?"}:::gate
+    A["Request hits Apex&lt;br/&gt;controller, endpoint,&lt;br/&gt;or Flow trigger"]:::gate
+    B{"Apex or&lt;br/&gt;Flow path?"}:::gate
 
-    AC["Apex class declaration<br/><b>with sharing</b> ✓<br/><b>without sharing</b> ✗"]:::gate
-    AS["SOQL run-mode<br/><b>WITH USER_MODE</b> ✓<br/><b>default (system)</b> ✗"]:::gate
-    AD["DML run-mode<br/><b>AccessLevel.USER_MODE</b> ✓<br/><b>default (FLS bypass)</b> ✗"]:::gate
+    AC["Apex class declaration&lt;br/&gt;<b>with sharing</b> ✓&lt;br/&gt;<b>without sharing</b> ✗"]:::gate
+    AS["SOQL run-mode&lt;br/&gt;<b>WITH USER_MODE</b> ✓&lt;br/&gt;<b>default (system)</b> ✗"]:::gate
+    AD["DML run-mode&lt;br/&gt;<b>AccessLevel.USER_MODE</b> ✓&lt;br/&gt;<b>default (FLS bypass)</b> ✗"]:::gate
 
-    FR["Flow run-context<br/><b>user context</b> ✓<br/><b>system context</b> ✗<br/><b>guest-accessible</b> ✗✗"]:::gate
+    FR["Flow run-context&lt;br/&gt;<b>user context</b> ✓&lt;br/&gt;<b>system context</b> ✗&lt;br/&gt;<b>guest-accessible</b> ✗✗"]:::gate
 
-    Q{"Sharing + FLS<br/>enforced?"}:::gate
-    QY["✓ Response respects<br/>sharing &amp; FLS"]:::trust
-    QN["✗ Response bypasses<br/>sharing / FLS<br/>(silent leak risk)"]:::danger
+    Q{"Sharing + FLS&lt;br/&gt;enforced?"}:::gate
+    QY["✓ Response respects&lt;br/&gt;sharing &amp; FLS"]:::trust
+    QN["✗ Response bypasses&lt;br/&gt;sharing / FLS&lt;br/&gt;(silent leak risk)"]:::danger
 
     A --&gt; B
     B -- "Apex" --&gt; AC --&gt; AS --&gt; AD --&gt; Q
@@ -4767,14 +4769,14 @@ flowchart LR
     classDef ctrl fill:#0070D2,stroke:#0070D2,color:#FFF;
     classDef ops fill:#04844B,stroke:#04844B,color:#FFF;
 
-    A["<b>1. Classify Data</b><br/>Public / Internal /<br/>Confidential / Restricted"]:::tier
-    B["<b>2. Encrypt at Rest</b><br/>TDE + Shield<br/>Platform Encryption"]:::ctrl
-    C["<b>3. Manage Keys</b><br/>BYOK / HSM /<br/>external KMS"]:::ctrl
-    D["<b>4. Field Audit Trail</b><br/>long-retention<br/>forensic record"]:::ctrl
-    E["<b>5. Detect Sensitive Data</b><br/>Einstein Data Detect<br/>(continuous discovery)"]:::tier
-    F["<b>6. Mask in Sandbox</b><br/>Data Mask<br/>(non-prod PII scrub)"]:::ops
-    G["<b>7. Backup &amp; Recovery</b><br/>isolated account,<br/>restore tests"]:::ops
-    H["<b>8. Retention &amp; Deletion</b><br/>lifecycle policy"]:::ops
+    A["<b>1. Classify Data</b>&lt;br/&gt;Public / Internal /&lt;br/&gt;Confidential / Restricted"]:::tier
+    B["<b>2. Encrypt at Rest</b>&lt;br/&gt;TDE + Shield&lt;br/&gt;Platform Encryption"]:::ctrl
+    C["<b>3. Manage Keys</b>&lt;br/&gt;BYOK / HSM /&lt;br/&gt;external KMS"]:::ctrl
+    D["<b>4. Field Audit Trail</b>&lt;br/&gt;long-retention&lt;br/&gt;forensic record"]:::ctrl
+    E["<b>5. Detect Sensitive Data</b>&lt;br/&gt;Einstein Data Detect&lt;br/&gt;(continuous discovery)"]:::tier
+    F["<b>6. Mask in Sandbox</b>&lt;br/&gt;Data Mask&lt;br/&gt;(non-prod PII scrub)"]:::ops
+    G["<b>7. Backup &amp; Recovery</b>&lt;br/&gt;isolated account,&lt;br/&gt;restore tests"]:::ops
+    H["<b>8. Retention &amp; Deletion</b>&lt;br/&gt;lifecycle policy"]:::ops
 
     A --&gt; B --&gt; C --&gt; D
     A --&gt; E
@@ -5035,15 +5037,15 @@ flowchart LR
     classDef contain fill:#C23934,stroke:#C23934,color:#FFF;
     classDef recover fill:#04844B,stroke:#04844B,color:#FFF;
 
-    D["<b>DETECT</b><br/>Posture (Health Check) ·<br/>Logs (Audit + Login History) ·<br/>Events (Real-Time EM) ·<br/>Anomaly (Threat Detection) ·<br/>AI silent-compromise indicators"]:::detect
-    T["<b>TRIAGE</b><br/>signal &rarr; ticket"]:::triage
-    C["<b>CONTAIN (sub-15 min)</b><br/>Revoke OAuth tokens ·<br/>End user sessions · Freeze user ·<br/>Revoke Connected App ·<br/>Kill-switch feature flag"]:::contain
-    I["<b>IDENTIFY</b><br/>scope of compromise"]:::triage
-    E["<b>ERADICATE</b><br/>residual access"]:::triage
-    P["<b>PRESERVE</b><br/>evidence (chain of custody)"]:::recover
-    N["<b>NOTIFY</b><br/>stakeholders + regulator<br/>(see Appendix R)"]:::recover
-    R["<b>RECOVER</b><br/>service to known-good state"]:::recover
-    M["<b>POST-MORTEM</b><br/>tune detection +<br/>update runbooks"]:::recover
+    D["<b>DETECT</b>&lt;br/&gt;Posture (Health Check) ·&lt;br/&gt;Logs (Audit + Login History) ·&lt;br/&gt;Events (Real-Time EM) ·&lt;br/&gt;Anomaly (Threat Detection) ·&lt;br/&gt;AI silent-compromise indicators"]:::detect
+    T["<b>TRIAGE</b>&lt;br/&gt;signal &rarr; ticket"]:::triage
+    C["<b>CONTAIN (sub-15 min)</b>&lt;br/&gt;Revoke OAuth tokens ·&lt;br/&gt;End user sessions · Freeze user ·&lt;br/&gt;Revoke Connected App ·&lt;br/&gt;Kill-switch feature flag"]:::contain
+    I["<b>IDENTIFY</b>&lt;br/&gt;scope of compromise"]:::triage
+    E["<b>ERADICATE</b>&lt;br/&gt;residual access"]:::triage
+    P["<b>PRESERVE</b>&lt;br/&gt;evidence (chain of custody)"]:::recover
+    N["<b>NOTIFY</b>&lt;br/&gt;stakeholders + regulator&lt;br/&gt;(see Appendix R)"]:::recover
+    R["<b>RECOVER</b>&lt;br/&gt;service to known-good state"]:::recover
+    M["<b>POST-MORTEM</b>&lt;br/&gt;tune detection +&lt;br/&gt;update runbooks"]:::recover
 
     D --&gt; T --&gt; C --&gt; I --&gt; E --&gt; P --&gt; N --&gt; R --&gt; M
   </pre>
@@ -5303,6 +5305,7 @@ flowchart LR
     the pipeline is the customer-side closure.
   </p>
   <pre class="mermaid">
+%%{init: {'flowchart': {'htmlLabels': true, 'nodeSpacing': 50, 'rankSpacing': 70, 'padding': 14}}}%%
 flowchart LR
     classDef src fill:#0070D2,stroke:#0070D2,color:#FFF;
     classDef gate fill:#9050E9,stroke:#9050E9,color:#FFF;
@@ -5310,16 +5313,16 @@ flowchart LR
     classDef sign fill:#FF9A3C,stroke:#FF9A3C,color:#FFF;
     classDef deploy fill:#16325C,stroke:#0070D2,color:#FFF;
 
-    A[DX Repo<br/>force-app/main]:::src
-    B[PR Review<br/>2-reviewer minimum]:::gate
-    C[CI Static Analysis<br/>PMD + SFDX Scanner]:::gate
-    D[Dual-Agent<br/>Metadata Scan]:::gate
-    E[Scratch Org<br/>Build &amp; Test]:::build
-    F[Unlocked Package<br/>Versioned + Signed]:::sign
-    G[Deployment Approval<br/>Multi-reviewer Gate]:::gate
+    A["DX Repo&lt;br/&gt;force-app/main"]:::src
+    B["PR Review&lt;br/&gt;2-reviewer minimum"]:::gate
+    C["CI Static Analysis&lt;br/&gt;PMD + SFDX Scanner"]:::gate
+    D["Dual-Agent&lt;br/&gt;Metadata Scan"]:::gate
+    E["Scratch Org&lt;br/&gt;Build &amp; Test"]:::build
+    F["Unlocked Package&lt;br/&gt;Versioned + Signed"]:::sign
+    G["Deployment Approval&lt;br/&gt;Multi-reviewer Gate"]:::gate
     H[UAT Sandbox]:::deploy
     I[Production]:::deploy
-    J[(Audit Log<br/>HMAC chained)]:::sign
+    J[("Audit Log&lt;br/&gt;HMAC chained")]:::sign
 
     A --&gt; B --&gt; C --&gt; D --&gt; E --&gt; F --&gt; G --&gt; H --&gt; I
     F -.records.-&gt; J
@@ -5505,6 +5508,7 @@ flowchart LR
     defend your configuration. The tools are the same.
   </p>
   <pre class="mermaid">
+%%{init: {'flowchart': {'htmlLabels': true, 'nodeSpacing': 50, 'rankSpacing': 70, 'padding': 14}}}%%
 flowchart LR
     classDef ai fill:#9050E9,stroke:#9050E9,color:#FFF;
     classDef pillar fill:#0070D2,stroke:#0070D2,color:#FFF;
@@ -5517,15 +5521,15 @@ flowchart LR
     AI --&gt; TL
 
     %% Pillars 1-9 spread horizontally beneath the Trust Layer (one row, no subgraph)
-    P1[1 &middot; Identity<br/>SAML claim review]:::pillar
-    P2[2 &middot; Access<br/>PSG drift]:::pillar
-    P3[3 &middot; Guest profile<br/>scanner authoring]:::pillar
-    P4[4 &middot; OAuth grants<br/>ISV risk scoring]:::pillar
-    P5[5 &middot; Cert runbook<br/>NC inventory]:::pillar
-    P6[6 &middot; Apex review<br/>SOQL injection scan]:::pillar
-    P7[7 &middot; Classification<br/>retention draft]:::pillar
-    P8[8 &middot; Anomaly authoring<br/>IRP companion]:::pillar
-    P9[9 &middot; PR review<br/>scanner triage]:::pillar
+    P1["1 &middot; Identity&lt;br/&gt;SAML claim review"]:::pillar
+    P2["2 &middot; Access&lt;br/&gt;PSG drift"]:::pillar
+    P3["3 &middot; Guest profile&lt;br/&gt;scanner authoring"]:::pillar
+    P4["4 &middot; OAuth grants&lt;br/&gt;ISV risk scoring"]:::pillar
+    P5["5 &middot; Cert runbook&lt;br/&gt;NC inventory"]:::pillar
+    P6["6 &middot; Apex review&lt;br/&gt;SOQL injection scan"]:::pillar
+    P7["7 &middot; Classification&lt;br/&gt;retention draft"]:::pillar
+    P8["8 &middot; Anomaly authoring&lt;br/&gt;IRP companion"]:::pillar
+    P9["9 &middot; PR review&lt;br/&gt;scanner triage"]:::pillar
 
     TL --&gt; P1
     TL --&gt; P2
@@ -6463,14 +6467,15 @@ AND LoginGeoId NOT IN (SELECT LoginGeoId FROM LoginEvent
   </ol>
   <h3>Reference architecture</h3>
   <pre class="mermaid">
+%%{init: {'flowchart': {'htmlLabels': true, 'nodeSpacing': 50, 'rankSpacing': 70, 'padding': 14}}}%%
 flowchart LR
-    SF[Salesforce<br/>Real-Time EM]
+    SF["Salesforce&lt;br/&gt;Real-Time EM"]
     PUB[Pub/Sub API gRPC]
     ELF[Event Log Files]
-    LAMBDA[AWS Lambda /<br/>Cloud Run subscriber]
+    LAMBDA["AWS Lambda /&lt;br/&gt;Cloud Run subscriber"]
     KAFKA[Kafka / Kinesis]
-    SIEM[Splunk / Sentinel /<br/>Chronicle / Elastic]
-    LAKE[S3 / GCS<br/>long-term store]
+    SIEM["Splunk / Sentinel /&lt;br/&gt;Chronicle / Elastic"]
+    LAKE["S3 / GCS&lt;br/&gt;long-term store"]
 
     SF --&gt; PUB --&gt; LAMBDA --&gt; KAFKA --&gt; SIEM
     SF --&gt; ELF --&gt; LAMBDA
@@ -6627,6 +6632,12 @@ DIFF:
   <table>
     <thead><tr><th>Version</th><th>Date</th><th>Change</th><th>Author</th></tr></thead>
     <tbody>
+      <tr>
+        <td><strong>1.5.11</strong></td>
+        <td>2026-05-04</td>
+        <td><strong>Mermaid line-break ubiquity fix &mdash; <code>&lt;br/&gt;</code> &rarr; <code>&amp;lt;br/&amp;gt;</code> across every flowchart, plus init-directive sweep.</strong> User flagged that line breaks were missing across <em>every</em> rewritten diagram (e.g., "FOUNDATION" running into "Org-Wide Defaults", "WIDENING" into "Hierarchy"). Investigated root cause: when the HTML parser processes <code>&lt;pre class="mermaid"&gt;</code> contents, every <code>&lt;br/&gt;</code> inside it is parsed as an actual <code>&lt;br&gt;</code> DOM element. Browsers return the empty string for <code>&lt;br&gt;</code>'s <code>textContent</code> &mdash; so when Mermaid reads <code>pre.textContent</code> to extract the diagram source, every <code>&lt;br/&gt;</code> separator vanishes and adjacent text segments concatenate. The earlier v1.5.8 / v1.5.10 fix (switching to double-quoted node labels + <code>htmlLabels: true</code>) addressed the parsing structure but did not address the line-break loss because <code>htmlLabels</code> controls SVG <em>output</em> rendering, not source-text <em>input</em> parsing. Resolution: encode every <code>&lt;br/&gt;</code> inside Mermaid quoted labels as the HTML entity <code>&amp;lt;br/&amp;gt;</code>. The HTML parser decodes the entity to the literal 5-character text <code>&lt;br/&gt;</code>, which survives into <code>textContent</code>, where Mermaid (with <code>htmlLabels: true</code>) renders it as a line break in the SVG. Bulk pass: 92 quoted-label and 21 bare-label <code>&lt;br/&gt;</code> instances converted across 11 flowchart diagrams. The <strong>Pillar 9 SDLC pipeline</strong>, <strong>Pillar 10 Defender's AI Stack</strong>, <strong>Threat Landscape vector-pivot-control</strong>, <strong>Pillars Map</strong>, and <strong>Appendix I SIEM streaming reference architecture</strong> diagrams &mdash; the ones that hadn't yet been touched in v1.5.8 / v1.5.10 &mdash; were also converted from bare-label syntax to quoted-label syntax, given the standard <code>%%{init: {'flowchart': {'htmlLabels': true, ...}}}%%</code> directive, and entity-encoded. Sequence-diagram and gantt blocks are unaffected (they use different label-parsing paths).</td>
+        <td>Dr. Paul Coleman</td>
+      </tr>
       <tr>
         <td><strong>1.5.10</strong></td>
         <td>2026-05-04</td>
@@ -7524,7 +7535,7 @@ SELECT UserId, LastUsedDate FROM OauthToken WHERE AppName = 'ISV_APP_NAME'</code
     });
     exportBtn.addEventListener('click', function() {
       var snapshot = {
-        framework: 'Salesforce CRM Security Hardening v1.5.10',
+        framework: 'Salesforce CRM Security Hardening v1.5.11',
         scored_at: new Date().toISOString(),
         scores: loadStored(),
         average: parseFloat(avgEl.textContent) || 0,
