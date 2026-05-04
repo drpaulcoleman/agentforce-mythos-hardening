@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   Salesforce CRM Security Hardening — A Defender's Encyclopedia for the Frontier-AI Era
-  Document version 1.5.17 · Last modified 2026-05-04
+  Document version 1.5.18 · Last modified 2026-05-04
   Copyright (c) 2026 Dr. Paul Coleman. All rights reserved.
 
   A vendor-neutral hardening reference for the customer side of the Salesforce
@@ -28,7 +28,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Mythos Imperative &mdash; Salesforce CRM Security Hardening</title>
-<meta name="document-version" content="1.5.17">
+<meta name="document-version" content="1.5.18">
 <meta name="last-modified" content="2026-05-04">
 <meta name="source-snapshot" content="2026-05-04">
 <meta name="description" content="The Mythos Imperative: a vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars from Identity to Defensive AI; nineteen appendices.">
@@ -38,7 +38,7 @@
 
 <!-- Open Graph / social-share metadata -->
 <meta property="og:type" content="article">
-<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.17">
+<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.18">
 <meta property="og:description" content="Vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars, 19 appendices, fully attributed.">
 <meta property="og:url" content="https://drpaulcoleman.github.io/agentforce-mythos-hardening/">
 <meta property="og:site_name" content="Salesforce CRM Security Hardening">
@@ -49,7 +49,7 @@
 
 <!-- Twitter / X card metadata -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.17">
+<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.18">
 <meta name="twitter:description" content="Threat-informed Salesforce hardening reference. Ten pillars from Identity to Defensive AI, with a companion Salesforce DX reference implementation.">
 
 <!-- Errata / contributions -->
@@ -1714,7 +1714,7 @@ pre.mermaid g.node[onclick]:hover > path {
     </div>
     <div>
       <h1><span class="phase-tag">The Mythos Imperative</span><span class="phase-sep">&mdash;</span>Salesforce CRM Security Hardening</h1>
-      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.17 &middot; last modified 2026-05-04</span>
+      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.18 &middot; last modified 2026-05-04</span>
     </div>
   </div>
   <div class="doc-meta">
@@ -2130,7 +2130,7 @@ gantt
 
 <!-- TECH · Hero ---------------------------------------------------------- -->
 <div class="card hero" id="hero" data-search="hero overview salesforce crm security hardening defender encyclopedia frontier ai mythos">
-  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.17 &middot; last modified 2026-05-04</p>
+  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.18 &middot; last modified 2026-05-04</p>
   <h1>The <span class="accent">Mythos Imperative</span><br/><span style="font-size:24px; font-weight:700; opacity:0.92; display:block; margin-top:6px;">A Defender's Encyclopedia for the Frontier-AI Era</span></h1>
   <p class="lede" style="border-left: 3px solid var(--sf-orange); padding: 6px 0 6px 16px; margin-left: 0;">
     <strong style="color: var(--sf-orange); letter-spacing: 0.04em;">Why this exists, why now.</strong>
@@ -2230,42 +2230,68 @@ gantt
   </div>
 </div>
 
-<!-- TECH · Glossary stub (full version in Glossary) -------------------- -->
-<div class="card" id="glossary" data-search="glossary terms quick reference acronyms key concepts">
-  <h2>Glossary &mdash; Quick Reference</h2>
-  <p style="margin-bottom:12px;">
-    The 20 terms most likely to be needed in-line. Each term links to its primary in-doc
-    treatment. <a href="#glossary">Glossary</a> holds the full alphabetized glossary
-    with cross-links to every occurrence and to the authoritative Salesforce or standards URL.
-  </p>
+<!-- ════════════════════════════════════════════════════════════════════════
+     GLOSSARY (alphabetized, cross-linked) -- merged in v1.5.18 from
+     the previously-duplicated "Quick Reference" + "Full" glossaries.
+     Single canonical glossary positioned in cross-cutting; admins reach
+     for it as a reference rather than a deep-dive appendix.
+     ════════════════════════════════════════════════════════════════════════ -->
+<!-- ════════════════════════════════════════════════════════════════════════
+     GLOSSARY (alphabetized, cross-linked) -- merged v1.5.18 from the
+     previously-duplicated 'Quick Reference' + 'Full' glossaries. Single
+     canonical glossary positioned in the cross-cutting band; admins reach
+     for it as a reference rather than as a deep-dive appendix.
+     ════════════════════════════════════════════════════════════════════════ -->
+<div class="card" id="glossary" data-search="glossary alphabetized cross linked terms in doc context primary anchor authoritative url">
+  <h2>Glossary (Alphabetized, Cross-Linked)</h2>
+  <p><em>Each entry: term, definition, primary in-doc anchor, supporting appendix, authoritative external URL.</em></p>
   <table>
-    <thead>
-      <tr><th style="width: 26%;">Term</th><th>Definition</th></tr>
-    </thead>
+    <thead><tr><th>Term</th><th>Definition</th><th>Primary anchor</th><th>External</th></tr></thead>
     <tbody>
-      <tr><td><a href="#pillar-x">Claude Security</a></td><td>Anthropic's vulnerability-scanning product (Opus 4.7, public beta May 2026); explicitly <em>not</em> Mythos.</td></tr>
-      <tr><td><a href="#pillar-vii">Data Mask</a></td><td>Sandbox PII anonymization product; required for non-prod compliance.</td></tr>
-      <tr><td><a href="#pillar-iv">External Client App (ECA)</a></td><td>Spring '26 replacement for Connected Apps; preferred for new integrations.</td></tr>
-      <tr><td><a href="#pillar-vii">Field Audit Trail</a></td><td>Long-retention forensic audit on classified fields (Shield).</td></tr>
-      <tr><td><a href="#pillar-i">FIDO2 / WebAuthn</a></td><td>Phishing-resistant hardware-key authentication; the only MFA factor that survives vishing.</td></tr>
-      <tr><td><a href="#pillar-vi">Flow run-context</a></td><td>"System" vs. "user" context decision that determines whether a Flow respects sharing and FLS.</td></tr>
-      <tr><td><a href="#pillar-iii">Guest user profile</a></td><td>Unauthenticated identity used by Experience Cloud public sites; the top data-leak vector.</td></tr>
-      <tr><td><a href="#pillar-i">High Assurance session</a></td><td>Session-level trust marker requiring stronger MFA for sensitive operations.</td></tr>
-      <tr><td><a href="#pillar-v">Mutual TLS (mTLS)</a></td><td>Both sides of a TLS handshake present certificates; required for high-trust integrations.</td></tr>
-      <tr><td><a href="#pillar-v">Named / External Credential</a></td><td>Sanctioned secret-storage primitives for integration credentials.</td></tr>
-      <tr><td><a href="#pillar-iv">OAuth refresh-token rotation</a></td><td>Periodic re-issuance of refresh tokens to reduce token-theft blast radius.</td></tr>
-      <tr><td><a href="#pillar-ii">OWD (Org-Wide Defaults)</a></td><td>Baseline record-access posture; Private is the foundation of every hardening pillar.</td></tr>
-      <tr><td><a href="#pillar-ii">Permission Set Group</a></td><td>Modern least-privilege primitive; will replace profile permissions per Salesforce direction (original Spring '26 enforcement postponed<sup><a href="#ref-42" class="ref-link">[42]</a></sup>; new date pending).</td></tr>
-      <tr><td><a href="#pillar-x">Project Glasswing</a></td><td>Anthropic's restricted research program housing the Mythos model.</td></tr>
-      <tr><td><a href="#pillar-viii">Real-Time Event Monitoring</a></td><td>Queryable, near-real-time event log objects (Shield / EM add-on).</td></tr>
-      <tr><td><a href="#pillar-vii">Shield Platform Encryption</a></td><td>Salesforce's at-rest encryption product; supports BYOK / customer-managed keys.</td></tr>
-      <tr><td><a href="#pillar-viii">Threat Detection</a></td><td>Salesforce's structured anomaly-event objects (Shield / Event Monitoring license required); distinct from the free basic login-anomaly warnings shown in Login History.</td></tr>
-      <tr><td><a href="#pillar-viii">Transaction Security</a></td><td>Rule-based policy framework that can Block / require MFA / Notify on events.</td></tr>
-      <tr><td><a href="#pillar-ix">Unlocked package + signed</a></td><td>Modern Salesforce DX deployment unit; signing is the supply-chain control.</td></tr>
-      <tr><td><a href="#pillar-vi">USER_MODE</a></td><td>Modern Apex query mode that enforces FLS and CRUD automatically; preferred over <code>WITH SECURITY_ENFORCED</code>.</td></tr>
+      <tr><td><strong>@AuraEnabled</strong></td><td>Apex annotation marking a method callable from Aura/LWC; guest-callable by default.</td><td><a href="#iii-lwc-aura">3.5</a> &middot; <a href="#appendix-c">Appendix C</a></td><td><a href="https://developer.salesforce.com/docs/atlas.en-us.apexref.meta/apexref/apex_classes_annotation_AuraEnabled.htm" target="_blank" rel="noopener">SF Help</a></td></tr>
+      <tr><td><strong>BYOK</strong></td><td>Bring Your Own Key &mdash; customer-managed encryption key material.</td><td><a href="#vii-encrypt">7.2</a></td><td><a href="https://help.salesforce.com/s/articleView?id=sf.security_pe_byok.htm" target="_blank" rel="noopener">SF Help</a></td></tr>
+      <tr><td><strong>Claude Security</strong></td><td>Anthropic's vulnerability-scanning product (in public beta as of May 1 2026) on Opus 4.7; explicitly NOT Mythos.</td><td><a href="#x-claude-security">10.1</a></td><td><a href="https://claude.ai/security" target="_blank" rel="noopener">Anthropic</a></td></tr>
+      <tr><td><strong>Connected App</strong></td><td>OAuth integration registration; being superseded by External Client Apps in Spring '26.</td><td><a href="#iv-eca-transition">4.1</a> &middot; <a href="#appendix-d">Appendix D</a></td><td><a href="https://help.salesforce.com/s/articleView?id=sf.connected_app_overview.htm" target="_blank" rel="noopener">SF Help</a></td></tr>
+      <tr><td><strong>Custom Login Flow</strong></td><td>Post-auth, pre-homepage hook for step-up / disclosure / session control.</td><td><a href="#i-login-flow">1.4</a> &middot; <a href="#appendix-b">Appendix B</a></td><td><a href="https://help.salesforce.com/s/articleView?id=sf.security_login_flow_overview.htm" target="_blank" rel="noopener">SF Help</a></td></tr>
+      <tr><td><strong>Data Mask</strong></td><td>Salesforce add-on for sandbox PII anonymization.</td><td><a href="#vii-sandbox">7.5</a></td><td><a href="https://help.salesforce.com/s/articleView?id=sf.data_mask_overview.htm" target="_blank" rel="noopener">SF Help</a></td></tr>
+      <tr><td><strong>Device Activation</strong></td><td>Required for SSO logins as of Feb 2026; confirms device authorization separately from user.</td><td><a href="#i-my-domain">1.7</a></td><td><a href="https://vantagepoint.io/blog/sf/salesforce-security-overhaul-2026-email-verification-mfa-preparation-guide" target="_blank" rel="noopener">Vantage Point</a></td></tr>
+      <tr><td><strong>EEE (External Encryption Ecosystem)</strong></td><td>Customer key material managed in external KMS; integrates with Shield.</td><td><a href="#vii-hyperforce">7.7</a></td><td>SF Shield docs</td></tr>
+      <tr><td><strong>Einstein Data Detect</strong></td><td>Bundled data classifier; finds sensitive data patterns.</td><td><a href="#vii-detect">7.4</a></td><td>SF Help</td></tr>
+      <tr><td><strong>Event Log Object</strong></td><td>Queryable Real-Time EM event store; 30-day retention; SOQL-only on Hyperforce.</td><td><a href="#viii-real-time-em">8.3</a> &middot; <a href="#appendix-i">Appendix I</a></td><td>SF Help</td></tr>
+      <tr><td><strong>External Client App (ECA)</strong></td><td>Spring '26 replacement for Connected Apps; finer-grained policy.</td><td><a href="#iv-eca-transition">4.1</a></td><td>SF Help</td></tr>
+      <tr><td><strong>External Credential</strong></td><td>Newer credential primitive; supports per-user named principals.</td><td><a href="#v-named-credentials">5.1</a> &middot; <a href="#appendix-d">Appendix D</a></td><td>SF Help</td></tr>
+      <tr><td><strong>Federation Identifier</strong></td><td>SSO user identifier, decoupled from email/username; preferred for SAML resilience.</td><td><a href="#i-sso">1.5</a></td><td>SF Help</td></tr>
+      <tr><td><strong>Field Audit Trail</strong></td><td>Long-retention forensic audit on classified fields (Shield).</td><td><a href="#vii-fat">7.3</a></td><td>SF Help</td></tr>
+      <tr><td><strong>FIDO2 / WebAuthn</strong></td><td>Phishing-resistant hardware-key auth; the only MFA factor that survives vishing.</td><td><a href="#i-fido2">1.2</a></td><td><a href="https://help.salesforce.com/s/articleView?id=sf.mfa_supported_verification_methods_securitykey.htm" target="_blank" rel="noopener">SF Help</a></td></tr>
+      <tr><td><strong>FLS</strong></td><td>Field-Level Security &mdash; per-field visibility/edit control.</td><td><a href="#ii-fls">2.6</a></td><td>SF Help</td></tr>
+      <tr><td><strong>Flow run-context</strong></td><td>"System" vs. "user" context determining whether sharing/FLS apply.</td><td><a href="#vi-flow">6.5</a></td><td>SF Help</td></tr>
+      <tr><td><strong>Guest user profile</strong></td><td>Unauthenticated identity used by Experience Cloud public sites; top data-leak vector.</td><td><a href="#pillar-iii">Pillar 3</a></td><td><a href="https://www.salesforce.com/blog/protecting-your-data-essential-actions-to-secure-experience-cloud-guest-user-access/" target="_blank" rel="noopener">Salesforce blog</a></td></tr>
+      <tr><td><strong>High Assurance session</strong></td><td>Stronger session security level requiring stronger MFA for sensitive ops.</td><td><a href="#i-high-assurance">1.3</a></td><td>SF Help</td></tr>
+      <tr><td><strong>Hyperforce</strong></td><td>AWS-based public-cloud Salesforce infrastructure with regional residency.</td><td><a href="#vii-hyperforce">7.7</a></td><td>SF Help</td></tr>
+      <tr><td><strong>JIT Provisioning</strong></td><td>Just-in-Time user creation/update from SSO assertion.</td><td><a href="#i-sso">1.5</a> &middot; <a href="#appendix-b">Appendix B</a></td><td>SF Help</td></tr>
+      <tr><td><strong>Mutual TLS (mTLS)</strong></td><td>Both sides of TLS present certs; required for high-trust integrations.</td><td><a href="#v-mtls">5.2</a></td><td>SF Help</td></tr>
+      <tr><td><strong>My Domain</strong></td><td>Custom branded login URL; required for SSO and many security features.</td><td><a href="#i-my-domain">1.7</a></td><td>SF Help</td></tr>
+      <tr><td><strong>Mythos</strong></td><td>Anthropic's most capable model, restricted to Project Glasswing.</td><td><a href="#mythos-reality">Threat Brief</a> &middot; <a href="#x-limits">10.7</a></td><td><a href="https://www.anthropic.com/glasswing" target="_blank" rel="noopener">Anthropic</a></td></tr>
+      <tr><td><strong>Named Credential</strong></td><td>Sanctioned secret-storage primitive; holds endpoint + auth.</td><td><a href="#v-named-credentials">5.1</a> &middot; <a href="#appendix-d">Appendix D</a></td><td>SF Help</td></tr>
+      <tr><td><strong>OAuth Web Server flow</strong></td><td>Recommended OAuth flow with auth code + PKCE.</td><td><a href="#iv-oauth-flows">4.2</a></td><td>SF Help</td></tr>
+      <tr><td><strong>OWD</strong></td><td>Org-Wide Default &mdash; baseline record-access posture.</td><td><a href="#ii-owd">2.1</a></td><td>SF Help</td></tr>
+      <tr><td><strong>Permission Set Group</strong></td><td>Modern least-privilege primitive; will replace profile permissions (Salesforce postponed the original Spring '26 enforcement date; revised date pending).</td><td><a href="#ii-permset-migration">2.2</a> &middot; <a href="#appendix-f">Appendix F</a></td><td>SF Help</td></tr>
+      <tr><td><strong>Project Glasswing</strong></td><td>Anthropic's restricted research program housing Mythos.</td><td><a href="#mythos-reality">Threat Brief</a></td><td><a href="https://www.anthropic.com/glasswing" target="_blank" rel="noopener">Anthropic</a></td></tr>
+      <tr><td><strong>Real-Time Event Monitoring</strong></td><td>Queryable, near-real-time event log objects (Shield).</td><td><a href="#viii-real-time-em">8.3</a> &middot; <a href="#appendix-i">Appendix I</a></td><td>SF Help</td></tr>
+      <tr><td><strong>Restriction Rule</strong></td><td>Narrow-access primitive; can override sharing widening.</td><td><a href="#ii-restriction">2.5</a></td><td>SF Help</td></tr>
+      <tr><td><strong>Salesforce Data Mask</strong></td><td>See "Data Mask".</td><td><a href="#vii-sandbox">7.5</a></td><td>SF Help</td></tr>
+      <tr><td><strong>SAML JIT Handler</strong></td><td>Apex extension point for custom SSO provisioning.</td><td><a href="#i-custom-auth">1.6</a> &middot; <a href="#appendix-b">Appendix B</a></td><td>SF Help</td></tr>
+      <tr><td><strong>Secure Guest User Record Access</strong></td><td>Critical update lineage 2021&ndash;2026 progressively closing guest-access bypasses.</td><td><a href="#iii-history">3.2</a></td><td>SF Help</td></tr>
+      <tr><td><strong>Shield Platform Encryption</strong></td><td>Salesforce's at-rest encryption product; supports BYOK.</td><td><a href="#vii-encrypt">7.2</a></td><td>SF Help</td></tr>
+      <tr><td><strong>Threat Detection</strong></td><td>Salesforce's structured anomaly-event surface in Real-Time Event Monitoring (Shield / EM license required); distinct from the free basic login-anomaly warnings shown in Login History.</td><td><a href="#viii-threat-detection">8.4</a></td><td>SF Help</td></tr>
+      <tr><td><strong>Transaction Security</strong></td><td>Real-time enforcement &mdash; Block/MFA/Notify on events.</td><td><a href="#viii-transaction-security">8.5</a> &middot; <a href="#appendix-e">Appendix E</a></td><td>SF Help</td></tr>
+      <tr><td><strong>Trust Layer</strong></td><td>PII-scrub + zero-retention boundary for AI use; Einstein Trust Layer for platform AI.</td><td><a href="#x-trust-layer">10.3</a></td><td><a href="https://www.salesforce.com/artificial-intelligence/trusted-ai/" target="_blank" rel="noopener">SF</a></td></tr>
+      <tr><td><strong>UNC6040 / ShinyHunters</strong></td><td>Vishing campaign &rarr; Data Loader OAuth grant; 2025.</td><td><a href="#threat-landscape">Threat Brief</a> &middot; <a href="#iv-vishing">4.7</a></td><td><a href="https://cloud.google.com/blog/topics/threat-intelligence/voice-phishing-data-extortion" target="_blank" rel="noopener">Google TI</a></td></tr>
+      <tr><td><strong>UNC6395 / Salesloft Drift</strong></td><td>ISV repo compromise &rarr; OAuth token theft, 700+ orgs; August 2025.</td><td><a href="#threat-landscape">Threat Brief</a> &middot; <a href="#iv-isv-compromise">4.6</a></td><td><a href="https://www.mitiga.io/blog/shinyhunters-and-unc6395-inside-the-salesforce-and-salesloft-breaches" target="_blank" rel="noopener">Mitiga</a></td></tr>
+      <tr><td><strong>Unlocked Package</strong></td><td>Modern Salesforce DX deployment unit; signing recommended.</td><td><a href="#ix-unlocked-signed">9.3</a></td><td>SF Help</td></tr>
+      <tr><td><strong>USER_MODE</strong></td><td>Modern Apex query mode enforcing FLS/CRUD automatically.</td><td><a href="#vi-apex-runmodes">6.1</a> &middot; <a href="#appendix-c">Appendix C</a></td><td>SF Help</td></tr>
     </tbody>
   </table>
-  <p style="margin-top:14px;"><a href="#glossary">&rarr; Full alphabetized glossary &middot; Glossary</a></p>
 </div>
 
 <!-- TECH · Threat Landscape 2024-2026 ------------------------------------ -->
@@ -5967,66 +5993,7 @@ gantt
       it to harden your org as one input alongside controls, testing, and human review &mdash; not as a substitute for any of them."</p>
     </div>
   </div>
-</div>
-
-
-<!-- ════════════════════════════════════════════════════════════════════════
-     GLOSSARY (full, cross-linked) -- placed in-line with the talking-point
-     cards rather than under the appendices, since admins reach for it as
-     a reference rather than as a deep-dive appendix.
-     ════════════════════════════════════════════════════════════════════════ -->
-<div class="card" id="glossary" data-search="glossary alphabetized cross linked terms in doc context primary anchor authoritative url">
-  <h2>Glossary (Alphabetized, Cross-Linked)</h2>
-  <p><em>Each entry: term, definition, primary in-doc anchor, supporting appendix, authoritative external URL.</em></p>
-  <table>
-    <thead><tr><th>Term</th><th>Definition</th><th>Primary anchor</th><th>External</th></tr></thead>
-    <tbody>
-      <tr><td><strong>@AuraEnabled</strong></td><td>Apex annotation marking a method callable from Aura/LWC; guest-callable by default.</td><td><a href="#iii-lwc-aura">3.5</a> &middot; <a href="#appendix-c">Appendix C</a></td><td><a href="https://developer.salesforce.com/docs/atlas.en-us.apexref.meta/apexref/apex_classes_annotation_AuraEnabled.htm" target="_blank" rel="noopener">SF Help</a></td></tr>
-      <tr><td><strong>BYOK</strong></td><td>Bring Your Own Key &mdash; customer-managed encryption key material.</td><td><a href="#vii-encrypt">7.2</a></td><td><a href="https://help.salesforce.com/s/articleView?id=sf.security_pe_byok.htm" target="_blank" rel="noopener">SF Help</a></td></tr>
-      <tr><td><strong>Claude Security</strong></td><td>Anthropic's vulnerability-scanning product (in public beta as of May 1 2026) on Opus 4.7; explicitly NOT Mythos.</td><td><a href="#x-claude-security">10.1</a></td><td><a href="https://claude.ai/security" target="_blank" rel="noopener">Anthropic</a></td></tr>
-      <tr><td><strong>Connected App</strong></td><td>OAuth integration registration; being superseded by External Client Apps in Spring '26.</td><td><a href="#iv-eca-transition">4.1</a> &middot; <a href="#appendix-d">Appendix D</a></td><td><a href="https://help.salesforce.com/s/articleView?id=sf.connected_app_overview.htm" target="_blank" rel="noopener">SF Help</a></td></tr>
-      <tr><td><strong>Custom Login Flow</strong></td><td>Post-auth, pre-homepage hook for step-up / disclosure / session control.</td><td><a href="#i-login-flow">1.4</a> &middot; <a href="#appendix-b">Appendix B</a></td><td><a href="https://help.salesforce.com/s/articleView?id=sf.security_login_flow_overview.htm" target="_blank" rel="noopener">SF Help</a></td></tr>
-      <tr><td><strong>Data Mask</strong></td><td>Salesforce add-on for sandbox PII anonymization.</td><td><a href="#vii-sandbox">7.5</a></td><td><a href="https://help.salesforce.com/s/articleView?id=sf.data_mask_overview.htm" target="_blank" rel="noopener">SF Help</a></td></tr>
-      <tr><td><strong>Device Activation</strong></td><td>Required for SSO logins as of Feb 2026; confirms device authorization separately from user.</td><td><a href="#i-my-domain">1.7</a></td><td><a href="https://vantagepoint.io/blog/sf/salesforce-security-overhaul-2026-email-verification-mfa-preparation-guide" target="_blank" rel="noopener">Vantage Point</a></td></tr>
-      <tr><td><strong>EEE (External Encryption Ecosystem)</strong></td><td>Customer key material managed in external KMS; integrates with Shield.</td><td><a href="#vii-hyperforce">7.7</a></td><td>SF Shield docs</td></tr>
-      <tr><td><strong>Einstein Data Detect</strong></td><td>Bundled data classifier; finds sensitive data patterns.</td><td><a href="#vii-detect">7.4</a></td><td>SF Help</td></tr>
-      <tr><td><strong>Event Log Object</strong></td><td>Queryable Real-Time EM event store; 30-day retention; SOQL-only on Hyperforce.</td><td><a href="#viii-real-time-em">8.3</a> &middot; <a href="#appendix-i">Appendix I</a></td><td>SF Help</td></tr>
-      <tr><td><strong>External Client App (ECA)</strong></td><td>Spring '26 replacement for Connected Apps; finer-grained policy.</td><td><a href="#iv-eca-transition">4.1</a></td><td>SF Help</td></tr>
-      <tr><td><strong>External Credential</strong></td><td>Newer credential primitive; supports per-user named principals.</td><td><a href="#v-named-credentials">5.1</a> &middot; <a href="#appendix-d">Appendix D</a></td><td>SF Help</td></tr>
-      <tr><td><strong>Federation Identifier</strong></td><td>SSO user identifier, decoupled from email/username; preferred for SAML resilience.</td><td><a href="#i-sso">1.5</a></td><td>SF Help</td></tr>
-      <tr><td><strong>Field Audit Trail</strong></td><td>Long-retention forensic audit on classified fields (Shield).</td><td><a href="#vii-fat">7.3</a></td><td>SF Help</td></tr>
-      <tr><td><strong>FIDO2 / WebAuthn</strong></td><td>Phishing-resistant hardware-key auth; the only MFA factor that survives vishing.</td><td><a href="#i-fido2">1.2</a></td><td><a href="https://help.salesforce.com/s/articleView?id=sf.mfa_supported_verification_methods_securitykey.htm" target="_blank" rel="noopener">SF Help</a></td></tr>
-      <tr><td><strong>FLS</strong></td><td>Field-Level Security &mdash; per-field visibility/edit control.</td><td><a href="#ii-fls">2.6</a></td><td>SF Help</td></tr>
-      <tr><td><strong>Flow run-context</strong></td><td>"System" vs. "user" context determining whether sharing/FLS apply.</td><td><a href="#vi-flow">6.5</a></td><td>SF Help</td></tr>
-      <tr><td><strong>Guest user profile</strong></td><td>Unauthenticated identity used by Experience Cloud public sites; top data-leak vector.</td><td><a href="#pillar-iii">Pillar 3</a></td><td><a href="https://www.salesforce.com/blog/protecting-your-data-essential-actions-to-secure-experience-cloud-guest-user-access/" target="_blank" rel="noopener">Salesforce blog</a></td></tr>
-      <tr><td><strong>High Assurance session</strong></td><td>Stronger session security level requiring stronger MFA for sensitive ops.</td><td><a href="#i-high-assurance">1.3</a></td><td>SF Help</td></tr>
-      <tr><td><strong>Hyperforce</strong></td><td>AWS-based public-cloud Salesforce infrastructure with regional residency.</td><td><a href="#vii-hyperforce">7.7</a></td><td>SF Help</td></tr>
-      <tr><td><strong>JIT Provisioning</strong></td><td>Just-in-Time user creation/update from SSO assertion.</td><td><a href="#i-sso">1.5</a> &middot; <a href="#appendix-b">Appendix B</a></td><td>SF Help</td></tr>
-      <tr><td><strong>Mutual TLS (mTLS)</strong></td><td>Both sides of TLS present certs; required for high-trust integrations.</td><td><a href="#v-mtls">5.2</a></td><td>SF Help</td></tr>
-      <tr><td><strong>My Domain</strong></td><td>Custom branded login URL; required for SSO and many security features.</td><td><a href="#i-my-domain">1.7</a></td><td>SF Help</td></tr>
-      <tr><td><strong>Mythos</strong></td><td>Anthropic's most capable model, restricted to Project Glasswing.</td><td><a href="#mythos-reality">Threat Brief</a> &middot; <a href="#x-limits">10.7</a></td><td><a href="https://www.anthropic.com/glasswing" target="_blank" rel="noopener">Anthropic</a></td></tr>
-      <tr><td><strong>Named Credential</strong></td><td>Sanctioned secret-storage primitive; holds endpoint + auth.</td><td><a href="#v-named-credentials">5.1</a> &middot; <a href="#appendix-d">Appendix D</a></td><td>SF Help</td></tr>
-      <tr><td><strong>OAuth Web Server flow</strong></td><td>Recommended OAuth flow with auth code + PKCE.</td><td><a href="#iv-oauth-flows">4.2</a></td><td>SF Help</td></tr>
-      <tr><td><strong>OWD</strong></td><td>Org-Wide Default &mdash; baseline record-access posture.</td><td><a href="#ii-owd">2.1</a></td><td>SF Help</td></tr>
-      <tr><td><strong>Permission Set Group</strong></td><td>Modern least-privilege primitive; will replace profile permissions (Salesforce postponed the original Spring '26 enforcement date; revised date pending).</td><td><a href="#ii-permset-migration">2.2</a> &middot; <a href="#appendix-f">Appendix F</a></td><td>SF Help</td></tr>
-      <tr><td><strong>Project Glasswing</strong></td><td>Anthropic's restricted research program housing Mythos.</td><td><a href="#mythos-reality">Threat Brief</a></td><td><a href="https://www.anthropic.com/glasswing" target="_blank" rel="noopener">Anthropic</a></td></tr>
-      <tr><td><strong>Real-Time Event Monitoring</strong></td><td>Queryable, near-real-time event log objects (Shield).</td><td><a href="#viii-real-time-em">8.3</a> &middot; <a href="#appendix-i">Appendix I</a></td><td>SF Help</td></tr>
-      <tr><td><strong>Restriction Rule</strong></td><td>Narrow-access primitive; can override sharing widening.</td><td><a href="#ii-restriction">2.5</a></td><td>SF Help</td></tr>
-      <tr><td><strong>Salesforce Data Mask</strong></td><td>See "Data Mask".</td><td><a href="#vii-sandbox">7.5</a></td><td>SF Help</td></tr>
-      <tr><td><strong>SAML JIT Handler</strong></td><td>Apex extension point for custom SSO provisioning.</td><td><a href="#i-custom-auth">1.6</a> &middot; <a href="#appendix-b">Appendix B</a></td><td>SF Help</td></tr>
-      <tr><td><strong>Secure Guest User Record Access</strong></td><td>Critical update lineage 2021&ndash;2026 progressively closing guest-access bypasses.</td><td><a href="#iii-history">3.2</a></td><td>SF Help</td></tr>
-      <tr><td><strong>Shield Platform Encryption</strong></td><td>Salesforce's at-rest encryption product; supports BYOK.</td><td><a href="#vii-encrypt">7.2</a></td><td>SF Help</td></tr>
-      <tr><td><strong>Threat Detection</strong></td><td>Salesforce's structured anomaly-event surface in Real-Time Event Monitoring (Shield / EM license required); distinct from the free basic login-anomaly warnings shown in Login History.</td><td><a href="#viii-threat-detection">8.4</a></td><td>SF Help</td></tr>
-      <tr><td><strong>Transaction Security</strong></td><td>Real-time enforcement &mdash; Block/MFA/Notify on events.</td><td><a href="#viii-transaction-security">8.5</a> &middot; <a href="#appendix-e">Appendix E</a></td><td>SF Help</td></tr>
-      <tr><td><strong>Trust Layer</strong></td><td>PII-scrub + zero-retention boundary for AI use; Einstein Trust Layer for platform AI.</td><td><a href="#x-trust-layer">10.3</a></td><td><a href="https://www.salesforce.com/artificial-intelligence/trusted-ai/" target="_blank" rel="noopener">SF</a></td></tr>
-      <tr><td><strong>UNC6040 / ShinyHunters</strong></td><td>Vishing campaign &rarr; Data Loader OAuth grant; 2025.</td><td><a href="#threat-landscape">Threat Brief</a> &middot; <a href="#iv-vishing">4.7</a></td><td><a href="https://cloud.google.com/blog/topics/threat-intelligence/voice-phishing-data-extortion" target="_blank" rel="noopener">Google TI</a></td></tr>
-      <tr><td><strong>UNC6395 / Salesloft Drift</strong></td><td>ISV repo compromise &rarr; OAuth token theft, 700+ orgs; August 2025.</td><td><a href="#threat-landscape">Threat Brief</a> &middot; <a href="#iv-isv-compromise">4.6</a></td><td><a href="https://www.mitiga.io/blog/shinyhunters-and-unc6395-inside-the-salesforce-and-salesloft-breaches" target="_blank" rel="noopener">Mitiga</a></td></tr>
-      <tr><td><strong>Unlocked Package</strong></td><td>Modern Salesforce DX deployment unit; signing recommended.</td><td><a href="#ix-unlocked-signed">9.3</a></td><td>SF Help</td></tr>
-      <tr><td><strong>USER_MODE</strong></td><td>Modern Apex query mode enforcing FLS/CRUD automatically.</td><td><a href="#vi-apex-runmodes">6.1</a> &middot; <a href="#appendix-c">Appendix C</a></td><td>SF Help</td></tr>
-    </tbody>
-  </table>
-</div>
-<div class="card" id="appendix-a" data-search="appendix a incident response runbook templates vishing oauth abuse experience cloud guest exposure isv connected app compromise browser extension hijack ai agent silent compromise containment identify eradicate notify post mortem">
+</div><div class="card" id="appendix-a" data-search="appendix a incident response runbook templates vishing oauth abuse experience cloud guest exposure isv connected app compromise browser extension hijack ai agent silent compromise containment identify eradicate notify post mortem">
   <h2>Appendix A &middot; Incident-Response Runbook Templates</h2>
   <p>
     Five scenarios drawn from the 2024&ndash;2026 corpus. Each runbook is structured for an on-call admin
@@ -7343,7 +7310,7 @@ DIFF:
     });
     exportBtn.addEventListener('click', function() {
       var snapshot = {
-        framework: 'Salesforce CRM Security Hardening v1.5.17',
+        framework: 'Salesforce CRM Security Hardening v1.5.18',
         scored_at: new Date().toISOString(),
         scores: loadStored(),
         average: parseFloat(avgEl.textContent) || 0,
@@ -7674,8 +7641,8 @@ DIFF:
   </p>
   <h3>Document metadata</h3>
   <p style="font-size: 12px; font-family: 'Source Code Pro', monospace;">
-    version 1.5.17 &middot; last modified 2026-05-04 &middot; source snapshot 2026-05-04 &middot;
-    Build identifier: SF-CRM-HARDENING-1.5.17
+    version 1.5.18 &middot; last modified 2026-05-04 &middot; source snapshot 2026-05-04 &middot;
+    Build identifier: SF-CRM-HARDENING-1.5.18
   </p>
 </div>
 
