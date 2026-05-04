@@ -1,0 +1,9 @@
+{
+  "name": "connected-app-attestation",
+  "version": "0.1.0",
+  "description": "Quarterly OAuth Usage attestation report. Pillar IV.9 / Appendix O.4 in the whitepaper. NOT official Salesforce documentation.",
+  "private": true,
+  "type": "module",
+  "main": "attest.js",
+  "engines": { "node": ">=20" }
+}

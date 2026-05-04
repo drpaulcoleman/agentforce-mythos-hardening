@@ -1,0 +1,17 @@
+{
+  "_comment_": "SFDX Scanner config -- Pillar IX.2. Run with: sf scanner run --config ci/sfdx-scanner-config.json. Paired with ci/pmd-apex-rules.xml. NOT official Salesforce documentation.",
+  "engines": ["pmd", "eslint", "retire-js"],
+  "format": "json",
+  "outfile": "scanner-results.json",
+  "category": ["Security", "Best Practices", "Performance"],
+  "severityThreshold": 3,
+  "violationsCauseError": true,
+  "engineConfig": {
+    "pmd": {
+      "rulesets": ["ci/pmd-apex-rules.xml"]
+    },
+    "eslint": {
+      "configFile": ".eslintrc.json"
+    }
+  }
+}

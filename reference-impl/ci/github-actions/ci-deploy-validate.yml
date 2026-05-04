@@ -1,0 +1,51 @@
+# Deployment validation (no actual deploy)
+# Pillar IX.4 in the whitepaper -- the multi-reviewer deployment-approval gate.
+# This workflow runs `sf project deploy validate` against a target sandbox to
+# confirm the project compiles and tests pass before promotion.
+# NOT official Salesforce documentation.
+
+name: Salesforce Deploy Validate (UAT)
+
+on:
+  pull_request:
+    paths:
+      - 'reference-impl/force-app/**'
+  workflow_dispatch:
+
+jobs:
+  validate:
+    name: Deploy Validate against UAT
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment: uat
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Salesforce CLI
+        run: npm install -g @salesforce/cli
+
+      - name: Auth via OIDC + JWT bearer
+        # Pillar IX.1 -- short-lived federated auth, no long-lived secret in the runner.
+        # Requires: a Connected App registered in the target org with JWT enabled,
+        # the cert public key uploaded, and the runner permitted to mint JWT
+        # assertions via GitHub OIDC -> AWS STS -> Secrets Manager (or equivalent).
+        env:
+          SF_AUTH_URL: ${{ secrets.SF_UAT_AUTH_URL }}
+        run: |
+          echo "$SF_AUTH_URL" | sf org login sfdx-url --set-default --alias uat-target
+
+      - name: Validate deployment
+        working-directory: reference-impl
+        run: |
+          sf project deploy validate \
+            --source-dir force-app \
+            --test-level RunLocalTests \
+            --target-org uat-target \
+            --wait 30

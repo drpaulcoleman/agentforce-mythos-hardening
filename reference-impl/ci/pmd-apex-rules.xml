@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    PMD ruleset for Salesforce Apex
+    Pillar IX.2 in the whitepaper -- static analysis as a CI gate.
+
+    Composes PMD's built-in Apex rule categories with hardening-specific
+    customizations. Use via:
+        sf scanner run --target 'force-app/**/*.cls' --format table \
+            --engine pmd --pmdconfig ci/pmd-apex-rules.xml
+
+    Or directly with PMD:
+        pmd check -d force-app -R ci/pmd-apex-rules.xml -f text
+
+    Severity tuning:
+      - Critical / High      -> block merge AND deploy
+      - Medium               -> require reviewer ack
+      - Low / Info           -> backlog
+
+    NOT official Salesforce documentation.
+-->
+<ruleset name="Salesforce CRM Security Hardening - Apex Ruleset"
+         xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
+
+    <description>Hardening-aligned Apex ruleset. Treats sharing-keyword absence, USER_MODE absence, SOQL string concatenation, and CRUD/FLS bypasses as deploy-blocking findings.</description>
+
+    <!-- ============================================================
+         SECURITY rules -- block merge / block deploy
+         ============================================================ -->
+    <rule ref="category/apex/security.xml/ApexSharingViolations">
+        <priority>1</priority>
+    </rule>
+    <rule ref="category/apex/security.xml/ApexCRUDViolation">
+        <priority>1</priority>
+    </rule>
+    <rule ref="category/apex/security.xml/ApexInsecureEndpoint">
+        <priority>1</priority>
+    </rule>
+    <rule ref="category/apex/security.xml/ApexSOQLInjection">
+        <priority>1</priority>
+    </rule>
+    <rule ref="category/apex/security.xml/ApexOpenRedirect">
+        <priority>1</priority>
+    </rule>
+    <rule ref="category/apex/security.xml/ApexXSSFromURLParam">
+        <priority>1</priority>
+    </rule>
+    <rule ref="category/apex/security.xml/ApexXSSFromEscapeFalse">
+        <priority>1</priority>
+    </rule>
+    <rule ref="category/apex/security.xml/ApexBadCrypto">
+        <priority>1</priority>
+    </rule>
+    <rule ref="category/apex/security.xml/ApexCSRF">
+        <priority>1</priority>
+    </rule>
+    <rule ref="category/apex/security.xml/ApexSuggestUsingNamedCred">
+        <priority>2</priority>
+    </rule>
+
+    <!-- ============================================================
+         BEST PRACTICES -- reviewer-ack tier
+         ============================================================ -->
+    <rule ref="category/apex/bestpractices.xml/AvoidGlobalModifier">
+        <priority>3</priority>
+    </rule>
+    <rule ref="category/apex/bestpractices.xml/UnusedLocalVariable">
+        <priority>4</priority>
+    </rule>
+    <rule ref="category/apex/bestpractices.xml/ApexUnitTestClassShouldHaveAsserts">
+        <priority>2</priority>
+    </rule>
+    <rule ref="category/apex/bestpractices.xml/ApexAssertionsShouldIncludeMessage">
+        <priority>3</priority>
+    </rule>
+
+    <!-- ============================================================
+         PERFORMANCE -- non-blocking but tracked
+         ============================================================ -->
+    <rule ref="category/apex/performance.xml/OperationWithLimitsInLoop">
+        <priority>2</priority>
+    </rule>
+    <rule ref="category/apex/performance.xml/AvoidDebugStatements">
+        <priority>4</priority>
+    </rule>
+
+    <!-- ============================================================
+         CODESTYLE -- low priority
+         ============================================================ -->
+    <rule ref="category/apex/codestyle.xml/ClassNamingConventions">
+        <priority>4</priority>
+    </rule>
+    <rule ref="category/apex/codestyle.xml/MethodNamingConventions">
+        <priority>5</priority>
+    </rule>
+
+</ruleset>

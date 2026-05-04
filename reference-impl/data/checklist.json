@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "_meta": {
+    "title": "Admin Hardening Checklist",
+    "source_anchor": "../../index.html#appendix-o",
+    "license": "(c) 2026 Dr. Paul Coleman; not official Salesforce documentation",
+    "version": "1.4.0",
+    "snapshot_date": "2026-05-04"
+  },
+  "tiers": [
+    {
+      "id": "day-1",
+      "label": "Day 1",
+      "duration": "<= 4 hours",
+      "actor": "solo admin, one sitting",
+      "actions": [
+        { "n": 1, "action": "Run Health Check, capture baseline score", "where": "Setup -> Quick Find -> Health Check", "verify": "Score recorded; High-Risk items listed", "pillar_anchor": "#viii-health-check" },
+        { "n": 2, "action": "Fix every High-Risk Health Check finding inline", "where": "Health Check -> Fix Risks", "verify": "Score >= 80", "pillar_anchor": "#viii-health-check" },
+        { "n": 3, "action": "Verify Block Uninstalled Connected Apps enabled", "where": "Setup -> OAuth and OpenID Connect Settings", "verify": "Toggle: ON", "pillar_anchor": "#iv-block-uninstalled" },
+        { "n": 4, "action": "Block User-Agent and Username-Password OAuth flows", "where": "Setup -> OAuth and OpenID Connect Settings", "verify": "Both: blocked", "pillar_anchor": "#iv-oauth-flows" },
+        { "n": 5, "action": "Pull OAuth Usage; flag apps without business owner", "where": "Setup -> Connected Apps OAuth Usage", "verify": "Owner identified per app or scheduled for revoke", "pillar_anchor": "#iv-detection-attestation" },
+        { "n": 6, "action": "Pull MAD/VAD holders", "where": "SOQL", "soql": "SELECT Assignee.Username FROM PermissionSetAssignment WHERE PermissionSet.PermissionsModifyAllData = true", "verify": "List captured; cross-checked vs. expected admins", "pillar_anchor": "#ii-mad-vad" },
+        { "n": 7, "action": "Subscribe team to Salesforce Security Advisories", "where": "https://security.salesforce.com/security-advisories", "verify": "Email or RSS subscription confirmed", "pillar_anchor": "#quick-wins" },
+        { "n": 8, "action": "Verify MFA contractually enforced", "where": "Setup -> Identity Verification", "verify": "Require MFA for all direct UI logins: ON", "pillar_anchor": "#i-mfa-matrix" },
+        { "n": 9, "action": "Set admin profile session timeout to <= 2 hours", "where": "Setup -> Session Settings -> Timeout Value", "verify": "Value: 2 hours or less", "pillar_anchor": "#i-high-assurance" },
+        { "n": 10, "action": "Lock sessions to IP for desktop clients", "where": "Setup -> Session Settings", "verify": "Lock sessions to IP address: ON", "pillar_anchor": "#i-high-assurance" },
+        { "n": 11, "action": "Document the Day-1 baseline", "where": "Save Health Check export, OAuth Usage CSV, MAD/VAD list to secure store", "verify": "Files dated; access-restricted", "pillar_anchor": "#provenance" }
+      ]
+    },
+    {
+      "id": "week-1",
+      "label": "Week 1",
+      "duration": "<= 8 hours",
+      "actor": "admin + light dev help",
+      "actions": [
+        { "n": 1, "action": "FIDO2 / Security Key enrollment for every admin", "where": "User -> Identity Verification -> Register Security Key", "verify": "Each admin has >= 1 key + 1 backup", "pillar_anchor": "#i-fido2" },
+        { "n": 2, "action": "Strip Modify All Data from non-admin Permission Sets", "verify": "SOQL re-run shows only System Admin profile", "pillar_anchor": "#ii-mad-vad" },
+        { "n": 3, "action": "Strip View All Data from non-admin Permission Sets", "verify": "SOQL re-run", "pillar_anchor": "#ii-mad-vad" },
+        { "n": 4, "action": "Revoke Connected Apps without business owner", "where": "Setup -> Connected Apps OAuth Usage -> Revoke", "verify": "OAuth Usage shows only owned apps", "pillar_anchor": "#iv-detection-attestation" },
+        { "n": 5, "action": "Lock Login IP for admin profile to corp egress", "where": "Setup -> Profiles -> System Admin -> Login IP Ranges", "verify": "Login outside range fails", "pillar_anchor": "#v-api-allowlist" },
+        { "n": 6, "action": "Disable Create Public Links for non-admin profiles", "verify": "Create-link UI hidden for test user", "pillar_anchor": "#ii-files" },
+        { "n": 7, "action": "Audit existing Public Links", "soql": "SELECT Id, Name, ExpiryDate, PreferencesPasswordRequired FROM ContentDistribution", "verify": "Stale / un-passworded links revoked", "pillar_anchor": "#ii-files" },
+        { "n": 8, "action": "Force re-MFA on inactive admin accounts", "verify": "Test login challenges for MFA", "pillar_anchor": "#i-mfa-matrix" },
+        { "n": 9, "action": "Freeze users inactive > 90 days", "soql": "SELECT Id, Username FROM User WHERE LastLoginDate < LAST_N_DAYS:90 AND IsActive = true", "verify": "Frozen-user list documented", "pillar_anchor": "#ii-mad-vad" },
+        { "n": 10, "action": "Disable Connected App self-authorization", "where": "Each Connected App -> Manage -> Edit Policies -> Permitted Users = Admin approved users are pre-authorized", "verify": "Non-admin cannot self-authorize app", "pillar_anchor": "#iv-block-uninstalled" },
+        { "n": 11, "action": "Sign-off: Week-1 attestation", "verify": "Filed in audit pack", "pillar_anchor": "#provenance" }
+      ]
+    },
+    {
+      "id": "month-1",
+      "label": "Month 1",
+      "duration": "<= 40 hours",
+      "actor": "admin + architect",
+      "actions": [
+        { "n": 1, "action": "Guest profile audit per Experience Cloud site (full Pillar III checklist)", "pillar_anchor": "#iii-profile-audit" },
+        { "n": 2, "action": "First sharing-rules attestation (per object, criteria, justification, signoff)", "pillar_anchor": "#ii-sharing" },
+        { "n": 3, "action": "Certificate inventory + ownership assignments + 30-day-before-expiry alerts", "pillar_anchor": "#v-cert-rotation" },
+        { "n": 4, "action": "Consolidate or split to one integration user per integration", "pillar_anchor": "#v-integration-users" },
+        { "n": 5, "action": "CSP Trusted Sites audit; remove unused entries", "pillar_anchor": "#vi-shadow-flow" },
+        { "n": 6, "action": "Remove Public Read/Write OWD on objects with PII or financial data", "pillar_anchor": "#ii-owd" },
+        { "n": 7, "action": "Custom Login Flow drafted for System Admin profile", "pillar_anchor": "#i-login-flow" },
+        { "n": 8, "action": "Browser extension allowlist deployed via Chrome / Edge / Safari MDM", "pillar_anchor": "#iv-browser-extensions" },
+        { "n": 9, "action": "Setup Audit Trail + Login History nightly export", "pillar_anchor": "#viii-audit-login" },
+        { "n": 10, "action": "Real-Time Event Monitoring -> SIEM streaming", "pillar_anchor": "#viii-real-time-em" },
+        { "n": 11, "action": "Top-5 Transaction Security policies deployed", "pillar_anchor": "#viii-transaction-security" },
+        { "n": 12, "action": "Restore-test drill on a sample object from backup", "pillar_anchor": "#vii-backup" },
+        { "n": 13, "action": "IRP tabletop walkthrough with on-call team", "pillar_anchor": "#viii-irp" },
+        { "n": 14, "action": "Run Einstein Data Detect on free-text custom fields", "pillar_anchor": "#vii-detect" },
+        { "n": 15, "action": "Cert rotation runbook drafted; calendar alerts set", "pillar_anchor": "#appendix-g" },
+        { "n": 16, "action": "Integration-user lifecycle review", "pillar_anchor": "#v-integration-users" },
+        { "n": 17, "action": "Sign-off: Month-1 attestation", "pillar_anchor": "#provenance" }
+      ]
+    },
+    {
+      "id": "quarterly",
+      "label": "Quarter 1 onward",
+      "duration": "steady-state cadence",
+      "actor": "team rhythm",
+      "actions": [
+        { "n": 1, "action": "OAuth Usage attestation -- new apps, anomalous user-counts, scope changes" },
+        { "n": 2, "action": "Modify All Data / View All Data holder attestation" },
+        { "n": 3, "action": "Guest profile diff vs. approved baseline (per Experience Cloud site)" },
+        { "n": 4, "action": "Sharing rules diff vs. approved baseline (especially guest user sharing rules)" },
+        { "n": 5, "action": "Connected Apps OAuth refresh-token rotation (90-day max)" },
+        { "n": 6, "action": "Health Check score recorded; trend documented" },
+        { "n": 7, "action": "Certificate expiration calendar reviewed; rotations scheduled" },
+        { "n": 8, "action": "Permission Set Group migration progress (during 12-month structural lane)" },
+        { "n": 9, "action": "Public-link audit (ContentDistribution SOQL)" },
+        { "n": 10, "action": "Installed-package audit (every InstalledPackage reviewed)" },
+        { "n": 11, "action": "Integration-user activity review" },
+        { "n": 12, "action": "Restricted-data classification register reviewed" }
+      ]
+    }
+  ]
+}

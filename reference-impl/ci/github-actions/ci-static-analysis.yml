@@ -1,0 +1,59 @@
+# Static-analysis CI gate
+# Pillar IX.2 / IX.4 in the whitepaper.
+# NOT official Salesforce documentation.
+
+name: Salesforce Static Analysis
+
+on:
+  pull_request:
+    paths:
+      - 'reference-impl/force-app/**'
+      - 'reference-impl/ci/**'
+      - '.github/workflows/ci-static-analysis.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'reference-impl/force-app/**'
+
+jobs:
+  static-analysis:
+    name: PMD + SFDX Scanner
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Salesforce CLI
+        run: npm install -g @salesforce/cli
+
+      - name: Install SFDX Scanner plugin
+        run: sf plugins install @salesforce/sfdx-scanner
+
+      - name: Run scanner (Apex + LWC)
+        working-directory: reference-impl
+        run: |
+          sf scanner run \
+            --target 'force-app/**/*.cls' \
+            --target 'force-app/**/*.trigger' \
+            --target 'force-app/**/lwc/**/*.js' \
+            --format table \
+            --engine pmd \
+            --pmdconfig ci/pmd-apex-rules.xml \
+            --severity-threshold 3 \
+            --violations-cause-error || EXIT=$?
+          exit ${EXIT:-0}
+
+      - name: Upload scanner results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: scanner-results
+          path: reference-impl/scanner-results.*
+          if-no-files-found: ignore

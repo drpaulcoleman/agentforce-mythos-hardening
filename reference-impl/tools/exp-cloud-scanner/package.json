@@ -1,0 +1,16 @@
+{
+  "name": "exp-cloud-scanner",
+  "version": "0.1.0",
+  "description": "Experience Cloud guest-profile dual-agent scanner. Implements the Pillar III.8 / Appendix F pattern from the whitepaper. NOT official Salesforce documentation.",
+  "private": true,
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "scan": "node index.js",
+    "scan:metadata": "node scanner-alpha-metadata.js",
+    "scan:crawl": "node scanner-beta-crawl.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
