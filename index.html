@@ -28,7 +28,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Mythos Imperative &mdash; Salesforce CRM Security Hardening</title>
-<meta name="document-version" content="1.5.8">
+<meta name="document-version" content="1.5.9">
 <meta name="last-modified" content="2026-05-04">
 <meta name="source-snapshot" content="2026-05-04">
 <meta name="description" content="The Mythos Imperative: a vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars from Identity to Defensive AI; twenty-two appendices.">
@@ -38,7 +38,7 @@
 
 <!-- Open Graph / social-share metadata -->
 <meta property="og:type" content="article">
-<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.8">
+<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.9">
 <meta property="og:description" content="Vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars, 16+ appendices, fully attributed.">
 <meta property="og:url" content="https://drpaulcoleman.github.io/agentforce-mythos-hardening/">
 <meta property="og:site_name" content="Salesforce CRM Security Hardening">
@@ -49,7 +49,7 @@
 
 <!-- Twitter / X card metadata -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.8">
+<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.9">
 <meta name="twitter:description" content="Threat-informed Salesforce hardening reference. Ten pillars from Identity to Defensive AI, with a companion Salesforce DX reference implementation.">
 
 <!-- Errata / contributions -->
@@ -1167,6 +1167,116 @@ pre.mermaid g.node[onclick]:hover > path {
   .card.bluf .bluf-takeaways { grid-template-columns: 1fr; }
 }
 
+/* ═══════════════════════════════════════════════════════════════════════
+   PRINTABLE / INTERACTIVE CHECKLISTS (v1.5.9)
+   Checkboxes that work on screen (clickable, persisted via localStorage)
+   and print as empty boxes for hand-checking against an audit binder.
+   ═══════════════════════════════════════════════════════════════════════ */
+.checklist {
+  list-style: none;
+  margin: 8px 0 16px 0;
+  padding: 0;
+}
+.checklist li {
+  position: relative;
+  padding: 7px 8px 7px 34px;
+  margin-bottom: 3px;
+  border-radius: 4px;
+  transition: background 0.15s ease;
+  line-height: 1.55;
+}
+.checklist li:hover { background: rgba(0,112,210,0.05); }
+.checklist input[type="checkbox"] {
+  position: absolute;
+  left: 8px;
+  top: 10px;
+  width: 16px; height: 16px;
+  cursor: pointer;
+  accent-color: var(--sf-blue);
+  margin: 0;
+}
+.checklist input[type="checkbox"]:checked ~ label,
+.checklist input[type="checkbox"]:checked + label {
+  color: var(--text-muted);
+  text-decoration: line-through;
+  text-decoration-color: rgba(91,123,165,0.55);
+}
+.checklist label {
+  display: block;
+  cursor: pointer;
+  color: var(--text-primary);
+}
+.checklist label code {
+  background: rgba(0,112,210,0.08);
+  padding: 1px 5px; border-radius: 3px;
+  font-size: 12px;
+}
+.checklist .check-where {
+  display: block;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 3px;
+  letter-spacing: 0.02em;
+}
+@media print {
+  .checklist input[type="checkbox"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 13pt; height: 13pt;
+    border: 1.5pt solid #000 !important;
+    background: #FFFFFF !important;
+    border-radius: 2px;
+    accent-color: auto;
+  }
+  .checklist input[type="checkbox"]:checked + label,
+  .checklist input[type="checkbox"]:checked ~ label {
+    color: #000 !important;
+    text-decoration: none !important;
+  }
+  .checklist label { color: #000 !important; }
+  .checklist li { page-break-inside: avoid; }
+}
+
+/* Checklist tables (Appendix O Day-1 / Week-1 / Month-1) -- leading
+   checkbox column added to existing data tables so admins can tick
+   off rows as they go and print blank boxes for paper audit copies. */
+.checklist-table { width: 100%; }
+.checklist-table th.ck-col,
+.checklist-table td.ck-col {
+  width: 28px;
+  text-align: center;
+  vertical-align: middle;
+  padding: 6px 4px;
+}
+.checklist-table input.ck {
+  width: 16px; height: 16px;
+  cursor: pointer;
+  accent-color: var(--sf-blue);
+  margin: 0;
+}
+.checklist-table tr:has(input.ck:checked) td:not(.ck-col) {
+  color: var(--text-muted);
+  text-decoration: line-through;
+  text-decoration-color: rgba(91,123,165,0.45);
+}
+.checklist-table tr:has(input.ck:checked) td:not(.ck-col) a { color: var(--text-muted); }
+@media print {
+  .checklist-table input.ck {
+    -webkit-appearance: none; appearance: none;
+    width: 13pt; height: 13pt;
+    border: 1.5pt solid #000 !important;
+    background: #FFFFFF !important;
+    border-radius: 2px;
+    accent-color: auto;
+  }
+  .checklist-table tr:has(input.ck:checked) td:not(.ck-col) {
+    color: #000 !important;
+    text-decoration: none !important;
+  }
+  .checklist-table tr { page-break-inside: avoid; }
+}
+
 /* ─── Print-friendly ─── */
 @media print {
   #header, #sidebar, #legend, #zoom-controls { display: none !important; }
@@ -1592,7 +1702,7 @@ pre.mermaid g.node[onclick]:hover > path {
     </div>
     <div>
       <h1><span class="phase-tag">The Mythos Imperative</span><span class="phase-sep">&mdash;</span>Salesforce CRM Security Hardening</h1>
-      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.8 &middot; last modified 2026-05-04</span>
+      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.9 &middot; last modified 2026-05-04</span>
     </div>
   </div>
   <div class="doc-meta">
@@ -2007,7 +2117,7 @@ gantt
 
 <!-- TECH · Hero ---------------------------------------------------------- -->
 <div class="card hero" id="hero" data-search="hero overview salesforce crm security hardening defender encyclopedia frontier ai mythos">
-  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.8 &middot; last modified 2026-05-04</p>
+  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.9 &middot; last modified 2026-05-04</p>
   <h1>The <span class="accent">Mythos Imperative</span><br/><span style="font-size:24px; font-weight:700; opacity:0.92; display:block; margin-top:6px;">A Defender's Encyclopedia for the Frontier-AI Era</span></h1>
   <p class="lede" style="border-left: 3px solid var(--sf-orange); padding: 6px 0 6px 16px; margin-left: 0;">
     <strong style="color: var(--sf-orange); letter-spacing: 0.04em;">Why this exists, why now.</strong>
@@ -3413,40 +3523,39 @@ flowchart LR
 </div>
 
 <!-- 3.3 Guest profile audit -->
-<div class="card" id="iii-profile-audit" data-search="guest user profile audit checklist view all users system permissions object permissions api enabled inactive">
+<div class="card" id="iii-profile-audit" data-search="guest user profile audit checklist view all users system permissions object permissions api enabled inactive printable check off">
   <h2>3.3 &middot; Guest User Profile Audit Checklist</h2>
   <p>
     Each Experience Cloud site has its own guest user, with a corresponding profile (<code>SiteName Profile</code>).
     Audit each one against the checklist below. Anything not strictly required by the public-facing UX
-    should be removed.
+    should be removed. <em>Tick items as you verify them; checked state is preserved across page reloads.
+    Print-friendly &mdash; checkboxes render as blank boxes for hand-checking on a paper audit copy.</em>
   </p>
   <h3>Object permissions</h3>
-  <ul>
-    <li>Default-deny: <strong>no</strong> object permissions on standard objects unless required by the public UX</li>
-    <li>For required objects, prefer <em>Read</em> only; never <em>Edit</em>, <em>Create</em>, <em>Delete</em> unless the public UX demands record creation (e.g., Web-to-Lead alternatives)</li>
-    <li>Never grant <em>View All</em> or <em>Modify All</em> on any object</li>
+  <ul class="checklist" data-checklist-id="iii-profile-obj">
+    <li><input type="checkbox" id="ck-iii-obj-1"><label for="ck-iii-obj-1">Default-deny: <strong>no</strong> object permissions on standard objects unless required by the public UX.</label></li>
+    <li><input type="checkbox" id="ck-iii-obj-2"><label for="ck-iii-obj-2">For required objects, prefer <em>Read</em> only; never <em>Edit</em>, <em>Create</em>, <em>Delete</em> unless the public UX demands record creation (e.g., Web-to-Lead alternatives).</label></li>
+    <li><input type="checkbox" id="ck-iii-obj-3"><label for="ck-iii-obj-3">Never grant <em>View All</em> or <em>Modify All</em> on any object.</label></li>
   </ul>
   <h3>System permissions</h3>
-  <ul>
-    <li><strong>API Enabled</strong>: <em>off</em> (guest users should not be able to call the SOAP/REST APIs directly)</li>
-    <li><strong>View All Users</strong>: <em>off</em> (this exposes all User records to the guest)</li>
-    <li><strong>Run Reports</strong>: <em>off</em></li>
-    <li><strong>Export Reports</strong>: <em>off</em></li>
-    <li><strong>Manage Public Documents / Files</strong>: <em>off</em></li>
-    <li><strong>Modify Metadata Through Metadata API Functions</strong>: <em>off</em> (obvious, but check)</li>
+  <ul class="checklist" data-checklist-id="iii-profile-sys">
+    <li><input type="checkbox" id="ck-iii-sys-1"><label for="ck-iii-sys-1"><strong>API Enabled</strong>: <em>off</em> (guest users should not be able to call the SOAP/REST APIs directly).</label></li>
+    <li><input type="checkbox" id="ck-iii-sys-2"><label for="ck-iii-sys-2"><strong>View All Users</strong>: <em>off</em> (this exposes all User records to the guest).</label></li>
+    <li><input type="checkbox" id="ck-iii-sys-3"><label for="ck-iii-sys-3"><strong>Run Reports</strong>: <em>off</em>.</label></li>
+    <li><input type="checkbox" id="ck-iii-sys-4"><label for="ck-iii-sys-4"><strong>Export Reports</strong>: <em>off</em>.</label></li>
+    <li><input type="checkbox" id="ck-iii-sys-5"><label for="ck-iii-sys-5"><strong>Manage Public Documents / Files</strong>: <em>off</em>.</label></li>
+    <li><input type="checkbox" id="ck-iii-sys-6"><label for="ck-iii-sys-6"><strong>Modify Metadata Through Metadata API Functions</strong>: <em>off</em> (obvious, but check).</label></li>
   </ul>
   <h3>Apex class access</h3>
-  <ul>
-    <li>Audit <em>every</em> Apex class granted to the guest profile</li>
-    <li>For each class: confirm it uses <code>with sharing</code> + <code>USER_MODE</code> + explicit FLS checks</li>
-    <li>Custom REST resources granted to guest are <strong>especially</strong> sensitive &mdash; many were
-    written before USER_MODE existed</li>
+  <ul class="checklist" data-checklist-id="iii-profile-apex">
+    <li><input type="checkbox" id="ck-iii-apex-1"><label for="ck-iii-apex-1">Audit <em>every</em> Apex class granted to the guest profile.</label></li>
+    <li><input type="checkbox" id="ck-iii-apex-2"><label for="ck-iii-apex-2">For each class: confirm it uses <code>with sharing</code> + <code>USER_MODE</code> + explicit FLS checks.</label></li>
+    <li><input type="checkbox" id="ck-iii-apex-3"><label for="ck-iii-apex-3">Custom REST resources granted to guest are <strong>especially</strong> sensitive &mdash; many were written before USER_MODE existed.</label></li>
   </ul>
   <h3>Visualforce / LWC component access</h3>
-  <ul>
-    <li>Each granted component must be reviewed for what it queries and what it returns</li>
-    <li>Any component that does <code>SELECT ... FROM User</code> or <code>SELECT ... FROM Account</code>
-    is a candidate for hardening &mdash; verify the WHERE clauses</li>
+  <ul class="checklist" data-checklist-id="iii-profile-vfclwc">
+    <li><input type="checkbox" id="ck-iii-vfclwc-1"><label for="ck-iii-vfclwc-1">Each granted component reviewed for what it queries and what it returns.</label></li>
+    <li><input type="checkbox" id="ck-iii-vfclwc-2"><label for="ck-iii-vfclwc-2">Any component that does <code>SELECT ... FROM User</code> or <code>SELECT ... FROM Account</code> is a candidate for hardening &mdash; verify the WHERE clauses.</label></li>
   </ul>
 </div>
 
@@ -6566,6 +6675,17 @@ DIFF:
     <thead><tr><th>Version</th><th>Date</th><th>Change</th><th>Author</th></tr></thead>
     <tbody>
       <tr>
+        <td><strong>1.5.9</strong></td>
+        <td>2026-05-04</td>
+        <td><strong>Checklists are now actually checkable + printable.</strong> User asked: "the checklist sections should be actual checklists &mdash; users might want to print them and check off items." Pivoted four checklist sections from prose-style bullet lists to interactive + printable forms.
+        (1) <strong>Pillar 3.3 Guest User Profile Audit Checklist</strong> &mdash; the 4 sub-lists (Object permissions, System permissions, Apex class access, Visualforce/LWC component access) converted to <code>&lt;ul class="checklist"&gt;</code> with <code>&lt;input type="checkbox"&gt;</code> + <code>&lt;label&gt;</code> per item. 14 checkboxes total.
+        (2) <strong>Appendix O.1 Day-1, O.2 Week-1, O.3 Month-1 tables</strong> &mdash; added a leading checkbox column (<code>th.ck-col</code> / <code>td.ck-col</code> with <code>&#10003;</code> header glyph + per-row <code>&lt;input class="ck"&gt;</code>). Existing # / Action / Where / Verify / Pillar columns preserved, so the table still functions as a reference. CSS uses <code>tr:has(input.ck:checked)</code> to strike-through and dim the row when ticked. 39 row checkboxes total across the 3 tables.
+        (3) <strong>Appendix O.4 Quarterly attestation pack + drill</strong> &mdash; the <code>&lt;ol&gt;</code> (12 items) and <code>&lt;ul&gt;</code> (4 items) converted to <code>&lt;ul class="checklist"&gt;</code>.
+        (4) <strong>localStorage persistence</strong> &mdash; new bottom-of-body script tracks every checkbox whose id starts with <code>ck-</code> and persists check state under <code>mythos-ck:&lt;id&gt;</code>. State restores automatically on page reload so admins running a multi-day Day-1 / Week-1 audit don't lose progress. Opt-in by id-prefix only; unrelated checkboxes elsewhere on the page are unaffected.
+        (5) <strong>Print stylesheet</strong> &mdash; both <code>.checklist</code> and <code>.checklist-table</code> render checkboxes as empty bordered squares (13&thinsp;pt, 1.5&thinsp;pt black border) for hand-checking on a printed audit copy. Strike-through suppressed in print so a ticked-on-screen-then-printed copy still shows the action text in full. <code>page-break-inside: avoid</code> on each item so checklist rows don't split across pages.</td>
+        <td>Dr. Paul Coleman</td>
+      </tr>
+      <tr>
         <td><strong>1.5.8</strong></td>
         <td>2026-05-04</td>
         <td><strong>Diagram readability pass &mdash; Pillar 2 Permission Waterfall + Pillar 3 Experience Cloud guest-bleed.</strong>
@@ -6761,87 +6881,87 @@ DIFF:
   </p>
 
   <h3>O.1 Day 1 (≤4 hours &middot; solo admin, one sitting)</h3>
-  <table>
-    <thead><tr><th>#</th><th>Action</th><th>Where / How</th><th>Verify</th><th>Pillar</th></tr></thead>
+  <table class="checklist-table">
+    <thead><tr><th class="ck-col" title="Tick to mark complete">&#10003;</th><th>#</th><th>Action</th><th>Where / How</th><th>Verify</th><th>Pillar</th></tr></thead>
     <tbody>
-      <tr><td>1</td><td>Run Health Check, capture baseline score</td><td>Setup &rarr; Quick Find &rarr; Health Check</td><td>Score recorded; High-Risk items listed</td><td><a href="#viii-health-check">8.1</a></td></tr>
-      <tr><td>2</td><td>Fix every High-Risk Health Check finding inline</td><td>Health Check &rarr; "Fix Risks"</td><td>Score &ge; 80</td><td><a href="#viii-health-check">8.1</a></td></tr>
-      <tr><td>3</td><td>Verify "Block Uninstalled Connected Apps" enabled</td><td>Setup &rarr; OAuth and OpenID Connect Settings</td><td>Toggle: ON</td><td><a href="#iv-block-uninstalled">4.3</a></td></tr>
-      <tr><td>4</td><td>Block User-Agent, Username-Password OAuth flows</td><td>Setup &rarr; OAuth and OpenID Connect Settings</td><td>Both: blocked</td><td><a href="#iv-oauth-flows">4.2</a></td></tr>
-      <tr><td>5</td><td>Pull OAuth Usage; flag apps without business owner</td><td>Setup &rarr; Connected Apps OAuth Usage</td><td>Owner identified per app or scheduled for revoke</td><td><a href="#iv-detection-attestation">4.9</a></td></tr>
-      <tr><td>6</td><td>Pull MAD/VAD holders</td><td><code>SELECT Assignee.Username FROM PermissionSetAssignment WHERE PermissionSet.PermissionsModifyAllData = true</code></td><td>List captured; cross-checked vs. expected admins</td><td><a href="#ii-mad-vad">2.9</a></td></tr>
-      <tr><td>7</td><td>Subscribe team to Salesforce Security Advisories</td><td><a href="https://security.salesforce.com/security-advisories" target="_blank" rel="noopener">security.salesforce.com</a></td><td>Email or RSS subscription confirmed</td><td><a href="#quick-wins">Quick Wins</a></td></tr>
-      <tr><td>8</td><td>Verify MFA contractually enforced</td><td>Setup &rarr; Identity Verification</td><td>"Require multi-factor authentication for all direct UI logins": ON</td><td><a href="#i-mfa-matrix">1.1</a></td></tr>
-      <tr><td>9</td><td>Set admin profile session timeout to ≤ 2 hours</td><td>Setup &rarr; Session Settings &rarr; Timeout Value</td><td>Value: 2 hours or less</td><td><a href="#i-high-assurance">1.3</a></td></tr>
-      <tr><td>10</td><td>Lock sessions to IP for desktop clients</td><td>Setup &rarr; Session Settings</td><td>"Lock sessions to IP address": ON</td><td><a href="#i-high-assurance">1.3</a></td></tr>
-      <tr><td>11</td><td>Document the Day-1 baseline</td><td>Save Health Check export, OAuth Usage CSV, MAD/VAD list to secure store</td><td>Files dated; access-restricted</td><td><a href="#provenance">Disclaimer</a></td></tr>
+      <tr><td class="ck-col"><input type="checkbox" id="ck-o-1-day-1-4-hours-middot-1" class="ck"></td><td>1</td><td>Run Health Check, capture baseline score</td><td>Setup &rarr; Quick Find &rarr; Health Check</td><td>Score recorded; High-Risk items listed</td><td><a href="#viii-health-check">8.1</a></td></tr>
+      <tr><td class="ck-col"><input type="checkbox" id="ck-o-1-day-1-4-hours-middot-2" class="ck"></td><td>2</td><td>Fix every High-Risk Health Check finding inline</td><td>Health Check &rarr; "Fix Risks"</td><td>Score &ge; 80</td><td><a href="#viii-health-check">8.1</a></td></tr>
+      <tr><td class="ck-col"><input type="checkbox" id="ck-o-1-day-1-4-hours-middot-3" class="ck"></td><td>3</td><td>Verify "Block Uninstalled Connected Apps" enabled</td><td>Setup &rarr; OAuth and OpenID Connect Settings</td><td>Toggle: ON</td><td><a href="#iv-block-uninstalled">4.3</a></td></tr>
+      <tr><td class="ck-col"><input type="checkbox" id="ck-o-1-day-1-4-hours-middot-4" class="ck"></td><td>4</td><td>Block User-Agent, Username-Password OAuth flows</td><td>Setup &rarr; OAuth and OpenID Connect Settings</td><td>Both: blocked</td><td><a href="#iv-oauth-flows">4.2</a></td></tr>
+      <tr><td class="ck-col"><input type="checkbox" id="ck-o-1-day-1-4-hours-middot-5" class="ck"></td><td>5</td><td>Pull OAuth Usage; flag apps without business owner</td><td>Setup &rarr; Connected Apps OAuth Usage</td><td>Owner identified per app or scheduled for revoke</td><td><a href="#iv-detection-attestation">4.9</a></td></tr>
+      <tr><td class="ck-col"><input type="checkbox" id="ck-o-1-day-1-4-hours-middot-6" class="ck"></td><td>6</td><td>Pull MAD/VAD holders</td><td><code>SELECT Assignee.Username FROM PermissionSetAssignment WHERE PermissionSet.PermissionsModifyAllData = true</code></td><td>List captured; cross-checked vs. expected admins</td><td><a href="#ii-mad-vad">2.9</a></td></tr>
+      <tr><td class="ck-col"><input type="checkbox" id="ck-o-1-day-1-4-hours-middot-7" class="ck"></td><td>7</td><td>Subscribe team to Salesforce Security Advisories</td><td><a href="https://security.salesforce.com/security-advisories" target="_blank" rel="noopener">security.salesforce.com</a></td><td>Email or RSS subscription confirmed</td><td><a href="#quick-wins">Quick Wins</a></td></tr>
+      <tr><td class="ck-col"><input type="checkbox" id="ck-o-1-day-1-4-hours-middot-8" class="ck"></td><td>8</td><td>Verify MFA contractually enforced</td><td>Setup &rarr; Identity Verification</td><td>"Require multi-factor authentication for all direct UI logins": ON</td><td><a href="#i-mfa-matrix">1.1</a></td></tr>
+      <tr><td class="ck-col"><input type="checkbox" id="ck-o-1-day-1-4-hours-middot-9" class="ck"></td><td>9</td><td>Set admin profile session timeout to ≤ 2 hours</td><td>Setup &rarr; Session Settings &rarr; Timeout Value</td><td>Value: 2 hours or less</td><td><a href="#i-high-assurance">1.3</a></td></tr>
+      <tr><td class="ck-col"><input type="checkbox" id="ck-o-1-day-1-4-hours-middot-10" class="ck"></td><td>10</td><td>Lock sessions to IP for desktop clients</td><td>Setup &rarr; Session Settings</td><td>"Lock sessions to IP address": ON</td><td><a href="#i-high-assurance">1.3</a></td></tr>
+      <tr><td class="ck-col"><input type="checkbox" id="ck-o-1-day-1-4-hours-middot-11" class="ck"></td><td>11</td><td>Document the Day-1 baseline</td><td>Save Health Check export, OAuth Usage CSV, MAD/VAD list to secure store</td><td>Files dated; access-restricted</td><td><a href="#provenance">Disclaimer</a></td></tr>
     </tbody>
   </table>
 
   <h3>O.2 Week 1 (≤8 hours &middot; admin + light dev help)</h3>
-  <table>
-    <thead><tr><th>#</th><th>Action</th><th>Where / How</th><th>Verify</th><th>Pillar</th></tr></thead>
+  <table class="checklist-table">
+    <thead><tr><th class="ck-col" title="Tick to mark complete">&#10003;</th><th>#</th><th>Action</th><th>Where / How</th><th>Verify</th><th>Pillar</th></tr></thead>
     <tbody>
-      <tr><td>1</td><td>FIDO2 / Security Key enrollment for every admin</td><td>User &rarr; Identity Verification &rarr; Register Security Key</td><td>Each admin has &ge; 1 key + 1 backup key</td><td><a href="#i-fido2">1.2</a></td></tr>
-      <tr><td>2</td><td>Strip Modify All Data from non-admin Permission Sets</td><td>Setup &rarr; Permission Sets &rarr; (each) &rarr; System Permissions</td><td>SOQL re-run shows only System Admin profile</td><td><a href="#ii-mad-vad">2.9</a></td></tr>
-      <tr><td>3</td><td>Strip View All Data from non-admin Permission Sets</td><td>Same path</td><td>SOQL re-run</td><td><a href="#ii-mad-vad">2.9</a></td></tr>
-      <tr><td>4</td><td>Revoke Connected Apps without business owner</td><td>Setup &rarr; Connected Apps OAuth Usage &rarr; Revoke</td><td>OAuth Usage shows only owned apps</td><td><a href="#iv-detection-attestation">4.9</a></td></tr>
-      <tr><td>5</td><td>Lock Login IP for admin profile to corp egress</td><td>Setup &rarr; Profiles &rarr; System Admin &rarr; Login IP Ranges</td><td>Login outside range fails</td><td><a href="#v-api-allowlist">5.5</a></td></tr>
-      <tr><td>6</td><td>Disable "Create Public Links" for non-admin profiles</td><td>Permission Set / Profile &rarr; System Permissions</td><td>Create-link UI hidden for test user</td><td><a href="#ii-files">2.8</a></td></tr>
-      <tr><td>7</td><td>Audit existing Public Links</td><td><code>SELECT Id, Name, ExpiryDate, PreferencesPasswordRequired FROM ContentDistribution</code></td><td>Stale / un-passworded links revoked</td><td><a href="#ii-files">2.8</a></td></tr>
-      <tr><td>8</td><td>Force re-MFA on inactive admin accounts</td><td>Permission Set &rarr; "MFA Required" assigned to admins</td><td>Test login challenges for MFA</td><td><a href="#i-mfa-matrix">1.1</a></td></tr>
-      <tr><td>9</td><td>Freeze users inactive &gt; 90 days</td><td><code>SELECT Id, Username FROM User WHERE LastLoginDate &lt; LAST_N_DAYS:90 AND IsActive = true</code> &rarr; Freeze</td><td>Frozen-user list documented</td><td><a href="#ii-mad-vad">2.9</a></td></tr>
-      <tr><td>10</td><td>Disable Connected App self-authorization</td><td>Each Connected App &rarr; Manage &rarr; Edit Policies &rarr; Permitted Users = "Admin approved users are pre-authorized"</td><td>Non-admin user cannot self-authorize app</td><td><a href="#iv-block-uninstalled">4.3</a></td></tr>
-      <tr><td>11</td><td>Sign-off: Week-1 attestation</td><td>Dated, signed (electronic), retained</td><td>Filed in audit pack</td><td><a href="#provenance">Disclaimer</a></td></tr>
+      <tr><td class="ck-col"><input type="checkbox" id="ck-o-2-week-1-8-hours-middo-1" class="ck"></td><td>1</td><td>FIDO2 / Security Key enrollment for every admin</td><td>User &rarr; Identity Verification &rarr; Register Security Key</td><td>Each admin has &ge; 1 key + 1 backup key</td><td><a href="#i-fido2">1.2</a></td></tr>
+      <tr><td class="ck-col"><input type="checkbox" id="ck-o-2-week-1-8-hours-middo-2" class="ck"></td><td>2</td><td>Strip Modify All Data from non-admin Permission Sets</td><td>Setup &rarr; Permission Sets &rarr; (each) &rarr; System Permissions</td><td>SOQL re-run shows only System Admin profile</td><td><a href="#ii-mad-vad">2.9</a></td></tr>
+      <tr><td class="ck-col"><input type="checkbox" id="ck-o-2-week-1-8-hours-middo-3" class="ck"></td><td>3</td><td>Strip View All Data from non-admin Permission Sets</td><td>Same path</td><td>SOQL re-run</td><td><a href="#ii-mad-vad">2.9</a></td></tr>
+      <tr><td class="ck-col"><input type="checkbox" id="ck-o-2-week-1-8-hours-middo-4" class="ck"></td><td>4</td><td>Revoke Connected Apps without business owner</td><td>Setup &rarr; Connected Apps OAuth Usage &rarr; Revoke</td><td>OAuth Usage shows only owned apps</td><td><a href="#iv-detection-attestation">4.9</a></td></tr>
+      <tr><td class="ck-col"><input type="checkbox" id="ck-o-2-week-1-8-hours-middo-5" class="ck"></td><td>5</td><td>Lock Login IP for admin profile to corp egress</td><td>Setup &rarr; Profiles &rarr; System Admin &rarr; Login IP Ranges</td><td>Login outside range fails</td><td><a href="#v-api-allowlist">5.5</a></td></tr>
+      <tr><td class="ck-col"><input type="checkbox" id="ck-o-2-week-1-8-hours-middo-6" class="ck"></td><td>6</td><td>Disable "Create Public Links" for non-admin profiles</td><td>Permission Set / Profile &rarr; System Permissions</td><td>Create-link UI hidden for test user</td><td><a href="#ii-files">2.8</a></td></tr>
+      <tr><td class="ck-col"><input type="checkbox" id="ck-o-2-week-1-8-hours-middo-7" class="ck"></td><td>7</td><td>Audit existing Public Links</td><td><code>SELECT Id, Name, ExpiryDate, PreferencesPasswordRequired FROM ContentDistribution</code></td><td>Stale / un-passworded links revoked</td><td><a href="#ii-files">2.8</a></td></tr>
+      <tr><td class="ck-col"><input type="checkbox" id="ck-o-2-week-1-8-hours-middo-8" class="ck"></td><td>8</td><td>Force re-MFA on inactive admin accounts</td><td>Permission Set &rarr; "MFA Required" assigned to admins</td><td>Test login challenges for MFA</td><td><a href="#i-mfa-matrix">1.1</a></td></tr>
+      <tr><td class="ck-col"><input type="checkbox" id="ck-o-2-week-1-8-hours-middo-9" class="ck"></td><td>9</td><td>Freeze users inactive &gt; 90 days</td><td><code>SELECT Id, Username FROM User WHERE LastLoginDate &lt; LAST_N_DAYS:90 AND IsActive = true</code> &rarr; Freeze</td><td>Frozen-user list documented</td><td><a href="#ii-mad-vad">2.9</a></td></tr>
+      <tr><td class="ck-col"><input type="checkbox" id="ck-o-2-week-1-8-hours-middo-10" class="ck"></td><td>10</td><td>Disable Connected App self-authorization</td><td>Each Connected App &rarr; Manage &rarr; Edit Policies &rarr; Permitted Users = "Admin approved users are pre-authorized"</td><td>Non-admin user cannot self-authorize app</td><td><a href="#iv-block-uninstalled">4.3</a></td></tr>
+      <tr><td class="ck-col"><input type="checkbox" id="ck-o-2-week-1-8-hours-middo-11" class="ck"></td><td>11</td><td>Sign-off: Week-1 attestation</td><td>Dated, signed (electronic), retained</td><td>Filed in audit pack</td><td><a href="#provenance">Disclaimer</a></td></tr>
     </tbody>
   </table>
 
   <h3>O.3 Month 1 (≤40 hours &middot; admin + architect)</h3>
-  <table>
-    <thead><tr><th>#</th><th>Action</th><th>Pillar</th></tr></thead>
+  <table class="checklist-table">
+    <thead><tr><th class="ck-col" title="Tick to mark complete">&#10003;</th><th>#</th><th>Action</th><th>Pillar</th></tr></thead>
     <tbody>
-      <tr><td>1</td><td>Guest profile audit per Experience Cloud site (full Pillar 3 checklist)</td><td><a href="#iii-profile-audit">3.3</a> &middot; <a href="#appendix-f">Appendix F</a></td></tr>
-      <tr><td>2</td><td>First sharing-rules attestation (per object, criteria, justification, signoff)</td><td><a href="#ii-sharing">2.4</a></td></tr>
-      <tr><td>3</td><td>Certificate inventory + ownership assignments + 30-day-before-expiry alerts</td><td><a href="#v-cert-rotation">5.3</a> &middot; <a href="#appendix-g">Appendix G</a></td></tr>
-      <tr><td>4</td><td>Consolidate or split to one integration user per integration</td><td><a href="#v-integration-users">5.4</a></td></tr>
-      <tr><td>5</td><td>CSP Trusted Sites audit; remove unused entries</td><td><a href="#vi-shadow-flow">6.6</a></td></tr>
-      <tr><td>6</td><td>Remove Public Read/Write OWD on objects with PII or financial data</td><td><a href="#ii-owd">2.1</a></td></tr>
-      <tr><td>7</td><td>Custom Login Flow drafted for System Admin profile (step-up High Assurance for Setup access)</td><td><a href="#i-login-flow">1.4</a> &middot; <a href="#appendix-a">Appendix A</a></td></tr>
-      <tr><td>8</td><td>Browser extension allowlist deployed via Chrome / Edge / Safari MDM</td><td><a href="#iv-browser-extensions">4.8</a></td></tr>
-      <tr><td>9</td><td>Setup Audit Trail + Login History nightly export to retention store</td><td><a href="#viii-audit-login">8.2</a></td></tr>
-      <tr><td>10</td><td>Real-Time Event Monitoring &rarr; SIEM streaming (or ELF batch if no Shield)</td><td><a href="#viii-real-time-em">8.3</a> &middot; <a href="#appendix-i">Appendix I</a></td></tr>
-      <tr><td>11</td><td>Top-5 Transaction Security policies deployed (Bulk export, off-hours admin, mass record update, new-device login, Setup off-hours)</td><td><a href="#viii-transaction-security">8.5</a> &middot; <a href="#appendix-d">Appendix D</a></td></tr>
-      <tr><td>12</td><td>Restore-test drill on a sample object from backup</td><td><a href="#vii-backup">7.6</a></td></tr>
-      <tr><td>13</td><td>IRP tabletop walkthrough with on-call team (1 vishing + 1 OAuth-abuse scenario)</td><td><a href="#viii-irp">8.6</a></td></tr>
-      <tr><td>14</td><td>Run Einstein Data Detect (or equivalent) on free-text custom fields</td><td><a href="#vii-detect">7.4</a></td></tr>
-      <tr><td>15</td><td>Cert rotation runbook drafted; calendar alerts set</td><td><a href="#appendix-g">Appendix G</a></td></tr>
-      <tr><td>16</td><td>Integration-user lifecycle review (each integration user labeled, scoped, owner)</td><td><a href="#v-integration-users">5.4</a></td></tr>
-      <tr><td>17</td><td>Sign-off: Month-1 attestation</td><td><a href="#provenance">Disclaimer</a></td></tr>
+      <tr><td class="ck-col"><input type="checkbox" id="ck-o-3-month-1-40-hours-mid-1" class="ck"></td><td>1</td><td>Guest profile audit per Experience Cloud site (full Pillar 3 checklist)</td><td><a href="#iii-profile-audit">3.3</a> &middot; <a href="#appendix-f">Appendix F</a></td></tr>
+      <tr><td class="ck-col"><input type="checkbox" id="ck-o-3-month-1-40-hours-mid-2" class="ck"></td><td>2</td><td>First sharing-rules attestation (per object, criteria, justification, signoff)</td><td><a href="#ii-sharing">2.4</a></td></tr>
+      <tr><td class="ck-col"><input type="checkbox" id="ck-o-3-month-1-40-hours-mid-3" class="ck"></td><td>3</td><td>Certificate inventory + ownership assignments + 30-day-before-expiry alerts</td><td><a href="#v-cert-rotation">5.3</a> &middot; <a href="#appendix-g">Appendix G</a></td></tr>
+      <tr><td class="ck-col"><input type="checkbox" id="ck-o-3-month-1-40-hours-mid-4" class="ck"></td><td>4</td><td>Consolidate or split to one integration user per integration</td><td><a href="#v-integration-users">5.4</a></td></tr>
+      <tr><td class="ck-col"><input type="checkbox" id="ck-o-3-month-1-40-hours-mid-5" class="ck"></td><td>5</td><td>CSP Trusted Sites audit; remove unused entries</td><td><a href="#vi-shadow-flow">6.6</a></td></tr>
+      <tr><td class="ck-col"><input type="checkbox" id="ck-o-3-month-1-40-hours-mid-6" class="ck"></td><td>6</td><td>Remove Public Read/Write OWD on objects with PII or financial data</td><td><a href="#ii-owd">2.1</a></td></tr>
+      <tr><td class="ck-col"><input type="checkbox" id="ck-o-3-month-1-40-hours-mid-7" class="ck"></td><td>7</td><td>Custom Login Flow drafted for System Admin profile (step-up High Assurance for Setup access)</td><td><a href="#i-login-flow">1.4</a> &middot; <a href="#appendix-a">Appendix A</a></td></tr>
+      <tr><td class="ck-col"><input type="checkbox" id="ck-o-3-month-1-40-hours-mid-8" class="ck"></td><td>8</td><td>Browser extension allowlist deployed via Chrome / Edge / Safari MDM</td><td><a href="#iv-browser-extensions">4.8</a></td></tr>
+      <tr><td class="ck-col"><input type="checkbox" id="ck-o-3-month-1-40-hours-mid-9" class="ck"></td><td>9</td><td>Setup Audit Trail + Login History nightly export to retention store</td><td><a href="#viii-audit-login">8.2</a></td></tr>
+      <tr><td class="ck-col"><input type="checkbox" id="ck-o-3-month-1-40-hours-mid-10" class="ck"></td><td>10</td><td>Real-Time Event Monitoring &rarr; SIEM streaming (or ELF batch if no Shield)</td><td><a href="#viii-real-time-em">8.3</a> &middot; <a href="#appendix-i">Appendix I</a></td></tr>
+      <tr><td class="ck-col"><input type="checkbox" id="ck-o-3-month-1-40-hours-mid-11" class="ck"></td><td>11</td><td>Top-5 Transaction Security policies deployed (Bulk export, off-hours admin, mass record update, new-device login, Setup off-hours)</td><td><a href="#viii-transaction-security">8.5</a> &middot; <a href="#appendix-d">Appendix D</a></td></tr>
+      <tr><td class="ck-col"><input type="checkbox" id="ck-o-3-month-1-40-hours-mid-12" class="ck"></td><td>12</td><td>Restore-test drill on a sample object from backup</td><td><a href="#vii-backup">7.6</a></td></tr>
+      <tr><td class="ck-col"><input type="checkbox" id="ck-o-3-month-1-40-hours-mid-13" class="ck"></td><td>13</td><td>IRP tabletop walkthrough with on-call team (1 vishing + 1 OAuth-abuse scenario)</td><td><a href="#viii-irp">8.6</a></td></tr>
+      <tr><td class="ck-col"><input type="checkbox" id="ck-o-3-month-1-40-hours-mid-14" class="ck"></td><td>14</td><td>Run Einstein Data Detect (or equivalent) on free-text custom fields</td><td><a href="#vii-detect">7.4</a></td></tr>
+      <tr><td class="ck-col"><input type="checkbox" id="ck-o-3-month-1-40-hours-mid-15" class="ck"></td><td>15</td><td>Cert rotation runbook drafted; calendar alerts set</td><td><a href="#appendix-g">Appendix G</a></td></tr>
+      <tr><td class="ck-col"><input type="checkbox" id="ck-o-3-month-1-40-hours-mid-16" class="ck"></td><td>16</td><td>Integration-user lifecycle review (each integration user labeled, scoped, owner)</td><td><a href="#v-integration-users">5.4</a></td></tr>
+      <tr><td class="ck-col"><input type="checkbox" id="ck-o-3-month-1-40-hours-mid-17" class="ck"></td><td>17</td><td>Sign-off: Month-1 attestation</td><td><a href="#provenance">Disclaimer</a></td></tr>
     </tbody>
   </table>
 
   <h3>O.4 Quarter 1 onward (steady-state cadence)</h3>
   <p><strong>Quarterly attestation pack</strong> (every 90 days; signed, dated, retained):</p>
-  <ol>
-    <li>OAuth Usage attestation &mdash; new apps, anomalous user-counts, scope changes</li>
-    <li>Modify All Data / View All Data holder attestation</li>
-    <li>Guest profile diff vs. approved baseline (per Experience Cloud site)</li>
-    <li>Sharing rules diff vs. approved baseline (especially guest user sharing rules)</li>
-    <li>Connected Apps OAuth refresh-token rotation (90-day max)</li>
-    <li>Health Check score recorded; trend documented</li>
-    <li>Certificate expiration calendar reviewed; rotations scheduled</li>
-    <li>Permission Set Group migration progress (during 12-month structural lane)</li>
-    <li>Public-link audit (<code>ContentDistribution</code> SOQL)</li>
-    <li>Installed-package audit (every <code>InstalledPackage</code> reviewed)</li>
-    <li>Integration-user activity review (each integration user's last activity, anomalies)</li>
-    <li>Restricted-data classification register reviewed (Einstein Data Detect findings)</li>
-  </ol>
+  <ul class="checklist" data-checklist-id="o4-quarterly">
+    <li><input type="checkbox" id="ck-o4-quarterly-1" class="ck"><label for="ck-o4-quarterly-1">OAuth Usage attestation &mdash; new apps, anomalous user-counts, scope changes</label></li>
+    <li><input type="checkbox" id="ck-o4-quarterly-2" class="ck"><label for="ck-o4-quarterly-2">Modify All Data / View All Data holder attestation</label></li>
+    <li><input type="checkbox" id="ck-o4-quarterly-3" class="ck"><label for="ck-o4-quarterly-3">Guest profile diff vs. approved baseline (per Experience Cloud site)</label></li>
+    <li><input type="checkbox" id="ck-o4-quarterly-4" class="ck"><label for="ck-o4-quarterly-4">Sharing rules diff vs. approved baseline (especially guest user sharing rules)</label></li>
+    <li><input type="checkbox" id="ck-o4-quarterly-5" class="ck"><label for="ck-o4-quarterly-5">Connected Apps OAuth refresh-token rotation (90-day max)</label></li>
+    <li><input type="checkbox" id="ck-o4-quarterly-6" class="ck"><label for="ck-o4-quarterly-6">Health Check score recorded; trend documented</label></li>
+    <li><input type="checkbox" id="ck-o4-quarterly-7" class="ck"><label for="ck-o4-quarterly-7">Certificate expiration calendar reviewed; rotations scheduled</label></li>
+    <li><input type="checkbox" id="ck-o4-quarterly-8" class="ck"><label for="ck-o4-quarterly-8">Permission Set Group migration progress (during 12-month structural lane)</label></li>
+    <li><input type="checkbox" id="ck-o4-quarterly-9" class="ck"><label for="ck-o4-quarterly-9">Public-link audit (<code>ContentDistribution</code> SOQL)</label></li>
+    <li><input type="checkbox" id="ck-o4-quarterly-10" class="ck"><label for="ck-o4-quarterly-10">Installed-package audit (every <code>InstalledPackage</code> reviewed)</label></li>
+    <li><input type="checkbox" id="ck-o4-quarterly-11" class="ck"><label for="ck-o4-quarterly-11">Integration-user activity review (each integration user's last activity, anomalies)</label></li>
+    <li><input type="checkbox" id="ck-o4-quarterly-12" class="ck"><label for="ck-o4-quarterly-12">Restricted-data classification register reviewed (Einstein Data Detect findings)</label></li>
+  </ul>
   <p><strong>Quarterly drill</strong> (rotate scenario):</p>
-  <ul>
-    <li>Q1: Vishing &rarr; OAuth grant abuse (UNC6040 pattern)</li>
-    <li>Q2: ISV Connected App compromise (UNC6395 pattern)</li>
-    <li>Q3: Experience Cloud guest profile exposure (Krebs / DIVD pattern)</li>
-    <li>Q4: AI agent compromise (silent-indicator detection)</li>
+  <ul class="checklist" data-checklist-id="o4-drill">
+    <li><input type="checkbox" id="ck-o4-drill-1" class="ck"><label for="ck-o4-drill-1">Q1: Vishing &rarr; OAuth grant abuse (UNC6040 pattern)</label></li>
+    <li><input type="checkbox" id="ck-o4-drill-2" class="ck"><label for="ck-o4-drill-2">Q2: ISV Connected App compromise (UNC6395 pattern)</label></li>
+    <li><input type="checkbox" id="ck-o4-drill-3" class="ck"><label for="ck-o4-drill-3">Q3: Experience Cloud guest profile exposure (Krebs / DIVD pattern)</label></li>
+    <li><input type="checkbox" id="ck-o4-drill-4" class="ck"><label for="ck-o4-drill-4">Q4: AI agent compromise (silent-indicator detection)</label></li>
   </ul>
 
   <h3>O.5 Per-edition floor (what's available where)</h3>
@@ -7441,7 +7561,7 @@ SELECT UserId, LastUsedDate FROM OauthToken WHERE AppName = 'ISV_APP_NAME'</code
     });
     exportBtn.addEventListener('click', function() {
       var snapshot = {
-        framework: 'Salesforce CRM Security Hardening v1.5.8',
+        framework: 'Salesforce CRM Security Hardening v1.5.9',
         scored_at: new Date().toISOString(),
         scores: loadStored(),
         average: parseFloat(avgEl.textContent) || 0,
@@ -8612,6 +8732,36 @@ SELECT UserId, LastUsedDate FROM OauthToken WHERE AppName = 'ISV_APP_NAME'</code
   // Initial render
   renderPrompts('default');
   setTimeout(pickActiveSection, 250);
+})();
+</script>
+
+<script>
+/* ════════════════════════════════════════════════════════════════════════
+   CHECKLIST PERSISTENCE (v1.5.9)
+   Every <input type="checkbox" id="ck-..."> has its checked state
+   persisted to localStorage under the key "mythos-ck:<id>". State
+   restores automatically on page load. Persistence is opt-in -- only
+   checkboxes whose id starts with "ck-" are tracked, so unrelated
+   checkboxes elsewhere are unaffected.
+   ════════════════════════════════════════════════════════════════════════ */
+(function() {
+  'use strict';
+  var STORAGE_PREFIX = 'mythos-ck:';
+  function safeGet(k) {
+    try { return localStorage.getItem(k); } catch (e) { return null; }
+  }
+  function safeSet(k, v) {
+    try { localStorage.setItem(k, v); } catch (e) { /* quota / privacy mode */ }
+  }
+  var boxes = document.querySelectorAll('input[type="checkbox"][id^="ck-"]');
+  boxes.forEach(function(box) {
+    var key = STORAGE_PREFIX + box.id;
+    if (safeGet(key) === '1') box.checked = true;
+    box.addEventListener('change', function() {
+      if (box.checked) safeSet(key, '1');
+      else { try { localStorage.removeItem(key); } catch (e) {} }
+    });
+  });
 })();
 </script>
 
