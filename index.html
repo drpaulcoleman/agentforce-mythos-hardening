@@ -28,7 +28,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Mythos Imperative &mdash; Salesforce CRM Security Hardening</title>
-<meta name="document-version" content="1.5.9">
+<meta name="document-version" content="1.5.10">
 <meta name="last-modified" content="2026-05-04">
 <meta name="source-snapshot" content="2026-05-04">
 <meta name="description" content="The Mythos Imperative: a vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars from Identity to Defensive AI; twenty-two appendices.">
@@ -38,7 +38,7 @@
 
 <!-- Open Graph / social-share metadata -->
 <meta property="og:type" content="article">
-<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.9">
+<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.10">
 <meta property="og:description" content="Vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars, 16+ appendices, fully attributed.">
 <meta property="og:url" content="https://drpaulcoleman.github.io/agentforce-mythos-hardening/">
 <meta property="og:site_name" content="Salesforce CRM Security Hardening">
@@ -49,7 +49,7 @@
 
 <!-- Twitter / X card metadata -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.9">
+<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.10">
 <meta name="twitter:description" content="Threat-informed Salesforce hardening reference. Ten pillars from Identity to Defensive AI, with a companion Salesforce DX reference implementation.">
 
 <!-- Errata / contributions -->
@@ -1702,7 +1702,7 @@ pre.mermaid g.node[onclick]:hover > path {
     </div>
     <div>
       <h1><span class="phase-tag">The Mythos Imperative</span><span class="phase-sep">&mdash;</span>Salesforce CRM Security Hardening</h1>
-      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.9 &middot; last modified 2026-05-04</span>
+      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.10 &middot; last modified 2026-05-04</span>
     </div>
   </div>
   <div class="doc-meta">
@@ -2117,7 +2117,7 @@ gantt
 
 <!-- TECH · Hero ---------------------------------------------------------- -->
 <div class="card hero" id="hero" data-search="hero overview salesforce crm security hardening defender encyclopedia frontier ai mythos">
-  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.9 &middot; last modified 2026-05-04</p>
+  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.10 &middot; last modified 2026-05-04</p>
   <h1>The <span class="accent">Mythos Imperative</span><br/><span style="font-size:24px; font-weight:700; opacity:0.92; display:block; margin-top:6px;">A Defender's Encyclopedia for the Frontier-AI Era</span></h1>
   <p class="lede" style="border-left: 3px solid var(--sf-orange); padding: 6px 0 6px 16px; margin-left: 0;">
     <strong style="color: var(--sf-orange); letter-spacing: 0.04em;">Why this exists, why now.</strong>
@@ -4489,55 +4489,35 @@ sequenceDiagram
     where a single keyword choice changes the security model entirely.
   </p>
   <pre class="mermaid">
+%%{init: {'flowchart': {'htmlLabels': true, 'nodeSpacing': 50, 'rankSpacing': 70, 'padding': 14}}}%%
 flowchart LR
     classDef trust fill:#04844B,stroke:#04844B,color:#FFF;
     classDef danger fill:#C23934,stroke:#C23934,color:#FFF;
     classDef gate fill:#0070D2,stroke:#0070D2,color:#FFF;
+    classDef terminal fill:#16325C,stroke:#0070D2,color:#FFF;
 
-    A[Request hits<br/>controller / endpoint]:::gate
-    B{Authenticated?}:::gate
-    C{Guest user?}:::gate
+    A["Request hits Apex<br/>controller, endpoint,<br/>or Flow trigger"]:::gate
+    B{"Apex or<br/>Flow path?"}:::gate
 
-    subgraph CLASS["Apex class declaration"]
-        direction TB
-        D[with sharing<br/>or inherited sharing]:::trust
-        E[without sharing]:::danger
-    end
+    AC["Apex class declaration<br/><b>with sharing</b> ✓<br/><b>without sharing</b> ✗"]:::gate
+    AS["SOQL run-mode<br/><b>WITH USER_MODE</b> ✓<br/><b>default (system)</b> ✗"]:::gate
+    AD["DML run-mode<br/><b>AccessLevel.USER_MODE</b> ✓<br/><b>default (FLS bypass)</b> ✗"]:::gate
 
-    subgraph SOQL["SOQL run-mode"]
-        direction TB
-        G[WITH USER_MODE]:::trust
-        H[WITH SECURITY_ENFORCED]:::trust
-        I[default system mode<br/>FLS BYPASS]:::danger
-    end
+    FR["Flow run-context<br/><b>user context</b> ✓<br/><b>system context</b> ✗<br/><b>guest-accessible</b> ✗✗"]:::gate
 
-    subgraph DML["DML run-mode"]
-        direction TB
-        K[AccessLevel.USER_MODE]:::trust
-        L[default mode<br/>FLS BYPASS]:::danger
-    end
-
-    subgraph FLOW["Flow run-context"]
-        direction TB
-        N[user context<br/>respects sharing/FLS]:::trust
-        O[system context<br/>bypasses everything]:::danger
-        P[guest-accessible<br/>HIGH RISK]:::danger
-    end
-
-    Q[Response]:::trust
+    Q{"Sharing + FLS<br/>enforced?"}:::gate
+    QY["✓ Response respects<br/>sharing &amp; FLS"]:::trust
+    QN["✗ Response bypasses<br/>sharing / FLS<br/>(silent leak risk)"]:::danger
 
     A --&gt; B
-    B -- yes --&gt; C
-    C -- no --&gt; CLASS --&gt; SOQL --&gt; DML --&gt; Q
-    C -- yes --&gt; P --&gt; Q
-    A -.flow path.-&gt; FLOW --&gt; Q
-    J --&gt; K --&gt; Q
-    J --&gt; L --&gt; Q
-    A -.flow path.-&gt; M
-    M --&gt; N --&gt; Q
-    M --&gt; O --&gt; Q
-    P --&gt; Q
+    B -- "Apex" --&gt; AC --&gt; AS --&gt; AD --&gt; Q
+    B -- "Flow" --&gt; FR --&gt; Q
+    Q -- "all ✓" --&gt; QY
+    Q -- "any ✗" --&gt; QN
   </pre>
+  <p style="font-size: 12px; color: var(--text-secondary); font-style: italic; margin-top: 8px;">
+    Reading the diagram: every Apex execution has three sequential keyword choices (class declaration &rarr; SOQL run-mode &rarr; DML run-mode); every Flow execution has one (run-context). At each choice point, the green option opts into the strong default; the red option bypasses sharing / FLS. The terminal gate asks <em>"did all upstream choices opt in?"</em> &mdash; a single red anywhere upstream produces the bypass response. <strong>One keyword choice changes the security model entirely.</strong>
+  </p>
   <h3>Subsection map</h3>
   <ul>
     <li><a href="#vi-apex-runmodes">6.1 Apex run modes &mdash; USER_MODE as the default</a></li>
@@ -4781,37 +4761,26 @@ flowchart LR
     decision. Sequence matters &mdash; it is in the diagram.
   </p>
   <pre class="mermaid">
+%%{init: {'flowchart': {'htmlLabels': true, 'nodeSpacing': 50, 'rankSpacing': 70, 'padding': 14}}}%%
 flowchart LR
     classDef tier fill:#9050E9,stroke:#9050E9,color:#FFF;
     classDef ctrl fill:#0070D2,stroke:#0070D2,color:#FFF;
-    classDef high fill:#C23934,stroke:#C23934,color:#FFF;
     classDef ops fill:#04844B,stroke:#04844B,color:#FFF;
 
-    A[1. Classify Data<br/>Public / Internal /<br/>Confidential / Restricted]:::tier
+    A["<b>1. Classify Data</b><br/>Public / Internal /<br/>Confidential / Restricted"]:::tier
+    B["<b>2. Encrypt at Rest</b><br/>TDE + Shield<br/>Platform Encryption"]:::ctrl
+    C["<b>3. Manage Keys</b><br/>BYOK / HSM /<br/>external KMS"]:::ctrl
+    D["<b>4. Field Audit Trail</b><br/>long-retention<br/>forensic record"]:::ctrl
+    E["<b>5. Detect Sensitive Data</b><br/>Einstein Data Detect<br/>(continuous discovery)"]:::tier
+    F["<b>6. Mask in Sandbox</b><br/>Data Mask<br/>(non-prod PII scrub)"]:::ops
+    G["<b>7. Backup &amp; Recovery</b><br/>isolated account,<br/>restore tests"]:::ops
+    H["<b>8. Retention &amp; Deletion</b><br/>lifecycle policy"]:::ops
 
-    subgraph PROTECT["DATA PROTECTION"]
-        direction TB
-        B[2. Encrypt at Rest<br/>TDE + Shield Encryption]:::ctrl
-        C[3. Manage Keys<br/>BYOK / HSM / external KMS]:::ctrl
-        D[4. Field Audit Trail<br/>long-retention forensics]:::ctrl
-    end
-
-    subgraph DISCOVER["DISCOVERY &amp; LIFECYCLE"]
-        direction TB
-        E[5. Detect Sensitive Data<br/>Einstein Data Detect]:::tier
-        H[8. Retention &amp; Deletion<br/>lifecycle policy]:::ops
-    end
-
-    subgraph OPS["OPERATIONAL CONTROLS"]
-        direction TB
-        F[6. Mask in Sandbox<br/>Data Mask]:::ops
-        G[7. Backup &amp; Recovery<br/>isolated account, restore tests]:::ops
-    end
-
-    A --&gt; PROTECT
-    A --&gt; DISCOVER
-    A --&gt; OPS
-    B --&gt; C
+    A --&gt; B --&gt; C --&gt; D
+    A --&gt; E
+    A --&gt; F
+    A --&gt; G
+    A --&gt; H
     E -.feeds back.-&gt; A
   </pre>
   <h3>Subsection map</h3>
@@ -5059,40 +5028,24 @@ flowchart LR
     needing distinct silent-compromise indicators.
   </p>
   <pre class="mermaid">
+%%{init: {'flowchart': {'htmlLabels': true, 'nodeSpacing': 50, 'rankSpacing': 70, 'padding': 14}}}%%
 flowchart LR
     classDef detect fill:#0070D2,stroke:#0070D2,color:#FFF;
     classDef triage fill:#9050E9,stroke:#9050E9,color:#FFF;
     classDef contain fill:#C23934,stroke:#C23934,color:#FFF;
     classDef recover fill:#04844B,stroke:#04844B,color:#FFF;
 
-    subgraph DETECT["DETECT (signals)"]
-        direction TB
-        S1[Posture: Health Check]:::detect
-        S2[Logs: Audit + Login History]:::detect
-        S3[Events: Real-Time EM]:::detect
-        S4[Anomaly: Threat Detection]:::detect
-        S5[AI silent-compromise<br/>indicators]:::detect
-    end
+    D["<b>DETECT</b><br/>Posture (Health Check) ·<br/>Logs (Audit + Login History) ·<br/>Events (Real-Time EM) ·<br/>Anomaly (Threat Detection) ·<br/>AI silent-compromise indicators"]:::detect
+    T["<b>TRIAGE</b><br/>signal &rarr; ticket"]:::triage
+    C["<b>CONTAIN (sub-15 min)</b><br/>Revoke OAuth tokens ·<br/>End user sessions · Freeze user ·<br/>Revoke Connected App ·<br/>Kill-switch feature flag"]:::contain
+    I["<b>IDENTIFY</b><br/>scope of compromise"]:::triage
+    E["<b>ERADICATE</b><br/>residual access"]:::triage
+    P["<b>PRESERVE</b><br/>evidence (chain of custody)"]:::recover
+    N["<b>NOTIFY</b><br/>stakeholders + regulator<br/>(see Appendix R)"]:::recover
+    R["<b>RECOVER</b><br/>service to known-good state"]:::recover
+    M["<b>POST-MORTEM</b><br/>tune detection +<br/>update runbooks"]:::recover
 
-    T[Triage<br/>signal -&gt; ticket]:::triage
-
-    subgraph CONTAIN["CONTAIN (sub-15-min)"]
-        direction TB
-        C1[Revoke OAuth tokens]:::contain
-        C2[End user sessions]:::contain
-        C3[Freeze user]:::contain
-        C4[Revoke Connected App]:::contain
-        C5[Kill-switch feature flag]:::contain
-    end
-
-    I[Identify scope]:::triage
-    E[Eradicate access]:::triage
-    P[Preserve evidence]:::recover
-    N[Notify stakeholders<br/>+ regulator]:::recover
-    R[Recover service]:::recover
-    M[Post-mortem<br/>+ tune detection]:::recover
-
-    DETECT --&gt; T --&gt; CONTAIN --&gt; I --&gt; E --&gt; P --&gt; N --&gt; R --&gt; M
+    D --&gt; T --&gt; C --&gt; I --&gt; E --&gt; P --&gt; N --&gt; R --&gt; M
   </pre>
   <h3>Subsection map</h3>
   <ul>
@@ -6675,6 +6628,16 @@ DIFF:
     <thead><tr><th>Version</th><th>Date</th><th>Change</th><th>Author</th></tr></thead>
     <tbody>
       <tr>
+        <td><strong>1.5.10</strong></td>
+        <td>2026-05-04</td>
+        <td><strong>Pillar 6 / 7 / 8 diagram rewrites &mdash; same readability fix applied to three more diagrams.</strong> Same root cause as v1.5.8 Pillar 2 + Pillar 3: bare <code>[label]</code> node syntax (instead of double-quoted <code>["label"]</code>) lets the HTML parser strip <code>&lt;br/&gt;</code> tags before Mermaid sees the text, producing concatenated jumbles like "Profileprofile-bound" / "RestTDE+Shield" / "Triagesignals&rarr;ticket" / "Killswitchfeatureflag." Subgraph nesting also compresses inner labels and causes parent-label overlap with children. Three diagrams rewritten:
+        (1) <strong>Pillar 6 Apex/LWC/Flow trust-boundary diagram</strong> &mdash; user flagged "M and J are ambiguous." Root cause was that <code>J</code> and <code>M</code> were referenced in edges (<code>J --&gt; K --&gt; Q</code>, <code>A -.flow path.-&gt; M</code>) but never defined as nodes with labels &mdash; Mermaid auto-rendered them as bare single-letter nodes. The diagram also had structural redundancy (the <code>FLOW</code> subgraph and the <code>M</code>-junction duplicated each other). Replaced with a clean two-branch flow: Request &rarr; Apex-or-Flow decision; Apex branch traces the three sequential keyword choices (class declaration &rarr; SOQL run-mode &rarr; DML run-mode), Flow branch the run-context choice; both converge at a "Sharing + FLS enforced?" gate that produces either a green "respects sharing &amp; FLS" terminal or a red "bypass / silent leak risk" terminal. Added an explanatory caption beneath the diagram.
+        (2) <strong>Pillar 7 Data classification &amp; control diagram</strong> &mdash; user reported jumbled text. Removed the three subgraphs (DATA PROTECTION / DISCOVERY &amp; LIFECYCLE / OPERATIONAL CONTROLS) that were compressing inner nodes and overlapping their parent labels. Flattened to 8 numbered steps fanning out from <strong>1. Classify Data</strong> as the central decision (steps 2&ndash;4 = Encrypt / Manage Keys / Field Audit Trail are sequential; steps 5&ndash;8 = Detect / Mask / Backup / Retention are parallel). Color coding (purple = tier discovery, blue = control, green = ops) preserved.
+        (3) <strong>Pillar 8 Detect-Respond-Recover diagram</strong> &mdash; same jumble symptoms. Removed DETECT / CONTAIN subgraphs; consolidated each phase into a single full-width labeled node with the inline component breakdown (e.g., DETECT node carries "Posture (Health Check) &middot; Logs (Audit + Login History) &middot; Events (Real-Time EM) &middot; Anomaly (Threat Detection) &middot; AI silent-compromise indicators" inline). Resulting flow is a clean linear 9-step IR loop: DETECT &rarr; TRIAGE &rarr; CONTAIN &rarr; IDENTIFY &rarr; ERADICATE &rarr; PRESERVE &rarr; NOTIFY &rarr; RECOVER &rarr; POST-MORTEM. Tagged each phase with its severity color.
+        All three diagrams now use the v1.5.8 Mermaid <code>init</code> directive (<code>htmlLabels: true</code>, 14&thinsp;px padding, 50&thinsp;px node spacing, 70&thinsp;px rank spacing) so labels render with proper line breaks and boxes have breathing room around their text.</td>
+        <td>Dr. Paul Coleman</td>
+      </tr>
+      <tr>
         <td><strong>1.5.9</strong></td>
         <td>2026-05-04</td>
         <td><strong>Checklists are now actually checkable + printable.</strong> User asked: "the checklist sections should be actual checklists &mdash; users might want to print them and check off items." Pivoted four checklist sections from prose-style bullet lists to interactive + printable forms.
@@ -7561,7 +7524,7 @@ SELECT UserId, LastUsedDate FROM OauthToken WHERE AppName = 'ISV_APP_NAME'</code
     });
     exportBtn.addEventListener('click', function() {
       var snapshot = {
-        framework: 'Salesforce CRM Security Hardening v1.5.9',
+        framework: 'Salesforce CRM Security Hardening v1.5.10',
         scored_at: new Date().toISOString(),
         scores: loadStored(),
         average: parseFloat(avgEl.textContent) || 0,
