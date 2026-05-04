@@ -28,7 +28,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Mythos Imperative &mdash; Salesforce CRM Security Hardening</title>
-<meta name="document-version" content="1.5.5">
+<meta name="document-version" content="1.5.6">
 <meta name="last-modified" content="2026-05-04">
 <meta name="source-snapshot" content="2026-05-04">
 <meta name="description" content="The Mythos Imperative: a vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars from Identity to Defensive AI; twenty-two appendices.">
@@ -38,7 +38,7 @@
 
 <!-- Open Graph / social-share metadata -->
 <meta property="og:type" content="article">
-<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.5">
+<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.6">
 <meta property="og:description" content="Vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars, 16+ appendices, fully attributed.">
 <meta property="og:url" content="https://drpaulcoleman.github.io/agentforce-mythos-hardening/">
 <meta property="og:site_name" content="Salesforce CRM Security Hardening">
@@ -49,7 +49,7 @@
 
 <!-- Twitter / X card metadata -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.5">
+<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.6">
 <meta name="twitter:description" content="Threat-informed Salesforce hardening reference. Ten pillars from Identity to Defensive AI, with a companion Salesforce DX reference implementation.">
 
 <!-- Errata / contributions -->
@@ -1592,7 +1592,7 @@ pre.mermaid g.node[onclick]:hover > path {
     </div>
     <div>
       <h1><span class="phase-tag">The Mythos Imperative</span><span class="phase-sep">&mdash;</span>Salesforce CRM Security Hardening</h1>
-      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.5 &middot; last modified 2026-05-04</span>
+      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.6 &middot; last modified 2026-05-04</span>
     </div>
   </div>
   <div class="doc-meta">
@@ -2007,7 +2007,7 @@ gantt
 
 <!-- TECH · Hero ---------------------------------------------------------- -->
 <div class="card hero" id="hero" data-search="hero overview salesforce crm security hardening defender encyclopedia frontier ai mythos">
-  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.5 &middot; last modified 2026-05-04</p>
+  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.6 &middot; last modified 2026-05-04</p>
   <h1>The <span class="accent">Mythos Imperative</span><br/><span style="font-size:24px; font-weight:700; opacity:0.92; display:block; margin-top:6px;">A Defender's Encyclopedia for the Frontier-AI Era</span></h1>
   <p class="lede" style="border-left: 3px solid var(--sf-orange); padding: 6px 0 6px 16px; margin-left: 0;">
     <strong style="color: var(--sf-orange); letter-spacing: 0.04em;">Why this exists, why now.</strong>
@@ -2817,7 +2817,7 @@ sequenceDiagram
       </tr>
       <tr>
         <td><strong>Custom <code>X-Sec-Token</code> headers on arbitrary API calls</strong></td>
-        <td>Salesforce REST/SOAP/Bulk APIs do not accept arbitrary auth headers as gates. To enforce a token-per-call layer, you must put a custom Apex REST service in front of every standard object, then permission users out of direct API access. Breaks Data Loader, sf CLI, MuleSoft, every ETL, and most middleware. Almost never the right answer.</td>
+        <td>Two problems, the second decisive. <strong>Mechanically</strong>, Salesforce REST/SOAP/Bulk APIs don't accept arbitrary auth-as-gate headers; to enforce a token-per-call layer you'd put a custom Apex REST service in front of every standard object and remove direct API access from users. <strong>Architecturally &mdash; the deal-breaker</strong>: an OAuth access token authenticates the bearer against <em>every</em> endpoint the underlying user is permissioned for. The standard <code>/services/data/vXX.X/sobjects/&hellip;</code> endpoints sit <em>side-by-side</em> with any custom Apex REST endpoint, not behind it. An attacker holding a stolen token (UNC6040, UNC6395) walks past the wrapper and queries <code>/sobjects/Account</code> directly with the same bearer; the wrapper layer is security theater. There is no stock primitive (OAuth scopes, Connected App policies, profile permissions) that makes a custom Apex REST endpoint the only valid path for a given token holder. The only architectural fix in this direction is <strong>token-issuance discipline + post-issuance detection</strong> &mdash; refresh-token rotation, Block Uninstalled Connected Apps, admin pre-approval, integration-user IP allowlist (<a href="#pillar-iv" class="pillar-link">Pillar 4</a>), and TxSec on <code>ApiEvent</code> / <code>BulkApiResultEvent</code> / <code>ApiAnomalyEvent</code> (<a href="#pillar-viii" class="pillar-link">Pillar 8</a>). Endpoint wrapping does not add real security on top of these.</td>
       </tr>
       <tr>
         <td><strong>Layered FIDO2 + TOTP in a single challenge</strong></td>
@@ -2927,43 +2927,21 @@ sequenceDiagram
     organization defaults all the way to the Apex query that returns (or doesn't return) the row.
   </p>
   <pre class="mermaid">
-flowchart LR
-    classDef gate fill:#0070D2,stroke:#0070D2,color:#FFF;
-    classDef narrow fill:#C23934,stroke:#C23934,color:#FFF;
-    classDef widen fill:#04844B,stroke:#04844B,color:#FFF;
-    classDef enforce fill:#9050E9,stroke:#9050E9,color:#FFF;
-    classDef result fill:#16325C,stroke:#0070D2,color:#FFF;
+flowchart TB
+    classDef gate fill:#0070D2,stroke:#0070D2,color:#FFF,font-size:13px;
+    classDef narrow fill:#C23934,stroke:#C23934,color:#FFF,font-size:13px;
+    classDef widen fill:#04844B,stroke:#04844B,color:#FFF,font-size:13px;
+    classDef enforce fill:#9050E9,stroke:#9050E9,color:#FFF,font-size:13px;
+    classDef result fill:#16325C,stroke:#0070D2,color:#FFF,font-size:13px;
 
-    subgraph FOUND["FOUNDATION"]
-        direction TB
-        A[Org-Wide Defaults<br/>Private = foundation]:::gate
-    end
+    A["<b>1 &middot; FOUNDATION &mdash; Org-Wide Defaults</b><br/>Private as the maximum default access. Every layer below can only widen or narrow within this floor."]:::gate
+    B["<b>2 &middot; WIDENING LAYERS &mdash; each can only ADD access</b><br/>Role / Territory Hierarchy &nbsp;&middot;&nbsp; Sharing Rules (owner + criteria) &nbsp;&middot;&nbsp; Manual + Implicit Sharing &nbsp;&middot;&nbsp; Apex Managed Sharing"]:::widen
+    C["<b>3 &middot; NARROW &mdash; Restriction Rules</b><br/>The only layer that can REMOVE access for a given query."]:::narrow
+    D["<b>4 &middot; PER-OBJECT / PER-FIELD GATES</b><br/>Object &amp; Field Permissions via Permission Set Group &nbsp;&middot;&nbsp; Field-Level Security"]:::gate
+    E["<b>5 &middot; APEX RUN-MODE ENFORCEMENT</b><br/>USER_MODE &nbsp;&middot;&nbsp; WITH SECURITY_ENFORCED &nbsp;&middot;&nbsp; with sharing"]:::enforce
+    J{"Record visible<br/>to the user?"}:::result
 
-    subgraph WIDEN["WIDENING LAYERS (each can only ADD access)"]
-        direction TB
-        B[Role / Territory<br/>Hierarchy]:::widen
-        C[Sharing Rules<br/>owner &amp; criteria-based]:::widen
-        D[Manual + Implicit<br/>Sharing]:::widen
-        E[Apex Managed<br/>Sharing]:::widen
-    end
-
-    subgraph NARROW["NARROW"]
-        F[Restriction Rules<br/>can REMOVE access]:::narrow
-    end
-
-    subgraph GATES["PER-OBJECT / PER-FIELD GATES"]
-        direction TB
-        G[Object &amp; Field<br/>Permissions via PSG]:::gate
-        H[Field-Level<br/>Security]:::gate
-    end
-
-    subgraph ENFORCE["APEX RUN-MODE"]
-        I[USER_MODE /<br/>SECURITY_ENFORCED /<br/>with sharing]:::enforce
-    end
-
-    J{Record<br/>visible?}:::result
-
-    FOUND --&gt; WIDEN --&gt; NARROW --&gt; GATES --&gt; ENFORCE --&gt; J
+    A --&gt; B --&gt; C --&gt; D --&gt; E --&gt; J
   </pre>
   <h3>Subsection map</h3>
   <ul>
@@ -6541,6 +6519,14 @@ DIFF:
     <thead><tr><th>Version</th><th>Date</th><th>Change</th><th>Author</th></tr></thead>
     <tbody>
       <tr>
+        <td><strong>1.5.6</strong></td>
+        <td>2026-05-04</td>
+        <td><strong>Pillar 1.8 X-Sec-Token row sharpened + Permission Waterfall diagram redrawn.</strong>
+        (1) User flagged that the v1.5.5 explanation of why custom <code>X-Sec-Token</code> headers don't work on Salesforce was incomplete. The original text said "you'd put a custom Apex REST service in front of every standard object and permission users out of direct API access &mdash; breaks Data Loader / sf CLI / MuleSoft / every ETL." Mechanically true but missed the bigger architectural issue: <strong>an OAuth access token authenticates the bearer against every endpoint the underlying user is permissioned for.</strong> Standard <code>/services/data/vXX.X/sobjects/&hellip;</code> endpoints sit <em>side-by-side</em> with any custom Apex REST endpoint, not <em>behind</em> it. An attacker holding a stolen token (UNC6040, UNC6395) walks past the wrapper and queries <code>/sobjects/Account</code> directly with the same bearer. The wrapper layer is security theater. There is no stock primitive (OAuth scopes, Connected App policies, profile permissions) that makes a custom Apex REST endpoint the only valid path for a given token holder. Updated the row to lead with the architectural reality and to redirect readers to the actual fix surface: token-issuance discipline (Pillar 4 &mdash; Block Uninstalled Connected Apps, refresh-token rotation, admin pre-approval, integration-user IP allowlist) plus post-issuance detection (Pillar 8 &mdash; TxSec on <code>ApiEvent</code>, <code>BulkApiResultEvent</code>, <code>ApiAnomalyEvent</code>).
+        (2) <strong>Pillar 2 Permission Waterfall diagram redrawn</strong> &mdash; user reported labels were cramped and horizontal whitespace was wasted. Restructured from a 5-subgraph LR layout (where 4 widening-layer nodes crammed side-by-side made each box too narrow for its multi-line label) to a 6-step TB (top-to-bottom) waterfall where each row is a single full-width node carrying its component breakdown inline. Each step now has room to breathe: foundation (OWD), widening layers (Role/Territory Hierarchy &middot; Sharing Rules &middot; Manual+Implicit &middot; Apex Managed), narrow (Restriction Rules), per-object/field gates (Object &amp; Field Permissions via PSG &middot; Field-Level Security), Apex run-mode (USER_MODE / SECURITY_ENFORCED / with sharing), and the final "record visible to the user?" decision. Class colors and severity coding preserved.</td>
+        <td>Dr. Paul Coleman</td>
+      </tr>
+      <tr>
         <td><strong>1.5.5</strong></td>
         <td>2026-05-04</td>
         <td><strong>Pillar 1.8 honesty pass &mdash; stock Salesforce vs. bespoke.</strong> User flagged that the original "Tier-Based Action Classification (Belt-and-Suspenders)" framing read as if borrowed from internal-runtime operator-security practice and made claims that don't actually map to stock Salesforce CRM (typed confirmation phrases as global gates, custom <code>X-Sec-Token</code> headers on arbitrary API calls, simultaneous FIDO2&nbsp;+&nbsp;TOTP factor combination). Rewrote the entire card around the honest engineering question: <em>which tier behaviors are achievable with stock platform primitives, and which require bespoke build that re-implements platform features (generally a poor ROI)?</em>
@@ -7387,7 +7373,7 @@ SELECT UserId, LastUsedDate FROM OauthToken WHERE AppName = 'ISV_APP_NAME'</code
     });
     exportBtn.addEventListener('click', function() {
       var snapshot = {
-        framework: 'Salesforce CRM Security Hardening v1.5.5',
+        framework: 'Salesforce CRM Security Hardening v1.5.6',
         scored_at: new Date().toISOString(),
         scores: loadStored(),
         average: parseFloat(avgEl.textContent) || 0,
