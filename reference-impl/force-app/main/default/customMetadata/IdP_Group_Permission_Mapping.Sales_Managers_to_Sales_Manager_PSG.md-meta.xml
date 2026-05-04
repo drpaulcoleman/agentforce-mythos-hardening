@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Seed row: maps the IdP group "Sales-Managers" to the Sales_Manager PSG.
+    Customers should add their own rows post-deployment. This row is illustrative.
+-->
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>Sales-Managers -&gt; Sales_Manager</label>
+    <protected>false</protected>
+    <values>
+        <field>PermissionSetGroup__c</field>
+        <value xsi:type="xsd:string" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">Sales_Manager</value>
+    </values>
+    <values>
+        <field>Active__c</field>
+        <value xsi:type="xsd:boolean" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">true</value>
+    </values>
+</CustomMetadata>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    IdP_Group_Permission_Mapping__mdt
+    Pillar I.6 -- the mapping table consumed by AcmeSamlJitHandler.
+    Each row maps an IdP group name (DeveloperName) to a Permission Set Group
+    DeveloperName. Updates to this table are themselves a deployment gate
+    (Pillar IX), preventing in-flight privilege escalation via the JIT
+    pathway.
+-->
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>IdP Group Permission Mapping</label>
+    <pluralLabel>IdP Group Permission Mappings</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

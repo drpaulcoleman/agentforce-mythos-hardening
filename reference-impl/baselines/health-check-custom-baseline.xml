@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Health Check Custom Baseline -- Salesforce CRM Security Hardening
+  Pillar VIII.1 in the whitepaper.
+
+  Upload via Setup -> Health Check -> Import Custom Baseline.
+
+  This baseline is illustrative. Salesforce evolves the supported security
+  setting names and value enumerations across releases; export the current
+  Salesforce Baseline Standard from your org first, then merge in the
+  hardening overrides below. See the in-line comments for the rationale
+  behind each non-default value.
+
+  NOT official Salesforce documentation. (c) 2026 Dr. Paul Coleman.
+-->
+<HealthCheckRiskCalculator xmlns="http://soap.sforce.com/2006/04/metadata">
+    <baselineName>Salesforce CRM Hardening Baseline (v1.4.0)</baselineName>
+
+    <!-- ============================================================
+         PASSWORD POLICIES -- High-Risk tier
+         ============================================================ -->
+    <riskGroup name="Password Policies" tier="High-Risk">
+        <setting>
+            <key>passwordHistory</key>
+            <value>10</value>
+            <rationale>Prevents trivial password reuse. The Salesforce Baseline default is 3; the hardening recommendation is 10 or more.</rationale>
+        </setting>
+        <setting>
+            <key>minimumPasswordLength</key>
+            <value>15</value>
+            <rationale>NIST 800-63 Memorized Secret guidance favors length over composition. 15 chars resists offline cracking on consumer hardware while remaining usable.</rationale>
+        </setting>
+        <setting>
+            <key>passwordComplexity</key>
+            <value>4</value>
+            <rationale>Mixed-case + numeric + alpha + special. Complexity is required by some compliance frameworks regardless of NIST guidance; setting to highest tier accommodates them without weakening security.</rationale>
+        </setting>
+        <setting>
+            <key>maxLoginAttempts</key>
+            <value>3</value>
+            <rationale>Tightens lockout to slow credential-stuffing.</rationale>
+        </setting>
+        <setting>
+            <key>lockoutInterval</key>
+            <value>30</value>
+            <rationale>30-minute lockout adds enough friction to defeat automated brute-force.</rationale>
+        </setting>
+        <setting>
+            <key>passwordExpiration</key>
+            <value>90</value>
+            <rationale>Per NIST 800-63 modern guidance, password rotation is OPTIONAL when MFA is enforced. This row is set to 90 days as a defensive default for orgs that have not yet enforced FIDO2 across all admin surfaces. Orgs with full FIDO2 coverage may justify "Never" as a deliberate policy.</rationale>
+        </setting>
+    </riskGroup>
+
+    <!-- ============================================================
+         SESSION SECURITY -- High-Risk tier
+         ============================================================ -->
+    <riskGroup name="Session Security" tier="High-Risk">
+        <setting>
+            <key>sessionTimeout</key>
+            <value>2h</value>
+            <rationale>2 hours is the upper bound for admin-grade sessions. Reduce further for high-sensitivity profiles.</rationale>
+        </setting>
+        <setting>
+            <key>lockSessionsToIp</key>
+            <value>true</value>
+            <rationale>Prevents session-cookie theft from being usable from an attacker's IP.</rationale>
+        </setting>
+        <setting>
+            <key>requireSecureSessions</key>
+            <value>true</value>
+            <rationale>HTTPS-only sessions; never allow downgrade to HTTP.</rationale>
+        </setting>
+        <setting>
+            <key>highAssuranceForReports</key>
+            <value>true</value>
+            <rationale>Step up to High Assurance before report runs that touch sensitive objects.</rationale>
+        </setting>
+        <setting>
+            <key>identityVerificationRequired</key>
+            <value>true</value>
+            <rationale>Identity Verification on every new device / IP-out-of-trust-range.</rationale>
+        </setting>
+    </riskGroup>
+
+    <!-- ============================================================
+         MULTI-FACTOR AUTHENTICATION -- High-Risk tier
+         ============================================================ -->
+    <riskGroup name="MFA" tier="High-Risk">
+        <setting>
+            <key>mfaForUiLogins</key>
+            <value>true</value>
+            <rationale>Salesforce contractual requirement since Feb 2022. Enforce at the org level.</rationale>
+        </setting>
+        <setting>
+            <key>mfaForAdmins</key>
+            <value>FIDO2</value>
+            <rationale>Hardware-key-only for System Admin and any profile carrying View All / Modify All. Push and SMS do not survive vishing.</rationale>
+        </setting>
+        <setting>
+            <key>blockUninstalledConnectedApps</key>
+            <value>true</value>
+            <rationale>The single highest-leverage 2025-vintage hardening setting. Blocks the UNC6040 vishing pivot.</rationale>
+        </setting>
+    </riskGroup>
+
+    <!-- ============================================================
+         OAUTH / CONNECTED APP DEFAULTS -- Medium-Risk tier
+         ============================================================ -->
+    <riskGroup name="OAuth Defaults" tier="Medium-Risk">
+        <setting>
+            <key>blockUserAgentFlow</key>
+            <value>true</value>
+            <rationale>Implicit flow is deprecated; block at org level.</rationale>
+        </setting>
+        <setting>
+            <key>blockUsernamePasswordFlow</key>
+            <value>true</value>
+            <rationale>ROPC flow leaks credentials to client; block at org level.</rationale>
+        </setting>
+        <setting>
+            <key>refreshTokenRotation</key>
+            <value>true</value>
+            <rationale>Reduces the value of any one stolen refresh token to a single use.</rationale>
+        </setting>
+    </riskGroup>
+
+    <!-- ============================================================
+         CERTIFICATE MANAGEMENT -- Medium-Risk tier
+         ============================================================ -->
+    <riskGroup name="Certificate Management" tier="Medium-Risk">
+        <setting>
+            <key>certRotationOwner</key>
+            <value>required</value>
+            <rationale>Per CA/B Forum SC-081v3, max public TLS lifespan drops to 200 days on Mar 15 2026 and 47 days by Mar 15 2029. Rotation is now an operational discipline, not an annual chore.</rationale>
+        </setting>
+    </riskGroup>
+</HealthCheckRiskCalculator>

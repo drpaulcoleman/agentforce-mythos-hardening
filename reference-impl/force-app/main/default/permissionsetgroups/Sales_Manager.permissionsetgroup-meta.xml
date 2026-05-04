@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Sales_Manager (PSG)
+    Pillar II.2 / App. E -- composes the three Permission Sets that together model
+    the Sales Manager role:
+        Base_Sales_User  + Manager_Scope  + Quote_Creator
+    This is the "after" half of the profile-to-PSG migration shape demonstrated in
+    Pillar II.2's XML diff.
+
+    Production note: in many orgs, "Sales Manager" also needs muted permissions
+    (e.g., explicitly mute ModifyAllData if it's accidentally inherited). Add a
+    mutingPermissionSets reference in that case.
+-->
+<PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Sales Manager: Base_Sales_User + Manager_Scope + Quote_Creator. The composable replacement for the legacy SalesManager profile.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Sales Manager</label>
+    <permissionSets>Base_Sales_User</permissionSets>
+    <permissionSets>Manager_Scope</permissionSets>
+    <permissionSets>Quote_Creator</permissionSets>
+    <status>Updated</status>
+</PermissionSetGroup>

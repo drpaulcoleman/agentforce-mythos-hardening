@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    BlockHighVolumeBulkApi (Transaction Security Policy)
+    Pillar VIII.5 / App. D.1 -- binds the BlockHighVolumeBulkApi Apex class
+    to the BulkApiEvent stream. Action: Block.
+
+    NOT official Salesforce documentation. The TransactionSecurityPolicy
+    metadata schema (action enum, eventType naming) varies by API version;
+    validate against the current Real-Time Event Monitoring docs.
+-->
+<TransactionSecurityPolicy xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>false</active>
+    <apexClass>BlockHighVolumeBulkApi</apexClass>
+    <description>Block Bulk API exports greater than 5,000 rows from non-trusted CIDR. Tune ROW_THRESHOLD and TRUSTED_CIDRS in BlockHighVolumeBulkApi before activating in production.</description>
+    <eventName>BulkApiEvent</eventName>
+    <eventType>BulkApi</eventType>
+    <executionUser>SfsAutomatedProcess</executionUser>
+    <masterLabel>Block High Volume Bulk API</masterLabel>
+    <resourceName>BulkApiEvent</resourceName>
+    <type>Transaction</type>
+</TransactionSecurityPolicy>

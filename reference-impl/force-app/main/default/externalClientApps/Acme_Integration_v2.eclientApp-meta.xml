@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Acme_Integration_v2 (External Client App)
+    Pillar IV.1 -- the post Spring '26 replacement shape for the legacy
+    Acme_Integration ConnectedApp above. ECAs decompose policy from registration:
+    the ExtlClntAppOauthPolicy and ExtlClntAppOauthSettings live as separate
+    metadata types and are deployed independently.
+
+    This skeleton is illustrative. Schemas for External Client App metadata
+    types continue to evolve; verify against the current Metadata API
+    Developer Guide. The ExternalClientApplication folder layout typically
+    contains:
+        externalClientApps/<Name>.eclientApp-meta.xml          (this file)
+        extlClntAppOauthSettings/<Name>.extlClntAppOauthSettings-meta.xml
+        extlClntAppOauthConfigurablePolicies/<Name>.extlClntAppOauthConfigurablePolicies-meta.xml
+        extlClntAppGlobalOauthSettings/<Name>.extlClntAppGlobalOauthSettings-meta.xml
+-->
+<ExternalClientApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <contactEmail>security@acme.example.com</contactEmail>
+    <description>External Client App replacement for the legacy Acme_Integration ConnectedApp. Carries the hardened OAuth policy via separate ExtlClntAppOauthSettings + ExtlClntAppOauthConfigurablePolicies metadata that you deploy alongside this registration.</description>
+    <distributionState>Local</distributionState>
+    <isProtected>false</isProtected>
+    <label>Acme Integration v2</label>
+</ExternalClientApplication>

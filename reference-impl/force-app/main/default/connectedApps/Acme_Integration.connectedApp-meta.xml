@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Acme_Integration (Connected App, hardened)
+    Pillar IV / App. C.1 -- demonstrates the hardened OAuth-policy shape for a
+    server-to-server integration. NEW integrations after Spring '26 should be
+    expressed as External Client Apps (see Acme_Integration_v2.eclientApp); this
+    file is retained as the "before" half of the migration shape and as a
+    reference for orgs that still maintain legacy Connected Apps.
+
+    NOT official Salesforce documentation. ConnectedApp metadata schema element
+    names and acceptable enum values evolve across API versions; validate
+    against the current Metadata API Developer Guide before deploying.
+-->
+<ConnectedApp xmlns="http://soap.sforce.com/2006/04/metadata">
+    <contactEmail>security@acme.example.com</contactEmail>
+    <contactPhone>+1-555-0100</contactPhone>
+    <description>Hardened OAuth Connected App for the Acme Treasury integration. Refresh-token rotation, admin pre-authorization, IP restriction, High Assurance session required.</description>
+    <label>Acme Integration</label>
+    <oauthConfig>
+        <callbackUrl>https://acme.example.com/oauth/callback</callbackUrl>
+        <isAdminApproved>true</isAdminApproved>
+        <isConsumerSecretOptional>false</isConsumerSecretOptional>
+        <isIntrospectAllTokens>false</isIntrospectAllTokens>
+        <isSecretRequiredForRefreshToken>true</isSecretRequiredForRefreshToken>
+        <scopes>Api</scopes>
+        <scopes>RefreshToken</scopes>
+    </oauthConfig>
+    <permissionSetName>Base_Sales_User</permissionSetName>
+</ConnectedApp>
