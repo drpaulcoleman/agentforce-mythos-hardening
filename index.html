@@ -28,7 +28,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Mythos Imperative &mdash; Salesforce CRM Security Hardening</title>
-<meta name="document-version" content="1.5.14">
+<meta name="document-version" content="1.5.15">
 <meta name="last-modified" content="2026-05-04">
 <meta name="source-snapshot" content="2026-05-04">
 <meta name="description" content="The Mythos Imperative: a vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars from Identity to Defensive AI; twenty-two appendices.">
@@ -38,7 +38,7 @@
 
 <!-- Open Graph / social-share metadata -->
 <meta property="og:type" content="article">
-<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.14">
+<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.15">
 <meta property="og:description" content="Vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars, 16+ appendices, fully attributed.">
 <meta property="og:url" content="https://drpaulcoleman.github.io/agentforce-mythos-hardening/">
 <meta property="og:site_name" content="Salesforce CRM Security Hardening">
@@ -49,7 +49,7 @@
 
 <!-- Twitter / X card metadata -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.14">
+<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.15">
 <meta name="twitter:description" content="Threat-informed Salesforce hardening reference. Ten pillars from Identity to Defensive AI, with a companion Salesforce DX reference implementation.">
 
 <!-- Errata / contributions -->
@@ -1714,7 +1714,7 @@ pre.mermaid g.node[onclick]:hover > path {
     </div>
     <div>
       <h1><span class="phase-tag">The Mythos Imperative</span><span class="phase-sep">&mdash;</span>Salesforce CRM Security Hardening</h1>
-      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.14 &middot; last modified 2026-05-04</span>
+      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.15 &middot; last modified 2026-05-04</span>
     </div>
   </div>
   <div class="doc-meta">
@@ -2129,7 +2129,7 @@ gantt
 
 <!-- TECH · Hero ---------------------------------------------------------- -->
 <div class="card hero" id="hero" data-search="hero overview salesforce crm security hardening defender encyclopedia frontier ai mythos">
-  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.14 &middot; last modified 2026-05-04</p>
+  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.15 &middot; last modified 2026-05-04</p>
   <h1>The <span class="accent">Mythos Imperative</span><br/><span style="font-size:24px; font-weight:700; opacity:0.92; display:block; margin-top:6px;">A Defender's Encyclopedia for the Frontier-AI Era</span></h1>
   <p class="lede" style="border-left: 3px solid var(--sf-orange); padding: 6px 0 6px 16px; margin-left: 0;">
     <strong style="color: var(--sf-orange); letter-spacing: 0.04em;">Why this exists, why now.</strong>
@@ -5031,7 +5031,7 @@ flowchart LR
   <h2>Pillar 8 &middot; Detection, Response &amp; Observability</h2>
   <div class="pillar-tldr">
     <strong>TL;DR &middot; Pillar 8</strong>
-    You cannot respond to what you cannot see. Health Check + Threat Detection are free baselines; Real-Time Event Monitoring + Transaction Security are paid uplifts that turn detection into real-time enforcement. <span class="one-action">Today's single highest-leverage action: stream Real-Time EM events to your SIEM (or batch-export ELFs daily if no Shield); deploy the top-five Transaction Security policies (Bulk export, off-hours admin, mass record update, new-device login, Setup off-hours).</span>
+    You cannot respond to what you cannot see. Health Check + Threat Detection are free baselines; Real-Time Event Monitoring + Transaction Security are paid uplifts that turn detection into real-time enforcement. <span class="one-action">Today's single highest-leverage action: stream Real-Time EM events to your SIEM via the Pub/Sub API (or fall back to a daily Event Log File / ELF batch pull while the streaming pipeline is being built &mdash; both delivery modes require the Event Monitoring license, bundled in Shield or sold standalone); deploy the top-five Transaction Security policies (Bulk export, off-hours admin, mass record update, new-device login, Setup off-hours).</span>
   </div>
   <p>
     Detection lives on a spectrum: from posture (Health Check), to logs (Setup Audit Trail, Login
@@ -6738,12 +6738,13 @@ AND LoginGeoId NOT IN (SELECT LoginGeoId FROM LoginEvent
      ════════════════════════════════════════════════════════════════════════ -->
 <div class="card" id="appendix-j" data-search="appendix j siem streaming architecture splunk sentinel chronicle elastic new relic event log file pub sub api etl lambda">
   <h2>Appendix J &middot; SIEM Streaming Architecture</h2>
+  <p style="font-size: 13px; color: var(--text-secondary); border-left: 3px solid var(--sf-orange); padding: 8px 14px; margin: 8px 0 14px 0;">
+    <strong>License prerequisite.</strong> Both ingestion patterns below require the Salesforce <strong>Event Monitoring</strong> license &mdash; available bundled inside <strong>Salesforce Shield</strong> or as a standalone add-on. Without Event Monitoring, neither Real-Time EM streaming nor ELF batch download is exposed; the free baseline gives you only Setup Audit Trail + Login History + Threat Detection (covered in Pillars 8.2 and 8.4).
+  </p>
   <h3>Two ingestion patterns</h3>
   <ol>
-    <li><strong>Pub/Sub API streaming</strong> (preferred) &mdash; gRPC subscriber on a side-of-platform host or
-    Lambda; near-real-time delivery; integrates with most SIEMs via shipper</li>
-    <li><strong>Event Log File (ELF) batch download</strong> &mdash; download daily ELFs via REST; ingest as
-    JSON/CSV; lower fidelity than Pub/Sub but simpler</li>
+    <li><strong>Pub/Sub API streaming</strong> (preferred) &mdash; gRPC subscriber on a side-of-platform host or Lambda; near-real-time delivery; integrates with most SIEMs via shipper.</li>
+    <li><strong>Event Log File (ELF) batch download</strong> &mdash; pull daily ELFs via REST and ingest as JSON/CSV. Lower fidelity than Pub/Sub but simpler. Useful as a transitional path while the gRPC subscriber is being built, or as a redundant secondary ingestion lane.</li>
   </ol>
   <h3>Reference architecture</h3>
   <pre class="mermaid">
@@ -6908,7 +6909,7 @@ DIFF:
       <tr><td class="ck-col"><input type="checkbox" id="ck-o-3-month-1-40-hours-mid-7" class="ck"></td><td>7</td><td>Custom Login Flow drafted for System Admin profile (step-up High Assurance for Setup access)</td><td><a href="#i-login-flow">1.4</a> &middot; <a href="#appendix-b">Appendix B</a></td></tr>
       <tr><td class="ck-col"><input type="checkbox" id="ck-o-3-month-1-40-hours-mid-8" class="ck"></td><td>8</td><td>Browser extension allowlist deployed via Chrome / Edge / Safari MDM</td><td><a href="#iv-browser-extensions">4.8</a></td></tr>
       <tr><td class="ck-col"><input type="checkbox" id="ck-o-3-month-1-40-hours-mid-9" class="ck"></td><td>9</td><td>Setup Audit Trail + Login History nightly export to retention store</td><td><a href="#viii-audit-login">8.2</a></td></tr>
-      <tr><td class="ck-col"><input type="checkbox" id="ck-o-3-month-1-40-hours-mid-10" class="ck"></td><td>10</td><td>Real-Time Event Monitoring &rarr; SIEM streaming (or ELF batch if no Shield)</td><td><a href="#viii-real-time-em">8.3</a> &middot; <a href="#appendix-j">Appendix J</a></td></tr>
+      <tr><td class="ck-col"><input type="checkbox" id="ck-o-3-month-1-40-hours-mid-10" class="ck"></td><td>10</td><td>Real-Time Event Monitoring &rarr; SIEM streaming via Pub/Sub API; or fall back to daily Event Log File (ELF) batch pull while the streaming pipeline is being built. <em>Both modes require the Event Monitoring license &mdash; bundled in Shield or sold standalone. If Event Monitoring is not licensed, fall back to Setup Audit Trail nightly export (free, covered in row 9).</em></td><td><a href="#viii-real-time-em">8.3</a> &middot; <a href="#appendix-j">Appendix J</a></td></tr>
       <tr><td class="ck-col"><input type="checkbox" id="ck-o-3-month-1-40-hours-mid-11" class="ck"></td><td>11</td><td>Top-5 Transaction Security policies deployed (Bulk export, off-hours admin, mass record update, new-device login, Setup off-hours)</td><td><a href="#viii-transaction-security">8.5</a> &middot; <a href="#appendix-e">Appendix E</a></td></tr>
       <tr><td class="ck-col"><input type="checkbox" id="ck-o-3-month-1-40-hours-mid-12" class="ck"></td><td>12</td><td>Restore-test drill on a sample object from backup</td><td><a href="#vii-backup">7.6</a></td></tr>
       <tr><td class="ck-col"><input type="checkbox" id="ck-o-3-month-1-40-hours-mid-13" class="ck"></td><td>13</td><td>IRP tabletop walkthrough with on-call team (1 vishing + 1 OAuth-abuse scenario)</td><td><a href="#viii-irp">8.6</a></td></tr>
@@ -7331,7 +7332,7 @@ DIFF:
     });
     exportBtn.addEventListener('click', function() {
       var snapshot = {
-        framework: 'Salesforce CRM Security Hardening v1.5.14',
+        framework: 'Salesforce CRM Security Hardening v1.5.15',
         scored_at: new Date().toISOString(),
         scores: loadStored(),
         average: parseFloat(avgEl.textContent) || 0,
