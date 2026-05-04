@@ -28,7 +28,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Mythos Imperative &mdash; Salesforce CRM Security Hardening</title>
-<meta name="document-version" content="1.5.7">
+<meta name="document-version" content="1.5.8">
 <meta name="last-modified" content="2026-05-04">
 <meta name="source-snapshot" content="2026-05-04">
 <meta name="description" content="The Mythos Imperative: a vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars from Identity to Defensive AI; twenty-two appendices.">
@@ -38,7 +38,7 @@
 
 <!-- Open Graph / social-share metadata -->
 <meta property="og:type" content="article">
-<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.7">
+<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.8">
 <meta property="og:description" content="Vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars, 16+ appendices, fully attributed.">
 <meta property="og:url" content="https://drpaulcoleman.github.io/agentforce-mythos-hardening/">
 <meta property="og:site_name" content="Salesforce CRM Security Hardening">
@@ -49,7 +49,7 @@
 
 <!-- Twitter / X card metadata -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.7">
+<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.8">
 <meta name="twitter:description" content="Threat-informed Salesforce hardening reference. Ten pillars from Identity to Defensive AI, with a companion Salesforce DX reference implementation.">
 
 <!-- Errata / contributions -->
@@ -1592,7 +1592,7 @@ pre.mermaid g.node[onclick]:hover > path {
     </div>
     <div>
       <h1><span class="phase-tag">The Mythos Imperative</span><span class="phase-sep">&mdash;</span>Salesforce CRM Security Hardening</h1>
-      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.7 &middot; last modified 2026-05-04</span>
+      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.8 &middot; last modified 2026-05-04</span>
     </div>
   </div>
   <div class="doc-meta">
@@ -2007,7 +2007,7 @@ gantt
 
 <!-- TECH · Hero ---------------------------------------------------------- -->
 <div class="card hero" id="hero" data-search="hero overview salesforce crm security hardening defender encyclopedia frontier ai mythos">
-  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.7 &middot; last modified 2026-05-04</p>
+  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.8 &middot; last modified 2026-05-04</p>
   <h1>The <span class="accent">Mythos Imperative</span><br/><span style="font-size:24px; font-weight:700; opacity:0.92; display:block; margin-top:6px;">A Defender's Encyclopedia for the Frontier-AI Era</span></h1>
   <p class="lede" style="border-left: 3px solid var(--sf-orange); padding: 6px 0 6px 16px; margin-left: 0;">
     <strong style="color: var(--sf-orange); letter-spacing: 0.04em;">Why this exists, why now.</strong>
@@ -2927,19 +2927,20 @@ sequenceDiagram
     organization defaults all the way to the Apex query that returns (or doesn't return) the row.
   </p>
   <pre class="mermaid">
-flowchart TB
-    classDef gate fill:#0070D2,stroke:#0070D2,color:#FFF,font-size:13px;
-    classDef narrow fill:#C23934,stroke:#C23934,color:#FFF,font-size:13px;
-    classDef widen fill:#04844B,stroke:#04844B,color:#FFF,font-size:13px;
-    classDef enforce fill:#9050E9,stroke:#9050E9,color:#FFF,font-size:13px;
-    classDef result fill:#16325C,stroke:#0070D2,color:#FFF,font-size:13px;
+%%{init: {'flowchart': {'htmlLabels': true, 'nodeSpacing': 50, 'rankSpacing': 70, 'padding': 14}}}%%
+flowchart LR
+    classDef gate fill:#0070D2,stroke:#0070D2,color:#FFF;
+    classDef narrow fill:#C23934,stroke:#C23934,color:#FFF;
+    classDef widen fill:#04844B,stroke:#04844B,color:#FFF;
+    classDef enforce fill:#9050E9,stroke:#9050E9,color:#FFF;
+    classDef result fill:#16325C,stroke:#0070D2,color:#FFF;
 
-    A["<b>1 &middot; FOUNDATION &mdash; Org-Wide Defaults</b><br/>Private as the maximum default access. Every layer below can only widen or narrow within this floor."]:::gate
-    B["<b>2 &middot; WIDENING LAYERS &mdash; each can only ADD access</b><br/>Role / Territory Hierarchy &nbsp;&middot;&nbsp; Sharing Rules (owner + criteria) &nbsp;&middot;&nbsp; Manual + Implicit Sharing &nbsp;&middot;&nbsp; Apex Managed Sharing"]:::widen
-    C["<b>3 &middot; NARROW &mdash; Restriction Rules</b><br/>The only layer that can REMOVE access for a given query."]:::narrow
-    D["<b>4 &middot; PER-OBJECT / PER-FIELD GATES</b><br/>Object &amp; Field Permissions via Permission Set Group &nbsp;&middot;&nbsp; Field-Level Security"]:::gate
-    E["<b>5 &middot; APEX RUN-MODE ENFORCEMENT</b><br/>USER_MODE &nbsp;&middot;&nbsp; WITH SECURITY_ENFORCED &nbsp;&middot;&nbsp; with sharing"]:::enforce
-    J{"Record visible<br/>to the user?"}:::result
+    A["1 &middot; FOUNDATION<br/>Org-Wide Defaults<br/>(Private)"]:::gate
+    B["2 &middot; WIDENING<br/>Hierarchy &middot; Sharing Rules<br/>Manual &middot; Apex Managed"]:::widen
+    C["3 &middot; NARROW<br/>Restriction Rules<br/>(can REMOVE access)"]:::narrow
+    D["4 &middot; OBJECT / FIELD GATES<br/>Permissions via PSG<br/>Field-Level Security"]:::gate
+    E["5 &middot; APEX RUN-MODE<br/>USER_MODE /<br/>SECURITY_ENFORCED"]:::enforce
+    J{"Record<br/>visible?"}:::result
 
     A --&gt; B --&gt; C --&gt; D --&gt; E --&gt; J
   </pre>
@@ -3320,6 +3321,7 @@ flowchart TB
     half of the partnership to make the configuration not be misconfigured.
   </p>
   <pre class="mermaid">
+%%{init: {'flowchart': {'htmlLabels': true, 'nodeSpacing': 50, 'rankSpacing': 70, 'padding': 14}}}%%
 flowchart LR
     classDef anon fill:#243B5E,stroke:#5B9BD5,color:#FFF;
     classDef guest fill:#9050E9,stroke:#9050E9,color:#FFF;
@@ -3327,26 +3329,16 @@ flowchart LR
     classDef code fill:#FF9A3C,stroke:#FF9A3C,color:#000;
     classDef leak fill:#C23934,stroke:#C23934,color:#FFF;
 
-    A[Anonymous Visitor<br/>hits public URL]:::anon
-    B[Guest User Profile<br/>profile-bound, license-bound]:::guest
-    C[Sharing Scope<br/>OWD=Private locked<br/>+ Guest Sharing Rules]:::guest
+    A["Anonymous Visitor<br/>(no auth)<br/>hits public URL"]:::anon
+    B["Guest User Profile<br/>profile-bound,<br/>license-bound"]:::guest
+    C["Sharing Scope<br/>OWD = Private<br/>+ Guest Sharing Rules"]:::guest
+    D["Reachable Query Surface<br/>SOQL via Aura / LWC<br/>GraphQL &middot; CMS &middot; Files"]:::query
+    E["Apex Controller<br/>runs as Guest User<br/>(USER_MODE? FLS? Sharing?)"]:::code
+    F["Records Returned<br/>HTTP / JSON / file"]:::leak
+    G["Search-engine Cache<br/>(Bing, Google)"]:::leak
+    H["Attacker"]:::leak
 
-    subgraph SURFACE["Reachable Query Surface"]
-        direction TB
-        D1[SOQL via Aura]:::query
-        D2[SOQL via LWC]:::query
-        D3[GraphQL endpoint]:::query
-        D4[CMS search index]:::query
-        D5[Files public link]:::query
-    end
-
-    E[Apex Controller<br/>runs as Guest User<br/>USER_MODE? FLS? Sharing?]:::code
-    F[Records returned<br/>HTTP / JSON / file]:::leak
-    G[Search-engine Cache<br/>Bing / Google]:::leak
-    H[Attacker]:::leak
-
-    A --&gt; B --&gt; C --&gt; SURFACE
-    SURFACE --&gt; E --&gt; F
+    A --&gt; B --&gt; C --&gt; D --&gt; E --&gt; F
     F --&gt; G
     F --&gt; H
   </pre>
@@ -6574,6 +6566,15 @@ DIFF:
     <thead><tr><th>Version</th><th>Date</th><th>Change</th><th>Author</th></tr></thead>
     <tbody>
       <tr>
+        <td><strong>1.5.8</strong></td>
+        <td>2026-05-04</td>
+        <td><strong>Diagram readability pass &mdash; Pillar 2 Permission Waterfall + Pillar 3 Experience Cloud guest-bleed.</strong>
+        (1) <strong>Pillar 2 Permission Waterfall reverted to LR with concise labels.</strong> The v1.5.6 TB redraw was worse than the v1.5.4 original: Mermaid auto-sized each TB node to ~150&thinsp;px wide because long single-line labels with embedded <code>&lt;br/&gt;</code> tags don't widen TB boxes (TB box width = longest single line between breaks; my breaks split the long sentences, so the boxes stayed narrow). Result was one tall narrow vertical column with massive horizontal gutters &mdash; user reported "totally unacceptable." Reverted to <code>flowchart LR</code> with 6 concise nodes (FOUNDATION / WIDENING / NARROW / OBJECT-FIELD GATES / APEX RUN-MODE / Record visible?), each with a 3-line label whose longest line caps at ~30 chars. The 6-step horizontal flow now spans the full card width without subgraph nesting.
+        (2) <strong>Pillar 3 Experience Cloud guest-bleed diagram simplified.</strong> User reported labels were clipped (e.g., "Guest User Profileprofile-bound" running together) and the diagram had too much whitespace above and below. Removed the <code>SURFACE</code> subgraph wrapper that was nesting 5 query-type nodes; consolidated to a single "Reachable Query Surface" node carrying the inline list. Switched all node syntax to double-quoted strings (<code>A["..."]</code>) for cleaner Mermaid 10.x label parsing. Linear flow: Anonymous Visitor &rarr; Guest User Profile &rarr; Sharing Scope &rarr; Reachable Query Surface &rarr; Apex Controller &rarr; Records Returned &rarr; (branch) Search-engine Cache + Attacker.
+        (3) <strong>Mermaid <code>init</code> directive on both diagrams</strong> &mdash; <code>%%{init: {'flowchart': {'htmlLabels': true, 'nodeSpacing': 50, 'rankSpacing': 70, 'padding': 14}}}%%</code>. The 14&thinsp;px node padding gives boxes more breathing room around their labels (was the cramped-text symptom user reported); 50&thinsp;px nodeSpacing + 70&thinsp;px rankSpacing keep arrows and adjacent boxes from running into each other; <code>htmlLabels: true</code> ensures <code>&lt;br/&gt;</code> tags render as line breaks rather than literal text.</td>
+        <td>Dr. Paul Coleman</td>
+      </tr>
+      <tr>
         <td><strong>1.5.7</strong></td>
         <td>2026-05-04</td>
         <td><strong>Pillar 4.3 expanded &mdash; "Block Uninstalled Connected Apps" mechanism, default state, and what it does not cover.</strong>
@@ -7440,7 +7441,7 @@ SELECT UserId, LastUsedDate FROM OauthToken WHERE AppName = 'ISV_APP_NAME'</code
     });
     exportBtn.addEventListener('click', function() {
       var snapshot = {
-        framework: 'Salesforce CRM Security Hardening v1.5.7',
+        framework: 'Salesforce CRM Security Hardening v1.5.8',
         scored_at: new Date().toISOString(),
         scores: loadStored(),
         average: parseFloat(avgEl.textContent) || 0,
