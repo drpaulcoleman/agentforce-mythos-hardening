@@ -6290,6 +6290,290 @@ DIFF:
 </div>
 
 <!-- ════════════════════════════════════════════════════════════════════════
+     APPENDIX Q  ::  INCIDENT-RESPONSE RUNBOOK TEMPLATES (FIVE SCENARIOS)
+     ════════════════════════════════════════════════════════════════════════ -->
+<div class="card" id="appendix-q" data-search="appendix q incident response runbook templates vishing oauth abuse experience cloud guest exposure isv connected app compromise browser extension hijack ai agent silent compromise containment identify eradicate notify post mortem">
+  <h2>Appendix Q &middot; Incident-Response Runbook Templates</h2>
+  <p>
+    Five scenarios drawn from the 2024&ndash;2026 corpus. Each runbook is structured for an on-call admin
+    who has minutes, not hours: detection signals at the top, sub-15-minute containment commands next,
+    then identify-phase queries, notification drafts (with legal-review placeholders), and an
+    evidence-preservation checklist. Customize the placeholders to your org's processes before
+    putting these into rotation.
+  </p>
+  <p style="background: rgba(255,154,60,0.10); border-left: 4px solid #FF9A3C; padding: 10px 14px; font-size: 13px;">
+    <strong>Disclaimer.</strong> Templates are illustrative, not legal advice. Coordinate notification
+    timing and content with qualified counsel for the jurisdictions you operate in. See
+    <a href="#appendix-r">Appendix R</a> for the breach-notification timing matrix.
+  </p>
+
+  <h3>Q.1 Scenario A &mdash; Vishing &rarr; OAuth grant abuse (UNC6040 pattern)</h3>
+  <p><strong>Trigger:</strong> A user reports an "IT support" call that walked them through a Salesforce
+  verification flow; or Real-Time EM signals an unexpected Connected App authorization followed by Bulk
+  API activity from an unfamiliar Data Loader instance.</p>
+  <h4>Detection signals</h4>
+  <ul>
+    <li>LoginEvent: <code>Application = 'Salesforce Data Loader'</code> from a previously-unseen IP</li>
+    <li>BulkApiEvent: <code>RowsProcessed</code> spike from the affected user within 60 minutes of login</li>
+    <li>OAuth Usage: a freshly-authorized Connected App with no business owner</li>
+    <li>User report (out-of-band) of a suspicious phone call</li>
+  </ul>
+  <h4>Containment (target: complete in 15 minutes)</h4>
+  <ol>
+    <li>Setup &rarr; Connected Apps OAuth Usage &rarr; locate the offending app for the user &rarr; <strong>Revoke</strong>.</li>
+    <li>Setup &rarr; Users &rarr; the affected user &rarr; <strong>Freeze</strong> (do not deactivate yet; freeze preserves session forensics).</li>
+    <li>Setup &rarr; Connected Apps &rarr; the malicious app's Manage page &rarr; <strong>Block</strong> for the entire org.</li>
+    <li>Force-end all sessions for the user via Users &rarr; the user &rarr; "End Selected Session" against every active row.</li>
+    <li>If the user's password may have been disclosed: trigger password reset.</li>
+  </ol>
+  <h4>Identify (target: 1 hour)</h4>
+  <pre><code>// Bulk API activity by the affected user in the last 24h
+SELECT EventDate, Username, RowsProcessed, OperationType, SourceIp
+FROM BulkApiEvent
+WHERE Username = 'AFFECTED_USER@example.com' AND EventDate = LAST_N_DAYS:1
+ORDER BY EventDate DESC
+
+// All login events for the user, including geolocation
+SELECT EventDate, Username, SourceIp, LoginGeoId, LoginType, Status
+FROM LoginEvent
+WHERE Username = 'AFFECTED_USER@example.com' AND DAY_ONLY(CreatedDate) = LAST_N_DAYS:7
+
+// OAuth grants by this user
+SELECT Id, AppName, LastUsedDate, UseCount FROM OauthToken
+WHERE UserId = 'USER_ID'</code></pre>
+  <h4>Eradicate</h4>
+  <ul>
+    <li>Permanently revoke the malicious Connected App. If it was uninstalled, verify it is on the Block list.</li>
+    <li>Reissue MFA enrollment for the user; require FIDO2 hardware key.</li>
+    <li>Review whether <em>any</em> records were modified during the access window; restore from Field Audit Trail or backup if so.</li>
+  </ul>
+  <h4>Notify (placeholder draft &mdash; LEGAL REVIEW REQUIRED before sending)</h4>
+  <pre style="font-family: Georgia, serif; font-size: 13px;">
+SUBJECT: Notice of unauthorized access to your account &mdash; immediate action required
+
+We identified an unauthorized authorization on your Salesforce account on
+[DATE/TIME UTC]. The authorization has been revoked and your session has
+been ended. As a precaution, we have:
+  - Revoked the unauthorized Connected App
+  - Required re-enrollment of your MFA factor with a hardware security key
+  - Reviewed records you accessed during the affected window
+[IF CUSTOMER PII WAS POTENTIALLY EXPOSED: insert paragraph
+required by jurisdiction; coordinate with legal.]
+
+Please contact [SECURITY TEAM CONTACT] if you observe further suspicious
+activity. We expect to provide a follow-up summary within [N] days.
+  </pre>
+  <h4>Evidence preservation</h4>
+  <ul>
+    <li>Export Login History for affected user (last 30 days) to CSV; retain per regulatory window</li>
+    <li>Export Setup Audit Trail rows touching this user / Connected App</li>
+    <li>Export Real-Time EM ApiEvent + BulkApiEvent + LoginEvent for the user (last 7 days)</li>
+    <li>Snapshot the Connected App's metadata (XML) before deletion</li>
+    <li>Hash the export bundle (SHA-256) and record the hash in the incident ticket</li>
+  </ul>
+
+  <h3>Q.2 Scenario B &mdash; ISV / Connected App compromise (UNC6395 / Drift pattern)</h3>
+  <p><strong>Trigger:</strong> ISV publicly discloses a breach (or pulls their app from AppExchange);
+  Real-Time EM shows anomalous query volume from the ISV's Connected App; security advisory is
+  published.</p>
+  <h4>Detection signals</h4>
+  <ul>
+    <li>ISV public disclosure or AppExchange listing pulled</li>
+    <li>OAuth Usage: the ISV's app shows token activity outside business hours or from new IP ranges</li>
+    <li>ApiEvent: query patterns deviating from the ISV's documented behavior</li>
+  </ul>
+  <h4>Containment (target: 15 minutes)</h4>
+  <ol>
+    <li>Setup &rarr; Connected Apps OAuth Usage &rarr; locate the ISV's app &rarr; <strong>Revoke All</strong> (revokes all tokens, all users).</li>
+    <li>Setup &rarr; Connected Apps &rarr; the ISV's app's Manage page &rarr; set Permitted Users to <em>Admin Approved Users Are Pre-Authorized</em> with no users assigned (effectively disables it).</li>
+    <li>If the ISV maintains a webhook or Pub/Sub subscription, disable the corresponding Platform Event subscription.</li>
+    <li>Notify your ISV procurement / vendor-management contact.</li>
+  </ol>
+  <h4>Identify</h4>
+  <pre><code>// All activity by the ISV's Connected App over the last 90 days
+SELECT EventDate, Username, ApiVersion, Operation, RowsProcessed
+FROM ApiEvent
+WHERE ConnectedAppId = 'ISV_APP_ID' AND DAY_ONLY(CreatedDate) = LAST_N_DAYS:90
+ORDER BY EventDate DESC
+
+// All users who had granted the ISV
+SELECT UserId, LastUsedDate FROM OauthToken WHERE AppName = 'ISV_APP_NAME'</code></pre>
+  <h4>Eradicate</h4>
+  <ul>
+    <li>Hold off on re-enabling the ISV's app until they publish a remediation report and pass an independent post-breach review.</li>
+    <li>If the ISV's grants stored elsewhere (refresh tokens, JWT keys), rotate any shared secrets.</li>
+    <li>If your contract with the ISV included an SLA on breach notification, evaluate whether they met it; document.</li>
+  </ul>
+  <h4>Notify</h4>
+  <p>If your customers' data was processed by the ISV during the breach window, notification cascades to them. Coordinate with legal counsel; refer to <a href="#appendix-r">Appendix R</a> for jurisdictional timing.</p>
+
+  <h3>Q.3 Scenario C &mdash; Experience Cloud guest profile exposure (Krebs / DIVD pattern)</h3>
+  <p><strong>Trigger:</strong> Independent researcher disclosure; Google search reveals public-site URLs
+  exposing record details; Pillar III.8 dual-agent scanner emits a critical-severity finding.</p>
+  <h4>Detection signals</h4>
+  <ul>
+    <li>Pillar III.8 scanner: scanner-beta crawl returns records with fields beyond the approved baseline</li>
+    <li>Search-engine cache returns indexed pages with PII or record-IDs visible</li>
+    <li>Researcher report (often via security@ alias)</li>
+  </ul>
+  <h4>Containment (target: 30 minutes &mdash; takes longer than Scenarios A/B because cache invalidation is involved)</h4>
+  <ol>
+    <li>Setup &rarr; Profiles &rarr; the affected guest user profile &rarr; turn off <em>API Enabled</em>, <em>View All Users</em>, all <em>Run/Export Reports</em> permissions.</li>
+    <li>Object permissions on the guest profile: revoke any object that should not be guest-readable.</li>
+    <li>Setup &rarr; Sharing Settings &rarr; remove or narrow every guest user sharing rule. (Document each removal in the incident ticket.)</li>
+    <li>If the issue is via an Apex class accessible to guest: remove the class from the guest profile's Apex class access list.</li>
+    <li>Site cache: per Pillar III.7, expect a cache-invalidation lag for static resources. Force-refresh CDN if you control one.</li>
+  </ol>
+  <h4>Identify</h4>
+  <ul>
+    <li>Run scanner-alpha (metadata diff) and scanner-beta (crawl) to enumerate all currently-exposed fields and records.</li>
+    <li>Cross-check Field Audit Trail: which records were created or modified by the guest user during the exposure window?</li>
+    <li>Search engine cache: enumerate every URL indexed; request removal via Search Console.</li>
+  </ul>
+  <h4>Notify</h4>
+  <p>Customer / data-subject notification almost always required. Refer to <a href="#appendix-r">Appendix R</a>; coordinate with legal counsel.</p>
+  <h4>Evidence preservation</h4>
+  <ul>
+    <li>Snapshot the guest profile metadata XML BEFORE remediation (so the original-state can be reconstructed for forensics)</li>
+    <li>Snapshot every guest-accessible Apex class</li>
+    <li>Web Archive any indexed pages showing exposure (or capture them yourself before they're recrawled)</li>
+  </ul>
+
+  <h3>Q.4 Scenario D &mdash; Browser-extension session hijack</h3>
+  <p><strong>Trigger:</strong> EDR / MDM detects a malicious extension on an admin's endpoint; or
+  Login History shows logins to admin profile from an unfamiliar IP / device fingerprint while the
+  legitimate user was also logged in elsewhere.</p>
+  <h4>Detection signals</h4>
+  <ul>
+    <li>EDR/MDM: extension on a CVE list, or extension installed from outside the allowlist</li>
+    <li>LoginEvent: parallel sessions from divergent geolocations within minutes</li>
+    <li>Threat Detection: session-hijacking event fires</li>
+  </ul>
+  <h4>Containment (target: 15 minutes)</h4>
+  <ol>
+    <li>Force-end all sessions for the affected user.</li>
+    <li>Force password reset.</li>
+    <li>Revoke all OAuth tokens issued to the user.</li>
+    <li>Have the user remove the malicious extension; ideally reimage the endpoint.</li>
+    <li>Re-enroll MFA with FIDO2.</li>
+  </ol>
+  <h4>Identify</h4>
+  <p>Browser extensions inherit the user's session; <em>actions taken via the extension look identical to actions taken by the user</em>. Audit the user's recent activity from EVERY angle: Setup Audit Trail (config changes), Field History (data changes), ApiEvent (programmatic actions), ReportEvent (exports). Assume everything in the affected window may have been the attacker.</p>
+  <h4>Notify</h4>
+  <p>Internal stakeholders immediately; customers if their data may have been viewed or modified.</p>
+
+  <h3>Q.5 Scenario E &mdash; AI agent silent compromise</h3>
+  <p><strong>Trigger:</strong> The AI-agent-compromise indicators in Pillar VIII.6 fire (output-hash
+  drift on deterministic re-run, eval-bypass gap, provider-divergence event, or service-account use
+  outside the expected job context).</p>
+  <h4>Detection signals (any TWO concurrent =&gt; treat as Suspected AI Agent Compromise)</h4>
+  <ul>
+    <li>Output-hash mismatch on deterministic re-run for a Trust-Layer-bound agent</li>
+    <li>Eval result gap (decision_log entries with no corresponding eval result &gt; 10 minutes after creation)</li>
+    <li>Provider-divergence event between primary and secondary AI provider on the same prompt</li>
+    <li>AI service account active outside its expected runtime context (cron / Cloud Run job window)</li>
+    <li>Concierge / agent recommendation rate deviates &ge; 15% from rolling baseline</li>
+  </ul>
+  <h4>Containment (target: 15 minutes)</h4>
+  <ol>
+    <li>Set the agent's kill-switch flag (e.g., <code>AGENT_ENABLED = false</code> in custom metadata, or
+    feature-flag service equivalent). The agent should fall back to deterministic / human-only path.</li>
+    <li>Suspend the agent's service account at the cloud-provider IAM level.</li>
+    <li>Halt any downstream processes that consume agent outputs (e.g., a workflow that auto-applies the agent's recommendation).</li>
+    <li>Do <em>not</em> rotate session secrets immediately &mdash; preserve in-flight context for forensics.</li>
+  </ol>
+  <h4>Identify</h4>
+  <ul>
+    <li>Pull the trust-boundary log for the affected agent for the prior 48 hours; verify HMAC integrity</li>
+    <li>Diff agent decision-log output distributions against the prior 7-day baseline</li>
+    <li>Identify the injection vector: user-supplied form input, MCP-style context, or provider-side</li>
+  </ul>
+  <h4>Eradicate</h4>
+  <ul>
+    <li>If user-injection: add the pattern to the prompt-injection rule library; redeploy</li>
+    <li>If provider-side: failover to the secondary provider; open an incident ticket with the primary</li>
+    <li>If service-account credential exfil: rotate the credential; audit account permissions</li>
+    <li>Rebuild the affected agent runtime from the last known-good image</li>
+  </ul>
+  <h4>Notify</h4>
+  <p>If the agent made user-facing recommendations during the compromise window, an in-app notification is generally appropriate ("We recently identified and resolved an issue with [Agent]; recently-generated recommendations should be reviewed"). Coordinate with legal counsel for any potentially material decisions affected.</p>
+
+  <p style="margin-top:18px;"><strong>For all five scenarios:</strong> file a post-mortem within 7 days
+  (root cause, detection latency from first signal, response time to containment, lessons applied to
+  the runbook). Update the runbook itself with anything you learned.</p>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     APPENDIX R  ::  BREACH-NOTIFICATION TIMING MATRIX
+     ════════════════════════════════════════════════════════════════════════ -->
+<div class="card" id="appendix-r" data-search="appendix r breach notification timing matrix gdpr hipaa ccpa state laws sec 8-k cyber rule eu nis2 australia oaic canada pipeda jurisdiction sectoral pci dss glba ferpa">
+  <h2>Appendix R &middot; Breach-Notification Timing Matrix</h2>
+  <p>Quick-reference for "we just confirmed a breach &mdash; how long do we have, and to whom?"
+  Coordinate every notification decision with qualified legal counsel; this matrix is a starting
+  point, not a substitute for jurisdiction-specific legal advice.</p>
+  <p style="background: rgba(194,57,52,0.10); border-left: 4px solid #C23934; padding: 10px 14px; font-size: 13px;">
+    <strong>Not legal advice.</strong> Statutory deadlines, triggers, and definitions evolve. Verify
+    current obligations with counsel licensed in each applicable jurisdiction before acting.
+  </p>
+
+  <h3>R.1 Major frameworks &mdash; "clock starts when..." and "due in..."</h3>
+  <table>
+    <thead><tr><th>Framework</th><th>Clock starts when...</th><th>Authority deadline</th><th>Affected-individual deadline</th><th>Threshold</th></tr></thead>
+    <tbody>
+      <tr><td><strong>GDPR (EU)</strong></td><td>Aware of personal-data breach</td><td>72 hours to supervisory authority</td><td>"Without undue delay" if high risk to rights and freedoms</td><td>Personal data of EU data subjects</td></tr>
+      <tr><td><strong>UK GDPR</strong></td><td>Aware of personal-data breach</td><td>72 hours to ICO</td><td>"Without undue delay" if high risk</td><td>Personal data of UK data subjects</td></tr>
+      <tr><td><strong>HIPAA Breach Notification Rule</strong></td><td>Discovery (first day known or should have been known)</td><td>HHS within 60 days; if &ge; 500 individuals, also "without unreasonable delay"</td><td>60 days to affected individuals</td><td>Unsecured PHI</td></tr>
+      <tr><td><strong>SEC Cyber 8-K (US public companies)</strong></td><td>Material cybersecurity incident determined</td><td>4 business days from materiality determination</td><td>n/a (investor-facing)</td><td>Material to a reasonable investor</td></tr>
+      <tr><td><strong>EU NIS2</strong></td><td>Aware of significant incident</td><td>Early warning within 24h; incident notification within 72h; final report within 1 month</td><td>Recipients of services as appropriate</td><td>Essential / important entities</td></tr>
+      <tr><td><strong>GLBA Safeguards Rule (US financial)</strong></td><td>Notification event triggered</td><td>FTC within 30 days for notification events affecting &ge; 500 consumers</td><td>"As soon as possible"</td><td>Customer information</td></tr>
+      <tr><td><strong>PCI DSS v4.0</strong></td><td>Suspected or confirmed compromise</td><td>Payment brand notification per acquirer; typically immediate</td><td>Per state breach laws</td><td>Cardholder data environment</td></tr>
+      <tr><td><strong>Canada PIPEDA</strong></td><td>Real risk of significant harm determined</td><td>"As soon as feasible" to OPC</td><td>"As soon as feasible" to affected individuals</td><td>Personal information</td></tr>
+      <tr><td><strong>Australia OAIC NDB</strong></td><td>Eligible data breach assessed</td><td>"As soon as practicable" to OAIC</td><td>"As soon as practicable" to affected individuals</td><td>Personal information; serious harm likely</td></tr>
+      <tr><td><strong>Brazil LGPD</strong></td><td>Knowledge of incident</td><td>"In a reasonable timeframe" to ANPD</td><td>"In a reasonable timeframe" to data subjects</td><td>Personal data</td></tr>
+      <tr><td><strong>Japan APPI</strong></td><td>Discovery</td><td>Promptly to PPC; final report within 30 / 60 days depending on severity</td><td>Promptly to affected individuals</td><td>Personal information</td></tr>
+    </tbody>
+  </table>
+
+  <h3>R.2 US state breach laws &mdash; representative deadlines</h3>
+  <p>All 50 US states + DC + territories have breach notification statutes. Most are written as
+  "in the most expedient time possible without unreasonable delay." Several specify hard caps. The
+  table shows the strictest hard caps; consult counsel for the full matrix relevant to your residents.</p>
+  <table>
+    <thead><tr><th>State</th><th>Hard cap</th><th>Threshold</th></tr></thead>
+    <tbody>
+      <tr><td><strong>California (CCPA / Civ. Code &sect;1798.82)</strong></td><td>"Most expedient time possible and without unreasonable delay"</td><td>Personal information</td></tr>
+      <tr><td><strong>Colorado</strong></td><td>30 days to AG; "in the most expedient time possible"</td><td>&ge; 500 residents triggers AG notice</td></tr>
+      <tr><td><strong>Florida</strong></td><td>30 days to affected individuals; 30 days to FDLE if &ge; 500</td><td>Personal information</td></tr>
+      <tr><td><strong>Maryland</strong></td><td>45 days</td><td>Personal information</td></tr>
+      <tr><td><strong>Massachusetts</strong></td><td>"As soon as practicable and without unreasonable delay"</td><td>Personal information</td></tr>
+      <tr><td><strong>New York (SHIELD)</strong></td><td>"In the most expedient time possible"</td><td>Private information</td></tr>
+      <tr><td><strong>Ohio</strong></td><td>45 days</td><td>Personal information</td></tr>
+      <tr><td><strong>Texas</strong></td><td>60 days; AG notice if &ge; 250 residents</td><td>Sensitive personal information</td></tr>
+      <tr><td><strong>Vermont</strong></td><td>45 days</td><td>Personally identifiable information</td></tr>
+      <tr><td><strong>Washington</strong></td><td>30 days; AG notice if &ge; 500 residents</td><td>Personal information</td></tr>
+    </tbody>
+  </table>
+
+  <h3>R.3 Sectoral overlays</h3>
+  <ul>
+    <li><strong>FERPA (US education)</strong>: no federal statutory deadline, but many states layer their own deadlines for student data</li>
+    <li><strong>NYDFS Part 500 (NY financial services)</strong>: 72 hours to NYDFS Superintendent for cybersecurity events</li>
+    <li><strong>FTC Health Breach Notification Rule (US health apps not under HIPAA)</strong>: 60 days to individuals; FTC if &ge; 500</li>
+    <li><strong>CCPA / CPRA</strong>: separate statutory consumer-private-action right under <em>both</em> the breach statute (1798.82) and the CCPA itself for unencrypted PI</li>
+  </ul>
+
+  <h3>R.4 Practical clock-management checklist</h3>
+  <ol>
+    <li><strong>Stop the clock from racing you.</strong> Once "discovery" or "awareness" is documented, the clock is running. Document the timestamp precisely.</li>
+    <li><strong>Engage counsel within hours, not days.</strong> Most jurisdictions' deadlines are too tight to defer legal review until the technical investigation finishes.</li>
+    <li><strong>Do parallel paths.</strong> Forensics, customer-facing notification drafting, regulator-facing notification drafting, and the post-mortem can all run in parallel; serializing them blows your deadlines.</li>
+    <li><strong>Pre-stage the templates.</strong> The first draft of "what we say to a customer" is faster to edit than to compose under pressure. Keep your templates in version control alongside the runbooks (Appendix Q).</li>
+    <li><strong>Track the multi-jurisdiction matrix.</strong> A breach affecting EU + UK + US residents has at least three independent statutory clocks. Build a per-incident tracker that lists each jurisdiction, its deadline, and the assigned owner.</li>
+    <li><strong>Document the materiality call.</strong> For SEC 8-K, the 4-business-day clock starts on "materiality determination," not "incident discovery." Document the determination process and timestamp; this is itself a defensible artifact.</li>
+  </ol>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════════════
      DISCLOSURES + COPYRIGHT
      ════════════════════════════════════════════════════════════════════════ -->
 <div class="card" id="disclosures" data-search="disclosures copyright trademarks ai assisted disclaimer salesforce anthropic independent vendor neutral">
