@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   Salesforce CRM Security Hardening — A Defender's Encyclopedia for the Frontier-AI Era
-  Document version 1.4.0 · Last modified 2026-05-04
+  Document version 1.4.1 · Last modified 2026-05-04
   Copyright (c) 2026 Dr. Paul Coleman. All rights reserved.
 
   A vendor-neutral hardening reference for the customer side of the Salesforce
@@ -28,7 +28,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Salesforce CRM Security Hardening &mdash; A Defender's Encyclopedia for the Frontier-AI Era</title>
-<meta name="document-version" content="1.4.0">
+<meta name="document-version" content="1.4.1">
 <meta name="last-modified" content="2026-05-04">
 <meta name="source-snapshot" content="2026-05-04">
 <meta name="description" content="Vendor-neutral Salesforce CRM security hardening reference: identity, access, Experience Cloud guest hardening, Connected Apps + AppExchange supply chain, mTLS, secure Apex/LWC/Flow, encryption, detection &amp; response, DevSecOps, and defensive AI augmentation. Threat-informed (UNC6040, UNC6395, Krebs guest exposure, Drift OAuth chain) and standards-aligned (NIST CSF 2.0, OWASP).">
@@ -168,6 +168,100 @@ a:active { color: var(--sf-blue); }
 .card.bluf a { color: var(--sf-blue); }
 .card.bluf a:visited { color: var(--sf-blue-dark); }
 .card.bluf a:hover { color: #16325C; text-decoration: underline; }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   LIGHT-BACKGROUND BLUF CARD -- text/code overrides
+   The global .card { background: dark } sets light text colors via
+   .card p / .card li / code that work on dark cards but become low-
+   contrast on the light BLUF card. Override here so body text and
+   inline code render legibly on white.
+   ═══════════════════════════════════════════════════════════════════════ */
+.card.bluf p,
+.card.bluf li,
+.card.bluf ol,
+.card.bluf ul,
+.card.bluf td,
+.card.bluf div {
+  color: #16325C;
+}
+.card.bluf strong { color: #0070D2; }
+.card.bluf em { color: #243B5E; }
+.card.bluf table th { background: rgba(0,112,210,0.08); color: #16325C; }
+.card.bluf table td { background: rgba(255,255,255,0.6); color: #16325C; border-color: rgba(0,112,210,0.18); }
+.card.bluf code {
+  background: rgba(0,112,210,0.10);
+  color: #0070D2;
+  border: 1px solid rgba(0,112,210,0.22);
+  font-weight: 600;
+}
+.card.bluf a code {
+  /* Inline code inside a link: keep the link color so the click target reads as a link */
+  background: rgba(0,112,210,0.10);
+  color: var(--sf-blue);
+  border-color: rgba(0,112,210,0.30);
+}
+.card.bluf a:hover code { color: #16325C; border-color: rgba(22,50,92,0.45); }
+.card.bluf pre {
+  background: #F4F6F9;
+  color: #16325C;
+  border: 1px solid rgba(0,112,210,0.20);
+}
+.card.bluf pre code {
+  background: transparent;
+  color: #16325C;
+  border: none;
+  padding: 0;
+}
+/* Reference-impl callout sits inside the BLUF card; ensure its inner text/code
+   reads cleanly against the green/blue gradient on white. */
+.card.bluf .ref-impl-callout {
+  color: #16325C;
+}
+.card.bluf .ref-impl-callout p,
+.card.bluf .ref-impl-callout li {
+  color: #16325C;
+}
+.card.bluf .ref-impl-callout h3 { color: #04844B; }
+.card.bluf .ref-impl-callout code {
+  background: rgba(4,132,75,0.12);
+  color: #04844B;
+  border: 1px solid rgba(4,132,75,0.30);
+}
+.card.bluf .ref-impl-callout a code {
+  color: #04844B;
+  background: rgba(4,132,75,0.10);
+  border-color: rgba(4,132,75,0.30);
+  font-weight: 700;
+}
+.card.bluf .ref-impl-callout a {
+  color: #04844B;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: rgba(4,132,75,0.40);
+  text-underline-offset: 2px;
+}
+.card.bluf .ref-impl-callout a:hover {
+  color: #16325C;
+  text-decoration-color: #16325C;
+}
+.card.bluf .ref-impl-callout a:hover code {
+  color: #16325C;
+  background: rgba(22,50,92,0.10);
+  border-color: rgba(22,50,92,0.35);
+}
+/* Sup / footnote markers on the light card */
+.card.bluf sup a {
+  background: rgba(0,112,210,0.10);
+  color: #0070D2;
+  border-radius: 3px;
+  padding: 0 4px;
+  font-weight: 700;
+  text-decoration: none;
+}
+.card.bluf sup a:hover {
+  background: var(--sf-blue);
+  color: #FFFFFF;
+}
 /* Links inside tables — slightly brighter for readability */
 td a, th a { color: #5AB4E0; }
 td a:hover, th a:hover { color: #FFFFFF; }
@@ -1153,7 +1247,7 @@ pre.mermaid g.node[onclick]:hover > path {
     </div>
     <div>
       <h1>Salesforce CRM Security Hardening</h1>
-      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.4.0 &middot; last modified 2026-05-04</span>
+      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.4.1 &middot; last modified 2026-05-04</span>
     </div>
   </div>
   <div class="doc-meta">
@@ -5977,6 +6071,12 @@ DIFF:
   <table>
     <thead><tr><th>Version</th><th>Date</th><th>Change</th><th>Author</th></tr></thead>
     <tbody>
+      <tr>
+        <td><strong>1.4.1</strong></td>
+        <td>2026-05-04</td>
+        <td>Theming patch: light-background BLUF card had inherited body-text and inline-code colors designed for dark cards (<code>.card p { color: var(--text-secondary) }</code>, <code>code { background: dark-navy; color: light-blue }</code>), producing low-contrast text on the white BLUF background and dark-blob code chips that read poorly. Added <code>.card.bluf p / li / ol / ul / td / div / strong / em / table / code / pre / sup a</code> overrides plus <code>.card.bluf .ref-impl-callout</code> green-themed code/link styling so the callout's anchor-tagged code chips read cleanly against the green/blue gradient. No content changes; CSS-only patch.</td>
+        <td>Dr. Paul Coleman</td>
+      </tr>
       <tr>
         <td><strong>1.4.0</strong></td>
         <td>2026-05-04</td>
