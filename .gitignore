@@ -1,0 +1,21 @@
+# Source materials -- the docs folder holds large copyrighted PDFs and
+# vendor reports used as research inputs. Do NOT commit; cite externally.
+docs/
+
+# Editor / OS clutter
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# Temporary scratch files
+*.tmp
+*.bak.tmp
+PLAN_DRAFT_FOR_REVIEW.md
+AUDIT_PROMPT.md
+TOXICITY_AUDIT_PROMPT.md
+
+# Backup artifacts
+*.bak
