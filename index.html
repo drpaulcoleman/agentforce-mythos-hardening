@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   Salesforce CRM Security Hardening — A Defender's Encyclopedia for the Frontier-AI Era
-  Document version 1.4.4 · Last modified 2026-05-04
+  Document version 1.4.5 · Last modified 2026-05-04
   Copyright (c) 2026 Dr. Paul Coleman. All rights reserved.
 
   A vendor-neutral hardening reference for the customer side of the Salesforce
@@ -28,7 +28,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Salesforce CRM Security Hardening &mdash; A Defender's Encyclopedia for the Frontier-AI Era</title>
-<meta name="document-version" content="1.4.4">
+<meta name="document-version" content="1.4.5">
 <meta name="last-modified" content="2026-05-04">
 <meta name="source-snapshot" content="2026-05-04">
 <meta name="description" content="Vendor-neutral Salesforce CRM security hardening reference: identity, access, Experience Cloud guest hardening, Connected Apps + AppExchange supply chain, mTLS, secure Apex/LWC/Flow, encryption, detection &amp; response, DevSecOps, and defensive AI augmentation. Threat-informed (UNC6040, UNC6395, Krebs guest exposure, Drift OAuth chain) and standards-aligned (NIST CSF 2.0, OWASP).">
@@ -170,97 +170,122 @@ a:active { color: var(--sf-blue); }
 .card.bluf a:hover { color: #16325C; text-decoration: underline; }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   LIGHT-BACKGROUND BLUF CARD -- text/code overrides
+   LIGHT-BACKGROUND BLUF CARD -- text/code overrides (HIGH CONTRAST)
    The global .card { background: dark } sets light text colors via
    .card p / .card li / code that work on dark cards but become low-
-   contrast on the light BLUF card. Override here so body text and
-   inline code render legibly on white.
+   contrast on the light BLUF card. Aggressive overrides here use
+   near-black text (#0D1B2A) and weight 500 to maximize on-white
+   readability across both BLUF cards (exec-bluf and tech bluf).
    ═══════════════════════════════════════════════════════════════════════ */
+.card.bluf,
 .card.bluf p,
 .card.bluf li,
 .card.bluf ol,
 .card.bluf ul,
 .card.bluf td,
-.card.bluf div {
-  color: #16325C;
+.card.bluf div,
+.card.bluf span {
+  color: #0D1B2A;
 }
-.card.bluf strong { color: #0070D2; }
-.card.bluf em { color: #243B5E; }
-.card.bluf table th { background: rgba(0,112,210,0.08); color: #16325C; }
-.card.bluf table td { background: rgba(255,255,255,0.6); color: #16325C; border-color: rgba(0,112,210,0.18); }
+.card.bluf p,
+.card.bluf li {
+  font-weight: 500;       /* slightly heavier than 400 for contrast on white */
+  line-height: 1.7;
+}
+.card.bluf strong { color: #005FB2; font-weight: 700; }
+.card.bluf em { color: #16325C; }
+.card.bluf table th { background: rgba(0,95,178,0.12); color: #0D1B2A; font-weight: 700; }
+.card.bluf table td { background: rgba(255,255,255,0.7); color: #0D1B2A; border-color: rgba(0,95,178,0.22); }
 .card.bluf code {
-  background: rgba(0,112,210,0.10);
-  color: #0070D2;
-  border: 1px solid rgba(0,112,210,0.22);
-  font-weight: 600;
+  background: rgba(0,95,178,0.10);
+  color: #005FB2;
+  border: 1px solid rgba(0,95,178,0.30);
+  font-weight: 700;
 }
 .card.bluf a code {
   /* Inline code inside a link: keep the link color so the click target reads as a link */
-  background: rgba(0,112,210,0.10);
-  color: var(--sf-blue);
-  border-color: rgba(0,112,210,0.30);
+  background: rgba(0,95,178,0.10);
+  color: #005FB2;
+  border: 1px solid rgba(0,95,178,0.40);
 }
-.card.bluf a:hover code { color: #16325C; border-color: rgba(22,50,92,0.45); }
+.card.bluf a:hover code { color: #0D1B2A; border-color: rgba(13,27,42,0.55); background: rgba(13,27,42,0.10); }
 .card.bluf pre {
   background: #F4F6F9;
-  color: #16325C;
-  border: 1px solid rgba(0,112,210,0.20);
+  color: #0D1B2A;
+  border: 1px solid rgba(0,95,178,0.25);
 }
 .card.bluf pre code {
   background: transparent;
-  color: #16325C;
+  color: #0D1B2A;
   border: none;
   padding: 0;
+  font-weight: 500;
 }
+
+/* Footnote / superscript markers on the light card.
+   Inline only (no inline-block) so the chip does not shift line heights
+   or baselines of the surrounding paragraph -- the previous v1.4.5 attempt
+   used display: inline-block + line-height: 1.4 which broke alignment in
+   any paragraph containing a footnote ref. The default <sup> handles
+   superscript positioning; we only restyle color + weight here for
+   contrast on the light card. */
+.card.bluf sup,
+.card.bluf a sup,
+.card.bluf sup a {
+  color: #005FB2;
+  font-weight: 700;
+  text-decoration: none;
+  background: transparent;
+  border: none;
+  padding: 0;
+  /* font-size, vertical-align stay at the browser's <sup> defaults so the
+     line metrics match the surrounding text exactly */
+}
+.card.bluf sup:hover,
+.card.bluf a:hover sup,
+.card.bluf sup:hover a {
+  color: #16325C;
+  text-decoration: underline;
+}
+
 /* Reference-impl callout sits inside the BLUF card; ensure its inner text/code
    reads cleanly against the green/blue gradient on white. */
 .card.bluf .ref-impl-callout {
-  color: #16325C;
+  color: #0D1B2A;
 }
 .card.bluf .ref-impl-callout p,
 .card.bluf .ref-impl-callout li {
-  color: #16325C;
+  color: #0D1B2A;
+  font-weight: 500;
 }
-.card.bluf .ref-impl-callout h3 { color: #04844B; }
+.card.bluf .ref-impl-callout h3 { color: #04844B; font-weight: 700; }
 .card.bluf .ref-impl-callout code {
-  background: rgba(4,132,75,0.12);
+  background: rgba(4,132,75,0.14);
   color: #04844B;
-  border: 1px solid rgba(4,132,75,0.30);
+  border: 1px solid rgba(4,132,75,0.40);
+  font-weight: 700;
 }
 .card.bluf .ref-impl-callout a code {
   color: #04844B;
-  background: rgba(4,132,75,0.10);
-  border-color: rgba(4,132,75,0.30);
+  background: rgba(4,132,75,0.14);
+  border: 1px solid rgba(4,132,75,0.45);
   font-weight: 700;
 }
 .card.bluf .ref-impl-callout a {
   color: #04844B;
-  font-weight: 600;
+  font-weight: 700;
   text-decoration: underline;
-  text-decoration-color: rgba(4,132,75,0.40);
+  text-decoration-color: rgba(4,132,75,0.55);
   text-underline-offset: 2px;
 }
 .card.bluf .ref-impl-callout a:hover {
-  color: #16325C;
-  text-decoration-color: #16325C;
+  color: #0D1B2A;
+  text-decoration-color: #0D1B2A;
 }
 .card.bluf .ref-impl-callout a:hover code {
-  color: #16325C;
-  background: rgba(22,50,92,0.10);
-  border-color: rgba(22,50,92,0.35);
-}
-/* Sup / footnote markers on the light card */
-.card.bluf sup a {
-  background: rgba(0,112,210,0.10);
-  color: #0070D2;
-  border-radius: 3px;
-  padding: 0 4px;
-  font-weight: 700;
-  text-decoration: none;
-}
-.card.bluf sup a:hover {
-  background: var(--sf-blue);
-  color: #FFFFFF;
+  color: #0D1B2A;
+  background: rgba(13,27,42,0.10);
+  border-color: rgba(13,27,42,0.45);
 }
 /* Links inside tables — slightly brighter for readability */
 td a, th a { color: #5AB4E0; }
@@ -847,6 +872,14 @@ pre.code-block {
   letter-spacing: 0.12em; padding: 2px 10px; border-radius: 4px;
   font-family: 'Montserrat', sans-serif;
 }
+/* Suppress the "EXECUTIVE SUMMARY" badge inside talking-point cards.
+   The badge is redundant and noisy: in #exec-talking-points the badge
+   appears five times inside an Executive Summary tab; in #talking-points
+   it appears in a Tech tab where it doesn't belong. */
+#exec-talking-points .exec-bubble::before,
+#talking-points .exec-bubble::before {
+  content: none;
+}
 .exec-bubble p { color: var(--text-secondary); font-size: 13px; margin-bottom: 6px; }
 
 /* ─── Lists ─── */
@@ -1247,7 +1280,7 @@ pre.mermaid g.node[onclick]:hover > path {
     </div>
     <div>
       <h1>Salesforce CRM Security Hardening</h1>
-      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.4.4 &middot; last modified 2026-05-04</span>
+      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.4.5 &middot; last modified 2026-05-04</span>
     </div>
   </div>
   <div class="doc-meta">
@@ -1513,22 +1546,36 @@ pre.mermaid g.node[onclick]:hover > path {
     Encryption and Detection only matter once data is classified.</strong>
   </p>
   <pre class="mermaid">
-graph TD
+graph LR
     classDef foundation fill:#04844B,stroke:#04844B,color:#FFF;
     classDef priority fill:#C23934,stroke:#C23934,color:#FFF;
     classDef standard fill:#0070D2,stroke:#0070D2,color:#FFF;
     classDef overlay fill:#9050E9,stroke:#9050E9,color:#FFF;
 
-    I[I &middot; Identity &amp; Auth<br/>FIDO2, SSO, custom claims]:::foundation
-    II[II &middot; Access Control<br/>OWD, PermSet migration, FLS]:::foundation
-    III[III &middot; Experience Cloud &#9733;<br/>Guest profile hardening]:::priority
-    IV[IV &middot; Connected Apps &amp; ISVs<br/>OAuth, supply chain]:::priority
-    V[V &middot; API + mTLS<br/>Cert rotation 2026]:::standard
-    VI[VI &middot; Apex/LWC/Flow<br/>USER_MODE, run context]:::standard
-    VII[VII &middot; Data &amp; Encryption<br/>Classify, Shield, BYOK]:::standard
-    VIII[VIII &middot; Detect &amp; Respond<br/>Real-Time EM, Threat Detection]:::standard
-    IX[IX &middot; DevSecOps<br/>DX, scratch orgs, signed packages]:::standard
-    X[X &middot; Defensive AI<br/>Claude Security overlay]:::overlay
+    subgraph FOUNDATION["FOUNDATION"]
+        direction TB
+        I[I &middot; Identity &amp; Auth]:::foundation
+        II[II &middot; Access Control]:::foundation
+    end
+
+    subgraph PRIORITY["PRIORITY EXPOSURES"]
+        direction TB
+        III[III &middot; Experience Cloud &#9733;]:::priority
+        IV[IV &middot; Connected Apps &amp; ISVs]:::priority
+    end
+
+    subgraph STANDARD["STANDARD PILLARS"]
+        direction TB
+        V[V &middot; API + mTLS]:::standard
+        VI[VI &middot; Apex/LWC/Flow]:::standard
+        VII[VII &middot; Data &amp; Encryption]:::standard
+        VIII[VIII &middot; Detect &amp; Respond]:::standard
+        IX[IX &middot; DevSecOps]:::standard
+    end
+
+    subgraph OVERLAY["DEFENSIVE OVERLAY"]
+        X[X &middot; Defensive AI]:::overlay
+    end
 
     I --&gt; II
     II --&gt; III
@@ -6030,6 +6077,12 @@ DIFF:
   <table>
     <thead><tr><th>Version</th><th>Date</th><th>Change</th><th>Author</th></tr></thead>
     <tbody>
+      <tr>
+        <td><strong>1.4.5</strong></td>
+        <td>2026-05-04</td>
+        <td>Several visual / structural fixes from user feedback on the deployed page. (1) <strong>BLUF light-card contrast</strong> strengthened to near-black body text (<code>#0D1B2A</code>) at <code>font-weight: 500</code>; <code>&lt;strong&gt;</code> uses darker SF blue (<code>#005FB2</code>) at weight 700; tables, code chips, and links all rebalanced for the white background. Footnote <code>&lt;sup&gt;</code> markers reverted to inline default (no <code>display: inline-block</code>) so they do not shift line baselines in any paragraph that contains a footnote ref &mdash; only color and weight overrides remain. (2) <strong>Talking-Point cards</strong> (<code>#exec-talking-points</code> + <code>#talking-points</code>): suppressed the <code>.exec-bubble::before "EXECUTIVE SUMMARY"</code> badge inside both. The badge appeared five times inside an Executive Summary tab and was visually noisy; one CSS <code>content: none</code> override scoped to those two card IDs removes it without touching other places that legitimately use the bubble. (3) <strong>Ten Hardening Pillars &mdash; The Map</strong> diagram restructured from <code>graph TD</code> (tall narrow stack) to <code>graph LR</code> with four subgraphs (FOUNDATION / PRIORITY EXPOSURES / STANDARD PILLARS / DEFENSIVE OVERLAY) so the diagram uses horizontal canvas width. (4) Added a top-level <a href="https://github.com/drpaulcoleman/agentforce-mythos-hardening/blob/main/README.md" target="_blank" rel="noopener">repo-side <code>README.md</code></a> that summarizes the project for visitors who land in the GitHub repo first and links prominently to the live page at <a href="https://drpaulcoleman.github.io/agentforce-mythos-hardening/" target="_blank" rel="noopener">drpaulcoleman.github.io/agentforce-mythos-hardening</a>. README includes "what's here," reading-paths-by-role table, and contributions / errata pointer.</td>
+        <td>Dr. Paul Coleman</td>
+      </tr>
       <tr>
         <td><strong>1.4.4</strong></td>
         <td>2026-05-04</td>
