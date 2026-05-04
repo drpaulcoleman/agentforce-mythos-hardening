@@ -28,7 +28,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Mythos Imperative &mdash; Salesforce CRM Security Hardening</title>
-<meta name="document-version" content="1.5.11">
+<meta name="document-version" content="1.5.12">
 <meta name="last-modified" content="2026-05-04">
 <meta name="source-snapshot" content="2026-05-04">
 <meta name="description" content="The Mythos Imperative: a vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars from Identity to Defensive AI; twenty-two appendices.">
@@ -38,7 +38,7 @@
 
 <!-- Open Graph / social-share metadata -->
 <meta property="og:type" content="article">
-<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.11">
+<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.12">
 <meta property="og:description" content="Vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars, 16+ appendices, fully attributed.">
 <meta property="og:url" content="https://drpaulcoleman.github.io/agentforce-mythos-hardening/">
 <meta property="og:site_name" content="Salesforce CRM Security Hardening">
@@ -49,7 +49,7 @@
 
 <!-- Twitter / X card metadata -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.11">
+<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.12">
 <meta name="twitter:description" content="Threat-informed Salesforce hardening reference. Ten pillars from Identity to Defensive AI, with a companion Salesforce DX reference implementation.">
 
 <!-- Errata / contributions -->
@@ -338,6 +338,18 @@ a.pillar-link {
 a.pillar-link:hover {
   color: #FFFFFF;
   border-bottom-color: #FFFFFF;
+}
+
+/* Mermaid label rendering: force the rendered HTML labels (htmlLabels: true)
+   to break ONLY at explicit <br/> markers we authored, not auto-wrap mid-line.
+   Combined with wrappingWidth: 400 in the init directive, this gives boxes the
+   horizontal room they need without text fragmenting word-by-word. */
+.card pre.mermaid foreignObject { overflow: visible !important; }
+.card pre.mermaid foreignObject > div,
+.card pre.mermaid .nodeLabel,
+.card pre.mermaid .label foreignObject div {
+  white-space: nowrap !important;
+  display: inline-block;
 }
 
 /* Footnote markers linking back to References. Subtle by default; underline on hover. */
@@ -1605,7 +1617,7 @@ pre.mermaid g.node[onclick]:hover > path {
   #pillar-vi, #pillar-vii, #pillar-viii, #pillar-ix, #pillar-x,
   #appendix-a, #appendix-b, #appendix-c, #appendix-d, #appendix-e,
   #appendix-f, #appendix-g, #appendix-h, #appendix-i, #appendix-j,
-  #appendix-k, #appendix-l, #appendix-m, #appendix-n, #appendix-o,
+  #appendix-k, #appendix-l, #appendix-m, #appendix-o,
   #appendix-p {
     page-break-before: always;
   }
@@ -1702,7 +1714,7 @@ pre.mermaid g.node[onclick]:hover > path {
     </div>
     <div>
       <h1><span class="phase-tag">The Mythos Imperative</span><span class="phase-sep">&mdash;</span>Salesforce CRM Security Hardening</h1>
-      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.11 &middot; last modified 2026-05-04</span>
+      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.12 &middot; last modified 2026-05-04</span>
     </div>
   </div>
   <div class="doc-meta">
@@ -1767,7 +1779,6 @@ pre.mermaid g.node[onclick]:hover > path {
     <a href="#appendix-j" class="nav-indent" data-tech-only>J: AI Prompt Library</a>
     <a href="#appendix-k" class="nav-indent" data-tech-only>K: Cost Reference</a>
     <a href="#appendix-l" class="nav-indent" data-tech-only>L: Glossary (Full)</a>
-    <a href="#appendix-n" class="nav-indent" data-tech-only>N: Changelog</a>
     <a href="#appendix-o" class="nav-indent" data-tech-only>O: Admin Hardening &#9733;</a>
     <a href="#appendix-p" class="nav-indent" data-tech-only>P: Standards Mapping</a>
     <a href="#appendix-q" class="nav-indent" data-tech-only>Q: IR Runbooks (5)</a>
@@ -1968,7 +1979,7 @@ pre.mermaid g.node[onclick]:hover > path {
     Encryption and Detection only matter once data is classified.</strong>
   </p>
   <pre class="mermaid">
-%%{init: {'flowchart': {'htmlLabels': true, 'nodeSpacing': 50, 'rankSpacing': 70, 'padding': 14}}}%%
+%%{init: {'flowchart': {'htmlLabels': true, 'wrappingWidth': 400, 'nodeSpacing': 40, 'rankSpacing': 50, 'padding': 14}}}%%
 flowchart LR
     classDef foundation fill:#04844B,stroke:#04844B,color:#FFF;
     classDef priority fill:#C23934,stroke:#C23934,color:#FFF;
@@ -1976,18 +1987,18 @@ flowchart LR
     classDef overlay fill:#9050E9,stroke:#9050E9,color:#FFF;
 
     %% Defensive AI overlay sits above the row, dotted edges to the pillars it touches
-    PX["<b>10 &middot; Defensive AI</b>&lt;br/&gt;cross-cutting overlay"]:::overlay
+    PX["&lt;b&gt;10 &middot; Defensive AI&lt;/b&gt;&lt;br/&gt;cross-cutting overlay"]:::overlay
 
     %% Pillars 1-9 in a single horizontal row, ordered by dependency
-    P1["<b>1 &middot; Identity</b>"]:::foundation
-    P2["<b>2 &middot; Access</b>"]:::foundation
-    P3["<b>3 &middot; Experience&lt;br/&gt;Cloud</b> &#9733;"]:::priority
-    P4["<b>4 &middot; Connected&lt;br/&gt;Apps &amp; ISVs</b>"]:::priority
-    P5["<b>5 &middot; API + mTLS</b>"]:::standard
-    P6["<b>6 &middot; Code &amp; Flow</b>"]:::standard
-    P7["<b>7 &middot; Data</b>"]:::standard
-    P8["<b>8 &middot; Detect &amp; Respond</b>"]:::standard
-    P9["<b>9 &middot; DevSecOps</b>"]:::standard
+    P1["&lt;b&gt;1 &middot; Identity&lt;/b&gt;"]:::foundation
+    P2["&lt;b&gt;2 &middot; Access&lt;/b&gt;"]:::foundation
+    P3["&lt;b&gt;3 &middot; Experience&lt;br/&gt;Cloud&lt;/b&gt; &#9733;"]:::priority
+    P4["&lt;b&gt;4 &middot; Connected&lt;br/&gt;Apps &amp; ISVs&lt;/b&gt;"]:::priority
+    P5["&lt;b&gt;5 &middot; API + mTLS&lt;/b&gt;"]:::standard
+    P6["&lt;b&gt;6 &middot; Code &amp; Flow&lt;/b&gt;"]:::standard
+    P7["&lt;b&gt;7 &middot; Data&lt;/b&gt;"]:::standard
+    P8["&lt;b&gt;8 &middot; Detect &amp; Respond&lt;/b&gt;"]:::standard
+    P9["&lt;b&gt;9 &middot; DevSecOps&lt;/b&gt;"]:::standard
 
     P1 --&gt; P2
     P2 --&gt; P3
@@ -2118,7 +2129,7 @@ gantt
 
 <!-- TECH · Hero ---------------------------------------------------------- -->
 <div class="card hero" id="hero" data-search="hero overview salesforce crm security hardening defender encyclopedia frontier ai mythos">
-  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.11 &middot; last modified 2026-05-04</p>
+  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.12 &middot; last modified 2026-05-04</p>
   <h1>The <span class="accent">Mythos Imperative</span><br/><span style="font-size:24px; font-weight:700; opacity:0.92; display:block; margin-top:6px;">A Defender's Encyclopedia for the Frontier-AI Era</span></h1>
   <p class="lede" style="border-left: 3px solid var(--sf-orange); padding: 6px 0 6px 16px; margin-left: 0;">
     <strong style="color: var(--sf-orange); letter-spacing: 0.04em;">Why this exists, why now.</strong>
@@ -2318,7 +2329,7 @@ gantt
     its existence narrowed the blast radius of this incident.</li>
   </ol>
   <pre class="mermaid">
-%%{init: {'flowchart': {'htmlLabels': true, 'nodeSpacing': 50, 'rankSpacing': 70, 'padding': 14}}}%%
+%%{init: {'flowchart': {'htmlLabels': true, 'wrappingWidth': 400, 'nodeSpacing': 40, 'rankSpacing': 50, 'padding': 14}}}%%
 flowchart LR
     classDef vec fill:#C23934,stroke:#C23934,color:#FFF;
     classDef pivot fill:#FF9A3C,stroke:#FF9A3C,color:#FFF;
@@ -3039,7 +3050,7 @@ sequenceDiagram
     organization defaults all the way to the Apex query that returns (or doesn't return) the row.
   </p>
   <pre class="mermaid">
-%%{init: {'flowchart': {'htmlLabels': true, 'nodeSpacing': 50, 'rankSpacing': 70, 'padding': 14}}}%%
+%%{init: {'flowchart': {'htmlLabels': true, 'wrappingWidth': 400, 'nodeSpacing': 40, 'rankSpacing': 50, 'padding': 14}}}%%
 flowchart LR
     classDef gate fill:#0070D2,stroke:#0070D2,color:#FFF;
     classDef narrow fill:#C23934,stroke:#C23934,color:#FFF;
@@ -3433,7 +3444,7 @@ flowchart LR
     half of the partnership to make the configuration not be misconfigured.
   </p>
   <pre class="mermaid">
-%%{init: {'flowchart': {'htmlLabels': true, 'nodeSpacing': 50, 'rankSpacing': 70, 'padding': 14}}}%%
+%%{init: {'flowchart': {'htmlLabels': true, 'wrappingWidth': 400, 'nodeSpacing': 40, 'rankSpacing': 50, 'padding': 14}}}%%
 flowchart LR
     classDef anon fill:#243B5E,stroke:#5B9BD5,color:#FFF;
     classDef guest fill:#9050E9,stroke:#9050E9,color:#FFF;
@@ -4491,7 +4502,7 @@ sequenceDiagram
     where a single keyword choice changes the security model entirely.
   </p>
   <pre class="mermaid">
-%%{init: {'flowchart': {'htmlLabels': true, 'nodeSpacing': 50, 'rankSpacing': 70, 'padding': 14}}}%%
+%%{init: {'flowchart': {'htmlLabels': true, 'wrappingWidth': 400, 'nodeSpacing': 40, 'rankSpacing': 50, 'padding': 14}}}%%
 flowchart LR
     classDef trust fill:#04844B,stroke:#04844B,color:#FFF;
     classDef danger fill:#C23934,stroke:#C23934,color:#FFF;
@@ -4501,11 +4512,11 @@ flowchart LR
     A["Request hits Apex&lt;br/&gt;controller, endpoint,&lt;br/&gt;or Flow trigger"]:::gate
     B{"Apex or&lt;br/&gt;Flow path?"}:::gate
 
-    AC["Apex class declaration&lt;br/&gt;<b>with sharing</b> ✓&lt;br/&gt;<b>without sharing</b> ✗"]:::gate
-    AS["SOQL run-mode&lt;br/&gt;<b>WITH USER_MODE</b> ✓&lt;br/&gt;<b>default (system)</b> ✗"]:::gate
-    AD["DML run-mode&lt;br/&gt;<b>AccessLevel.USER_MODE</b> ✓&lt;br/&gt;<b>default (FLS bypass)</b> ✗"]:::gate
+    AC["Apex class declaration&lt;br/&gt;&lt;b&gt;with sharing&lt;/b&gt; ✓&lt;br/&gt;&lt;b&gt;without sharing&lt;/b&gt; ✗"]:::gate
+    AS["SOQL run-mode&lt;br/&gt;&lt;b&gt;WITH USER_MODE&lt;/b&gt; ✓&lt;br/&gt;&lt;b&gt;default (system)&lt;/b&gt; ✗"]:::gate
+    AD["DML run-mode&lt;br/&gt;&lt;b&gt;AccessLevel.USER_MODE&lt;/b&gt; ✓&lt;br/&gt;&lt;b&gt;default (FLS bypass)&lt;/b&gt; ✗"]:::gate
 
-    FR["Flow run-context&lt;br/&gt;<b>user context</b> ✓&lt;br/&gt;<b>system context</b> ✗&lt;br/&gt;<b>guest-accessible</b> ✗✗"]:::gate
+    FR["Flow run-context&lt;br/&gt;&lt;b&gt;user context&lt;/b&gt; ✓&lt;br/&gt;&lt;b&gt;system context&lt;/b&gt; ✗&lt;br/&gt;&lt;b&gt;guest-accessible&lt;/b&gt; ✗✗"]:::gate
 
     Q{"Sharing + FLS&lt;br/&gt;enforced?"}:::gate
     QY["✓ Response respects&lt;br/&gt;sharing &amp; FLS"]:::trust
@@ -4763,20 +4774,20 @@ flowchart LR
     decision. Sequence matters &mdash; it is in the diagram.
   </p>
   <pre class="mermaid">
-%%{init: {'flowchart': {'htmlLabels': true, 'nodeSpacing': 50, 'rankSpacing': 70, 'padding': 14}}}%%
+%%{init: {'flowchart': {'htmlLabels': true, 'wrappingWidth': 400, 'nodeSpacing': 40, 'rankSpacing': 50, 'padding': 14}}}%%
 flowchart LR
     classDef tier fill:#9050E9,stroke:#9050E9,color:#FFF;
     classDef ctrl fill:#0070D2,stroke:#0070D2,color:#FFF;
     classDef ops fill:#04844B,stroke:#04844B,color:#FFF;
 
-    A["<b>1. Classify Data</b>&lt;br/&gt;Public / Internal /&lt;br/&gt;Confidential / Restricted"]:::tier
-    B["<b>2. Encrypt at Rest</b>&lt;br/&gt;TDE + Shield&lt;br/&gt;Platform Encryption"]:::ctrl
-    C["<b>3. Manage Keys</b>&lt;br/&gt;BYOK / HSM /&lt;br/&gt;external KMS"]:::ctrl
-    D["<b>4. Field Audit Trail</b>&lt;br/&gt;long-retention&lt;br/&gt;forensic record"]:::ctrl
-    E["<b>5. Detect Sensitive Data</b>&lt;br/&gt;Einstein Data Detect&lt;br/&gt;(continuous discovery)"]:::tier
-    F["<b>6. Mask in Sandbox</b>&lt;br/&gt;Data Mask&lt;br/&gt;(non-prod PII scrub)"]:::ops
-    G["<b>7. Backup &amp; Recovery</b>&lt;br/&gt;isolated account,&lt;br/&gt;restore tests"]:::ops
-    H["<b>8. Retention &amp; Deletion</b>&lt;br/&gt;lifecycle policy"]:::ops
+    A["&lt;b&gt;1. Classify Data&lt;/b&gt;&lt;br/&gt;Public / Internal /&lt;br/&gt;Confidential / Restricted"]:::tier
+    B["&lt;b&gt;2. Encrypt at Rest&lt;/b&gt;&lt;br/&gt;TDE + Shield&lt;br/&gt;Platform Encryption"]:::ctrl
+    C["&lt;b&gt;3. Manage Keys&lt;/b&gt;&lt;br/&gt;BYOK / HSM /&lt;br/&gt;external KMS"]:::ctrl
+    D["&lt;b&gt;4. Field Audit Trail&lt;/b&gt;&lt;br/&gt;long-retention&lt;br/&gt;forensic record"]:::ctrl
+    E["&lt;b&gt;5. Detect Sensitive Data&lt;/b&gt;&lt;br/&gt;Einstein Data Detect&lt;br/&gt;(continuous discovery)"]:::tier
+    F["&lt;b&gt;6. Mask in Sandbox&lt;/b&gt;&lt;br/&gt;Data Mask&lt;br/&gt;(non-prod PII scrub)"]:::ops
+    G["&lt;b&gt;7. Backup &amp; Recovery&lt;/b&gt;&lt;br/&gt;isolated account,&lt;br/&gt;restore tests"]:::ops
+    H["&lt;b&gt;8. Retention &amp; Deletion&lt;/b&gt;&lt;br/&gt;lifecycle policy"]:::ops
 
     A --&gt; B --&gt; C --&gt; D
     A --&gt; E
@@ -5030,22 +5041,22 @@ flowchart LR
     needing distinct silent-compromise indicators.
   </p>
   <pre class="mermaid">
-%%{init: {'flowchart': {'htmlLabels': true, 'nodeSpacing': 50, 'rankSpacing': 70, 'padding': 14}}}%%
+%%{init: {'flowchart': {'htmlLabels': true, 'wrappingWidth': 400, 'nodeSpacing': 40, 'rankSpacing': 50, 'padding': 14}}}%%
 flowchart LR
     classDef detect fill:#0070D2,stroke:#0070D2,color:#FFF;
     classDef triage fill:#9050E9,stroke:#9050E9,color:#FFF;
     classDef contain fill:#C23934,stroke:#C23934,color:#FFF;
     classDef recover fill:#04844B,stroke:#04844B,color:#FFF;
 
-    D["<b>DETECT</b>&lt;br/&gt;Posture (Health Check) ·&lt;br/&gt;Logs (Audit + Login History) ·&lt;br/&gt;Events (Real-Time EM) ·&lt;br/&gt;Anomaly (Threat Detection) ·&lt;br/&gt;AI silent-compromise indicators"]:::detect
-    T["<b>TRIAGE</b>&lt;br/&gt;signal &rarr; ticket"]:::triage
-    C["<b>CONTAIN (sub-15 min)</b>&lt;br/&gt;Revoke OAuth tokens ·&lt;br/&gt;End user sessions · Freeze user ·&lt;br/&gt;Revoke Connected App ·&lt;br/&gt;Kill-switch feature flag"]:::contain
-    I["<b>IDENTIFY</b>&lt;br/&gt;scope of compromise"]:::triage
-    E["<b>ERADICATE</b>&lt;br/&gt;residual access"]:::triage
-    P["<b>PRESERVE</b>&lt;br/&gt;evidence (chain of custody)"]:::recover
-    N["<b>NOTIFY</b>&lt;br/&gt;stakeholders + regulator&lt;br/&gt;(see Appendix R)"]:::recover
-    R["<b>RECOVER</b>&lt;br/&gt;service to known-good state"]:::recover
-    M["<b>POST-MORTEM</b>&lt;br/&gt;tune detection +&lt;br/&gt;update runbooks"]:::recover
+    D["&lt;b&gt;DETECT&lt;/b&gt;&lt;br/&gt;Posture (Health Check) ·&lt;br/&gt;Logs (Audit + Login History) ·&lt;br/&gt;Events (Real-Time EM) ·&lt;br/&gt;Anomaly (Threat Detection) ·&lt;br/&gt;AI silent-compromise indicators"]:::detect
+    T["&lt;b&gt;TRIAGE&lt;/b&gt;&lt;br/&gt;signal &rarr; ticket"]:::triage
+    C["&lt;b&gt;CONTAIN (sub-15 min)&lt;/b&gt;&lt;br/&gt;Revoke OAuth tokens ·&lt;br/&gt;End user sessions · Freeze user ·&lt;br/&gt;Revoke Connected App ·&lt;br/&gt;Kill-switch feature flag"]:::contain
+    I["&lt;b&gt;IDENTIFY&lt;/b&gt;&lt;br/&gt;scope of compromise"]:::triage
+    E["&lt;b&gt;ERADICATE&lt;/b&gt;&lt;br/&gt;residual access"]:::triage
+    P["&lt;b&gt;PRESERVE&lt;/b&gt;&lt;br/&gt;evidence (chain of custody)"]:::recover
+    N["&lt;b&gt;NOTIFY&lt;/b&gt;&lt;br/&gt;stakeholders + regulator&lt;br/&gt;(see Appendix R)"]:::recover
+    R["&lt;b&gt;RECOVER&lt;/b&gt;&lt;br/&gt;service to known-good state"]:::recover
+    M["&lt;b&gt;POST-MORTEM&lt;/b&gt;&lt;br/&gt;tune detection +&lt;br/&gt;update runbooks"]:::recover
 
     D --&gt; T --&gt; C --&gt; I --&gt; E --&gt; P --&gt; N --&gt; R --&gt; M
   </pre>
@@ -5305,7 +5316,7 @@ flowchart LR
     the pipeline is the customer-side closure.
   </p>
   <pre class="mermaid">
-%%{init: {'flowchart': {'htmlLabels': true, 'nodeSpacing': 50, 'rankSpacing': 70, 'padding': 14}}}%%
+%%{init: {'flowchart': {'htmlLabels': true, 'wrappingWidth': 400, 'nodeSpacing': 40, 'rankSpacing': 50, 'padding': 14}}}%%
 flowchart LR
     classDef src fill:#0070D2,stroke:#0070D2,color:#FFF;
     classDef gate fill:#9050E9,stroke:#9050E9,color:#FFF;
@@ -5508,7 +5519,7 @@ flowchart LR
     defend your configuration. The tools are the same.
   </p>
   <pre class="mermaid">
-%%{init: {'flowchart': {'htmlLabels': true, 'nodeSpacing': 50, 'rankSpacing': 70, 'padding': 14}}}%%
+%%{init: {'flowchart': {'htmlLabels': true, 'wrappingWidth': 400, 'nodeSpacing': 40, 'rankSpacing': 50, 'padding': 14}}}%%
 flowchart LR
     classDef ai fill:#9050E9,stroke:#9050E9,color:#FFF;
     classDef pillar fill:#0070D2,stroke:#0070D2,color:#FFF;
@@ -6467,7 +6478,7 @@ AND LoginGeoId NOT IN (SELECT LoginGeoId FROM LoginEvent
   </ol>
   <h3>Reference architecture</h3>
   <pre class="mermaid">
-%%{init: {'flowchart': {'htmlLabels': true, 'nodeSpacing': 50, 'rankSpacing': 70, 'padding': 14}}}%%
+%%{init: {'flowchart': {'htmlLabels': true, 'wrappingWidth': 400, 'nodeSpacing': 40, 'rankSpacing': 50, 'padding': 14}}}%%
 flowchart LR
     SF["Salesforce&lt;br/&gt;Real-Time EM"]
     PUB[Pub/Sub API gRPC]
@@ -6620,227 +6631,6 @@ DIFF:
       <tr><td><strong>USER_MODE</strong></td><td>Modern Apex query mode enforcing FLS/CRUD automatically.</td><td><a href="#vi-apex-runmodes">6.1</a> &middot; <a href="#appendix-b">Appendix B</a></td><td>SF Help</td></tr>
     </tbody>
   </table>
-</div>
-
-
-
-<!-- ════════════════════════════════════════════════════════════════════════
-     APPENDIX N  ::  CHANGELOG
-     ════════════════════════════════════════════════════════════════════════ -->
-<div class="card" id="appendix-n" data-search="appendix n changelog version history semver document version last modified author">
-  <h2>Appendix N &middot; Document Versioning &amp; Changelog</h2>
-  <table>
-    <thead><tr><th>Version</th><th>Date</th><th>Change</th><th>Author</th></tr></thead>
-    <tbody>
-      <tr>
-        <td><strong>1.5.11</strong></td>
-        <td>2026-05-04</td>
-        <td><strong>Mermaid line-break ubiquity fix &mdash; <code>&lt;br/&gt;</code> &rarr; <code>&amp;lt;br/&amp;gt;</code> across every flowchart, plus init-directive sweep.</strong> User flagged that line breaks were missing across <em>every</em> rewritten diagram (e.g., "FOUNDATION" running into "Org-Wide Defaults", "WIDENING" into "Hierarchy"). Investigated root cause: when the HTML parser processes <code>&lt;pre class="mermaid"&gt;</code> contents, every <code>&lt;br/&gt;</code> inside it is parsed as an actual <code>&lt;br&gt;</code> DOM element. Browsers return the empty string for <code>&lt;br&gt;</code>'s <code>textContent</code> &mdash; so when Mermaid reads <code>pre.textContent</code> to extract the diagram source, every <code>&lt;br/&gt;</code> separator vanishes and adjacent text segments concatenate. The earlier v1.5.8 / v1.5.10 fix (switching to double-quoted node labels + <code>htmlLabels: true</code>) addressed the parsing structure but did not address the line-break loss because <code>htmlLabels</code> controls SVG <em>output</em> rendering, not source-text <em>input</em> parsing. Resolution: encode every <code>&lt;br/&gt;</code> inside Mermaid quoted labels as the HTML entity <code>&amp;lt;br/&amp;gt;</code>. The HTML parser decodes the entity to the literal 5-character text <code>&lt;br/&gt;</code>, which survives into <code>textContent</code>, where Mermaid (with <code>htmlLabels: true</code>) renders it as a line break in the SVG. Bulk pass: 92 quoted-label and 21 bare-label <code>&lt;br/&gt;</code> instances converted across 11 flowchart diagrams. The <strong>Pillar 9 SDLC pipeline</strong>, <strong>Pillar 10 Defender's AI Stack</strong>, <strong>Threat Landscape vector-pivot-control</strong>, <strong>Pillars Map</strong>, and <strong>Appendix I SIEM streaming reference architecture</strong> diagrams &mdash; the ones that hadn't yet been touched in v1.5.8 / v1.5.10 &mdash; were also converted from bare-label syntax to quoted-label syntax, given the standard <code>%%{init: {'flowchart': {'htmlLabels': true, ...}}}%%</code> directive, and entity-encoded. Sequence-diagram and gantt blocks are unaffected (they use different label-parsing paths).</td>
-        <td>Dr. Paul Coleman</td>
-      </tr>
-      <tr>
-        <td><strong>1.5.10</strong></td>
-        <td>2026-05-04</td>
-        <td><strong>Pillar 6 / 7 / 8 diagram rewrites &mdash; same readability fix applied to three more diagrams.</strong> Same root cause as v1.5.8 Pillar 2 + Pillar 3: bare <code>[label]</code> node syntax (instead of double-quoted <code>["label"]</code>) lets the HTML parser strip <code>&lt;br/&gt;</code> tags before Mermaid sees the text, producing concatenated jumbles like "Profileprofile-bound" / "RestTDE+Shield" / "Triagesignals&rarr;ticket" / "Killswitchfeatureflag." Subgraph nesting also compresses inner labels and causes parent-label overlap with children. Three diagrams rewritten:
-        (1) <strong>Pillar 6 Apex/LWC/Flow trust-boundary diagram</strong> &mdash; user flagged "M and J are ambiguous." Root cause was that <code>J</code> and <code>M</code> were referenced in edges (<code>J --&gt; K --&gt; Q</code>, <code>A -.flow path.-&gt; M</code>) but never defined as nodes with labels &mdash; Mermaid auto-rendered them as bare single-letter nodes. The diagram also had structural redundancy (the <code>FLOW</code> subgraph and the <code>M</code>-junction duplicated each other). Replaced with a clean two-branch flow: Request &rarr; Apex-or-Flow decision; Apex branch traces the three sequential keyword choices (class declaration &rarr; SOQL run-mode &rarr; DML run-mode), Flow branch the run-context choice; both converge at a "Sharing + FLS enforced?" gate that produces either a green "respects sharing &amp; FLS" terminal or a red "bypass / silent leak risk" terminal. Added an explanatory caption beneath the diagram.
-        (2) <strong>Pillar 7 Data classification &amp; control diagram</strong> &mdash; user reported jumbled text. Removed the three subgraphs (DATA PROTECTION / DISCOVERY &amp; LIFECYCLE / OPERATIONAL CONTROLS) that were compressing inner nodes and overlapping their parent labels. Flattened to 8 numbered steps fanning out from <strong>1. Classify Data</strong> as the central decision (steps 2&ndash;4 = Encrypt / Manage Keys / Field Audit Trail are sequential; steps 5&ndash;8 = Detect / Mask / Backup / Retention are parallel). Color coding (purple = tier discovery, blue = control, green = ops) preserved.
-        (3) <strong>Pillar 8 Detect-Respond-Recover diagram</strong> &mdash; same jumble symptoms. Removed DETECT / CONTAIN subgraphs; consolidated each phase into a single full-width labeled node with the inline component breakdown (e.g., DETECT node carries "Posture (Health Check) &middot; Logs (Audit + Login History) &middot; Events (Real-Time EM) &middot; Anomaly (Threat Detection) &middot; AI silent-compromise indicators" inline). Resulting flow is a clean linear 9-step IR loop: DETECT &rarr; TRIAGE &rarr; CONTAIN &rarr; IDENTIFY &rarr; ERADICATE &rarr; PRESERVE &rarr; NOTIFY &rarr; RECOVER &rarr; POST-MORTEM. Tagged each phase with its severity color.
-        All three diagrams now use the v1.5.8 Mermaid <code>init</code> directive (<code>htmlLabels: true</code>, 14&thinsp;px padding, 50&thinsp;px node spacing, 70&thinsp;px rank spacing) so labels render with proper line breaks and boxes have breathing room around their text.</td>
-        <td>Dr. Paul Coleman</td>
-      </tr>
-      <tr>
-        <td><strong>1.5.9</strong></td>
-        <td>2026-05-04</td>
-        <td><strong>Checklists are now actually checkable + printable.</strong> User asked: "the checklist sections should be actual checklists &mdash; users might want to print them and check off items." Pivoted four checklist sections from prose-style bullet lists to interactive + printable forms.
-        (1) <strong>Pillar 3.3 Guest User Profile Audit Checklist</strong> &mdash; the 4 sub-lists (Object permissions, System permissions, Apex class access, Visualforce/LWC component access) converted to <code>&lt;ul class="checklist"&gt;</code> with <code>&lt;input type="checkbox"&gt;</code> + <code>&lt;label&gt;</code> per item. 14 checkboxes total.
-        (2) <strong>Appendix O.1 Day-1, O.2 Week-1, O.3 Month-1 tables</strong> &mdash; added a leading checkbox column (<code>th.ck-col</code> / <code>td.ck-col</code> with <code>&#10003;</code> header glyph + per-row <code>&lt;input class="ck"&gt;</code>). Existing # / Action / Where / Verify / Pillar columns preserved, so the table still functions as a reference. CSS uses <code>tr:has(input.ck:checked)</code> to strike-through and dim the row when ticked. 39 row checkboxes total across the 3 tables.
-        (3) <strong>Appendix O.4 Quarterly attestation pack + drill</strong> &mdash; the <code>&lt;ol&gt;</code> (12 items) and <code>&lt;ul&gt;</code> (4 items) converted to <code>&lt;ul class="checklist"&gt;</code>.
-        (4) <strong>localStorage persistence</strong> &mdash; new bottom-of-body script tracks every checkbox whose id starts with <code>ck-</code> and persists check state under <code>mythos-ck:&lt;id&gt;</code>. State restores automatically on page reload so admins running a multi-day Day-1 / Week-1 audit don't lose progress. Opt-in by id-prefix only; unrelated checkboxes elsewhere on the page are unaffected.
-        (5) <strong>Print stylesheet</strong> &mdash; both <code>.checklist</code> and <code>.checklist-table</code> render checkboxes as empty bordered squares (13&thinsp;pt, 1.5&thinsp;pt black border) for hand-checking on a printed audit copy. Strike-through suppressed in print so a ticked-on-screen-then-printed copy still shows the action text in full. <code>page-break-inside: avoid</code> on each item so checklist rows don't split across pages.</td>
-        <td>Dr. Paul Coleman</td>
-      </tr>
-      <tr>
-        <td><strong>1.5.8</strong></td>
-        <td>2026-05-04</td>
-        <td><strong>Diagram readability pass &mdash; Pillar 2 Permission Waterfall + Pillar 3 Experience Cloud guest-bleed.</strong>
-        (1) <strong>Pillar 2 Permission Waterfall reverted to LR with concise labels.</strong> The v1.5.6 TB redraw was worse than the v1.5.4 original: Mermaid auto-sized each TB node to ~150&thinsp;px wide because long single-line labels with embedded <code>&lt;br/&gt;</code> tags don't widen TB boxes (TB box width = longest single line between breaks; my breaks split the long sentences, so the boxes stayed narrow). Result was one tall narrow vertical column with massive horizontal gutters &mdash; user reported "totally unacceptable." Reverted to <code>flowchart LR</code> with 6 concise nodes (FOUNDATION / WIDENING / NARROW / OBJECT-FIELD GATES / APEX RUN-MODE / Record visible?), each with a 3-line label whose longest line caps at ~30 chars. The 6-step horizontal flow now spans the full card width without subgraph nesting.
-        (2) <strong>Pillar 3 Experience Cloud guest-bleed diagram simplified.</strong> User reported labels were clipped (e.g., "Guest User Profileprofile-bound" running together) and the diagram had too much whitespace above and below. Removed the <code>SURFACE</code> subgraph wrapper that was nesting 5 query-type nodes; consolidated to a single "Reachable Query Surface" node carrying the inline list. Switched all node syntax to double-quoted strings (<code>A["..."]</code>) for cleaner Mermaid 10.x label parsing. Linear flow: Anonymous Visitor &rarr; Guest User Profile &rarr; Sharing Scope &rarr; Reachable Query Surface &rarr; Apex Controller &rarr; Records Returned &rarr; (branch) Search-engine Cache + Attacker.
-        (3) <strong>Mermaid <code>init</code> directive on both diagrams</strong> &mdash; <code>%%{init: {'flowchart': {'htmlLabels': true, 'nodeSpacing': 50, 'rankSpacing': 70, 'padding': 14}}}%%</code>. The 14&thinsp;px node padding gives boxes more breathing room around their labels (was the cramped-text symptom user reported); 50&thinsp;px nodeSpacing + 70&thinsp;px rankSpacing keep arrows and adjacent boxes from running into each other; <code>htmlLabels: true</code> ensures <code>&lt;br/&gt;</code> tags render as line breaks rather than literal text.</td>
-        <td>Dr. Paul Coleman</td>
-      </tr>
-      <tr>
-        <td><strong>1.5.7</strong></td>
-        <td>2026-05-04</td>
-        <td><strong>Pillar 4.3 expanded &mdash; "Block Uninstalled Connected Apps" mechanism, default state, and what it does not cover.</strong>
-        User asked the right question: "how do you turn off the default org CRM feature that auto-replicates a Connected App config defined in another org?" The doc named the setting but didn't spell out the mechanism it gates or the boundaries of the protection. Rewrote 4.3 to lead with the default behavior being turned off, then walk through:
-        (a) <strong>The default behavior the toggle disables</strong> &mdash; Salesforce treats a Connected App's <code>consumer_key</code> (OAuth <code>client_id</code>) as globally addressable across orgs; on first authorization in your org the platform <em>auto-creates a "shadow" Connected App entry keyed off that client_id</em>, presents the consent screen, and issues a token. The app definition is replicated into your org with no admin involvement &mdash; this is the property UNC6040 / ShinyHunters vishing weaponized.
-        (b) <strong>The setting that turns it off</strong> &mdash; "Block authentication for uninstalled connected apps" in Setup &rarr; OAuth and OpenID Connect Settings. When enabled, the platform refuses to auto-create the shadow record; the OAuth request fails with an <code>invalid_client</code>-class error <em>before</em> the consent screen renders. The user sees a generic OAuth error page (no consent prompt, no app branding). Train operators to recognize this as a successful block rather than retry.
-        (c) <strong>Default state</strong> &mdash; default-on for most orgs since September 2025 via the critical update. Orgs created after the rollout inherit it on; some orgs created before may still have it off. Verify rather than assume.
-        (d) <strong>What this control does NOT cover</strong> &mdash; new section explicitly listing the four cases the block is silent on: managed-package Connected Apps (already "installed"; UNC6395 / Salesloft Drift abused this path), Connected Apps you registered yourself, External Client Apps (Spring '26 successor primitive with its own equivalent surface), and browser-extension session hijack (no OAuth authorization is requested at all; reuses the user's existing session).
-        Added <code>data-search</code> keywords for the new concepts (auto replication, cross-org, consumer key, client_id, stub, shadow registration, invalid_client, managed package, installed) so the search box surfaces this card on those queries.</td>
-        <td>Dr. Paul Coleman</td>
-      </tr>
-      <tr>
-        <td><strong>1.5.6</strong></td>
-        <td>2026-05-04</td>
-        <td><strong>Pillar 1.8 X-Sec-Token row sharpened + Permission Waterfall diagram redrawn.</strong>
-        (1) User flagged that the v1.5.5 explanation of why custom <code>X-Sec-Token</code> headers don't work on Salesforce was incomplete. The original text said "you'd put a custom Apex REST service in front of every standard object and permission users out of direct API access &mdash; breaks Data Loader / sf CLI / MuleSoft / every ETL." Mechanically true but missed the bigger architectural issue: <strong>an OAuth access token authenticates the bearer against every endpoint the underlying user is permissioned for.</strong> Standard <code>/services/data/vXX.X/sobjects/&hellip;</code> endpoints sit <em>side-by-side</em> with any custom Apex REST endpoint, not <em>behind</em> it. An attacker holding a stolen token (UNC6040, UNC6395) walks past the wrapper and queries <code>/sobjects/Account</code> directly with the same bearer. The wrapper layer is security theater. There is no stock primitive (OAuth scopes, Connected App policies, profile permissions) that makes a custom Apex REST endpoint the only valid path for a given token holder. Updated the row to lead with the architectural reality and to redirect readers to the actual fix surface: token-issuance discipline (Pillar 4 &mdash; Block Uninstalled Connected Apps, refresh-token rotation, admin pre-approval, integration-user IP allowlist) plus post-issuance detection (Pillar 8 &mdash; TxSec on <code>ApiEvent</code>, <code>BulkApiResultEvent</code>, <code>ApiAnomalyEvent</code>).
-        (2) <strong>Pillar 2 Permission Waterfall diagram redrawn</strong> &mdash; user reported labels were cramped and horizontal whitespace was wasted. Restructured from a 5-subgraph LR layout (where 4 widening-layer nodes crammed side-by-side made each box too narrow for its multi-line label) to a 6-step TB (top-to-bottom) waterfall where each row is a single full-width node carrying its component breakdown inline. Each step now has room to breathe: foundation (OWD), widening layers (Role/Territory Hierarchy &middot; Sharing Rules &middot; Manual+Implicit &middot; Apex Managed), narrow (Restriction Rules), per-object/field gates (Object &amp; Field Permissions via PSG &middot; Field-Level Security), Apex run-mode (USER_MODE / SECURITY_ENFORCED / with sharing), and the final "record visible to the user?" decision. Class colors and severity coding preserved.</td>
-        <td>Dr. Paul Coleman</td>
-      </tr>
-      <tr>
-        <td><strong>1.5.5</strong></td>
-        <td>2026-05-04</td>
-        <td><strong>Pillar 1.8 honesty pass &mdash; stock Salesforce vs. bespoke.</strong> User flagged that the original "Tier-Based Action Classification (Belt-and-Suspenders)" framing read as if borrowed from internal-runtime operator-security practice and made claims that don't actually map to stock Salesforce CRM (typed confirmation phrases as global gates, custom <code>X-Sec-Token</code> headers on arbitrary API calls, simultaneous FIDO2&nbsp;+&nbsp;TOTP factor combination). Rewrote the entire card around the honest engineering question: <em>which tier behaviors are achievable with stock platform primitives, and which require bespoke build that re-implements platform features (generally a poor ROI)?</em>
-        Five new sections: <strong>(a) Threat-model reality check</strong> &mdash; explicitly names that the 2024&ndash;2026 corpus is API-and-token-based (UNC6040, UNC6395, browser-extension hijack, Krebs guest exposure) and that UI-side confirmation prompts catch a small slice of the model. <strong>(b) What is achievable on stock Salesforce</strong> &mdash; structured table of TxSec on <code>ApiEvent</code> / <code>BulkApiResultEvent</code> / <code>ApiAnomalyEvent</code> / <code>ReportEvent</code> / <code>DataExportEvent</code> / <code>LoginAsEvent</code>; High Assurance Session Security Levels for sensitive Setup pages; Custom Login Flow for known-context preconditions; API surface restriction; OAuth grant lifecycle; bounded UI confirmation via Custom LWC Quick Action overrides on the 5&ndash;10 highest-stakes record types only. <strong>(c) What is NOT achievable on stock Salesforce</strong> &mdash; explicit "do not build this without a real reason" table covering global typed-phrase gates, custom <code>X-Sec-Token</code> headers (would require putting custom Apex REST in front of every standard object, breaking Data Loader, sf CLI, MuleSoft, every ETL), simultaneous FIDO2+TOTP, and mid-session continuous authorization. <strong>(d) Recommended tier model on stock Salesforce</strong> &mdash; replacement table mapping Tier 1 / Tier 2 / Tier 3 Financial / Tier 3 Emergency / Exempt to actual platform primitives. <strong>(e) Where the classification lives</strong> &mdash; metadata-resident classification, can't be downgraded by an attacker holding Modify All Data without a deployment, which is itself Tier 1.</td>
-        <td>Dr. Paul Coleman</td>
-      </tr>
-      <tr>
-        <td><strong>1.5.4</strong></td>
-        <td>2026-05-04</td>
-        <td><strong>Trademark attribution &mdash; full coverage pass, plus diagram-vs-aside clear-float fix.</strong>
-        (1) The prior Trademarks paragraph leaned on the catch-all "all other trademarks are the property of their respective owners" clause and listed only ~12 marks explicitly. For a document anchored in branded products, that was thin. Expanded to a structured, multi-paragraph attribution: full Salesforce family (Experience Cloud, AppExchange, every Cloud variant, Vlocity, OmniStudio, OmniScript, DataRaptor, FlexCard, Integration Procedure, MuleSoft, Tableau, Slack, Heroku, Visualforce, Aura, Lightning Web Components, Salesforce DX, Connected App / External Client App, Data Mask, Privacy Center, Security Center, Field Audit Trail, Real-Time Event Monitoring, Threat Detection, Transaction Security, Setup Audit Trail, Login History, Health Check, Permission Set Group, Trust Layer); Anthropic (added Claude Security, Claude Code, Claude Enterprise) with a public-naming note on "Mythos"; OpenAI (added Codex CLI); Google (added Chrome / Chrome Enterprise / Google Cloud / Google Cloud Threat Intelligence / Google Chronicle / Mandiant); Microsoft (entire entry added &mdash; Sentinel, Edge, Edge Enterprise, Copilot, Azure); Apple (Safari); other vendors and standards (Yubico / YubiKey, Splunk via Cisco, Elastic, New Relic, ServiceNow, Salesloft / Drift, DigiCert, FIDO2 / FIDO Alliance, WebAuthn, PMD, SOC 2 / PCI DSS); explicit note on threat-actor designations (UNC6040, UNC6395, ShinyHunters) being public tracking identifiers, not trademarks; publication-name list under fair-use citation; expanded nominative-fair-use closing clause covering competitor-mark co-occurrence and good-faith correction on rights-holder notice.
-        (2) <strong>Mermaid diagram float-clear fix.</strong> User reported the Pillar 2 Permission Waterfall diagram became unreadable on the deployed v1.5.0 page &mdash; root cause was the new <code>.aside-learn</code> right-floating callout in the same card compressing the diagram canvas to the leftover horizontal space. Added <code>clear: both</code> to <code>.card pre.mermaid</code>, <code>.card pre[class*="language-"]</code>, and <code>.card table</code> so any large block element drops below floating asides and gets the full card width. Asides still float for prose paragraphs; only diagrams, code blocks, and tables clear.
-        Header HTML comment block also updated to point readers at the full Disclosures section.</td>
-        <td>Dr. Paul Coleman</td>
-      </tr>
-      <tr>
-        <td><strong>1.5.3</strong></td>
-        <td>2026-05-04</td>
-        <td><strong>Audit-residue cleanup, minimap removal, AI-coach RAG payload.</strong>
-        (1) <strong>"App. X" &rarr; "Appendix X" everywhere</strong> &mdash; user-flagged terse abbreviation; 23 hyperlinked occurrences (glossary, well-architected mapping, industry overlays) updated so display text reads "Appendix C / D / O / P / Q / R" etc. The reader's eye no longer trips over "App. P's SOC 2 / PCI / GLBA mappings."
-        (2) <strong>Pillar references hotlinked in body prose</strong> &mdash; 18 unlinked "Pillar N.M" mentions across Appendix V (Industry Overlays) plus 5 in earlier sections wrapped in <code>&lt;a class="pillar-link"&gt;</code> targeting the appropriate parent or subsection anchor. New <code>.pillar-link</code> CSS: dotted underline + hover-emphasis, consistent with other internal-cross-reference links.
-        (3) <strong>Roman-numeral residue cleanup</strong> &mdash; 8 occurrences of <code>&lt;a href="#pillar-ix"&gt;IX&lt;/a&gt;</code> in the Well-Architected mapping table (Appendix U) updated to display "Pillar 9" matching the v1.4.8 Arabic-numeral convention.
-        (4) <strong>"Provenance card" &rarr; "Disclaimer"</strong> &mdash; 5 link-display-text occurrences relabeled to match the actual heading on that card. The <code>id="provenance"</code> anchor preserved for backward compat.
-        (5) <strong>Acronym spell-outs in Appendix V Industry Overlays</strong> on first use within the section: GLBA (Gramm-Leach-Bliley Act), NYDFS (New York Department of Financial Services), FFIEC (Federal Financial Institutions Examination Council), KYC/AML (Know-Your-Customer / Anti-Money-Laundering), FedWire / SWIFT / ACH (each now expanded), BEC (business email compromise), HIPAA (Health Insurance Portability and Accountability Act), StateRAMP, PIV / CAC (Personal Identity Verification / Common Access Card). Reader can land in any industry overlay subsection without prior context and still parse it.
-        (6) <strong>Minimap removed</strong> &mdash; the bottom-right minimap canvas + toggle button + ~85 lines of associated rendering JS were valuable for the previous sprawling-architecture-canvas layout but redundant in the current single-column scroll layout, and were physically overlapping the Ask-AI floating widget at the same screen corner. CSS, HTML, JS, and print-stylesheet selectors all removed cleanly.
-        (7) <strong>AI Coach: clipboard payload now includes a context preamble + canonical document URL</strong> with the current section anchor. The visible button still shows just the user's chosen prompt; the clipboard receives a short preamble pointing the receiving AI at <code>https://drpaulcoleman.github.io/agentforce-mythos-hardening/#&lt;section&gt;</code> so any assistant (Gemini, Claude, ChatGPT, Copilot, browser-native panel) can fetch the source and ground its answer in the document's own framing rather than relying on whatever it remembers about Salesforce security from training data. Treat as a mini-RAG handoff. Help text in the panel updated to reflect this.
-        Files touched: <code>index.html</code> only.</td>
-        <td>Dr. Paul Coleman</td>
-      </tr>
-      <tr>
-        <td><strong>1.5.2</strong></td>
-        <td>2026-05-04</td>
-        <td>Sidebar nav restructure to match v1.5.0's relocation of References. The "M: References" entry in the appendix list was removed (it pointed to a section no longer in the appendix lineup); a new top-level "References &rarr;" link was added at the bottom of the sidebar after Disclosures, styled in <code>sf-blue-light</code> + bold so it reads as a final destination rather than another appendix.</td>
-        <td>Dr. Paul Coleman</td>
-      </tr>
-      <tr>
-        <td><strong>1.5.1</strong></td>
-        <td>2026-05-04</td>
-        <td>Header-bar overflow fix. The v1.5.0 Mythos-Imperative eyebrow placement (small orange line stacked ABOVE the h1) overflowed the 60&thinsp;px fixed header on some viewports. Switched to inline em-dash treatment per user request: <code>[ORANGE caps]&nbsp;THE MYTHOS IMPERATIVE&nbsp;&mdash;&nbsp;[WHITE]&nbsp;Salesforce CRM Security Hardening</code>. Single-line h1, header stays at 60&thinsp;px, no canvas lost.</td>
-        <td>Dr. Paul Coleman</td>
-      </tr>
-      <tr>
-        <td><strong>1.5.0</strong></td>
-        <td>2026-05-04</td>
-        <td><strong>Comprehension &amp; reference-discipline pilot.</strong>
-        (1) <strong>Right-margin "Learn more" callouts</strong> &mdash; new <code>.aside-learn</code> CSS class floats a 270&thinsp;px callout box to the right of card prose on wide screens, holding a one-line plain-language metaphor + 3-4 supplemental web links (Salesforce Help, Trailhead, Wikipedia, primary research). Pilot landed on Pillar 1 overview, Pillar 1.3 (High Assurance), Pillar 2 overview, Pillar 2.6 (FLS / USER_MODE), Pillar 3 overview, Pillar 4 overview &mdash; ~6 callouts establishing tone for the rest of the document. Collapses to inline block on screens &lt; 1180&thinsp;px; renders as a self-contained box on print.
-        (2) <strong>"Ask AI to explain this section" floating widget</strong> &mdash; universal coaching helper anchored bottom-right; tracks the section in view via scroll position and surfaces 3-4 ready-to-paste prompts for that section. Click any prompt to copy to clipboard, then paste into Gemini, Claude, ChatGPT, Copilot, or any browser AI panel. <em>No data is sent from this page; the user supplies their own AI assistant.</em> Browser-AI button detection is not feasible (no browser exposes the "Ask Gemini" / "Ask Copilot" surface to page JavaScript), so the universal copy-to-clipboard pattern works for everyone regardless of which AI they have. Hidden in print.
-        (3) <strong>Footnote linkification (78 markers)</strong> &mdash; every inline <code>[N]</code> footnote marker is now a clickable link to the matching <code>#ref-N</code> entry in the References section. Markers nested inside an existing <code>&lt;a&gt;</code> were split out to a sibling <code>&lt;sup&gt;&lt;a&gt;&lt;/a&gt;&lt;/sup&gt;</code> (avoids invalid nested anchors). New <code>.ref-link</code> styling: subtle dotted underline + hover-state + <code>:target</code> highlight on the destination list item.
-        (4) <strong>References moved to very end of document</strong> &mdash; user feedback: scholarly papers place References at the end, not hidden among appendices. The block (formerly "Appendix M") was relocated after the Disclosures card and renamed simply "References". The <code>id="appendix-m"</code> anchor is preserved for backward compatibility.
-        (5) <strong>References reformatted to APA 7th edition with retrieval dates</strong> &mdash; every web source now carries "Retrieved May 4, 2026, from URL" because this material is changing rapidly and timestamped retrieval is essential for replication. Entries sorted alphabetically by author/organization (APA convention); each list item displays a visible <code>[N]</code> marker so readers landing from a footnote know which entry they hit. 43 numbered + 9 supplementary entries. The 43 <code>id="ref-N"</code> anchors are preserved so all 78 inline footnote links still resolve.
-        (6) <strong>"The Mythos Imperative" branding</strong> &mdash; HTML <code>&lt;title&gt;</code>, OpenGraph + Twitter cards, hero <code>&lt;h1&gt;</code> eyebrow, and the page-header subtitle now lead with "The Mythos Imperative." A new BLUF-style paragraph in the hero card explains <em>why this exists, why now</em>: the April 2026 Mythos incident is what compresses the timeline on which every Salesforce customer needs to harden the customer-side surface. Mythos accelerates the timeline; it does not change the surface.
-        Appendix counter in the hero KPI grid corrected from 14 to 22.
-        Files touched: <code>index.html</code> only.</td>
-        <td>Dr. Paul Coleman</td>
-      </tr>
-      <tr>
-        <td><strong>1.4.9</strong></td>
-        <td>2026-05-04</td>
-        <td>Diagram-density and viewport policy. <strong>"Ten Hardening Pillars &mdash; The Map" diagram restructured</strong> from a 4-subgraph layout (where the STANDARD PILLARS subgraph stacked 5 nodes vertically and made the whole diagram tall) into a single horizontal row of 9 pillar nodes plus the cross-cutting overlay (Pillar 10) sitting above &mdash; gistable in one viewport on a 1900&times;1200 desktop. <strong>Pillar 10 "Defender's AI Stack" diagram</strong> similarly restructured from a 9-node vertical subgraph to a fan-out where the Trust Layer routes to all 9 pillars in a horizontal row. <strong>New "Desktop-only viewing" disclaimer</strong> added to the Disclaimer card and to the repo README explaining that the document is designed for screens 1900&times;1200 or larger and degrades on mobile / small tablet (sidebar nav, dual-tab fold, search box, maturity-scorecard sliders all assume a wide canvas and a pointing device); reading-on-the-go users should use the print stylesheet for an offline / PDF render. Caught one Roman-numeral straggler in the maturity-scorecard JS (<code>"prioritize Pillars 1-IV"</code> &rarr; <code>"Pillars 1-4"</code>).</td>
-        <td>Dr. Paul Coleman</td>
-      </tr>
-      <tr>
-        <td><strong>1.4.8</strong></td>
-        <td>2026-05-04</td>
-        <td>Numbering accessibility patch. Roman-numeral pillar identifiers (<code>Pillar I</code> through <code>Pillar X</code>; subsection refs like <code>VIII.6</code>) were terse for less-technical readers, especially as numbers grew. Bulk-converted display text to Arabic numerals across <strong>590 occurrences in index.html</strong> + 17 in repo README + 21 in reference-impl/README + 122 across the JSON data files (751 total). <strong>Anchor IDs preserved unchanged</strong> (<code>#pillar-i</code>, <code>#i-mfa-matrix</code>, etc.) so external bookmarks, sidebar nav links, and 316 internal cross-references continue to resolve. Mermaid diagram node IDs (<code>I</code>, <code>II</code>, <code>III</code>...) preserved as variable names; only their labels changed (<code>I[I &middot; Identity ...]</code> &rarr; <code>I[1 &middot; Identity ...]</code>) so edges (<code>I --&gt; II</code>) still work without restructure.</td>
-        <td>Dr. Paul Coleman</td>
-      </tr>
-      <tr>
-        <td><strong>1.4.7</strong></td>
-        <td>2026-05-04</td>
-        <td>Preemptive label-clipping fix on the diagrams converted in v1.4.6. Pillar 10 "Defender's AI Stack" subgraph children (P1&ndash;P9) had single-line labels (e.g. "I: Identity audit, SAML claim review") that risked clipping when Mermaid scaled the SVG to fit a narrow card column &mdash; rewrote each as a two-line label with explicit <code>&lt;br/&gt;</code> at a natural break point. Pillar 8 "AI silent-compromise indicators" detect-signal node similarly wrapped. The user reported the clipping symptom against the deployed v1.4.4 page; that report's actual diagram (the original Pillar 8 <code>stateDiagram-v2</code>) was already replaced wholesale in v1.4.6 &mdash; pushing v1.4.x to <code>main</code> resolves the deployed clipping at root.</td>
-        <td>Dr. Paul Coleman</td>
-      </tr>
-      <tr>
-        <td><strong>1.4.6</strong></td>
-        <td>2026-05-04</td>
-        <td>Large patch from live-page review feedback. (1) <strong>Plain-language rewrites of all 10 exec-pillar cards</strong> &mdash; removed jargon ("per-user named principals," "OWD," "USER_MODE," "BYOK," "PSG") in favor of explanations a non-Salesforce-native executive can read. (2) <strong>Three Mermaid diagrams fixed</strong>: Pillar 3 stateDiagram-v2 (was rendering as "Syntax error in text" because Mermaid 10.9.5 rejects multi-line <code>note ... end note</code> blocks) &rarr; converted to flowchart LR with subgraphs; Pillar 7 flowchart (was failing because <code>classDef class</code> uses Mermaid's reserved <code>class</code> keyword) &rarr; renamed classDef to <code>tier</code> + restructured into LR subgraphs; Pillar 8 stateDiagram-v2 (same composite-state syntax issue) &rarr; converted to flowchart LR. (3) <strong>Three more flowcharts converted TD &rarr; LR with subgraphs</strong> for horizontal canvas use: Pillar 2 Permission Waterfall (10-node vertical chain &rarr; 5 logical subgraphs), Pillar 6 Apex / Flow trust boundary, Pillar 10 Defender's AI Stack overlay. (4) <strong>Code-block dark theme + Prism.js syntax highlighting</strong>: added Prism 1.29 CDN with markup / java / javascript / json / bash / yaml / sql / python grammars + tomorrow dark theme; <code>.card pre:not(.mermaid)</code> override gives every code block an offset darker background (<code>#0A1420</code>), visible border, horizontal scroll, and inset shadow so code reads as distinct from commentary. Bulk-classified 17 of 22 unhinted <code>&lt;pre&gt;&lt;code&gt;</code> blocks across the doc with appropriate <code>language-X</code> classes (4 AI prompt-library blocks intentionally left bare as plain text). Custom token-color overrides align Prism's tomorrow theme to the SF-blue / orange / green / purple palette. <em>Known follow-up</em>: comprehensive subsection-by-subsection attribution-footer pass (collecting all <code>[^N]</code> references at the bottom of each subsection block) is queued for v1.5.0 &mdash; this v1.4.6 batch was already at the size budget.</td>
-        <td>Dr. Paul Coleman</td>
-      </tr>
-      <tr>
-        <td><strong>1.4.5</strong></td>
-        <td>2026-05-04</td>
-        <td>Several visual / structural fixes from user feedback on the deployed page. (1) <strong>BLUF light-card contrast</strong> strengthened to near-black body text (<code>#0D1B2A</code>) at <code>font-weight: 500</code>; <code>&lt;strong&gt;</code> uses darker SF blue (<code>#005FB2</code>) at weight 700; tables, code chips, and links all rebalanced for the white background. Footnote <code>&lt;sup&gt;</code> markers reverted to inline default (no <code>display: inline-block</code>) so they do not shift line baselines in any paragraph that contains a footnote ref &mdash; only color and weight overrides remain. (2) <strong>Talking-Point cards</strong> (<code>#exec-talking-points</code> + <code>#talking-points</code>): suppressed the <code>.exec-bubble::before "EXECUTIVE SUMMARY"</code> badge inside both. The badge appeared five times inside an Executive Summary tab and was visually noisy; one CSS <code>content: none</code> override scoped to those two card IDs removes it without touching other places that legitimately use the bubble. (3) <strong>Ten Hardening Pillars &mdash; The Map</strong> diagram restructured from <code>graph TD</code> (tall narrow stack) to <code>graph LR</code> with four subgraphs (FOUNDATION / PRIORITY EXPOSURES / STANDARD PILLARS / DEFENSIVE OVERLAY) so the diagram uses horizontal canvas width. (4) Added a top-level <a href="https://github.com/drpaulcoleman/agentforce-mythos-hardening/blob/main/README.md" target="_blank" rel="noopener">repo-side <code>README.md</code></a> that summarizes the project for visitors who land in the GitHub repo first and links prominently to the live page at <a href="https://drpaulcoleman.github.io/agentforce-mythos-hardening/" target="_blank" rel="noopener">drpaulcoleman.github.io/agentforce-mythos-hardening</a>. README includes "what's here," reading-paths-by-role table, and contributions / errata pointer.</td>
-        <td>Dr. Paul Coleman</td>
-      </tr>
-      <tr>
-        <td><strong>1.4.4</strong></td>
-        <td>2026-05-04</td>
-        <td>Mermaid flowchart layout tuning. The global <code>flowchart.wrappingWidth</code> was 200 px, which forced node labels to wrap into tall narrow columns even when the canvas had thousands of pixels of horizontal room (visible in the threat-landscape diagram and others). Loosened to 360 px and bumped <code>nodeSpacing</code> 60&rarr;80 + <code>rankSpacing</code> 70&rarr;90 so the freed horizontal room actually gets used by the layout. Pinned <code>defaultRenderer: 'dagre'</code> for stability across Mermaid versions. Affects every flowchart in the document; sequence / gantt / state diagrams use their own configs and are unaffected.</td>
-        <td>Dr. Paul Coleman</td>
-      </tr>
-      <tr>
-        <td><strong>1.4.3</strong></td>
-        <td>2026-05-04</td>
-        <td>Glossary "Quick Reference" card simplified: replaced the <code>exec-bubble</code> grid (which carried decorative "EXECUTIVE SUMMARY" badges that didn't belong in a tech-tab card) with a clean two-column term/definition table. Entries alphabetized A&rarr;Z. No content lost; same 20 terms with the same anchor links.</td>
-        <td>Dr. Paul Coleman</td>
-      </tr>
-      <tr>
-        <td><strong>1.4.2</strong></td>
-        <td>2026-05-04</td>
-        <td>Trimmed the "Document Provenance &amp; How to Read This" card down to a simple disclaimer block per user request. Removed the source-mix table, verification rule, versioning details, in-context-vs-appendix discipline statement, and de-identified-internal-patterns paragraph &mdash; all material that was either implicit in the document's structure (in-context vs. appendix), redundant with the changelog (versioning), or already in Disclosures (de-identified patterns). Card heading retitled "Disclaimer." Sidebar nav label updated to match. Anchor <code>#provenance</code> preserved so external links still resolve.</td>
-        <td>Dr. Paul Coleman</td>
-      </tr>
-      <tr>
-        <td><strong>1.4.1</strong></td>
-        <td>2026-05-04</td>
-        <td>Theming patch: light-background BLUF card had inherited body-text and inline-code colors designed for dark cards (<code>.card p { color: var(--text-secondary) }</code>, <code>code { background: dark-navy; color: light-blue }</code>), producing low-contrast text on the white BLUF background and dark-blob code chips that read poorly. Added <code>.card.bluf p / li / ol / ul / td / div / strong / em / table / code / pre / sup a</code> overrides plus <code>.card.bluf .ref-impl-callout</code> green-themed code/link styling so the callout's anchor-tagged code chips read cleanly against the green/blue gradient. No content changes; CSS-only patch.</td>
-        <td>Dr. Paul Coleman</td>
-      </tr>
-      <tr>
-        <td><strong>1.4.0</strong></td>
-        <td>2026-05-04</td>
-        <td>Major expansion: companion <code>reference-impl/</code> Salesforce DX project added in this monorepo (commits 2d15693, 1ff8d96, e7ae130) with bidirectional doc-to-code links. Doc-side enhancements (commit 85bbdac): OpenGraph + Twitter Card metadata, canonical link, errata-channel meta; full <code>@media print</code> stylesheet (page-break-aware, serif body, URL post-rendering); per-pillar TL;DR card at the top of every Pillar 1&ndash;X overview (CSS class <code>pillar-tldr</code>); 90-Minute Hardening Sprint exec-tab card for orgs with no security budget; "Companion reference implementation" hero callout in both BLUF cards. Six new appendices (commits bffcfc0, 694b8a6): <strong>Q</strong> &mdash; five concrete IR runbook templates (vishing / ISV / guest exposure / browser extension / AI agent silent compromise) with sub-15-min containment commands and notification drafts. <strong>R</strong> &mdash; breach-notification timing matrix (GDPR / HIPAA / SEC 8-K / NIS2 / GLBA / PCI / Canada / Australia / Brazil / Japan + 10 representative US states + sectoral overlays). <strong>S</strong> &mdash; interactive maturity self-assessment (10 sliders, JS aggregator, localStorage persistence, JSON export to clipboard). <strong>T</strong> &mdash; per-pillar Trailhead alignment (modules, trails, superbadges). <strong>U</strong> &mdash; Salesforce Well-Architected Framework mapping (Trusted / Adaptable / Composable lenses). <strong>V</strong> &mdash; industry-specific overlays (FSC, Health Cloud, Public Sector, Industries / Vlocity / OmniStudio, B2B/B2C Commerce). Sidebar nav extended with Q/R/S/T/U/V entries and the 90-Minute Sprint exec link. Reference list extended to <code>[^43]</code>. Total appendix count: 16 &rarr; 22.</td>
-        <td>Dr. Paul Coleman</td>
-      </tr>
-      <tr>
-        <td><strong>1.3.0</strong></td>
-        <td>2026-05-03</td>
-        <td>Chunked Codex CLI hallucinations audit (no-web variant) returned 30 findings (4 critical, 12 high, 11 medium, 3 low). Applied: <em>Code-sample disclaimers</em> added to Appendices A, B, C, D acknowledging that exact API signatures and metadata-schema element names evolve across releases and must be verified against current docs. <em>Apex/SOQL fixes</em>: B.3 dynamic SOQL revised to use <em>either</em> <code>WITH USER_MODE</code> <em>or</em> <code>AccessLevel.USER_MODE</code> (not both); per-object allowlist of fields (Case has no standard <code>Name</code> field, uses <code>CaseNumber</code>). B.4 <code>stripInaccessible</code> example clarified &mdash; intended for queries <em>without</em> USER_MODE/SECURITY_ENFORCED. <em>Real-Time EM</em>: <code>RestApiEvent</code> description corrected from "REST callouts" to "inbound REST API activity (not Apex outbound callouts)." <em>Cert lifespan</em>: Appendix G.4 expanded to the full CA/B Forum Ballot SC-081v3 stepped schedule (Mar 2026 &rarr; 200 days, Mar 2027 &rarr; 100 days, Mar 2029 &rarr; 47 days), reference [^43] added. <em>Claude Security</em>: corrected "general-availability" to "in public beta as of May 1 2026" (resolves a contradiction with the May-2026 public-beta framing). <em>Mythos provenance note</em> added to the reality-check card flagging "Mythos" / "Project Glasswing" as 2026-dated public references whose naming conventions may evolve. <em>Victim attribution</em>: separated UNC6395 (Drift, 700+ orgs) from UNC6040 (vishing, named-victim list); softened ShinyHunters / Scattered Spider / Lapsus$ ecosystem-conflation to "claimed-affiliation / tradecraft overlap, not formally confirmed as one ecosystem." <em>Standards</em>: SOC 2 P1&ndash;P8 enumerated by name; HIPAA &sect;164.310 added with platform-side scope note; "CIS Salesforce Benchmark" replaced with "CIS Critical Security Controls v8" in the document subtitle to resolve a contradiction (a Salesforce-specific CIS Benchmark is not generally published).</td>
-        <td>Dr. Paul Coleman</td>
-      </tr>
-      <tr>
-        <td><strong>1.2.0</strong></td>
-        <td>2026-05-03</td>
-        <td>Hallucinations + toxicity audit pass (Codex CLI 0.128.0 toxicity + Gemini CLI 0.40.1 hallucinations &amp; toxicity; the Codex hallucinations audit ran out of context window and was deferred to a chunked follow-up). <em>Hallucinations</em>: corrected Claude Security URL to <code>claude.ai/security</code>; reframed Spring '26 profile-permission retirement as "postponed by Salesforce; revised date pending" with new reference [^42]; trimmed UNC6040 victim list to primary-source-confirmed names (Google, Cisco, Adidas, Qantas, Allianz Life, LVMH-group brands), demoted unverified secondary names; reframed Pillar 3.6 as "Unauthenticated Endpoint Variants &mdash; Aura/Lightning <code>/s/sfsites/aura</code> + GraphQL adjacent" per actual DIVD-2026-00005 case content; clarified "External Encryption Ecosystem (EEE)" as Salesforce Shield External Key Management; flagged 30% regression-testing overhead as author estimate (not vendor-cited). <em>Toxicity</em>: rewrote 12 phrases that read as customer-blaming, overconfident, or sales-pitch (talking points: "we will not break your integrations" &rarr; "sequence and test... call out compatibility risks"; "defender gap is closing faster" &rarr; "AI as one input alongside controls and human review"; "Configuration is the vulnerability" &rarr; "Configuration is where the leverage lives, for both attackers and defenders"; "your configuration partnership" &rarr; "shared-responsibility model" / "control surface"; etc.); added empathy paragraph at threat brief acknowledging affected employees, residents, customers, admins, partners; renamed Appendix O from "Admin Hatches Checklist &mdash; Low-Hanging Fruit" to "Admin Hardening Checklist &mdash; First Actions"; softened hyperbole ("catastrophic" / "catastrophically harder" / "non-optional... wishful thinking") in Pillars 6, 4.9, II.</td>
-        <td>Dr. Paul Coleman</td>
-      </tr>
-      <tr>
-        <td><strong>1.1.0</strong></td>
-        <td>2026-05-03</td>
-        <td>Added Appendix O (Admin Hatches Checklist &mdash; Day 1 / Week 1 / Month 1 / Quarter 1 / per-edition floor) and Appendix P (Standards mapping &mdash; NIST CSF 2.0, CIS CSC v8, ISO/IEC 27001:2022, SOC 2 Trust Services Criteria, HIPAA, PCI DSS v4.0, GLBA/SOX/FERPA, EU AI Act). Strengthened "not official Salesforce documentation" disclaimer in Provenance and Disclosures, including explicit author-responsibility-and-warranty clause. References extended to <code>[^36]&ndash;[^41]</code> for the new framework citations.</td>
-        <td>Dr. Paul Coleman</td>
-      </tr>
-      <tr>
-        <td><strong>1.0.0</strong></td>
-        <td>2026-05-03</td>
-        <td>Initial publication. Ten pillars + cross-cutting + 14 appendices. Threat-informed (UNC6040, UNC6395, Krebs Experience Cloud, browser-extension hijack, AI prompt-injection via web forms, Mythos supply-chain). Standards-aligned (NIST CSF 2.0, OWASP Top 10). Co-reviewed by Codex CLI 0.128.0 + Gemini CLI 0.40.1.</td>
-        <td>Dr. Paul Coleman</td>
-      </tr>
-    </tbody>
-  </table>
-  <h3>Bumping rule</h3>
-  <ul>
-    <li><strong>Patch (1.0.x)</strong> &mdash; typo fixes, link maintenance, citation updates without content change</li>
-    <li><strong>Minor (1.x.0)</strong> &mdash; new pillar subsection, new appendix entry, expanded threat brief</li>
-    <li><strong>Major (x.0.0)</strong> &mdash; pillar restructure, removed sections, audience or scope change</li>
-  </ul>
-  <h3>Source-snapshot date</h3>
-  <p>The source-snapshot date (currently <strong>2026-05-03</strong>) reflects the last citation verification pass.
-  External source contents may have changed since; the source-snapshot date establishes the
-  specific content we cited. Readers verifying claims should consult the source as of that date for
-  best fidelity to our citations.</p>
 </div>
 
 <!-- ════════════════════════════════════════════════════════════════════════
@@ -7535,7 +7325,7 @@ SELECT UserId, LastUsedDate FROM OauthToken WHERE AppName = 'ISV_APP_NAME'</code
     });
     exportBtn.addEventListener('click', function() {
       var snapshot = {
-        framework: 'Salesforce CRM Security Hardening v1.5.11',
+        framework: 'Salesforce CRM Security Hardening v1.5.12',
         scored_at: new Date().toISOString(),
         scores: loadStored(),
         average: parseFloat(avgEl.textContent) || 0,
