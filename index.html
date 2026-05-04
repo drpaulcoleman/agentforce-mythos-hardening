@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   Salesforce CRM Security Hardening — A Defender's Encyclopedia for the Frontier-AI Era
-  Document version 1.5.22 · Last modified 2026-05-04
+  Document version 1.5.23 · Last modified 2026-05-04
   Copyright (c) 2026 Dr. Paul Coleman. All rights reserved.
 
   A vendor-neutral hardening reference for the customer side of the Salesforce
@@ -28,7 +28,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Mythos Imperative &mdash; Salesforce CRM Security Hardening</title>
-<meta name="document-version" content="1.5.22">
+<meta name="document-version" content="1.5.23">
 <meta name="last-modified" content="2026-05-04">
 <meta name="source-snapshot" content="2026-05-04">
 <meta name="description" content="The Mythos Imperative: a vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars from Identity to Defensive AI; nineteen appendices.">
@@ -38,7 +38,7 @@
 
 <!-- Open Graph / social-share metadata -->
 <meta property="og:type" content="article">
-<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.22">
+<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.23">
 <meta property="og:description" content="Vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars, 19 appendices, fully attributed.">
 <meta property="og:url" content="https://drpaulcoleman.github.io/agentforce-mythos-hardening/">
 <meta property="og:site_name" content="Salesforce CRM Security Hardening">
@@ -49,7 +49,7 @@
 
 <!-- Twitter / X card metadata -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.22">
+<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.23">
 <meta name="twitter:description" content="Threat-informed Salesforce hardening reference. Ten pillars from Identity to Defensive AI, with a companion Salesforce DX reference implementation.">
 
 <!-- Errata / contributions -->
@@ -1773,7 +1773,7 @@ pre.mermaid g.node[onclick]:hover > path {
     </div>
     <div>
       <h1><span class="phase-tag">The Mythos Imperative</span><span class="phase-sep">&mdash;</span>Salesforce CRM Security Hardening</h1>
-      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.22 &middot; last modified 2026-05-04</span>
+      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.23 &middot; last modified 2026-05-04</span>
     </div>
   </div>
   <div class="doc-meta">
@@ -2189,7 +2189,7 @@ gantt
 
 <!-- TECH · Hero ---------------------------------------------------------- -->
 <div class="card hero" id="hero" data-search="hero overview salesforce crm security hardening defender encyclopedia frontier ai mythos">
-  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.22 &middot; last modified 2026-05-04</p>
+  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.23 &middot; last modified 2026-05-04</p>
   <h1>The <span class="accent">Mythos Imperative</span><br/><span style="font-size:24px; font-weight:700; opacity:0.92; display:block; margin-top:6px;">A Defender's Encyclopedia for the Frontier-AI Era</span></h1>
   <p class="lede" style="border-left: 3px solid var(--sf-orange); padding: 6px 0 6px 16px; margin-left: 0;">
     <strong style="color: var(--sf-orange); letter-spacing: 0.04em;">Why this exists, why now.</strong>
@@ -7399,7 +7399,7 @@ DIFF:
     });
     exportBtn.addEventListener('click', function() {
       var snapshot = {
-        framework: 'Salesforce CRM Security Hardening v1.5.22',
+        framework: 'Salesforce CRM Security Hardening v1.5.23',
         scored_at: new Date().toISOString(),
         scores: loadStored(),
         average: parseFloat(avgEl.textContent) || 0,
@@ -7730,8 +7730,8 @@ DIFF:
   </p>
   <h3>Document metadata</h3>
   <p style="font-size: 12px; font-family: 'Source Code Pro', monospace;">
-    version 1.5.22 &middot; last modified 2026-05-04 &middot; source snapshot 2026-05-04 &middot;
-    Build identifier: SF-CRM-HARDENING-1.5.22
+    version 1.5.23 &middot; last modified 2026-05-04 &middot; source snapshot 2026-05-04 &middot;
+    Build identifier: SF-CRM-HARDENING-1.5.23
   </p>
 </div>
 
@@ -7964,6 +7964,10 @@ DIFF:
      Uses history.pushState so the browser back/forward buttons
      traverse the user's in-document navigation trail.                */
   var suppressHashChange = false;
+  /* lastRecordedId tracks the most-recent section we pushed (or popped) into
+     browser history. The scroll-spy debounce (below) checks this so scrolling
+     past a section the user clicked into doesn't re-push the same id. */
+  var lastRecordedId = null;
 
   function navigateToAnchor(link, id, opts) {
     opts = opts || {};
@@ -7990,6 +7994,7 @@ DIFF:
           suppressHashChange = false;
         }
       }
+      lastRecordedId = resolved.resolvedId;
       document.querySelectorAll('#sidebar nav a').forEach(function(a) { a.classList.remove('active'); });
       if (link && link.closest && link.closest('#sidebar')) link.classList.add('active');
     }
@@ -8047,6 +8052,7 @@ DIFF:
     } else {
       navigateToAnchor(null, targetId, { skipHistory: true });
     }
+    lastRecordedId = targetId;
   });
 
   /* Seed the initial history entry with the current view+hash so the
@@ -8058,6 +8064,7 @@ DIFF:
       '',
       location.pathname + location.search + (location.hash || '')
     );
+    lastRecordedId = initialId;
   })();
 
   /* ── View tab switch (Executive Summary vs. Full Technical Readout)
@@ -8201,6 +8208,42 @@ DIFF:
 
   /* ── Sidebar scroll spy (uses offsetTop for flow layout) ─────────── */
   var sidebarLinks = document.querySelectorAll('#sidebar nav a[href^="#"]');
+
+  /* Debounced history-push: while the user scrolls, we record the active
+     section in browser history (via pushState) ~3.5s after the last scroll
+     event so back/forward buttons step through the user's reading trail.
+     We push only when the section actually changed since the last
+     navigation (lastRecordedId), to avoid spamming the back stack. */
+  var historyPushTimer = null;
+  var SCROLL_HISTORY_DEBOUNCE_MS = 3500;
+  function scheduleScrollHistoryPush(activeId) {
+    if (!activeId) return;
+    if (historyPushTimer) clearTimeout(historyPushTimer);
+    historyPushTimer = setTimeout(function() {
+      historyPushTimer = null;
+      // Re-check current view's active id at fire time -- the user may have
+      // scrolled past the originally-detected section while the timer ran.
+      var currentHash = (location.hash || '').slice(1);
+      if (activeId === lastRecordedId) return;
+      if (activeId === currentHash) {
+        lastRecordedId = activeId;
+        return;
+      }
+      if (suppressHashChange) return;
+      try {
+        suppressHashChange = true;
+        history.pushState(
+          { view: document.body.dataset.view, id: activeId },
+          '',
+          location.pathname + location.search + '#' + activeId
+        );
+      } finally {
+        suppressHashChange = false;
+      }
+      lastRecordedId = activeId;
+    }, SCROLL_HISTORY_DEBOUNCE_MS);
+  }
+
   function updateActiveSidebar() {
     /* The trigger line must sit BELOW the fixed-header chrome (60px header
        + ~140px sticky view-tabs) AND below .card { scroll-margin-top: 150px }
@@ -8220,7 +8263,17 @@ DIFF:
       if (dist >= 0 && dist < closestDist) { closestDist = dist; closest = link; }
     });
     sidebarLinks.forEach(function(l) { l.classList.remove('active'); });
-    if (closest) closest.classList.add('active');
+    if (closest) {
+      closest.classList.add('active');
+      // Queue a debounced history push so the back/forward buttons step
+      // through the reading trail. Skipped if the active section is
+      // already what we last recorded (click + scroll-spy converging on
+      // the same section, popstate just fired, etc.).
+      var activeId = closest.getAttribute('href').slice(1);
+      if (activeId && activeId !== lastRecordedId) {
+        scheduleScrollHistoryPush(activeId);
+      }
+    }
   }
   viewport.addEventListener('scroll', function() { requestAnimationFrame(updateActiveSidebar); });
 
