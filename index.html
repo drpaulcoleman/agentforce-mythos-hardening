@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   Salesforce CRM Security Hardening — A Defender's Encyclopedia for the Frontier-AI Era
-  Document version 1.4.1 · Last modified 2026-05-04
+  Document version 1.4.2 · Last modified 2026-05-04
   Copyright (c) 2026 Dr. Paul Coleman. All rights reserved.
 
   A vendor-neutral hardening reference for the customer side of the Salesforce
@@ -28,7 +28,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Salesforce CRM Security Hardening &mdash; A Defender's Encyclopedia for the Frontier-AI Era</title>
-<meta name="document-version" content="1.4.1">
+<meta name="document-version" content="1.4.2">
 <meta name="last-modified" content="2026-05-04">
 <meta name="source-snapshot" content="2026-05-04">
 <meta name="description" content="Vendor-neutral Salesforce CRM security hardening reference: identity, access, Experience Cloud guest hardening, Connected Apps + AppExchange supply chain, mTLS, secure Apex/LWC/Flow, encryption, detection &amp; response, DevSecOps, and defensive AI augmentation. Threat-informed (UNC6040, UNC6395, Krebs guest exposure, Drift OAuth chain) and standards-aligned (NIST CSF 2.0, OWASP).">
@@ -1247,7 +1247,7 @@ pre.mermaid g.node[onclick]:hover > path {
     </div>
     <div>
       <h1>Salesforce CRM Security Hardening</h1>
-      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.4.1 &middot; last modified 2026-05-04</span>
+      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.4.2 &middot; last modified 2026-05-04</span>
     </div>
   </div>
   <div class="doc-meta">
@@ -1272,7 +1272,7 @@ pre.mermaid g.node[onclick]:hover > path {
   <nav>
     <a href="#hero">Overview</a>
     <a href="#bluf">Executive Brief</a>
-    <a href="#provenance">Document Provenance</a>
+    <a href="#provenance">Disclaimer</a>
     <a href="#glossary">Glossary</a>
 
     <span class="nav-group">Threat Brief</span>
@@ -1739,59 +1739,13 @@ gantt
 </div>
 
 <!-- TECH · Document Provenance ------------------------------------------- -->
-<div class="card" id="provenance" data-search="document provenance source mix attribution citation discipline how to read versioning last modified disclaimer not official salesforce documentation author opinions responsibility">
-  <h2>Document Provenance &amp; How to Read This</h2>
+<div class="card" id="provenance" data-search="disclaimer not official salesforce documentation author opinions responsibility independent vendor neutral copyright">
+  <h2>Disclaimer</h2>
   <div style="background: rgba(194,57,52,0.10); border-left: 4px solid #C23934; padding: 14px 18px; margin: 16px 0; border-radius: 4px;">
-    <p style="margin: 0 0 8px;"><strong>Important disclaimer.</strong></p>
-    <p style="margin: 0 0 6px;"><strong>This is not official Salesforce documentation.</strong> It is an independent, vendor-neutral hardening reference written by Dr. Paul Coleman. Salesforce, Inc. has not reviewed, endorsed, or approved this document.</p>
-    <p style="margin: 0 0 6px;"><strong>The author takes responsibility for all opinions, recommendations, interpretations, and any errors herein.</strong> Where this document conflicts with official Salesforce documentation, official Salesforce documentation governs.</p>
-    <p style="margin: 0; font-size: 12px; color: var(--text-secondary);">&copy; 2026 Dr. Paul Coleman. All rights reserved.</p>
+    <p style="margin: 0 0 6px;"><strong>This is not official Salesforce documentation.</strong> It is an independent, vendor-neutral hardening reference written by Dr. Paul Coleman. Salesforce, Inc. has not reviewed, endorsed, or approved this document. Where this document conflicts with official Salesforce documentation, official Salesforce documentation governs.</p>
+    <p style="margin: 0 0 6px;"><strong>The author takes responsibility for all opinions, recommendations, interpretations, and any errors herein.</strong></p>
+    <p style="margin: 0; font-size: 12px; color: var(--text-secondary);">&copy; 2026 Dr. Paul Coleman. All rights reserved. See <a href="#disclosures">Disclosures</a> for trademarks, AI-assistance attribution, and the full warranty / liability statement.</p>
   </div>
-  <h3>Source mix</h3>
-  <table>
-    <thead><tr><th>Source class</th><th>How labeled in-text</th><th>Examples</th></tr></thead>
-    <tbody>
-      <tr><td>Official Salesforce documentation</td><td>"per Salesforce Help" / "per Security Implementation Guide v66"</td><td><a href="https://help.salesforce.com" target="_blank" rel="noopener">help.salesforce.com</a>, <a href="https://developer.salesforce.com" target="_blank" rel="noopener">developer.salesforce.com</a>, <a href="https://security.salesforce.com" target="_blank" rel="noopener">security.salesforce.com</a>, <a href="https://trust.salesforce.com" target="_blank" rel="noopener">trust.salesforce.com</a>, release notes</td></tr>
-      <tr><td>Salesforce community / educator</td><td>"per Salesforce Ben" / "per Apex Hours"</td><td><a href="https://www.salesforceben.com" target="_blank" rel="noopener">salesforceben.com</a>, <a href="https://www.apexhours.com" target="_blank" rel="noopener">apexhours.com</a>, <a href="https://www.jitendrazaa.com" target="_blank" rel="noopener">jitendrazaa.com</a>, <a href="https://trailhead.salesforce.com" target="_blank" rel="noopener">Trailhead</a></td></tr>
-      <tr><td>Vendor research <em>(competitive position flagged)</em></td><td>"per Reco (vendor: SSPM)" / "per WithSecure (vendor: cloud protection)"</td><td>Reco, AppOmni, WithSecure, Varonis, Obsidian, Valence, Mitiga, Avertium, BlackFog, Quorum Cyber</td></tr>
-      <tr><td>Independent security journalism</td><td>"per Krebs on Security" / "per Help Net Security"</td><td>Krebs, Help Net Security, Security Boulevard, CRN, SQ Magazine, Bloomberg</td></tr>
-      <tr><td>Anthropic primary sources</td><td>"per Anthropic"</td><td><a href="https://www.anthropic.com" target="_blank" rel="noopener">anthropic.com</a> (Claude Security, Project Glasswing, model cards)</td></tr>
-      <tr><td>Standards / framework</td><td>"per NIST CSF 2.0" / "per OWASP Top 10"</td><td><a href="https://www.nist.gov/cyberframework" target="_blank" rel="noopener">nist.gov</a>, <a href="https://owasp.org" target="_blank" rel="noopener">owasp.org</a>, <a href="https://www.ietf.org" target="_blank" rel="noopener">ietf.org</a></td></tr>
-      <tr><td>Third-party CSIRT</td><td>"per DIVD CSIRT"</td><td><a href="https://csirt.divd.nl" target="_blank" rel="noopener">csirt.divd.nl</a></td></tr>
-    </tbody>
-  </table>
-  <h3 style="margin-top:18px;">Verification rule</h3>
-  <p>
-    Every 2026 product/timeline claim is verified against official Salesforce release notes or documentation
-    before publication: External Client Apps replacing Connected Apps, OAuth Device Flow removal date, certificate
-    lifespan and DigiCert root cutover, GraphQL guest exposure, Spring '26 profile permission retirement,
-    Block Uninstalled Connected Apps default. Mythos / Claude / ChatGPT capability claims are sourced strictly
-    to public statements; no implication of access to unreleased or private frontier capabilities.
-  </p>
-  <h3 style="margin-top:18px;">Versioning &amp; last-modified</h3>
-  <ul>
-    <li>Document version (semver) in header badge: bumped patch on link/typo fixes, minor on new sections, major on restructures</li>
-    <li>Last-modified date in header + <code>&lt;meta name="last-modified"&gt;</code> + <a href="#appendix-n">Appendix N (Changelog)</a></li>
-    <li>Source-snapshot date (separate from last-modified) reflects the last cite verification pass</li>
-  </ul>
-  <h3 style="margin-top:18px;">In-context vs. appendix discipline</h3>
-  <p>
-    Each pillar card carries narrative + <strong>one</strong> diagram + <strong>one</strong> short example.
-    Full Apex classes, metadata XML, SAML/OIDC handler code, certificate runbook commands, Transaction
-    Security policy code, AI prompt libraries, and reference tables live in Appendices A&ndash;K. Anchor
-    links connect them.
-  </p>
-  <h3 style="margin-top:18px;">De-identified internal patterns</h3>
-  <p>
-    Several hardening <em>patterns</em> in this document are generalized from prior internal audit work. They
-    appear here as Salesforce-translated, vendor-neutral guidance with <strong>no project, customer, or
-    company attribution</strong> anywhere. The patterns are: five-layer operator security with FIDO2 +
-    tier classification + recovery codes, dual-agent metadata-repo scanning with cross-validation,
-    SHA-256 migration-checksum manifest, HMAC tamper-evident audit, AI-agent compromise IRP with
-    silent-compromise indicators, functional-domain ACL segmentation, sealed credential packet for BCP,
-    Connected App identity architecture with three flows, service-token delegation with cascading
-    revocation, decision autonomy levels.
-  </p>
 </div>
 
 <!-- TECH · Glossary stub (full version in Appendix L) -------------------- -->
@@ -6071,6 +6025,12 @@ DIFF:
   <table>
     <thead><tr><th>Version</th><th>Date</th><th>Change</th><th>Author</th></tr></thead>
     <tbody>
+      <tr>
+        <td><strong>1.4.2</strong></td>
+        <td>2026-05-04</td>
+        <td>Trimmed the "Document Provenance &amp; How to Read This" card down to a simple disclaimer block per user request. Removed the source-mix table, verification rule, versioning details, in-context-vs-appendix discipline statement, and de-identified-internal-patterns paragraph &mdash; all material that was either implicit in the document's structure (in-context vs. appendix), redundant with the changelog (versioning), or already in Disclosures (de-identified patterns). Card heading retitled "Disclaimer." Sidebar nav label updated to match. Anchor <code>#provenance</code> preserved so external links still resolve.</td>
+        <td>Dr. Paul Coleman</td>
+      </tr>
       <tr>
         <td><strong>1.4.1</strong></td>
         <td>2026-05-04</td>
