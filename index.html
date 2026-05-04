@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   Salesforce CRM Security Hardening — A Defender's Encyclopedia for the Frontier-AI Era
-  Document version 1.5.18 · Last modified 2026-05-04
+  Document version 1.5.19 · Last modified 2026-05-04
   Copyright (c) 2026 Dr. Paul Coleman. All rights reserved.
 
   A vendor-neutral hardening reference for the customer side of the Salesforce
@@ -28,7 +28,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Mythos Imperative &mdash; Salesforce CRM Security Hardening</title>
-<meta name="document-version" content="1.5.18">
+<meta name="document-version" content="1.5.19">
 <meta name="last-modified" content="2026-05-04">
 <meta name="source-snapshot" content="2026-05-04">
 <meta name="description" content="The Mythos Imperative: a vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars from Identity to Defensive AI; nineteen appendices.">
@@ -38,7 +38,7 @@
 
 <!-- Open Graph / social-share metadata -->
 <meta property="og:type" content="article">
-<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.18">
+<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.19">
 <meta property="og:description" content="Vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars, 19 appendices, fully attributed.">
 <meta property="og:url" content="https://drpaulcoleman.github.io/agentforce-mythos-hardening/">
 <meta property="og:site_name" content="Salesforce CRM Security Hardening">
@@ -49,7 +49,7 @@
 
 <!-- Twitter / X card metadata -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.18">
+<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.19">
 <meta name="twitter:description" content="Threat-informed Salesforce hardening reference. Ten pillars from Identity to Defensive AI, with a companion Salesforce DX reference implementation.">
 
 <!-- Errata / contributions -->
@@ -663,16 +663,23 @@ body:not([data-view="exec"]) [data-exec-only] { display: none !important; }
 body[data-view="exec"] [data-tech-only] { display: none !important; }
 body[data-view="exec"] #arch-canvas > .card:not([data-exec-only]) { display: none !important; }
 
-/* When exec mode is active, give exec cards a small provenance ribbon */
-body[data-view="exec"] .card[id^="exec-"] { position: relative; }
-body[data-view="exec"] .card[id^="exec-"]::before {
-  content: "Executive Summary";
-  position: absolute; top: 14px; right: 18px;
-  font-family: 'Source Code Pro', monospace; font-size: 9px; font-weight: 600;
-  letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--sf-blue-light); opacity: 0.65;
-  background: rgba(0,112,210,0.08); border: 1px solid rgba(0,112,210,0.25);
-  padding: 3px 10px; border-radius: 3px;
+/* On-screen the tab indicator at the top of the canvas already states
+   "EXECUTIVE SUMMARY · CURRENTLY SHOWING", so a per-card stamp is
+   redundant and visually noisy (especially on the light BLUF card).
+   The stamp is preserved ONLY in print, where the tab strip is hidden
+   and both exec + tech cards render together -- the stamp distinguishes
+   exec-authored content from the technical readout in the printed copy. */
+@media print {
+  body .card[id^="exec-"] { position: relative; }
+  body .card[id^="exec-"]::before {
+    content: "Executive Summary";
+    position: absolute; top: 14px; right: 18px;
+    font-family: 'Source Code Pro', monospace; font-size: 9px; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--sf-blue-light); opacity: 0.65;
+    background: rgba(0,112,210,0.08); border: 1px solid rgba(0,112,210,0.25);
+    padding: 3px 10px; border-radius: 3px;
+  }
 }
 .exec-kpi-grid {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -1714,7 +1721,7 @@ pre.mermaid g.node[onclick]:hover > path {
     </div>
     <div>
       <h1><span class="phase-tag">The Mythos Imperative</span><span class="phase-sep">&mdash;</span>Salesforce CRM Security Hardening</h1>
-      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.18 &middot; last modified 2026-05-04</span>
+      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.19 &middot; last modified 2026-05-04</span>
     </div>
   </div>
   <div class="doc-meta">
@@ -2130,7 +2137,7 @@ gantt
 
 <!-- TECH · Hero ---------------------------------------------------------- -->
 <div class="card hero" id="hero" data-search="hero overview salesforce crm security hardening defender encyclopedia frontier ai mythos">
-  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.18 &middot; last modified 2026-05-04</p>
+  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.19 &middot; last modified 2026-05-04</p>
   <h1>The <span class="accent">Mythos Imperative</span><br/><span style="font-size:24px; font-weight:700; opacity:0.92; display:block; margin-top:6px;">A Defender's Encyclopedia for the Frontier-AI Era</span></h1>
   <p class="lede" style="border-left: 3px solid var(--sf-orange); padding: 6px 0 6px 16px; margin-left: 0;">
     <strong style="color: var(--sf-orange); letter-spacing: 0.04em;">Why this exists, why now.</strong>
@@ -7310,7 +7317,7 @@ DIFF:
     });
     exportBtn.addEventListener('click', function() {
       var snapshot = {
-        framework: 'Salesforce CRM Security Hardening v1.5.18',
+        framework: 'Salesforce CRM Security Hardening v1.5.19',
         scored_at: new Date().toISOString(),
         scores: loadStored(),
         average: parseFloat(avgEl.textContent) || 0,
@@ -7641,8 +7648,8 @@ DIFF:
   </p>
   <h3>Document metadata</h3>
   <p style="font-size: 12px; font-family: 'Source Code Pro', monospace;">
-    version 1.5.18 &middot; last modified 2026-05-04 &middot; source snapshot 2026-05-04 &middot;
-    Build identifier: SF-CRM-HARDENING-1.5.18
+    version 1.5.19 &middot; last modified 2026-05-04 &middot; source snapshot 2026-05-04 &middot;
+    Build identifier: SF-CRM-HARDENING-1.5.19
   </p>
 </div>
 
