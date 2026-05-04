@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   Salesforce CRM Security Hardening — A Defender's Encyclopedia for the Frontier-AI Era
-  Document version 1.4.3 · Last modified 2026-05-04
+  Document version 1.4.4 · Last modified 2026-05-04
   Copyright (c) 2026 Dr. Paul Coleman. All rights reserved.
 
   A vendor-neutral hardening reference for the customer side of the Salesforce
@@ -28,7 +28,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Salesforce CRM Security Hardening &mdash; A Defender's Encyclopedia for the Frontier-AI Era</title>
-<meta name="document-version" content="1.4.3">
+<meta name="document-version" content="1.4.4">
 <meta name="last-modified" content="2026-05-04">
 <meta name="source-snapshot" content="2026-05-04">
 <meta name="description" content="Vendor-neutral Salesforce CRM security hardening reference: identity, access, Experience Cloud guest hardening, Connected Apps + AppExchange supply chain, mTLS, secure Apex/LWC/Flow, encryption, detection &amp; response, DevSecOps, and defensive AI augmentation. Threat-informed (UNC6040, UNC6395, Krebs guest exposure, Drift OAuth chain) and standards-aligned (NIST CSF 2.0, OWASP).">
@@ -109,7 +109,7 @@
       pie1: '#0070D2', pie2: '#04844B', pie3: '#FF9A3C', pie4: '#9050E9',
       pie5: '#FFB75D', pie6: '#C23934', pie7: '#1589EE', pie8: '#B781D3'
     },
-    flowchart: { curve: 'basis', htmlLabels: true, padding: 20, nodeSpacing: 60, rankSpacing: 70, useMaxWidth: true, wrappingWidth: 200 },
+    flowchart: { curve: 'basis', htmlLabels: true, padding: 16, nodeSpacing: 80, rankSpacing: 90, useMaxWidth: true, wrappingWidth: 360, defaultRenderer: 'dagre' },
     sequence:  { diagramMarginX: 40, diagramMarginY: 30, actorMargin: 80, width: 200, height: 70, mirrorActors: true, useMaxWidth: true, showSequenceNumbers: true, messageFontSize: 13 },
     er:        { diagramPadding: 32, layoutDirection: 'TB', minEntityWidth: 160, entityPadding: 20, stroke: '#0070D2', fill: '#1A3A63', fontSize: 13, useMaxWidth: true },
     state:     { titleTopMargin: 30, useMaxWidth: true, padding: 16 },
@@ -1247,7 +1247,7 @@ pre.mermaid g.node[onclick]:hover > path {
     </div>
     <div>
       <h1>Salesforce CRM Security Hardening</h1>
-      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.4.3 &middot; last modified 2026-05-04</span>
+      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.4.4 &middot; last modified 2026-05-04</span>
     </div>
   </div>
   <div class="doc-meta">
@@ -6030,6 +6030,12 @@ DIFF:
   <table>
     <thead><tr><th>Version</th><th>Date</th><th>Change</th><th>Author</th></tr></thead>
     <tbody>
+      <tr>
+        <td><strong>1.4.4</strong></td>
+        <td>2026-05-04</td>
+        <td>Mermaid flowchart layout tuning. The global <code>flowchart.wrappingWidth</code> was 200 px, which forced node labels to wrap into tall narrow columns even when the canvas had thousands of pixels of horizontal room (visible in the threat-landscape diagram and others). Loosened to 360 px and bumped <code>nodeSpacing</code> 60&rarr;80 + <code>rankSpacing</code> 70&rarr;90 so the freed horizontal room actually gets used by the layout. Pinned <code>defaultRenderer: 'dagre'</code> for stability across Mermaid versions. Affects every flowchart in the document; sequence / gantt / state diagrams use their own configs and are unaffected.</td>
+        <td>Dr. Paul Coleman</td>
+      </tr>
       <tr>
         <td><strong>1.4.3</strong></td>
         <td>2026-05-04</td>
