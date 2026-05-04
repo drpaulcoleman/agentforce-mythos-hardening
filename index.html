@@ -28,7 +28,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Mythos Imperative &mdash; Salesforce CRM Security Hardening</title>
-<meta name="document-version" content="1.5.4">
+<meta name="document-version" content="1.5.5">
 <meta name="last-modified" content="2026-05-04">
 <meta name="source-snapshot" content="2026-05-04">
 <meta name="description" content="The Mythos Imperative: a vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars from Identity to Defensive AI; twenty-two appendices.">
@@ -38,7 +38,7 @@
 
 <!-- Open Graph / social-share metadata -->
 <meta property="og:type" content="article">
-<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.4">
+<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.5">
 <meta property="og:description" content="Vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars, 16+ appendices, fully attributed.">
 <meta property="og:url" content="https://drpaulcoleman.github.io/agentforce-mythos-hardening/">
 <meta property="og:site_name" content="Salesforce CRM Security Hardening">
@@ -49,7 +49,7 @@
 
 <!-- Twitter / X card metadata -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.4">
+<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.5">
 <meta name="twitter:description" content="Threat-informed Salesforce hardening reference. Ten pillars from Identity to Defensive AI, with a companion Salesforce DX reference implementation.">
 
 <!-- Errata / contributions -->
@@ -1592,7 +1592,7 @@ pre.mermaid g.node[onclick]:hover > path {
     </div>
     <div>
       <h1><span class="phase-tag">The Mythos Imperative</span><span class="phase-sep">&mdash;</span>Salesforce CRM Security Hardening</h1>
-      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.4 &middot; last modified 2026-05-04</span>
+      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.5 &middot; last modified 2026-05-04</span>
     </div>
   </div>
   <div class="doc-meta">
@@ -2007,7 +2007,7 @@ gantt
 
 <!-- TECH · Hero ---------------------------------------------------------- -->
 <div class="card hero" id="hero" data-search="hero overview salesforce crm security hardening defender encyclopedia frontier ai mythos">
-  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.4 &middot; last modified 2026-05-04</p>
+  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.5 &middot; last modified 2026-05-04</p>
   <h1>The <span class="accent">Mythos Imperative</span><br/><span style="font-size:24px; font-weight:700; opacity:0.92; display:block; margin-top:6px;">A Defender's Encyclopedia for the Frontier-AI Era</span></h1>
   <p class="lede" style="border-left: 3px solid var(--sf-orange); padding: 6px 0 6px 16px; margin-left: 0;">
     <strong style="color: var(--sf-orange); letter-spacing: 0.04em;">Why this exists, why now.</strong>
@@ -2723,35 +2723,160 @@ sequenceDiagram
   </p>
 </div>
 
-<!-- 1.8 Tier-based Action Classification -->
-<div class="card" id="i-tier-classification" data-search="tier action classification fido2 totp belt suspenders emergency commands operator security model">
-  <h2>1.8 &middot; Tier-Based Action Classification (Belt-and-Suspenders)</h2>
+<!-- 1.8 Tier-based Privilege Gating -->
+<div class="card" id="i-tier-classification" data-search="tier privilege gating action classification transaction security high assurance custom login flow api event bulk api event report event data export event apianomaly event integration user api allowlist refresh token rotation block uninstalled connected apps operator security stock salesforce versus bespoke">
+  <h2>1.8 &middot; Tier-Based Privilege Gating &mdash; Stock vs. Bespoke</h2>
   <p>
-    A pattern (generalized from operator-security practice in the field): <strong>classify every privileged
-    action into tiers</strong>, gate each tier with the appropriate factor combination. The
-    classification is hardcoded in metadata or Apex, not in a configuration table that an attacker who
-    achieves Modify All Data could downgrade.
+    The instinct from operator-security practice is to classify every privileged action into tiers and gate
+    each with a factor combination &mdash; typed confirmation phrases, layered FIDO2&nbsp;+&nbsp;TOTP, custom session
+    tokens. That model assumes a runtime where you control the entire stack. <strong>Salesforce CRM is not that
+    runtime.</strong> The honest engineering question is therefore <em>which tier behaviors are actually achievable
+    with stock platform primitives, and which require bespoke custom build that re-implements the platform.</em>
+    This card draws that line.
+  </p>
+
+  <h3>Threat-model reality check &mdash; the API surface dominates</h3>
+  <p>
+    Before designing any UI confirmation step, name the threat model. The 2024&ndash;2026 corpus is
+    overwhelmingly <strong>API and token-based</strong>, not UI:
+  </p>
+  <ul>
+    <li><strong>UNC6040</strong> &mdash; vishing convinces a user to approve a Connected App; the data leaves via Bulk API in the attacker's Data Loader.</li>
+    <li><strong>UNC6395 / Salesloft Drift</strong> &mdash; refresh tokens stolen from an ISV's repo; attacker hits REST/Bulk directly, no UI ever involved.</li>
+    <li><strong>Browser-extension session hijack</strong> &mdash; the sid cookie is reused, but exfiltration runs through API calls the extension issues.</li>
+    <li><strong>Krebs-pattern guest exposure</strong> &mdash; the surface is public Aura/LWC controllers queried via API.</li>
+  </ul>
+  <p>
+    Implication: <em>UI-side confirmation prompts catch a small slice of the model.</em> The dominant gate is
+    API-side. Re-implementing OOTB Lightning to inject typed-confirmation steps is a poor use of engineering
+    budget unless the work is bounded to a handful of high-stakes record types.
+  </p>
+
+  <h3>What is achievable on stock Salesforce</h3>
+  <p>
+    Stock platform primitives that <em>do</em> compose into real tier-based gating:
   </p>
   <table>
-    <thead><tr><th>Tier</th><th>Examples</th><th>Required factors</th></tr></thead>
+    <thead><tr><th style="width: 22%;">Gate</th><th style="width: 38%;">Stock primitive</th><th>What it actually covers</th></tr></thead>
     <tbody>
-      <tr><td><strong>Tier 1 &mdash; Mandatory</strong></td><td>Mass record delete, Modify All Data scope grant, Connected App approval, certificate replacement, Sharing Settings change</td><td>Typed confirmation phrase + FIDO2 hardware key touch</td></tr>
-      <tr><td><strong>Tier 2 &mdash; Recommended</strong></td><td>Mass report export, Permission Set Group assignment, IP range change</td><td>Click confirmation + FIDO2 touch</td></tr>
-      <tr><td><strong>Tier 3 &mdash; Financial</strong></td><td>Bulk update of price book, opportunity stage rollup override, payout/finance integration triggers</td><td><code>--confirm</code> flag + FIDO2 touch</td></tr>
-      <tr><td><strong>Tier 3 &mdash; Emergency</strong></td><td>Kill switch, JWT secret rotation, sandbox refresh, privilege escalation grant, sealed credential packet release</td><td><code>--confirm</code> + TOTP + FIDO2 touch (belt &amp; suspenders &mdash; even a stolen hardware key insufficient without TOTP seed)</td></tr>
-      <tr><td><strong>Exempt</strong></td><td>Read-only queries, dashboards, login, search</td><td>Standard session</td></tr>
+      <tr>
+        <td><strong>API events (REST / SOAP / Bulk)</strong></td>
+        <td>Transaction Security policy on <code>ApiEvent</code>, <code>BulkApiResultEvent</code>, <code>ApiAnomalyEvent</code>; actions: <em>Block</em>, <em>Multi-Factor Authentication</em> (step-up to High Assurance), <em>Notify</em></td>
+        <td>Fires on every API call regardless of client (Data Loader, sf CLI, MuleSoft, ETLs). Can gate by row-count threshold, off-hours, anomalous query shape, integration-user identity. <strong>Primary line of defense for the API surface.</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Report runs and exports</strong></td>
+        <td>TxSec on <code>ReportEvent</code> / <code>DataExportEvent</code>; row-count threshold &rarr; Block or Step-up MFA</td>
+        <td>The UNC6040 mass-export exfil path. Combine with High Assurance gate on report scheduling and bulk export.</td>
+      </tr>
+      <tr>
+        <td><strong>Sensitive Setup pages</strong></td>
+        <td>Session Settings &rarr; Session Security Levels (Setup &rarr; Session Settings) gates Connected App authorization, Auth pages, Cert pages, Modify All Data scope grants behind High Assurance</td>
+        <td>OOTB. No code required. <strong>This is the closest thing to a stock "Tier 1 gate."</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Privilege-escalation grants</strong></td>
+        <td>Permission-set assignment via Apex with approval process; <code>LoginAsEvent</code> TxSec policy for admin impersonation; quarterly Modify All Data / View All Data attestation (Pillar 2.9)</td>
+        <td>Approval-process-gated PSA via custom-metadata-driven Apex is realistic and avoids the "live config table" downgrade vulnerability.</td>
+      </tr>
+      <tr>
+        <td><strong>Login context</strong></td>
+        <td>Custom Login Flow (Flow Builder) reads IP, device attestation, time-of-day, group membership; routes to remediation or step-up MFA</td>
+        <td>Single round-trip at login. Cannot challenge mid-session. Use for the <em>known-device</em> + <em>known-context</em> precondition before any tier-gated action runs.</td>
+      </tr>
+      <tr>
+        <td><strong>API surface restriction</strong></td>
+        <td>API-Enabled permission removed from non-integration users; API Access Control package; integration-user-per-integration; IP allowlist on integration-user profiles; Bulk API permission removed from anyone who does not need it</td>
+        <td>Kills the "stolen sid cookie or OAuth grant on a regular user account &rarr; bulk API exfil" path before TxSec is even reached. Pillar 5.4 covers the integration-user discipline in detail.</td>
+      </tr>
+      <tr>
+        <td><strong>OAuth grant lifecycle</strong></td>
+        <td>Block Uninstalled Connected Apps (default since Sept 2025); refresh-token TTL + rotation; admin pre-approval; quarterly OAuth Usage attestation</td>
+        <td>The grant <em>is</em> the persistence mechanism in UNC6040 / UNC6395. Pillar 4 covers this surface end-to-end.</td>
+      </tr>
+      <tr>
+        <td><strong>Bounded UI confirmation</strong></td>
+        <td>Custom LWC Quick Action overriding the Standard Delete (or other action) on a single sensitive object; small Apex backend that requires re-MFA via <code>Auth.SessionManagement</code></td>
+        <td>Reasonable on the 5&ndash;10 highest-stakes record types as a backstop. <strong>Do not</strong> attempt this globally; that path leads to re-implementing Lightning.</td>
+      </tr>
     </tbody>
   </table>
+
+  <h3>What is <em>not</em> achievable on stock Salesforce (and what it would cost to build)</h3>
   <p>
-    Implementation in Salesforce: action classification lives in custom metadata
-    (<code>Action_Classification__mdt</code>); the Transaction Security policy reads the classification at
-    event time; the action is blocked unless the session carries the corresponding factor proofs. The
-    factor proofs are short-lived (60-second), single-use, server-issued tokens (<code>X-Sec-Token</code>
-    header on API calls; session attribute for UI actions). The classification can only be changed by a
-    deployment, which is itself a Tier 1 action.
+    For completeness, here are the operator-security primitives that <em>do not</em> map onto stock Salesforce
+    without significant custom build. Treat as <strong>"only build if you have a specific gap that justifies
+    the engineering and the long-term maintenance burden."</strong>
   </p>
-  <p style="margin-top:14px;"><a href="#pillar-viii">&rarr; Transaction Security policy implementation &middot; Pillar 8</a> &middot;
-    <a href="#appendix-d">&rarr; Reference policy code &middot; Appendix D</a></p>
+  <table>
+    <thead><tr><th style="width: 30%;">Pattern</th><th>Why it does not work on stock Salesforce</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Typed confirmation phrase as a global gate</strong></td>
+        <td>No platform hook lets you intercept arbitrary user actions and demand a typed phrase. Implementing this means custom LWC quick actions wrapping every gated operation, custom Apex backends, and removing the OOTB action from the user's permission set so the wrapper is the only path. Re-implements the platform; high maintenance.</td>
+      </tr>
+      <tr>
+        <td><strong>Custom <code>X-Sec-Token</code> headers on arbitrary API calls</strong></td>
+        <td>Salesforce REST/SOAP/Bulk APIs do not accept arbitrary auth headers as gates. To enforce a token-per-call layer, you must put a custom Apex REST service in front of every standard object, then permission users out of direct API access. Breaks Data Loader, sf CLI, MuleSoft, every ETL, and most middleware. Almost never the right answer.</td>
+      </tr>
+      <tr>
+        <td><strong>Layered FIDO2 + TOTP in a single challenge</strong></td>
+        <td>Salesforce MFA verifies one factor per challenge. The closest realistic compound is: external IdP requires both factors at login, then a Custom Login Flow forces a second re-challenge with a different factor before granting High Assurance. That is <em>serial</em> proofs, not <em>simultaneous</em>. Adequate for most threat models; adequate for almost no situation that actually needs simultaneous compound auth.</td>
+      </tr>
+      <tr>
+        <td><strong>Mid-session continuous authorization</strong></td>
+        <td>Custom Login Flow runs at login only. Mid-session context shifts (IP change, device attestation expiry) cannot trigger a re-challenge except by terminating the session via <code>Auth.SessionManagement.finishLoginFlow()</code> with a logout flag and forcing re-login. Acceptable for security-critical changes; clumsy for everything else.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Recommended tier model on stock Salesforce</h3>
+  <p>
+    The realistic mapping &mdash; what each tier <em>can</em> mean when you are limited to platform primitives:
+  </p>
+  <table>
+    <thead><tr><th style="width: 18%;">Tier</th><th>Examples</th><th>Stock-Salesforce gate</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Tier 1 &mdash; Mandatory</strong></td>
+        <td>Modify All Data scope grant, Connected App approval, certificate replacement, Sharing Settings change, Login IP Range change</td>
+        <td>High Assurance Session Security Level (set in Session Settings, OOTB) + Setup-page TxSec policy with Action: <em>Block</em> when session is not High Assurance + audit-trail email</td>
+      </tr>
+      <tr>
+        <td><strong>Tier 2 &mdash; Sensitive</strong></td>
+        <td>Mass report export, Permission Set Group assignment, mass record delete, bulk DML</td>
+        <td>TxSec on <code>ReportEvent</code> / <code>BulkApiResultEvent</code> / <code>ApiEvent</code> with row-count threshold; Action: <em>Multi-Factor Authentication</em> step-up to High Assurance</td>
+      </tr>
+      <tr>
+        <td><strong>Tier 3 &mdash; Financial / Operational</strong></td>
+        <td>Bulk update of price book, opportunity stage rollup override, payout / finance integration triggers</td>
+        <td>Approval-process-gated path (declarative); for API-driven changes, dedicated integration user with IP allowlist + TxSec row-count caps</td>
+      </tr>
+      <tr>
+        <td><strong>Tier 3 &mdash; Emergency</strong></td>
+        <td>JWT secret rotation, sandbox refresh, privilege-escalation grant, sealed-credential-packet release</td>
+        <td>Out-of-band approval (signed change ticket) + High Assurance session + admin pair attestation; classify the operation in custom metadata, gate via Apex that reads the metadata at event time. Treat the metadata change itself as Tier 1.</td>
+      </tr>
+      <tr>
+        <td><strong>Exempt</strong></td>
+        <td>Read-only queries, dashboards, login, search</td>
+        <td>Standard session. TxSec still observes for anomalies via <code>ApiAnomalyEvent</code>.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Where the classification lives</h3>
+  <p>
+    For the bespoke layer (Tier 3 Emergency primarily), classification lives in custom metadata
+    (<code>Action_Classification__mdt</code>) so it cannot be changed at runtime by an attacker holding Modify All
+    Data &mdash; metadata edits require a deployment, and the deployment is itself a Tier 1 gated operation. For
+    the stock layer, the classification <em>is</em> the configuration of Session Security Levels, TxSec policies,
+    and Custom Login Flow logic; that configuration lives in metadata too, so the same property holds.
+  </p>
+
+  <p style="margin-top:14px;"><a href="#pillar-viii" class="pillar-link">&rarr; Transaction Security policy implementation &middot; Pillar 8</a> &middot;
+    <a href="#appendix-d">&rarr; Reference policy code &middot; Appendix D</a> &middot;
+    <a href="#iv-block-uninstalled" class="pillar-link">&rarr; Block Uninstalled Connected Apps &middot; Pillar 4.3</a></p>
 </div>
 <!-- ════════════════════════════════════════════════════════════════════════
      PILLAR II  ::  ACCESS CONTROL & LEAST-PRIVILEGE MIGRATION
@@ -6416,6 +6541,13 @@ DIFF:
     <thead><tr><th>Version</th><th>Date</th><th>Change</th><th>Author</th></tr></thead>
     <tbody>
       <tr>
+        <td><strong>1.5.5</strong></td>
+        <td>2026-05-04</td>
+        <td><strong>Pillar 1.8 honesty pass &mdash; stock Salesforce vs. bespoke.</strong> User flagged that the original "Tier-Based Action Classification (Belt-and-Suspenders)" framing read as if borrowed from internal-runtime operator-security practice and made claims that don't actually map to stock Salesforce CRM (typed confirmation phrases as global gates, custom <code>X-Sec-Token</code> headers on arbitrary API calls, simultaneous FIDO2&nbsp;+&nbsp;TOTP factor combination). Rewrote the entire card around the honest engineering question: <em>which tier behaviors are achievable with stock platform primitives, and which require bespoke build that re-implements platform features (generally a poor ROI)?</em>
+        Five new sections: <strong>(a) Threat-model reality check</strong> &mdash; explicitly names that the 2024&ndash;2026 corpus is API-and-token-based (UNC6040, UNC6395, browser-extension hijack, Krebs guest exposure) and that UI-side confirmation prompts catch a small slice of the model. <strong>(b) What is achievable on stock Salesforce</strong> &mdash; structured table of TxSec on <code>ApiEvent</code> / <code>BulkApiResultEvent</code> / <code>ApiAnomalyEvent</code> / <code>ReportEvent</code> / <code>DataExportEvent</code> / <code>LoginAsEvent</code>; High Assurance Session Security Levels for sensitive Setup pages; Custom Login Flow for known-context preconditions; API surface restriction; OAuth grant lifecycle; bounded UI confirmation via Custom LWC Quick Action overrides on the 5&ndash;10 highest-stakes record types only. <strong>(c) What is NOT achievable on stock Salesforce</strong> &mdash; explicit "do not build this without a real reason" table covering global typed-phrase gates, custom <code>X-Sec-Token</code> headers (would require putting custom Apex REST in front of every standard object, breaking Data Loader, sf CLI, MuleSoft, every ETL), simultaneous FIDO2+TOTP, and mid-session continuous authorization. <strong>(d) Recommended tier model on stock Salesforce</strong> &mdash; replacement table mapping Tier 1 / Tier 2 / Tier 3 Financial / Tier 3 Emergency / Exempt to actual platform primitives. <strong>(e) Where the classification lives</strong> &mdash; metadata-resident classification, can't be downgraded by an attacker holding Modify All Data without a deployment, which is itself Tier 1.</td>
+        <td>Dr. Paul Coleman</td>
+      </tr>
+      <tr>
         <td><strong>1.5.4</strong></td>
         <td>2026-05-04</td>
         <td><strong>Trademark attribution &mdash; full coverage pass, plus diagram-vs-aside clear-float fix.</strong>
@@ -7255,7 +7387,7 @@ SELECT UserId, LastUsedDate FROM OauthToken WHERE AppName = 'ISV_APP_NAME'</code
     });
     exportBtn.addEventListener('click', function() {
       var snapshot = {
-        framework: 'Salesforce CRM Security Hardening v1.5.4',
+        framework: 'Salesforce CRM Security Hardening v1.5.5',
         scored_at: new Date().toISOString(),
         scores: loadStored(),
         average: parseFloat(avgEl.textContent) || 0,
