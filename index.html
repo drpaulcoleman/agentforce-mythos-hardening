@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   Salesforce CRM Security Hardening — A Defender's Encyclopedia for the Frontier-AI Era
-  Document version 1.4.5 · Last modified 2026-05-04
+  Document version 1.4.6 · Last modified 2026-05-04
   Copyright (c) 2026 Dr. Paul Coleman. All rights reserved.
 
   A vendor-neutral hardening reference for the customer side of the Salesforce
@@ -28,7 +28,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Salesforce CRM Security Hardening &mdash; A Defender's Encyclopedia for the Frontier-AI Era</title>
-<meta name="document-version" content="1.4.5">
+<meta name="document-version" content="1.4.6">
 <meta name="last-modified" content="2026-05-04">
 <meta name="source-snapshot" content="2026-05-04">
 <meta name="description" content="Vendor-neutral Salesforce CRM security hardening reference: identity, access, Experience Cloud guest hardening, Connected Apps + AppExchange supply chain, mTLS, secure Apex/LWC/Flow, encryption, detection &amp; response, DevSecOps, and defensive AI augmentation. Threat-informed (UNC6040, UNC6395, Krebs guest exposure, Drift OAuth chain) and standards-aligned (NIST CSF 2.0, OWASP).">
@@ -60,6 +60,19 @@
 
 <!-- Mermaid CDN -->
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+
+<!-- Prism.js syntax highlighting (dark theme + commonly-used grammars) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-clike.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-yaml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
 <script>
   mermaid.initialize({
     startOnLoad: false,
@@ -808,6 +821,51 @@ code {
   border-radius: 4px; padding: 2px 6px; font-size: 11px;
   color: var(--sf-blue-light);
 }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   CODE BLOCK STYLING -- darker offset background + syntax highlighting
+   <pre> blocks (excluding .mermaid which is its own thing) get a clearly
+   darker background than the surrounding card, a visible border, and
+   horizontal scroll for long lines. Prism.js handles the per-token
+   syntax colors via the tomorrow dark theme; our overrides here keep
+   the chrome (background / border / padding) consistent regardless of
+   whether a block has a language hint.
+   ═══════════════════════════════════════════════════════════════════════ */
+.card pre:not(.mermaid),
+.card pre[class*="language-"] {
+  background: #0A1420 !important;
+  color: #E8EAED !important;
+  border: 1px solid rgba(0,112,210,0.40);
+  border-radius: 6px;
+  padding: 14px 18px;
+  margin: 14px 0;
+  font-family: 'Source Code Pro', 'Courier New', monospace;
+  font-size: 12px;
+  line-height: 1.65;
+  overflow-x: auto;
+  text-shadow: none !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(255,255,255,0.02);
+}
+.card pre:not(.mermaid) code,
+.card pre[class*="language-"] code {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  color: inherit !important;
+  font-family: inherit !important;
+  font-size: inherit !important;
+  text-shadow: none !important;
+}
+/* Prism tomorrow theme token overrides for the SF-aligned palette */
+.token.comment, .token.prolog, .token.doctype, .token.cdata { color: #7B8FA8 !important; font-style: italic; }
+.token.punctuation { color: #B0C4DE !important; }
+.token.property, .token.tag, .token.boolean, .token.number, .token.constant, .token.symbol, .token.deleted { color: #FF9A3C !important; }
+.token.selector, .token.attr-name, .token.string, .token.char, .token.builtin, .token.inserted { color: #7CC97C !important; }
+.token.operator, .token.entity, .token.url, .language-css .token.string, .style .token.string { color: #5AB4E0 !important; }
+.token.atrule, .token.attr-value, .token.keyword { color: #B781D3 !important; font-weight: 700; }
+.token.function, .token.class-name { color: #5AB4E0 !important; font-weight: 600; }
+.token.regex, .token.important, .token.variable { color: #FFB75D !important; }
+.token.namespace { opacity: 0.7; }
 /* ─── Code blocks — light IDE theme ─── */
 pre.code-block {
   background: #F8F9FB; border: 1px solid #D8DDE6;
@@ -1280,7 +1338,7 @@ pre.mermaid g.node[onclick]:hover > path {
     </div>
     <div>
       <h1>Salesforce CRM Security Hardening</h1>
-      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.4.5 &middot; last modified 2026-05-04</span>
+      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.4.6 &middot; last modified 2026-05-04</span>
     </div>
   </div>
   <div class="doc-meta">
@@ -2055,17 +2113,18 @@ flowchart LR
 <div class="card" id="exec-pillar-i" data-exec-only data-search="executive pillar i identity authentication mfa fido2 sso sales calming">
   <h2>I &middot; Identity &amp; Authentication</h2>
   <p>
-    Identity is the gate to everything else. The 2025 vishing wave bypassed MFA <em>by getting users to
-    approve the prompt</em> &mdash; not by breaking the password. The defense is a factor that <strong>cannot
-    be approved over the phone</strong>: a hardware key (FIDO2 / WebAuthn). Push notifications and SMS do
-    not survive vishing.
+    Identity is the gate to everything else. The 2025 voice-phishing wave bypassed standard
+    multi-factor authentication by talking users into approving the prompt over the phone &mdash;
+    not by guessing the password. The defense is a factor that <strong>cannot be approved over
+    a phone call</strong>: a physical security key (the small USB-C / NFC tokens like YubiKey).
+    Push notifications and SMS codes do not survive that attack.
   </p>
   <ul>
-    <li>FIDO2 hardware keys for every administrator and every operator with high-impact scope</li>
-    <li>High Assurance session for sensitive operations (treasury-equivalent commands, mass record updates, data exports)</li>
-    <li>Custom Login Flow as the universal "step up before privileged action" hook</li>
-    <li>SAML / OIDC SSO with custom claims mapping IdP groups to Permission Set Groups via Apex JIT handler</li>
-    <li>My Domain enforced; Device Activation (required for SSO since February 2026)</li>
+    <li>Physical security keys for every administrator and any user with high-impact privileges</li>
+    <li>Stronger re-verification required before sensitive actions like mass exports, bulk updates, or admin-setup changes</li>
+    <li>Route all logins through your corporate single sign-on (SSO) so that disabling someone in HR's identity system disables them in Salesforce immediately</li>
+    <li>Automatically map identity-provider group membership to Salesforce permission bundles &mdash; group changes propagate on the next login, no manual provisioning</li>
+    <li>Require device verification (mandatory for SSO logins since February 2026) so a stolen password from a new device fails on its own</li>
   </ul>
   <p style="margin-top:14px;"><a href="#pillar-i">&rarr; Full technical readout</a></p>
 </div>
@@ -2431,18 +2490,17 @@ sequenceDiagram
 <div class="card" id="exec-pillar-ii" data-exec-only data-search="executive pillar ii access control least privilege owd permission set group migration spring 26 profile retirement">
   <h2>II &middot; Access Control &amp; Least-Privilege Migration</h2>
   <p>
-    Least privilege is the foundation of every later pillar. Permission Set Groups are the modern
-    primitive; Salesforce has signaled that profile-based permissions are being retired
-    (the original Spring '26 enforcement date was postponed<sup>[42]</sup>; a revised hard date
-    is pending as of this snapshot, but the architectural direction is unambiguous). The migration
-    is a 12-month structural refactor with a 90-day "high-risk mitigation" sub-track (strip
-    <code>View All</code> / <code>Modify All</code>, audit guest sharing rules) that captures most
-    of the value upfront.
+    Least-privilege access (only what each role needs, nothing more) is the foundation of every
+    later pillar. Salesforce is moving from the legacy profile-based access model to a modern
+    permission-set model; the original Spring '26 enforcement date was postponed<sup>[42]</sup>,
+    but the direction is unambiguous. The full migration is a roughly 12-month project, but a
+    90-day "high-risk mitigation" sub-track &mdash; stripping the broadest privileges from anyone
+    who doesn't truly need them &mdash; captures most of the value upfront.
   </p>
   <ul>
-    <li>Org-Wide Defaults set to Private as the baseline for every standard and custom object</li>
-    <li>Profiles &rarr; Permission Sets / Permission Set Groups; profile permissions are deprecated by Salesforce (original Spring '26 enforcement postponed<sup>[42]</sup>; revised date pending)</li>
-    <li>Role hierarchy is a <em>visibility</em> mechanism, not a <em>permission</em> mechanism &mdash; do not confuse the two</li>
+    <li>Default record access set to Private for every object holding sensitive data &mdash; grant exceptions deliberately, not by default</li>
+    <li>Move from profile-based permissions to the modern composable model (Permission Set Groups), which lets one user belong to multiple bundles simultaneously</li>
+    <li>The role hierarchy controls who can <em>see</em> what records, not who can <em>do</em> what &mdash; a common architectural error to confuse the two</li>
     <li>Restriction Rules narrow access where Sharing rules can only widen it</li>
     <li>Reports, list views, and exports are first-class exfiltration vectors &mdash; govern them</li>
   </ul>
@@ -2464,25 +2522,43 @@ sequenceDiagram
     organization defaults all the way to the Apex query that returns (or doesn't return) the row.
   </p>
   <pre class="mermaid">
-graph TD
+flowchart LR
     classDef gate fill:#0070D2,stroke:#0070D2,color:#FFF;
     classDef narrow fill:#C23934,stroke:#C23934,color:#FFF;
     classDef widen fill:#04844B,stroke:#04844B,color:#FFF;
     classDef enforce fill:#9050E9,stroke:#9050E9,color:#FFF;
     classDef result fill:#16325C,stroke:#0070D2,color:#FFF;
 
-    A[Org-Wide Defaults<br/>internal &amp; external<br/>Private &mdash; the foundation]:::gate
-    B[Role Hierarchy<br/>+ Territory Hierarchy<br/>Widens to ancestors]:::widen
-    C[Sharing Rules<br/>owner-based &amp; criteria-based<br/>Widens to defined groups]:::widen
-    D[Manual Sharing &amp;<br/>Implicit Sharing<br/>Account-team / Opp-team]:::widen
-    E[Apex Managed Sharing<br/>add Share row programmatically]:::widen
-    F[Restriction Rules<br/>narrows for record types &amp; queries]:::narrow
-    G[Object &amp; Field Permissions<br/>via Permission Set Groups]:::gate
-    H[Field-Level Security &amp; FLS<br/>per-field visibility]:::gate
-    I[Apex Run Mode<br/>USER_MODE / SECURITY_ENFORCED /<br/>with sharing / without sharing]:::enforce
-    J{Record visible?}:::result
+    subgraph FOUND["FOUNDATION"]
+        direction TB
+        A[Org-Wide Defaults<br/>Private = foundation]:::gate
+    end
 
-    A --&gt; B --&gt; C --&gt; D --&gt; E --&gt; F --&gt; G --&gt; H --&gt; I --&gt; J
+    subgraph WIDEN["WIDENING LAYERS (each can only ADD access)"]
+        direction TB
+        B[Role / Territory<br/>Hierarchy]:::widen
+        C[Sharing Rules<br/>owner &amp; criteria-based]:::widen
+        D[Manual + Implicit<br/>Sharing]:::widen
+        E[Apex Managed<br/>Sharing]:::widen
+    end
+
+    subgraph NARROW["NARROW"]
+        F[Restriction Rules<br/>can REMOVE access]:::narrow
+    end
+
+    subgraph GATES["PER-OBJECT / PER-FIELD GATES"]
+        direction TB
+        G[Object &amp; Field<br/>Permissions via PSG]:::gate
+        H[Field-Level<br/>Security]:::gate
+    end
+
+    subgraph ENFORCE["APEX RUN-MODE"]
+        I[USER_MODE /<br/>SECURITY_ENFORCED /<br/>with sharing]:::enforce
+    end
+
+    J{Record<br/>visible?}:::result
+
+    FOUND --&gt; WIDEN --&gt; NARROW --&gt; GATES --&gt; ENFORCE --&gt; J
   </pre>
   <h3>Subsection map</h3>
   <ul>
@@ -2549,7 +2625,7 @@ graph TD
   </ul>
   <h3>Migration shape (in-context example: profile diff &rarr; PSG composition)</h3>
   <p>The conceptual transform: a Sales-Manager <em>profile</em> becomes <em>"Base Sales user"</em> + <em>"Manager scope"</em> + <em>"Quote-create permission"</em> &mdash; three composable Permission Sets bundled in a PSG.</p>
-  <pre><code>&lt;!-- BEFORE: SalesManager.profile-meta.xml (legacy) --&gt;
+  <pre><code class="language-markup">&lt;!-- BEFORE: SalesManager.profile-meta.xml (legacy) --&gt;
 &lt;Profile&gt;
   &lt;objectPermissions&gt;
     &lt;allowCreate&gt;true&lt;/allowCreate&gt;
@@ -2806,18 +2882,20 @@ graph TD
 <div class="card" id="exec-pillar-iii" data-exec-only data-search="executive pillar iii experience cloud guest user persistent data bleed krebs vermont tcf graphql divd 2026">
   <h2>III &middot; Experience Cloud Guest Hardening &#9733;</h2>
   <p>
-    Experience Cloud guest user misconfiguration is the <strong>single highest-leverage data-leak surface</strong>
-    in the 2024&ndash;2026 corpus. The pattern is identical at Vermont, TCF Bank, hundreds of orgs in the Krebs
-    2023 exposé, and the 2026 GraphQL variant: <em>guest profile too permissive</em> + <em>guest sharing
-    rules too generous</em> + <em>LWC/Aura controllers reachable from guest context</em>. The fix is the
-    same audit, repeated.
+    Public-facing Salesforce sites (Experience Cloud, formerly Communities) have an
+    <strong>"anonymous visitor" identity</strong> called the guest user. Misconfigure that one
+    identity and private records go public &mdash; the exact pattern that surfaced SSNs and bank-account
+    numbers at the State of Vermont, TCF Bank, and hundreds of other organizations in the 2023
+    Krebs investigation, and surfaced again in the 2026 DIVD-2026-00005 disclosure. This is the
+    single highest-leverage data-leak surface in the corpus, and the fix is a repeatable audit,
+    not a one-time project.
   </p>
   <ul>
-    <li>Guest user profile audit &mdash; remove every permission you don't strictly need</li>
-    <li>Guest user sharing rules &mdash; review every one with explicit business justification</li>
-    <li>Aura/LWC controllers &mdash; <code>@AuraEnabled</code> methods are guest-callable by default; gate them</li>
-    <li>Public site URL surface &mdash; index audit, search-engine exposure check</li>
-    <li>Quarterly automated guest-profile diff against an approved baseline &mdash; this is the attestation artifact</li>
+    <li>Audit every public site's guest user profile &mdash; turn off every permission you do not strictly need</li>
+    <li>Review every guest sharing rule with explicit business justification; each rule grants <em>unauthenticated</em> public access</li>
+    <li>Lock down public-facing custom code &mdash; many components are callable by anonymous visitors by default</li>
+    <li>Verify what search engines have indexed of your public site; request removal of anything that should not be public</li>
+    <li>Quarterly automated comparison of the live configuration against an approved baseline &mdash; this is your audit-evidence artifact</li>
   </ul>
   <p style="margin-top:14px;"><a href="#pillar-iii">&rarr; Full technical readout</a></p>
 </div>
@@ -2842,49 +2920,35 @@ graph TD
     half of the partnership to make the configuration not be misconfigured.
   </p>
   <pre class="mermaid">
-stateDiagram-v2
-    direction LR
+flowchart LR
+    classDef anon fill:#243B5E,stroke:#5B9BD5,color:#FFF;
+    classDef guest fill:#9050E9,stroke:#9050E9,color:#FFF;
+    classDef query fill:#1E4D7B,stroke:#0070D2,color:#FFF;
+    classDef code fill:#FF9A3C,stroke:#FF9A3C,color:#000;
+    classDef leak fill:#C23934,stroke:#C23934,color:#FFF;
 
-    [*] --&gt; AnonVisitor: User hits public URL
+    A[Anonymous Visitor<br/>hits public URL]:::anon
+    B[Guest User Profile<br/>profile-bound, license-bound]:::guest
+    C[Sharing Scope<br/>OWD=Private locked<br/>+ Guest Sharing Rules]:::guest
 
-    AnonVisitor --&gt; GuestProfile: Site assigns Guest User<br/>(profile-bound, license-bound)
-    GuestProfile --&gt; SharingScope: OWD=Private (locked)<br/>+ Guest Sharing Rules apply
-    SharingScope --&gt; QuerySurface
+    subgraph SURFACE["Reachable Query Surface"]
+        direction TB
+        D1[SOQL via Aura]:::query
+        D2[SOQL via LWC]:::query
+        D3[GraphQL endpoint]:::query
+        D4[CMS search index]:::query
+        D5[Files public link]:::query
+    end
 
-    state QuerySurface {
-        [*] --&gt; SOQL_via_Aura
-        [*] --&gt; SOQL_via_LWC
-        [*] --&gt; GraphQL_endpoint
-        [*] --&gt; CMS_search_index
-        [*] --&gt; Files_public_link
-    }
+    E[Apex Controller<br/>runs as Guest User<br/>USER_MODE? FLS? Sharing?]:::code
+    F[Records returned<br/>HTTP / JSON / file]:::leak
+    G[Search-engine Cache<br/>Bing / Google]:::leak
+    H[Attacker]:::leak
 
-    QuerySurface --&gt; ApexController: Run-as: Guest User
-    ApexController --&gt; Records: USER_MODE? FLS? Sharing?<br/>(if mis-coded: full row leak)
-    Records --&gt; Response: HTTP body / JSON / file
-
-    Response --&gt; SearchIndex: HTML cached?<br/>indexable?
-    SearchIndex --&gt; PublicWeb: Bing / Google / Bing-Cache
-    Response --&gt; Attacker
-
-    note right of GuestProfile
-        Anti-pattern: View All Users,
-        any non-default object permission,
-        any system permission beyond
-        "API Enabled = false"
-    end note
-
-    note right of SharingScope
-        Every Guest Sharing Rule is
-        an unauthenticated access grant.
-        Quarterly attestation required.
-    end note
-
-    note right of ApexController
-        @AuraEnabled methods are
-        guest-callable BY DEFAULT.
-        Add explicit denial in code.
-    end note
+    A --&gt; B --&gt; C --&gt; SURFACE
+    SURFACE --&gt; E --&gt; F
+    F --&gt; G
+    F --&gt; H
   </pre>
   <h3>Subsection map</h3>
   <ul>
@@ -3051,7 +3115,7 @@ stateDiagram-v2
     Default-mode Apex bypasses sharing; from a guest context, that is a critical risk of unintended full-organization data exposure.</li>
     <li><strong>Explicit denial check.</strong> At the top of any guest-reachable <code>@AuraEnabled</code>
     method, validate the caller's expected context. Example:
-<pre><code>@AuraEnabled
+<pre><code class="language-java">@AuraEnabled
 public static List&lt;Case&gt; getMyCases() {
     // Explicit guest-context denial unless the method is *intended* for guest use
     if (UserInfo.getUserType() == 'Guest') {
@@ -3194,16 +3258,17 @@ public static List&lt;Case&gt; getMyCases() {
 <div class="card" id="exec-pillar-iv" data-exec-only data-search="executive pillar iv connected apps external client apps oauth appexchange supply chain isv shinyhunters salesloft drift unc6040 unc6395">
   <h2>IV &middot; Connected Apps &amp; AppExchange Supply Chain</h2>
   <p>
-    Connected Apps and AppExchange ISVs are <em>two sides of the same coin</em>. Either can become the
-    OAuth grant your data leaves through. Block Uninstalled Connected Apps is on by default since
-    September 2025 &mdash; verify it. External Client Apps (ECA) replace Connected Apps for new integrations
-    in Spring '26. Refresh-token rotation, admin pre-approval, and quarterly OAuth Usage attestation are
-    table stakes.
+    Third-party apps you authorize keep working until you turn them off. If the third-party gets
+    breached, attackers ride that authorization straight into your data &mdash; this is exactly how
+    700+ Salesforce orgs were hit through one vendor (Salesloft Drift) in August 2025. A small
+    set of org-level settings plus a quarterly review closes most of the gap.
   </p>
   <ul>
-    <li>700+ orgs hit through one ISV (Salesloft Drift) in August 2025 &mdash; passing AppExchange Security Review is necessary, not sufficient</li>
-    <li>The 2025 vishing wave used a malicious <em>connected app</em> as the data-loader pivot</li>
-    <li>Browser extensions hijack authenticated sessions <em>without</em> needing OAuth &mdash; allowlist them</li>
+    <li>Verify the org-level "Block Uninstalled Connected Apps" setting is on (default since September 2025) &mdash; this single toggle closes the most common 2025 attack pattern</li>
+    <li>Require admin pre-approval for every connected third-party app; do not let users self-authorize new integrations</li>
+    <li>Quarterly review of the connected-app activity report &mdash; revoke anything without a business owner; rotate authorization tokens on a 90-day cap</li>
+    <li>Passing the AppExchange security review is necessary but not sufficient &mdash; demand post-install monitoring and a documented breach SLA from your ISV vendors</li>
+    <li>Browser extensions can hijack a logged-in session without ever requesting permission &mdash; restrict to an approved allowlist via your endpoint-management tool</li>
   </ul>
   <p style="margin-top:14px;"><a href="#pillar-iv">&rarr; Full technical readout</a></p>
 </div>
@@ -3586,16 +3651,16 @@ sequenceDiagram
 <div class="card" id="exec-pillar-v" data-exec-only data-search="executive pillar v api mtls cert rotation 2026 named credentials external credentials per user named principal integration user feb 5 mar 15 digicert">
   <h2>V &middot; API, mTLS &amp; Certificate Rotation</h2>
   <p>
-    All your secrets belong in <strong>Named Credentials</strong> or <strong>External Credentials</strong>.
-    None of them belong in Custom Settings, Custom Metadata, Apex strings, or Static Resources. The 2026
-    certificate transitions (Feb 5 root cutover, Mar 15 200-day max lifespan) mean cert rotation is now
-    a quarterly operational concern &mdash; not annual.
+    Integrations need credentials and certificates to talk to external systems. Where you store
+    them and how often you rotate them are the two decisions that matter. The 2026 industry rules
+    push public TLS certificate lifetimes from years down to months, then to weeks &mdash; what
+    used to be an annual chore becomes a quarterly operational discipline.
   </p>
   <ul>
-    <li>Named / External Credentials: the only sanctioned way to hold integration secrets</li>
-    <li>Mutual TLS (mTLS): both sides present certs &mdash; required for high-trust integrations</li>
-    <li>Cert lifespan drops to 200 days starting March 15, 2026 (driven by Google/Apple browser industry pressure)</li>
-    <li>Per-user named principals / integration-user-per-integration are the access-isolation primitives</li>
+    <li>Integration credentials live in Salesforce's dedicated secret-storage features &mdash; never inside code, configuration objects, or static files</li>
+    <li>For high-trust integrations, both sides of the connection prove their identity with a certificate (mutual TLS)</li>
+    <li>Industry rules cap public certificate lifetime at 200 days starting March 15, 2026, dropping further to 47 days by 2029 &mdash; assign a cert-rotation owner with calendar alerts</li>
+    <li>Each external integration gets its own dedicated user account &mdash; a leaked credential then affects one integration, not all of them</li>
   </ul>
   <p style="margin-top:14px;"><a href="#pillar-v">&rarr; Full technical readout</a></p>
 </div>
@@ -3826,19 +3891,20 @@ sequenceDiagram
 
 <!-- EXEC · Pillar VI -->
 <div class="card" id="exec-pillar-vi" data-exec-only data-search="executive pillar vi apex lwc soql flow secure coding user mode security enforced soql injection xss csrf flow security record triggered system context guest accessible">
-  <h2>VI &middot; Apex / LWC / SOQL / Flow Secure Coding</h2>
+  <h2>VI &middot; Secure Code, Components &amp; Automation</h2>
   <p>
-    Code is policy. Apex written without <code>USER_MODE</code> bypasses sharing and FLS. Flow run in
-    "system context" bypasses everything. <code>@AuraEnabled</code> methods are guest-callable by default.
-    Email-to-Case is an input validation problem. <strong>The most underrated leak vector in the
-    document is a Flow.</strong>
+    Custom code and automation are policy. Salesforce's automation tool, Flow, is the most
+    underrated data-leak vector in the corpus &mdash; a Flow can be configured to bypass sharing
+    rules and field-level security entirely. Custom code (Apex) defaults to the same
+    bypass unless explicitly opted in to user-mode. And web forms (Email-to-Case, Web-to-Lead,
+    Web-to-Case) accept input from anyone on the internet and route it into your org &mdash;
+    treat them accordingly.
   </p>
   <ul>
-    <li>USER_MODE everywhere; <code>without sharing</code> only with documented justification</li>
-    <li>Bind variables, never string concatenation, in SOQL</li>
-    <li>LWC sanitization + avoid <code>lwc:dom="manual"</code></li>
-    <li>Flow run-context: record-triggered runs system; screen flows can run user; <em>guest-accessible flows are the highest-risk surface</em></li>
-    <li>Email intake (Email-to-Case, Web-to-Lead, Web-to-Case): treat as untrusted; SPF/DKIM/DMARC; file-upload malware</li>
+    <li>New custom code respects the running user's sharing rules and field-level security by default; opt-outs require documented business justification</li>
+    <li>Database queries use parameterized placeholders &mdash; never directly stitch user input into the query text</li>
+    <li>Audit every Flow's "run context" decision &mdash; the default for record-triggered Flows bypasses sharing; Flows reachable from a public site are the highest-risk surface</li>
+    <li>Web forms and email-to-case: validate every input, authenticate inbound mail with SPF / DKIM / DMARC, scan attachments for malware</li>
   </ul>
   <p style="margin-top:14px;"><a href="#pillar-vi">&rarr; Full technical readout</a></p>
 </div>
@@ -3858,38 +3924,48 @@ sequenceDiagram
     where a single keyword choice changes the security model entirely.
   </p>
   <pre class="mermaid">
-flowchart TD
+flowchart LR
     classDef trust fill:#04844B,stroke:#04844B,color:#FFF;
     classDef danger fill:#C23934,stroke:#C23934,color:#FFF;
     classDef gate fill:#0070D2,stroke:#0070D2,color:#FFF;
 
-    A[Request lands at controller / endpoint]:::gate
-    B{Caller authenticated?}
-    C{Run as Guest User?}:::gate
-    D[Apex class<br/>with sharing / inherited sharing]:::trust
-    E[Apex class<br/>without sharing]:::danger
-    F{SOQL run mode?}
-    G[WITH USER_MODE]:::trust
-    H[WITH SECURITY_ENFORCED]:::trust
-    I[Default System mode<br/>FLS bypass]:::danger
-    J{DML run mode?}
-    K[AccessLevel.USER_MODE]:::trust
-    L[Default<br/>FLS bypass]:::danger
-    M{Flow context?}
-    N[User context<br/>respects sharing &amp; FLS]:::trust
-    O[System context<br/>bypasses everything]:::danger
-    P[Guest-accessible<br/>Flow / @AuraEnabled]:::danger
+    A[Request hits<br/>controller / endpoint]:::gate
+    B{Authenticated?}:::gate
+    C{Guest user?}:::gate
+
+    subgraph CLASS["Apex class declaration"]
+        direction TB
+        D[with sharing<br/>or inherited sharing]:::trust
+        E[without sharing]:::danger
+    end
+
+    subgraph SOQL["SOQL run-mode"]
+        direction TB
+        G[WITH USER_MODE]:::trust
+        H[WITH SECURITY_ENFORCED]:::trust
+        I[default system mode<br/>FLS BYPASS]:::danger
+    end
+
+    subgraph DML["DML run-mode"]
+        direction TB
+        K[AccessLevel.USER_MODE]:::trust
+        L[default mode<br/>FLS BYPASS]:::danger
+    end
+
+    subgraph FLOW["Flow run-context"]
+        direction TB
+        N[user context<br/>respects sharing/FLS]:::trust
+        O[system context<br/>bypasses everything]:::danger
+        P[guest-accessible<br/>HIGH RISK]:::danger
+    end
+
     Q[Response]:::trust
 
     A --&gt; B
     B -- yes --&gt; C
-    C -- no --&gt; D
-    C -- yes --&gt; P
-    D --&gt; F
-    E --&gt; F
-    F --&gt; G --&gt; J
-    F --&gt; H --&gt; J
-    F --&gt; I --&gt; J
+    C -- no --&gt; CLASS --&gt; SOQL --&gt; DML --&gt; Q
+    C -- yes --&gt; P --&gt; Q
+    A -.flow path.-&gt; FLOW --&gt; Q
     J --&gt; K --&gt; Q
     J --&gt; L --&gt; Q
     A -.flow path.-&gt; M
@@ -4110,17 +4186,18 @@ flowchart TD
 <div class="card" id="exec-pillar-vii" data-exec-only data-search="executive pillar vii data classification encryption shield byok field audit trail einstein data detect data mask sandbox backup recovery hyperforce eee gdpr eu ai act">
   <h2>VII &middot; Data Classification, Encryption, Sandboxes &amp; Backup</h2>
   <p>
-    Encryption decisions follow data-classification decisions. Sandbox PII is production PII unless you
-    Mask it. Backups are not an option in 2026 &mdash; they are a precondition for ransomware survival.
-    Hyperforce gives data-residency control; the External Encryption Ecosystem keeps keys outside the
-    platform.
+    Encryption decisions follow data-classification decisions &mdash; you cannot protect what you
+    have not categorized. Sandbox copies of production hold real customer data unless you
+    explicitly anonymize them. Backups are no longer optional &mdash; ransomware and accidental
+    deletions both require a real recovery path (the Salesforce recycle bin is not one).
   </p>
   <ul>
-    <li>Classify first &mdash; drive every other control from the classification</li>
-    <li>Shield Platform Encryption + BYOK; Field Audit Trail on classified objects</li>
-    <li>Einstein Data Detect to discover sensitive data continuously</li>
-    <li>Sandbox: Data Mask anonymizes Dev/UAT; backup-account isolation + restore testing as standing practice</li>
-    <li>Hyperforce + External Encryption Ecosystem for global / regulated firms</li>
+    <li>Classify data into four sensitivity tiers (Public / Internal / Confidential / Restricted); every other control follows from the tier</li>
+    <li>Encrypt the most sensitive data at rest with customer-managed encryption keys (Shield Platform Encryption with bring-your-own-key)</li>
+    <li>Long-retention forensic audit trail on classified records (years, not the default 18 months)</li>
+    <li>Sandboxes anonymized with Salesforce Data Mask <em>before</em> any developer or tester sees the data</li>
+    <li>A real backup product (not the recycle bin) with an isolated, MFA-gated backup account; quarterly restore-test drills</li>
+    <li>For global firms: regional data residency via Hyperforce; encryption keys held in your own external key-management system</li>
   </ul>
   <p style="margin-top:14px;"><a href="#pillar-vii">&rarr; Full technical readout</a></p>
 </div>
@@ -4139,32 +4216,38 @@ flowchart TD
     decision. Sequence matters &mdash; it is in the diagram.
   </p>
   <pre class="mermaid">
-graph TD
-    classDef class fill:#9050E9,stroke:#9050E9,color:#FFF;
+flowchart LR
+    classDef tier fill:#9050E9,stroke:#9050E9,color:#FFF;
     classDef ctrl fill:#0070D2,stroke:#0070D2,color:#FFF;
     classDef high fill:#C23934,stroke:#C23934,color:#FFF;
     classDef ops fill:#04844B,stroke:#04844B,color:#FFF;
 
-    A[1) Classify Data<br/>Public / Internal / Confidential / Restricted]:::class
-    B[2) Encrypt at Rest<br/>TDE always on +<br/>Shield Platform Encryption on classified]:::ctrl
-    C[3) Manage Keys<br/>Salesforce-managed / BYOK / HSM / EEE]:::ctrl
-    D[4) Field Audit Trail<br/>Long retention, big-data backend]:::ctrl
-    E[5) Detect Sensitive Data<br/>Einstein Data Detect]:::class
-    F[6) Mask in Sandbox<br/>Data Mask]:::ops
-    G[7) Backup &amp; Recovery<br/>Isolated account, restore testing]:::ops
-    H[8) Retention &amp; Deletion<br/>Lifecycle policies]:::ops
-    I{Restricted data?}:::high
+    A[1. Classify Data<br/>Public / Internal /<br/>Confidential / Restricted]:::tier
 
-    A --&gt; B
-    A --&gt; D
-    A --&gt; H
-    A --&gt; F
-    A --&gt; G
+    subgraph PROTECT["DATA PROTECTION"]
+        direction TB
+        B[2. Encrypt at Rest<br/>TDE + Shield Encryption]:::ctrl
+        C[3. Manage Keys<br/>BYOK / HSM / external KMS]:::ctrl
+        D[4. Field Audit Trail<br/>long-retention forensics]:::ctrl
+    end
+
+    subgraph DISCOVER["DISCOVERY &amp; LIFECYCLE"]
+        direction TB
+        E[5. Detect Sensitive Data<br/>Einstein Data Detect]:::tier
+        H[8. Retention &amp; Deletion<br/>lifecycle policy]:::ops
+    end
+
+    subgraph OPS["OPERATIONAL CONTROLS"]
+        direction TB
+        F[6. Mask in Sandbox<br/>Data Mask]:::ops
+        G[7. Backup &amp; Recovery<br/>isolated account, restore tests]:::ops
+    end
+
+    A --&gt; PROTECT
+    A --&gt; DISCOVER
+    A --&gt; OPS
     B --&gt; C
-    A -.discover.-&gt; E --&gt; A
-    I -- yes --&gt; B
-    I -- yes --&gt; D
-    I -- yes --&gt; F
+    E -.feeds back.-&gt; A
   </pre>
   <h3>Subsection map</h3>
   <ul>
@@ -4379,17 +4462,19 @@ graph TD
 <div class="card" id="exec-pillar-viii" data-exec-only data-search="executive pillar viii detection response observability health check security center real time event monitoring threat detection transaction security siem ai agent compromise irp incident response">
   <h2>VIII &middot; Detection, Response &amp; Observability</h2>
   <p>
-    You cannot respond to what you cannot see. Health Check is your free baseline. Real-Time Event
-    Monitoring + Threat Detection are the paid uplifts. Transaction Security turns detection into
-    real-time enforcement. AI agent compromise is a special case: outputs look normal even when they
-    are not. The IRP must address both.
+    You cannot respond to what you cannot see. Salesforce's free baseline gives you posture
+    scoring (Health Check), event logs (Login History, Setup Audit Trail), and basic anomaly
+    detection. The paid uplift (Shield) adds a real-time event stream you can ship to your
+    security operations team, plus the ability to block or step-up high-risk actions in flight.
+    A separate detection track is needed for AI agents, whose outputs can look normal even when
+    they have been compromised.
   </p>
   <ul>
-    <li>Health Check + Security Center: posture, baselines, multi-org rollup</li>
-    <li>Real-Time EM streaming to SIEM (Splunk / Sentinel / Chronicle / Elastic / New Relic)</li>
-    <li>Threat Detection (free) + Enhanced Transaction Security (Shield) for in-flight Block / MFA / Notify</li>
-    <li>IRP with silent-compromise indicators for AI agents + Connected App takeover</li>
-    <li>Mobile MDM/MAM for the Salesforce Mobile App attack surface</li>
+    <li>Run Health Check; track the score quarter-over-quarter; multi-org rollup (Security Center) for orgs with several environments</li>
+    <li>Stream the real-time event log to your security operations platform (Splunk, Microsoft Sentinel, Google Chronicle, Elastic, New Relic, etc.)</li>
+    <li>Real-time enforcement: block high-volume exports from non-trusted networks; require step-up MFA on mass record updates; notify on off-hours admin activity</li>
+    <li>Pre-built incident-response runbooks for the five most-likely scenarios (vishing, third-party-app compromise, public-site exposure, browser-extension hijack, AI-agent silent compromise)</li>
+    <li>Mobile-device-management policy on the Salesforce mobile app: PIN, screenshot blocking, allowlisted browsers</li>
   </ul>
   <p style="margin-top:14px;"><a href="#pillar-viii">&rarr; Full technical readout</a></p>
 </div>
@@ -4409,36 +4494,40 @@ graph TD
     needing distinct silent-compromise indicators.
   </p>
   <pre class="mermaid">
-stateDiagram-v2
-    [*] --&gt; Detect
+flowchart LR
+    classDef detect fill:#0070D2,stroke:#0070D2,color:#FFF;
+    classDef triage fill:#9050E9,stroke:#9050E9,color:#FFF;
+    classDef contain fill:#C23934,stroke:#C23934,color:#FFF;
+    classDef recover fill:#04844B,stroke:#04844B,color:#FFF;
 
-    state Detect {
-        [*] --&gt; PostureSignal: Health Check / Security Center
-        [*] --&gt; LogSignal: Setup Audit / Login History
-        [*] --&gt; EventSignal: Real-Time EM
-        [*] --&gt; AnomalySignal: Threat Detection
-        [*] --&gt; AISignal: silent-compromise indicators
-    }
+    subgraph DETECT["DETECT (signals)"]
+        direction TB
+        S1[Posture: Health Check]:::detect
+        S2[Logs: Audit + Login History]:::detect
+        S3[Events: Real-Time EM]:::detect
+        S4[Anomaly: Threat Detection]:::detect
+        S5[AI silent-compromise indicators]:::detect
+    end
 
-    Detect --&gt; Triage: signal triggers ticket
-    Triage --&gt; Contain: incident confirmed
-    Triage --&gt; FalsePositive: tune detection
+    T[Triage<br/>signal -&gt; ticket]:::triage
 
-    state Contain {
-        [*] --&gt; RevokeTokens: revoke OAuth tokens
-        [*] --&gt; KillSessions: end user sessions
-        [*] --&gt; FreezeUser: deactivate compromised user
-        [*] --&gt; BlockApp: Connected App revoke
-        [*] --&gt; KillSwitch: feature flag off
-    }
+    subgraph CONTAIN["CONTAIN (sub-15-min)"]
+        direction TB
+        C1[Revoke OAuth tokens]:::contain
+        C2[End user sessions]:::contain
+        C3[Freeze user]:::contain
+        C4[Revoke Connected App]:::contain
+        C5[Kill-switch feature flag]:::contain
+    end
 
-    Contain --&gt; Identify: scope of compromise
-    Identify --&gt; Eradicate: remove attacker access
-    Eradicate --&gt; PreserveEvidence: forensic snapshot
-    PreserveEvidence --&gt; Notify: stakeholders + regulator
-    Notify --&gt; Recover: restore service
-    Recover --&gt; PostMortem: lessons learned
-    PostMortem --&gt; [*]: detection updated
+    I[Identify scope]:::triage
+    E[Eradicate access]:::triage
+    P[Preserve evidence]:::recover
+    N[Notify stakeholders<br/>+ regulator]:::recover
+    R[Recover service]:::recover
+    M[Post-mortem<br/>+ tune detection]:::recover
+
+    DETECT --&gt; T --&gt; CONTAIN --&gt; I --&gt; E --&gt; P --&gt; N --&gt; R --&gt; M
   </pre>
   <h3>Subsection map</h3>
   <ul>
@@ -4663,16 +4752,19 @@ stateDiagram-v2
 <div class="card" id="exec-pillar-ix" data-exec-only data-search="executive pillar ix devsecops dx ci cd scratch org unlocked package signed package pmd sfdx scanner deployment approval sandbox refresh">
   <h2>IX &middot; DevSecOps for DX &amp; Org Lifecycle</h2>
   <p>
-    The supply chain into your Salesforce org is the same supply chain the 2025 Drift breach exploited:
-    Git repos, CI runners, secrets in pipelines, deployment approvals. Hardening the pipeline closes
-    the largest blast-radius attack vector that doesn't require a Salesforce login.
+    The path code takes from a developer's laptop to your production Salesforce org is itself an
+    attack surface. Secrets accidentally committed to a Git repository, weak permissions on a
+    development environment, or a deployment with no second reviewer &mdash; each is a 2025-pattern
+    breach waiting to happen. The August 2025 Salesloft Drift incident traced exactly this route.
+    The fix is to treat the deployment pipeline like a high-trust integration: gated, monitored,
+    multi-reviewer.
   </p>
   <ul>
-    <li>CI/CD secret hygiene: auth URLs, JWT keys, scratch-org credentials</li>
-    <li>Static analysis as a deployment gate: PMD, SFDX Scanner, custom rules</li>
-    <li>Unlocked packages + signed package enforcement</li>
-    <li>Multi-reviewer deployment approval; metadata-repo dual-agent scanning</li>
-    <li>Sandbox refresh governance: Data Mask, post-refresh hardening checklist</li>
+    <li>No long-lived secrets in deployment pipelines or Git repos &mdash; use short-lived federated authentication (your CI system mints a token at deploy time and discards it)</li>
+    <li>Automated security checks (PMD, SFDX Scanner) gate every deployment; security findings block the merge until they're addressed</li>
+    <li>Modern Salesforce deployment units with cryptographic signing on every promotion to production</li>
+    <li>Two-reviewer minimum on every production deployment; high-risk changes (sharing model, profiles) require additional sign-off</li>
+    <li>Sandbox refresh follows a hardening checklist (data masked, integration users re-provisioned, MFA verified) before users get access</li>
   </ul>
   <p style="margin-top:14px;"><a href="#pillar-ix">&rarr; Full technical readout</a></p>
 </div>
@@ -4863,17 +4955,19 @@ flowchart LR
 <div class="card" id="exec-pillar-x" data-exec-only data-search="executive pillar x ai augmentation defensive ai claude security opus 4.7 chatgpt 5 o series anomaly policy authoring irp companion trust layer zero retention pii scrubbing">
   <h2>X &middot; AI Augmentation Across the Defense Stack</h2>
   <p>
-    Frontier AI on the threat side is contained (Mythos &rarr; Glasswing). On the defense side, Claude
-    Opus 4.7 is generally available via Claude Security (public beta May 2026); ChatGPT 5 / o-series
-    handles equivalent workloads. <strong>AI-assisted review can reduce review and remediation latency when
-    it is governed well</strong> &mdash; though baseline controls and human review remain the load-bearing
-    parts of the defense.
+    Frontier AI on the attacker side is contained for now &mdash; Anthropic's most capable model
+    (Mythos) is restricted to a research program (Project Glasswing), and the unauthorized-access
+    incident in April 2026 was a third-party-vendor compromise, not a direct breach of Anthropic.
+    Defenders have access to the next-tier model (Claude Opus 4.7) at scale through Claude Security
+    (in public beta as of May 2026); ChatGPT 5 and the OpenAI o-series cover equivalent workloads.
+    Treat AI-assisted review as <em>one input</em> alongside controls and human review, not a
+    replacement for either.
   </p>
   <ul>
-    <li>Claude Security (Opus 4.7): codebase + metadata vulnerability scanning, remediation patches</li>
-    <li>AI-assisted Health Check baseline derivation, anomaly policy authoring, IRP companion</li>
-    <li>Trust Layer pattern: zero-retention, PII scrubbing, deterministic re-run for audit</li>
-    <li>Limits: AI doesn't substitute for Mythos-class red-team capability (good!) &mdash; defenders use sub-frontier; threat lacks Mythos</li>
+    <li>Codebase and metadata vulnerability scanning with AI assistance (Claude Security or OpenAI equivalents)</li>
+    <li>AI helps draft custom Health Check baselines, real-time enforcement policies, and incident-response runbook content; human security reviewers approve before deployment</li>
+    <li>Strict data-handling rules when sending information to AI providers: zero retention, customer data removed before transmission, deterministic re-runs to audit a finding</li>
+    <li>What AI does NOT do: substitute for advanced red-team capability against your org &mdash; that capability is exactly what Anthropic deliberately restricts; defenders work at sub-frontier capability, which is a feature, not a limitation</li>
   </ul>
   <p style="margin-top:14px;"><a href="#pillar-x">&rarr; Full technical readout</a></p>
 </div>
@@ -4893,35 +4987,29 @@ flowchart LR
     defend your configuration. The tools are the same.
   </p>
   <pre class="mermaid">
-graph TD
+flowchart LR
     classDef ai fill:#9050E9,stroke:#9050E9,color:#FFF;
     classDef pillar fill:#0070D2,stroke:#0070D2,color:#FFF;
     classDef gate fill:#04844B,stroke:#04844B,color:#FFF;
-    classDef trust fill:#FF9A3C,stroke:#FF9A3C,color:#FFF;
+    classDef trust fill:#FF9A3C,stroke:#FF9A3C,color:#000;
 
-    AI[Defender's AI Stack<br/>Claude Opus 4.7 / ChatGPT 5 / Local]:::ai
-    TL[Trust Layer<br/>Zero retention, PII scrub,<br/>deterministic re-run]:::trust
+    AI[Defender's AI Stack<br/>Opus 4.7 / GPT-5 / local]:::ai
+    TL[Trust Layer<br/>zero retention, PII scrub,<br/>deterministic re-run]:::trust
 
-    P1[Pillar I: Identity audit<br/>SAML claim review]:::pillar
-    P2[Pillar II: PermSet drift,<br/>least-priv migration plan]:::pillar
-    P3[Pillar III: Guest profile audit,<br/>scanner authoring]:::pillar
-    P4[Pillar IV: OAuth grant analysis,<br/>ISV risk scoring]:::pillar
-    P5[Pillar V: Cert rotation runbook,<br/>NC inventory]:::pillar
-    P6[Pillar VI: Apex code review,<br/>SOQL injection scan]:::pillar
-    P7[Pillar VII: Classification proposal,<br/>retention policy draft]:::pillar
-    P8[Pillar VIII: Anomaly policy authoring,<br/>IRP companion]:::pillar
-    P9[Pillar IX: PR review,<br/>repo scanner findings triage]:::pillar
+    subgraph PILLARS["AI overlay across Pillars I-IX"]
+        direction TB
+        P1[I: Identity audit, SAML claim review]:::pillar
+        P2[II: PermSet drift, migration plan]:::pillar
+        P3[III: Guest profile audit, scanner authoring]:::pillar
+        P4[IV: OAuth grant analysis, ISV risk scoring]:::pillar
+        P5[V: Cert rotation runbook, NC inventory]:::pillar
+        P6[VI: Apex code review, SOQL injection scan]:::pillar
+        P7[VII: Classification proposal, retention draft]:::pillar
+        P8[VIII: Anomaly policy authoring, IRP companion]:::pillar
+        P9[IX: PR review, repo scanner triage]:::pillar
+    end
 
-    AI --&gt; TL
-    TL --&gt; P1
-    TL --&gt; P2
-    TL --&gt; P3
-    TL --&gt; P4
-    TL --&gt; P5
-    TL --&gt; P6
-    TL --&gt; P7
-    TL --&gt; P8
-    TL --&gt; P9
+    AI --&gt; TL --&gt; PILLARS
   </pre>
   <h3>Subsection map</h3>
   <ul>
@@ -5344,7 +5432,7 @@ gantt
   </div>
 
   <h3>A.1 Apex SAML JIT Handler &mdash; group-driven entitlement</h3>
-  <pre><code>// File: AcmeSamlJitHandler.cls
+  <pre><code class="language-java">// File: AcmeSamlJitHandler.cls
 // Pillar I.6 &mdash; map IdP groups to Permission Set Groups on every login
 public class AcmeSamlJitHandler implements Auth.SamlJitHandler {
 
@@ -5427,7 +5515,7 @@ public class AcmeSamlJitHandler implements Auth.SamlJitHandler {
 </code></pre>
 
   <h3>A.2 Custom Login Flow (Visualforce) &mdash; force step-up to High Assurance</h3>
-  <pre><code>&lt;!-- LoginFlow_StepUp.page --&gt;
+  <pre><code class="language-markup">&lt;!-- LoginFlow_StepUp.page --&gt;
 &lt;apex:page controller="LoginFlowStepUpController" sidebar="false" showHeader="false"&gt;
   &lt;script&gt;
     // Trigger High Assurance challenge if current session is Standard
@@ -5442,7 +5530,7 @@ public class AcmeSamlJitHandler implements Auth.SamlJitHandler {
 </code></pre>
 
   <h3>A.3 Login Flow controller &mdash; concurrent-session limit</h3>
-  <pre><code>public with sharing class LoginFlowConcurrentLimitController {
+  <pre><code class="language-java">public with sharing class LoginFlowConcurrentLimitController {
     public PageReference enforce() {
         Integer maxConcurrent = 3;
         List&lt;AuthSession&gt; active = [
@@ -5476,7 +5564,7 @@ public class AcmeSamlJitHandler implements Auth.SamlJitHandler {
   </div>
 
   <h3>B.1 USER_MODE on every SOQL and DML</h3>
-  <pre><code>public with sharing class CaseService {
+  <pre><code class="language-java">public with sharing class CaseService {
     public List&lt;Case&gt; getMyOpenCases(Id contactId) {
         return [SELECT Id, Subject, Status FROM Case
                 WHERE ContactId = :contactId AND IsClosed = false
@@ -5490,7 +5578,7 @@ public class AcmeSamlJitHandler implements Auth.SamlJitHandler {
 </code></pre>
 
   <h3>B.2 Guest-context-aware @AuraEnabled</h3>
-  <pre><code>@AuraEnabled
+  <pre><code class="language-java">@AuraEnabled
 public static List&lt;KnowledgeArticleVersion&gt; getPublicArticles(String topic) {
     if (UserInfo.getUserType() != 'Guest') {
         // Authenticated path: full set
@@ -5505,7 +5593,7 @@ public static List&lt;KnowledgeArticleVersion&gt; getPublicArticles(String topic
 </code></pre>
 
   <h3>B.3 Dynamic SOQL with typed binds</h3>
-  <pre><code>public List&lt;SObject&gt; safeDynamicSearch(String objectName, String filterField, String userInput) {
+  <pre><code class="language-java">public List&lt;SObject&gt; safeDynamicSearch(String objectName, String filterField, String userInput) {
     // Whitelist object and field names (never accept these from user input)
     // Per-object allowlist of safe fields (Case has no standard Name field; use CaseNumber/Subject)
     Map&lt;String, Set&lt;String&gt;&gt; allowedFieldsByObject = new Map&lt;String, Set&lt;String&gt;&gt;{
@@ -5535,7 +5623,7 @@ public static List&lt;KnowledgeArticleVersion&gt; getPublicArticles(String topic
     caller. Combining <code>WITH USER_MODE</code> with <code>stripInaccessible</code> is redundant
     (USER_MODE will throw on inaccessible fields) and not the intended pattern.
   </p>
-  <pre><code>// Query in SYSTEM mode (no USER_MODE / SECURITY_ENFORCED), then strip:
+  <pre><code class="language-java">// Query in SYSTEM mode (no USER_MODE / SECURITY_ENFORCED), then strip:
 SObjectAccessDecision dec = Security.stripInaccessible(
     AccessType.READABLE,
     [SELECT Id, Name, Email, Phone, SSN__c FROM Contact WHERE AccountId = :acctId]);
@@ -5559,7 +5647,7 @@ return (List&lt;Contact&gt;) dec.getRecords();   // SSN__c stripped if running u
   </div>
 
   <h3>C.1 Connected App with hardened OAuth policy</h3>
-  <pre><code>&lt;ConnectedApp xmlns="http://soap.sforce.com/2006/04/metadata"&gt;
+  <pre><code class="language-markup">&lt;ConnectedApp xmlns="http://soap.sforce.com/2006/04/metadata"&gt;
   &lt;label&gt;Acme Integration&lt;/label&gt;
   &lt;contactEmail&gt;security@acme.com&lt;/contactEmail&gt;
   &lt;oauthConfig&gt;
@@ -5582,7 +5670,7 @@ return (List&lt;Contact&gt;) dec.getRecords();   // SSN__c stripped if running u
 </code></pre>
 
   <h3>C.2 Named Credential with mTLS</h3>
-  <pre><code>&lt;NamedCredential xmlns="http://soap.sforce.com/2006/04/metadata"&gt;
+  <pre><code class="language-markup">&lt;NamedCredential xmlns="http://soap.sforce.com/2006/04/metadata"&gt;
   &lt;label&gt;Treasury API&lt;/label&gt;
   &lt;allowMergeFieldsInBody&gt;false&lt;/allowMergeFieldsInBody&gt;
   &lt;allowMergeFieldsInHeader&gt;true&lt;/allowMergeFieldsInHeader&gt;
@@ -5595,7 +5683,7 @@ return (List&lt;Contact&gt;) dec.getRecords();   // SSN__c stripped if running u
 </code></pre>
 
   <h3>C.3 PermissionSetGroup with mute</h3>
-  <pre><code>&lt;PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata"&gt;
+  <pre><code class="language-markup">&lt;PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata"&gt;
   &lt;label&gt;Sales Manager&lt;/label&gt;
   &lt;description&gt;Base sales user + manager scope, with quote create permission, but mute Modify All Data&lt;/description&gt;
   &lt;permissionSets&gt;Base_Sales_User&lt;/permissionSets&gt;
@@ -5621,7 +5709,7 @@ return (List&lt;Contact&gt;) dec.getRecords();   // SSN__c stripped if running u
   </div>
 
   <h3>D.1 Block Bulk-API export &gt; 5,000 rows from non-trusted IP</h3>
-  <pre><code>global class BlockHighVolumeBulkApi implements TxnSecurity.EventCondition {
+  <pre><code class="language-java">global class BlockHighVolumeBulkApi implements TxnSecurity.EventCondition {
     public boolean evaluate(SObject event) {
         BulkApiEvent e = (BulkApiEvent) event;
         if (e.RowsProcessed == null || e.RowsProcessed &lt; 5000) return false;
@@ -5634,7 +5722,7 @@ return (List&lt;Contact&gt;) dec.getRecords();   // SSN__c stripped if running u
 </code></pre>
 
   <h3>D.2 MFA challenge on report export &gt; 10K rows or off-hours</h3>
-  <pre><code>global class ReportExportThresholdMfa implements TxnSecurity.EventCondition {
+  <pre><code class="language-java">global class ReportExportThresholdMfa implements TxnSecurity.EventCondition {
     public boolean evaluate(SObject event) {
         ReportEvent e = (ReportEvent) event;
         if (e.RowsProcessed == null) return false;
@@ -5706,7 +5794,7 @@ return (List&lt;Contact&gt;) dec.getRecords();   // SSN__c stripped if running u
   </ol>
 
   <h3>F.2 Public-site crawler skeleton (Node.js / Python)</h3>
-  <pre><code># Pseudocode &mdash; adapt to your site's structure
+  <pre><code class="language-python"># Pseudocode &mdash; adapt to your site's structure
 sites = load_sites_from_config()
 for site in sites:
     pages = crawl_pages(site.url, depth=3, allowed_domains=[site.domain])
@@ -5723,7 +5811,7 @@ for site in sites:
 </code></pre>
 
   <h3>F.3 Dual-agent metadata-repo scan architecture</h3>
-  <pre><code># scanner_alpha_diff.py &mdash; runs on each git push
+  <pre><code class="language-python"># scanner_alpha_diff.py &mdash; runs on each git push
 diff = git_diff(last_approved_scan_sha, HEAD)
 findings = []
 for vector in [V1_priv_escalation, V2_backdoor_routes, V3_sharing_weakening,
@@ -5812,7 +5900,7 @@ write_to_audit_log(hmac_sign(findings + findings_b))
   </ul>
 
   <h3>H.2 Sample SOQL queries</h3>
-  <pre><code>-- All Bulk API exports &gt; 5K rows in the last 7 days
+  <pre><code class="language-sql">-- All Bulk API exports &gt; 5K rows in the last 7 days
 SELECT EventDate, Username, RowsProcessed, OperationType, SourceIp
 FROM BulkApiEvent
 WHERE RowsProcessed &gt; 5000 AND DAY_ONLY(CreatedDate) = LAST_N_DAYS:7
@@ -6077,6 +6165,12 @@ DIFF:
   <table>
     <thead><tr><th>Version</th><th>Date</th><th>Change</th><th>Author</th></tr></thead>
     <tbody>
+      <tr>
+        <td><strong>1.4.6</strong></td>
+        <td>2026-05-04</td>
+        <td>Large patch from live-page review feedback. (1) <strong>Plain-language rewrites of all 10 exec-pillar cards</strong> &mdash; removed jargon ("per-user named principals," "OWD," "USER_MODE," "BYOK," "PSG") in favor of explanations a non-Salesforce-native executive can read. (2) <strong>Three Mermaid diagrams fixed</strong>: Pillar III stateDiagram-v2 (was rendering as "Syntax error in text" because Mermaid 10.9.5 rejects multi-line <code>note ... end note</code> blocks) &rarr; converted to flowchart LR with subgraphs; Pillar VII flowchart (was failing because <code>classDef class</code> uses Mermaid's reserved <code>class</code> keyword) &rarr; renamed classDef to <code>tier</code> + restructured into LR subgraphs; Pillar VIII stateDiagram-v2 (same composite-state syntax issue) &rarr; converted to flowchart LR. (3) <strong>Three more flowcharts converted TD &rarr; LR with subgraphs</strong> for horizontal canvas use: Pillar II Permission Waterfall (10-node vertical chain &rarr; 5 logical subgraphs), Pillar VI Apex / Flow trust boundary, Pillar X Defender's AI Stack overlay. (4) <strong>Code-block dark theme + Prism.js syntax highlighting</strong>: added Prism 1.29 CDN with markup / java / javascript / json / bash / yaml / sql / python grammars + tomorrow dark theme; <code>.card pre:not(.mermaid)</code> override gives every code block an offset darker background (<code>#0A1420</code>), visible border, horizontal scroll, and inset shadow so code reads as distinct from commentary. Bulk-classified 17 of 22 unhinted <code>&lt;pre&gt;&lt;code&gt;</code> blocks across the doc with appropriate <code>language-X</code> classes (4 AI prompt-library blocks intentionally left bare as plain text). Custom token-color overrides align Prism's tomorrow theme to the SF-blue / orange / green / purple palette. <em>Known follow-up</em>: comprehensive subsection-by-subsection attribution-footer pass (collecting all <code>[^N]</code> references at the bottom of each subsection block) is queued for v1.5.0 &mdash; this v1.4.6 batch was already at the size budget.</td>
+        <td>Dr. Paul Coleman</td>
+      </tr>
       <tr>
         <td><strong>1.4.5</strong></td>
         <td>2026-05-04</td>
@@ -6470,7 +6564,7 @@ DIFF:
     <li>If the user's password may have been disclosed: trigger password reset.</li>
   </ol>
   <h4>Identify (target: 1 hour)</h4>
-  <pre><code>// Bulk API activity by the affected user in the last 24h
+  <pre><code class="language-sql">// Bulk API activity by the affected user in the last 24h
 SELECT EventDate, Username, RowsProcessed, OperationType, SourceIp
 FROM BulkApiEvent
 WHERE Username = 'AFFECTED_USER@example.com' AND EventDate = LAST_N_DAYS:1
@@ -6533,7 +6627,7 @@ activity. We expect to provide a follow-up summary within [N] days.
     <li>Notify your ISV procurement / vendor-management contact.</li>
   </ol>
   <h4>Identify</h4>
-  <pre><code>// All activity by the ISV's Connected App over the last 90 days
+  <pre><code class="language-sql">// All activity by the ISV's Connected App over the last 90 days
 SELECT EventDate, Username, ApiVersion, Operation, RowsProcessed
 FROM ApiEvent
 WHERE ConnectedAppId = 'ISV_APP_ID' AND DAY_ONLY(CreatedDate) = LAST_N_DAYS:90
