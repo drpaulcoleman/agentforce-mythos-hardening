@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   Salesforce CRM Security Hardening — A Defender's Encyclopedia for the Frontier-AI Era
-  Document version 1.5.26 · Last modified 2026-05-04
+  Document version 1.5.27 · Last modified 2026-05-04
   Copyright (c) 2026 Dr. Paul Coleman. All rights reserved.
 
   A vendor-neutral hardening reference for the customer side of the Salesforce
@@ -28,7 +28,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Mythos Imperative &mdash; Salesforce CRM Security Hardening</title>
-<meta name="document-version" content="1.5.26">
+<meta name="document-version" content="1.5.27">
 <meta name="last-modified" content="2026-05-04">
 <meta name="source-snapshot" content="2026-05-04">
 <meta name="description" content="The Mythos Imperative: a vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars from Identity to Defensive AI; nineteen appendices.">
@@ -38,7 +38,7 @@
 
 <!-- Open Graph / social-share metadata -->
 <meta property="og:type" content="article">
-<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.26">
+<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.27">
 <meta property="og:description" content="Vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars, 19 appendices, fully attributed.">
 <meta property="og:url" content="https://drpaulcoleman.github.io/agentforce-mythos-hardening/">
 <meta property="og:site_name" content="Salesforce CRM Security Hardening">
@@ -49,7 +49,7 @@
 
 <!-- Twitter / X card metadata -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.26">
+<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.27">
 <meta name="twitter:description" content="Threat-informed Salesforce hardening reference. Ten pillars from Identity to Defensive AI, with a companion Salesforce DX reference implementation.">
 
 <!-- Errata / contributions -->
@@ -1773,7 +1773,7 @@ pre.mermaid g.node[onclick]:hover > path {
     </div>
     <div>
       <h1><span class="phase-tag">The Mythos Imperative</span><span class="phase-sep">&mdash;</span>Salesforce CRM Security Hardening</h1>
-      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.26 &middot; last modified 2026-05-04</span>
+      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.27 &middot; last modified 2026-05-04</span>
     </div>
   </div>
   <div class="doc-meta">
@@ -2189,7 +2189,7 @@ gantt
 
 <!-- TECH · Hero ---------------------------------------------------------- -->
 <div class="card hero" id="hero" data-search="hero overview salesforce crm security hardening defender encyclopedia frontier ai mythos">
-  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.26 &middot; last modified 2026-05-04</p>
+  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.27 &middot; last modified 2026-05-04</p>
   <h1>The <span class="accent">Mythos Imperative</span><br/><span style="font-size:24px; font-weight:700; opacity:0.92; display:block; margin-top:6px;">A Defender's Encyclopedia for the Frontier-AI Era</span></h1>
   <p class="lede" style="border-left: 3px solid var(--sf-orange); padding: 6px 0 6px 16px; margin-left: 0;">
     <strong style="color: var(--sf-orange); letter-spacing: 0.04em;">Why this exists, why now.</strong>
@@ -6094,9 +6094,10 @@ WHERE Username = 'AFFECTED_USER@example.com' AND EventDate = LAST_N_DAYS:1
 ORDER BY EventDate DESC
 
 // All login events for the user, including geolocation
+// (Lead with EventDate; wrapping CreatedDate in DAY_ONLY() disables the index.)
 SELECT EventDate, Username, SourceIp, LoginGeoId, LoginType, Status
 FROM LoginEvent
-WHERE Username = 'AFFECTED_USER@example.com' AND DAY_ONLY(CreatedDate) = LAST_N_DAYS:7
+WHERE EventDate = LAST_N_DAYS:7 AND Username = 'AFFECTED_USER@example.com'
 
 // OAuth grants by this user
 SELECT Id, AppName, LastUsedDate, UseCount FROM OauthToken
@@ -6151,9 +6152,10 @@ activity. We expect to provide a follow-up summary within [N] days.
   </ol>
   <h4>Identify</h4>
   <pre><code class="language-sql">// All activity by the ISV's Connected App over the last 90 days
+// (Lead with the indexed EventDate range; ConnectedAppId narrows it.)
 SELECT EventDate, Username, ApiVersion, Operation, RowsProcessed
 FROM ApiEvent
-WHERE ConnectedAppId = 'ISV_APP_ID' AND DAY_ONLY(CreatedDate) = LAST_N_DAYS:90
+WHERE EventDate = LAST_N_DAYS:90 AND ConnectedAppId = 'ISV_APP_ID'
 ORDER BY EventDate DESC
 
 // All users who had granted the ISV
@@ -6445,6 +6447,14 @@ public static List&lt;KnowledgeArticleVersion&gt; getPublicArticles(String topic
 </code></pre>
 
   <h3>C.3 Dynamic SOQL with typed binds</h3>
+  <p style="font-size: 12px; color: var(--text-secondary);">
+    The example below is hardened against <em>injection</em>, but the <code>LIKE '%term%'</code>
+    leading-wildcard pattern is index-defeating: at LDV scale (Account / Contact / Case &gt; ~1M
+    rows) it forces a full table scan and will eventually time out. For tokenized text lookup at
+    LDV scale, refactor to <strong>SOSL with bounded <code>RETURNING</code></strong> &mdash; see the
+    <a href="https://drpaulcoleman.github.io/salesforce-ldv-cheatsheet#r10" target="_blank" rel="noopener">LDV Cheatsheet &sect;10 (index-defeating patterns)</a>
+    and <a href="https://drpaulcoleman.github.io/salesforce-ldv-cheatsheet#r14" target="_blank" rel="noopener">&sect;14 (SOSL refactor)</a>.
+  </p>
   <pre><code class="language-java">public List&lt;SObject&gt; safeDynamicSearch(String objectName, String filterField, String userInput) {
     // Whitelist object and field names (never accept these from user input)
     // Per-object allowlist of safe fields (Case has no standard Name field; use CaseNumber/Subject)
@@ -6790,27 +6800,71 @@ write_to_audit_log(hmac_sign(findings + findings_b))
     <li><code>DataExportEvent</code> &middot; see the <a href="https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_eventlogfile_supportedeventtypes.htm" target="_blank" rel="noopener">EventLogFile Supported Event Types index &#8599;</a> &mdash; record-data export operations</li>
   </ul>
 
+  <h4 style="margin-top: 18px;">Security-adjacent events</h4>
+  <p style="font-size: 13px; color: var(--text-secondary); margin: 4px 0 10px 0;">
+    Real-Time EM also exposes objects that are not primarily &ldquo;security events&rdquo; in name, but are
+    high-signal for the pillars below. They follow the same Stream / Event / EventStore pattern.
+  </p>
+  <ul>
+    <li><a href="https://developer.salesforce.com/docs/atlas.en-us.platform_events.meta/platform_events/sforce_api_objects_permissionseteventstream.htm" target="_blank" rel="noopener"><code>PermissionSetEventStream</code></a> / <a href="https://developer.salesforce.com/docs/atlas.en-us.platform_events.meta/platform_events/sforce_api_objects_permissionsetevent.htm" target="_blank" rel="noopener"><code>PermissionSetEvent</code></a> / <a href="https://developer.salesforce.com/docs/atlas.en-us.platform_events.meta/platform_events/sforce_api_objects_permissionseteventstore.htm" target="_blank" rel="noopener"><code>PermissionSetEventStore</code></a> &mdash; permission set + permission set group assignment changes (privilege-escalation detection, <a href="#ii-mad-vad" class="pillar-link">Pillar 2.9</a>)</li>
+    <li><a href="https://developer.salesforce.com/docs/atlas.en-us.platform_events.meta/platform_events/sforce_api_objects_fileeventstream.htm" target="_blank" rel="noopener"><code>FileEventStream</code></a> / <a href="https://developer.salesforce.com/docs/atlas.en-us.platform_events.meta/platform_events/sforce_api_objects_fileevent.htm" target="_blank" rel="noopener"><code>FileEvent</code></a> / <a href="https://developer.salesforce.com/docs/atlas.en-us.platform_events.meta/platform_events/sforce_api_objects_fileeventstore.htm" target="_blank" rel="noopener"><code>FileEventStore</code></a> &mdash; ContentDocument / file download + share signals (data-leak surface, <a href="#ii-files" class="pillar-link">Pillar 2.8</a> &middot; <a href="#vii-classify" class="pillar-link">Pillar 7</a>)</li>
+    <li><a href="https://developer.salesforce.com/docs/atlas.en-us.platform_events.meta/platform_events/sforce_api_objects_identityverificationevent.htm" target="_blank" rel="noopener"><code>IdentityVerificationEvent</code></a> &mdash; MFA prompts, device activations, step-up challenges (<a href="#i-mfa-matrix" class="pillar-link">Pillar 1.1</a> &middot; <a href="#i-high-assurance" class="pillar-link">Pillar 1.2</a>)</li>
+    <li><a href="https://developer.salesforce.com/docs/atlas.en-us.platform_events.meta/platform_events/sforce_api_objects_identityprovidereventstore.htm" target="_blank" rel="noopener"><code>IdentityProviderEventStore</code></a> &mdash; federated SSO inbound assertions when this org acts as IdP (<a href="#i-sso" class="pillar-link">Pillar 1.4</a> &middot; <a href="#i-custom-auth" class="pillar-link">Pillar 1.5</a>)</li>
+    <li><a href="https://developer.salesforce.com/docs/atlas.en-us.platform_events.meta/platform_events/sforce_api_objects_mobileenforcedpolicyevent.htm" target="_blank" rel="noopener"><code>MobileEnforcedPolicyEvent</code></a> &middot; <a href="https://developer.salesforce.com/docs/atlas.en-us.platform_events.meta/platform_events/sforce_api_objects_mobileemailevent.htm" target="_blank" rel="noopener"><code>MobileEmailEvent</code></a> &middot; <a href="https://developer.salesforce.com/docs/atlas.en-us.platform_events.meta/platform_events/sforce_api_objects_mobilescreenshotevent.htm" target="_blank" rel="noopener"><code>MobileScreenshotEvent</code></a> &middot; <a href="https://developer.salesforce.com/docs/atlas.en-us.platform_events.meta/platform_events/sforce_api_objects_mobiletelephonyevent.htm" target="_blank" rel="noopener"><code>MobileTelephonyEvent</code></a> &mdash; Salesforce Mobile policy enforcement, email send, screenshot, dial signals (MDM/MAM observability, <a href="#viii-mobile" class="pillar-link">Pillar 8.8</a>)</li>
+  </ul>
+
   <h3>I.2 Sample SOQL queries</h3>
+  <p style="font-size: 13px; color: var(--text-secondary); border-left: 3px solid var(--sf-orange); padding: 8px 14px; margin: 8px 0 14px 0;">
+    <strong>Selectivity note.</strong> Lead each query with a bounded date range on the indexed
+    <code>EventDate</code> field (not <code>DAY_ONLY(CreatedDate)</code> &mdash; wrapping a
+    field in a function disables the index). Avoid <code>NOT IN</code> and <code>!=</code>
+    filters; SOQL treats them as non-selective and the optimizer can refuse them on
+    large stores. Where you need a negative set, invert to a positive <code>IN</code> list,
+    or fetch the candidate set and diff in client/Apex code. For the full set of
+    selectivity / index-defeating rules, see the
+    <a href="https://drpaulcoleman.github.io/salesforce-ldv-cheatsheet#r09" target="_blank" rel="noopener">LDV Cheatsheet &sect;09 (selectivity ladders)</a>
+    and <a href="https://drpaulcoleman.github.io/salesforce-ldv-cheatsheet#r10" target="_blank" rel="noopener">&sect;10 (index-defeating patterns)</a>;
+    Salesforce primary source:
+    <a href="https://developer.salesforce.com/docs/atlas.en-us.salesforce_large_data_volumes_bp.meta/salesforce_large_data_volumes_bp/ldv_deployments_concepts_query_performance.htm" target="_blank" rel="noopener">Query &amp; Search Optimization</a>.
+  </p>
   <pre><code class="language-sql">-- All Bulk API exports &gt; 5K rows in the last 7 days
+-- Selective: bounded date range on indexed EventDate, then numeric filter.
 SELECT EventDate, Username, RowsProcessed, OperationType, SourceIp
 FROM BulkApiResultEvent
-WHERE RowsProcessed &gt; 5000 AND DAY_ONLY(CreatedDate) = LAST_N_DAYS:7
+WHERE EventDate = LAST_N_DAYS:7 AND RowsProcessed &gt; 5000
 ORDER BY EventDate DESC
 LIMIT 200
 
--- Anomalous report exports off-hours
+-- Report exports during off-hours (last 7 days)
+-- Lead with EventDate range (selective), then Operation, then a positive
+-- HOUR_IN_DAY IN (...) list. Do NOT use NOT IN -- non-selective.
 SELECT EventDate, Username, ReportName, RowsProcessed, SourceIp
 FROM ReportEvent
-WHERE Operation = 'Export' AND HOUR_IN_DAY(EventDate) NOT IN (8,9,10,11,12,13,14,15,16,17)
-AND DAY_ONLY(CreatedDate) = LAST_N_DAYS:7
+WHERE EventDate = LAST_N_DAYS:7
+  AND Operation = 'Export'
+  AND HOUR_IN_DAY(EventDate) IN (0,1,2,3,4,5,6,7,18,19,20,21,22,23)
+ORDER BY EventDate DESC
+LIMIT 200
 
--- Logins from new geos in 24h
+-- Logins from new geos in last 24h
+-- Anti-pattern alert: the original "NOT IN (subquery)" form is non-selective
+-- and the optimizer will reject it on large LoginEvent stores. Instead, run
+-- two selective queries and diff the LoginGeoId sets in client/Apex code:
+--   (1) Geo IDs seen in the last 24h (today)
+--   (2) Geo IDs seen across last 30 days with COUNT(Id) &gt; 5 (baseline)
+-- New geos = setDifference(today, baseline). Both queries are individually
+-- selective on the indexed EventDate range.
 SELECT EventDate, Username, SourceIp, LoginGeoId, Status
 FROM LoginEvent
-WHERE DAY_ONLY(CreatedDate) = LAST_N_DAYS:1
-AND LoginGeoId NOT IN (SELECT LoginGeoId FROM LoginEvent
-                       WHERE DAY_ONLY(CreatedDate) = LAST_N_DAYS:30
-                       GROUP BY LoginGeoId HAVING COUNT(Id) &gt; 5)
+WHERE EventDate = LAST_N_DAYS:1
+ORDER BY EventDate DESC
+LIMIT 1000
+
+SELECT LoginGeoId, COUNT(Id) cnt
+FROM LoginEvent
+WHERE EventDate = LAST_N_DAYS:30
+GROUP BY LoginGeoId
+HAVING COUNT(Id) &gt; 5
 </code></pre>
 </div>
 
@@ -7414,7 +7468,7 @@ DIFF:
     });
     exportBtn.addEventListener('click', function() {
       var snapshot = {
-        framework: 'Salesforce CRM Security Hardening v1.5.26',
+        framework: 'Salesforce CRM Security Hardening v1.5.27',
         scored_at: new Date().toISOString(),
         scores: loadStored(),
         average: parseFloat(avgEl.textContent) || 0,
@@ -7745,8 +7799,8 @@ DIFF:
   </p>
   <h3>Document metadata</h3>
   <p style="font-size: 12px; font-family: 'Source Code Pro', monospace;">
-    version 1.5.26 &middot; last modified 2026-05-04 &middot; source snapshot 2026-05-04 &middot;
-    Build identifier: SF-CRM-HARDENING-1.5.26
+    version 1.5.27 &middot; last modified 2026-05-04 &middot; source snapshot 2026-05-04 &middot;
+    Build identifier: SF-CRM-HARDENING-1.5.27
   </p>
 </div>
 
@@ -7771,6 +7825,7 @@ DIFF:
     <li id="ref-3" style="margin-bottom: 10px;"><span class="ref-marker">[3]</span> <strong>Bloomberg.</strong> (2026, April 21). <em>Anthropic’s Mythos model is being accessed by unauthorized users</em>. Bloomberg. Retrieved May 4, 2026, from <a href="https://www.bloomberg.com/news/articles/2026-04-21/anthropic-s-mythos-model-is-being-accessed-by-unauthorized-users" target="_blank" rel="noopener">https://www.bloomberg.com/news/articles/2026-04-21/anthropic-s-mythos-model-is-being-accessed-by-unauthorized-users</a></li>
     <li id="ref-43" style="margin-bottom: 10px;"><span class="ref-marker">[43]</span> <strong>CA/Browser Forum.</strong> (2025, April 11). <em>Ballot SC-081v3: Introduce schedule of reducing validity and data reuse periods</em>. CA/Browser Forum. Retrieved May 4, 2026, from <a href="https://cabforum.org/2025/04/11/ballot-sc081v3-introduce-schedule-of-reducing-validity-and-data-reuse-periods/" target="_blank" rel="noopener">https://cabforum.org/2025/04/11/ballot-sc081v3-introduce-schedule-of-reducing-validity-and-data-reuse-periods/</a> &middot; Industry context: <a href="https://www.digicert.com/blog/tls-certificate-lifetimes-will-officially-reduce-to-47-days" target="_blank" rel="noopener">DigiCert</a></li>
     <li id="ref-37" style="margin-bottom: 10px;"><span class="ref-marker">[37]</span> <strong>Center for Internet Security.</strong> (n.d.). <em>CIS Critical Security Controls v8.1</em>. CIS. Retrieved May 4, 2026, from <a href="https://www.cisecurity.org/controls/v8-1" target="_blank" rel="noopener">https://www.cisecurity.org/controls/v8-1</a></li>
+    <li id="ref-42" style="margin-bottom: 10px;"><span class="ref-marker">[42]</span> <strong>Coleman, P.</strong> (2026). <em>Salesforce&reg; Large Data Volumes &mdash; Architect Cheatsheet</em> [companion reference; selectivity ladders, index-defeating patterns, two-pass and SOSL refactor templates]. Retrieved May 4, 2026, from <a href="https://drpaulcoleman.github.io/salesforce-ldv-cheatsheet" target="_blank" rel="noopener">https://drpaulcoleman.github.io/salesforce-ldv-cheatsheet</a></li>
     <li id="ref-19" style="margin-bottom: 10px;"><span class="ref-marker">[19]</span> <strong>CRN / Alspach, K.</strong> (2026, April 30). <em>Anthropic launches Claude Security: 5 things to know</em>. CRN. Retrieved May 4, 2026, from <a href="https://www.crn.com/news/security/2026/anthropic-launches-claude-security-5-things-to-know" target="_blank" rel="noopener">https://www.crn.com/news/security/2026/anthropic-launches-claude-security-5-things-to-know</a></li>
     <li id="ref-13" style="margin-bottom: 10px;"><span class="ref-marker">[13]</span> <strong>DIVD CSIRT.</strong> (2026). <em>DIVD-2026-00005: Salesforce Experience Cloud GraphQL data exposure</em>. Dutch Institute for Vulnerability Disclosure. Retrieved May 4, 2026, from <a href="https://csirt.divd.nl/cases/DIVD-2026-00005/" target="_blank" rel="noopener">https://csirt.divd.nl/cases/DIVD-2026-00005/</a></li>
     <li id="ref-31" style="margin-bottom: 10px;"><span class="ref-marker">[31]</span> <strong>enosix.</strong> (2026). <em>Salesforce root certificate &amp; TLS certificate changes (2026)</em>. enosix. Retrieved May 4, 2026, from <a href="https://docs.enosix.io/release/salesforce-root-certificate-change-2026" target="_blank" rel="noopener">https://docs.enosix.io/release/salesforce-root-certificate-change-2026</a></li>
