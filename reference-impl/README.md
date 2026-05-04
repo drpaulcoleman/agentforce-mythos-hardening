@@ -1,6 +1,6 @@
 # Reference Implementation — Salesforce CRM Security Hardening
 
-**Companion code for [`../index.html`](../index.html) (the whitepaper).**
+**Companion code for the whitepaper at [`https://drpaulcoleman.github.io/agentforce-mythos-hardening/`](https://drpaulcoleman.github.io/agentforce-mythos-hardening/).**
 **NOT official Salesforce documentation.** All artifacts are illustrative and require validation against your target API version before deployment. © 2026 Dr. Paul Coleman.
 
 ---
@@ -30,59 +30,66 @@ node tools/connected-app-attestation/attest.js --target hardening-scratch
 
 ## Doc-to-code map
 
-Every file below maps to a specific whitepaper section. Open the whitepaper card, then jump to the implementing artifact.
+Each row has three loadable links:
+
+- **Whitepaper anchor** → opens the rendered whitepaper page on GitHub Pages at the relevant section.
+- **Artifact (view)** → opens the file's syntax-highlighted source view on GitHub.com.
+- **Raw** → fetches the file's raw content (for `curl`, `wget`, or direct download).
 
 ### Pillar 1 — Identity & Authentication
-| Whitepaper anchor | Artifact |
-|---|---|
-| [1.6 Apex SAML JIT handler](../index.html#i-custom-auth) → [App. A.1](../index.html#appendix-a) | [`force-app/main/default/classes/AcmeSamlJitHandler.cls`](./force-app/main/default/classes/AcmeSamlJitHandler.cls) |
-| [1.4 Custom Login Flow](../index.html#i-login-flow) → [App. A.3](../index.html#appendix-a) | [`force-app/main/default/classes/LoginFlowConcurrentLimitController.cls`](./force-app/main/default/classes/LoginFlowConcurrentLimitController.cls) |
-| Custom-metadata for IdP-group → PSG mapping | [`force-app/main/default/objects/IdP_Group_Permission_Mapping__mdt/`](./force-app/main/default/objects/IdP_Group_Permission_Mapping__mdt/) |
+| Whitepaper anchor | Artifact (view) | Raw |
+|---|---|---|
+| [1.6 Apex SAML JIT handler](https://drpaulcoleman.github.io/agentforce-mythos-hardening/#i-custom-auth) → [App. B.1](https://drpaulcoleman.github.io/agentforce-mythos-hardening/#appendix-b) | [`AcmeSamlJitHandler.cls`](https://github.com/drpaulcoleman/agentforce-mythos-hardening/blob/main/reference-impl/force-app/main/default/classes/AcmeSamlJitHandler.cls) | [raw](https://raw.githubusercontent.com/drpaulcoleman/agentforce-mythos-hardening/main/reference-impl/force-app/main/default/classes/AcmeSamlJitHandler.cls) |
+| [1.4 Custom Login Flow](https://drpaulcoleman.github.io/agentforce-mythos-hardening/#i-login-flow) → [App. B.3](https://drpaulcoleman.github.io/agentforce-mythos-hardening/#appendix-b) | [`LoginFlowConcurrentLimitController.cls`](https://github.com/drpaulcoleman/agentforce-mythos-hardening/blob/main/reference-impl/force-app/main/default/classes/LoginFlowConcurrentLimitController.cls) | [raw](https://raw.githubusercontent.com/drpaulcoleman/agentforce-mythos-hardening/main/reference-impl/force-app/main/default/classes/LoginFlowConcurrentLimitController.cls) |
+| Custom-metadata for IdP-group → PSG mapping | [`IdP_Group_Permission_Mapping__mdt/`](https://github.com/drpaulcoleman/agentforce-mythos-hardening/tree/main/reference-impl/force-app/main/default/objects/IdP_Group_Permission_Mapping__mdt) | (folder; clone repo for raw access) |
 
 ### Pillar 2 — Access Control
-| Whitepaper anchor | Artifact |
-|---|---|
-| [2.2 PSG migration shape](../index.html#ii-permset-migration) → [App. E](../index.html#appendix-e) | `permissionsets/Base_Sales_User`, `Manager_Scope`, `Quote_Creator`; `permissionsetgroups/Sales_Manager` |
+| Whitepaper anchor | Artifact (view) | Raw |
+|---|---|---|
+| [2.2 PSG migration shape](https://drpaulcoleman.github.io/agentforce-mythos-hardening/#ii-permset-migration) → [App. F](https://drpaulcoleman.github.io/agentforce-mythos-hardening/#appendix-f) | [`permissionsets/`](https://github.com/drpaulcoleman/agentforce-mythos-hardening/tree/main/reference-impl/force-app/main/default/permissionsets) · [`permissionsetgroups/Sales_Manager`](https://github.com/drpaulcoleman/agentforce-mythos-hardening/tree/main/reference-impl/force-app/main/default/permissionsetgroups) | (folder; clone repo for raw access) |
 
 ### Pillar 4 — Connected Apps & ECAs
-| Whitepaper anchor | Artifact |
-|---|---|
-| [4.1 ECA transition](../index.html#iv-eca-transition) → [App. C.1](../index.html#appendix-c) | [`force-app/main/default/connectedApps/Acme_Integration.connectedApp-meta.xml`](./force-app/main/default/connectedApps/Acme_Integration.connectedApp-meta.xml) + ECA placeholder |
+| Whitepaper anchor | Artifact (view) | Raw |
+|---|---|---|
+| [4.1 ECA transition](https://drpaulcoleman.github.io/agentforce-mythos-hardening/#iv-eca-transition) → [App. D.1](https://drpaulcoleman.github.io/agentforce-mythos-hardening/#appendix-d) | [`Acme_Integration.connectedApp-meta.xml`](https://github.com/drpaulcoleman/agentforce-mythos-hardening/blob/main/reference-impl/force-app/main/default/connectedApps/Acme_Integration.connectedApp-meta.xml) + ECA placeholder | [raw](https://raw.githubusercontent.com/drpaulcoleman/agentforce-mythos-hardening/main/reference-impl/force-app/main/default/connectedApps/Acme_Integration.connectedApp-meta.xml) |
 
 ### Pillar 5 — API + mTLS
-| Whitepaper anchor | Artifact |
-|---|---|
-| [5.1 Named Credentials](../index.html#v-named-credentials) → [App. C.2](../index.html#appendix-c) | [`force-app/main/default/namedCredentials/Treasury_API.namedCredential-meta.xml`](./force-app/main/default/namedCredentials/Treasury_API.namedCredential-meta.xml) |
-| [5.2 Mutual TLS](../index.html#v-mtls) | External Credential placeholder |
+| Whitepaper anchor | Artifact (view) | Raw |
+|---|---|---|
+| [5.1 Named Credentials](https://drpaulcoleman.github.io/agentforce-mythos-hardening/#v-named-credentials) → [App. D.2](https://drpaulcoleman.github.io/agentforce-mythos-hardening/#appendix-d) | [`Treasury_API.namedCredential-meta.xml`](https://github.com/drpaulcoleman/agentforce-mythos-hardening/blob/main/reference-impl/force-app/main/default/namedCredentials/Treasury_API.namedCredential-meta.xml) | [raw](https://raw.githubusercontent.com/drpaulcoleman/agentforce-mythos-hardening/main/reference-impl/force-app/main/default/namedCredentials/Treasury_API.namedCredential-meta.xml) |
+| [5.2 Mutual TLS](https://drpaulcoleman.github.io/agentforce-mythos-hardening/#v-mtls) | External Credential placeholder | — |
 
 ### Pillar 8 — Detection & Response
-| Whitepaper anchor | Artifact |
-|---|---|
-| [8.5 Transaction Security policies](../index.html#viii-transaction-security) → [App. D.1](../index.html#appendix-d) | [`force-app/main/default/classes/BlockHighVolumeBulkApi.cls`](./force-app/main/default/classes/BlockHighVolumeBulkApi.cls) + policy XML |
-| [8.5 Report-export MFA gate](../index.html#viii-transaction-security) → [App. D.2](../index.html#appendix-d) | [`force-app/main/default/classes/ReportExportThresholdMfa.cls`](./force-app/main/default/classes/ReportExportThresholdMfa.cls) |
-| [8.1 Health Check baseline](../index.html#viii-health-check) | [`baselines/health-check-custom-baseline.xml`](./baselines/health-check-custom-baseline.xml) |
+| Whitepaper anchor | Artifact (view) | Raw |
+|---|---|---|
+| [8.5 Transaction Security policies](https://drpaulcoleman.github.io/agentforce-mythos-hardening/#viii-transaction-security) → [App. E.1](https://drpaulcoleman.github.io/agentforce-mythos-hardening/#appendix-e) | [`BlockHighVolumeBulkApi.cls`](https://github.com/drpaulcoleman/agentforce-mythos-hardening/blob/main/reference-impl/force-app/main/default/classes/BlockHighVolumeBulkApi.cls) + policy XML | [raw](https://raw.githubusercontent.com/drpaulcoleman/agentforce-mythos-hardening/main/reference-impl/force-app/main/default/classes/BlockHighVolumeBulkApi.cls) |
+| [8.5 Report-export MFA gate](https://drpaulcoleman.github.io/agentforce-mythos-hardening/#viii-transaction-security) → [App. E.2](https://drpaulcoleman.github.io/agentforce-mythos-hardening/#appendix-e) | [`ReportExportThresholdMfa.cls`](https://github.com/drpaulcoleman/agentforce-mythos-hardening/blob/main/reference-impl/force-app/main/default/classes/ReportExportThresholdMfa.cls) | [raw](https://raw.githubusercontent.com/drpaulcoleman/agentforce-mythos-hardening/main/reference-impl/force-app/main/default/classes/ReportExportThresholdMfa.cls) |
+| [8.1 Health Check baseline](https://drpaulcoleman.github.io/agentforce-mythos-hardening/#viii-health-check) | [`health-check-custom-baseline.xml`](https://github.com/drpaulcoleman/agentforce-mythos-hardening/blob/main/reference-impl/baselines/health-check-custom-baseline.xml) | [raw](https://raw.githubusercontent.com/drpaulcoleman/agentforce-mythos-hardening/main/reference-impl/baselines/health-check-custom-baseline.xml) |
 
-### Pillar 3 — Experience Cloud audit (Appendix F dual-agent scanner)
-| Whitepaper anchor | Artifact |
-|---|---|
-| [3.8 Automated scanner pattern](../index.html#iii-scanner) → [App. F](../index.html#appendix-f) | [`tools/exp-cloud-scanner/`](./tools/exp-cloud-scanner/) |
+### Pillar 3 — Experience Cloud audit (Appendix G dual-agent scanner)
+| Whitepaper anchor | Artifact (view) | Raw |
+|---|---|---|
+| [3.8 Automated scanner pattern](https://drpaulcoleman.github.io/agentforce-mythos-hardening/#iii-scanner) → [App. G](https://drpaulcoleman.github.io/agentforce-mythos-hardening/#appendix-g) | [`tools/exp-cloud-scanner/`](https://github.com/drpaulcoleman/agentforce-mythos-hardening/tree/main/reference-impl/tools/exp-cloud-scanner) | (folder; clone repo for raw access) |
 
-### Pillar 4 — OAuth attestation (Appendix O.4 quarterly cadence)
-| Whitepaper anchor | Artifact |
-|---|---|
-| [4.9 OAuth Usage attestation](../index.html#iv-detection-attestation) → [App. O.4](../index.html#appendix-o) | [`tools/connected-app-attestation/`](./tools/connected-app-attestation/) |
+### Pillar 4 — OAuth attestation (Appendix M.4 quarterly cadence)
+| Whitepaper anchor | Artifact (view) | Raw |
+|---|---|---|
+| [4.9 OAuth Usage attestation](https://drpaulcoleman.github.io/agentforce-mythos-hardening/#iv-detection-attestation) → [App. M.4](https://drpaulcoleman.github.io/agentforce-mythos-hardening/#appendix-m) | [`tools/connected-app-attestation/`](https://github.com/drpaulcoleman/agentforce-mythos-hardening/tree/main/reference-impl/tools/connected-app-attestation) | (folder; clone repo for raw access) |
 
 ### Pillar 9 — DevSecOps
-| Whitepaper anchor | Artifact |
-|---|---|
-| [9.2 Static analysis as a gate](../index.html#ix-static-analysis) | [`ci/pmd-apex-rules.xml`](./ci/pmd-apex-rules.xml), [`ci/sfdx-scanner-config.json`](./ci/sfdx-scanner-config.json) |
-| [9.4 CI deployment gates](../index.html#ix-deployment-approval) | [`ci/github-actions/`](./ci/github-actions/) |
+| Whitepaper anchor | Artifact (view) | Raw |
+|---|---|---|
+| [9.2 Static analysis as a gate](https://drpaulcoleman.github.io/agentforce-mythos-hardening/#ix-static-analysis) | [`ci/pmd-apex-rules.xml`](https://github.com/drpaulcoleman/agentforce-mythos-hardening/blob/main/reference-impl/ci/pmd-apex-rules.xml) · [`ci/sfdx-scanner-config.json`](https://github.com/drpaulcoleman/agentforce-mythos-hardening/blob/main/reference-impl/ci/sfdx-scanner-config.json) | [PMD raw](https://raw.githubusercontent.com/drpaulcoleman/agentforce-mythos-hardening/main/reference-impl/ci/pmd-apex-rules.xml) · [scanner-config raw](https://raw.githubusercontent.com/drpaulcoleman/agentforce-mythos-hardening/main/reference-impl/ci/sfdx-scanner-config.json) |
+| [9.4 CI deployment gates](https://drpaulcoleman.github.io/agentforce-mythos-hardening/#ix-deployment-approval) | [`ci/github-actions/`](https://github.com/drpaulcoleman/agentforce-mythos-hardening/tree/main/reference-impl/ci/github-actions) | (folder; clone repo for raw access) |
 
 ### Data exports (machine-readable)
-- [`data/checklist.json`](./data/checklist.json) — Appendix O Day-1 / Week-1 / Month-1 / Quarterly checklist as JSON
-- [`data/glossary.json`](./data/glossary.json) — Appendix L glossary entries with cross-links
-- [`data/risk-register.json`](./data/risk-register.json) — top-15 risk register with controls and residuals
-- [`data/standards-mapping.json`](./data/standards-mapping.json) — NIST CSF / CIS CSC / ISO / SOC 2 / HIPAA / PCI / EU AI Act mappings
+
+| File | Purpose | View | Raw |
+|---|---|---|---|
+| `data/checklist.json` | Appendix M Day-1 / Week-1 / Month-1 / Quarterly checklist as JSON | [view](https://github.com/drpaulcoleman/agentforce-mythos-hardening/blob/main/reference-impl/data/checklist.json) | [raw](https://raw.githubusercontent.com/drpaulcoleman/agentforce-mythos-hardening/main/reference-impl/data/checklist.json) |
+| `data/glossary.json` | Glossary entries with cross-links | [view](https://github.com/drpaulcoleman/agentforce-mythos-hardening/blob/main/reference-impl/data/glossary.json) | [raw](https://raw.githubusercontent.com/drpaulcoleman/agentforce-mythos-hardening/main/reference-impl/data/glossary.json) |
+| `data/risk-register.json` | Top-15 risk register with controls and residuals | [view](https://github.com/drpaulcoleman/agentforce-mythos-hardening/blob/main/reference-impl/data/risk-register.json) | [raw](https://raw.githubusercontent.com/drpaulcoleman/agentforce-mythos-hardening/main/reference-impl/data/risk-register.json) |
+| `data/standards-mapping.json` | NIST CSF / CIS CSC / ISO / SOC 2 / HIPAA / PCI / EU AI Act mappings | [view](https://github.com/drpaulcoleman/agentforce-mythos-hardening/blob/main/reference-impl/data/standards-mapping.json) | [raw](https://raw.githubusercontent.com/drpaulcoleman/agentforce-mythos-hardening/main/reference-impl/data/standards-mapping.json) |
 
 ## Disclaimers (also in the whitepaper)
 
@@ -92,4 +99,4 @@ Every file below maps to a specific whitepaper section. Open the whitepaper card
 
 ## License
 
-See [`../LICENSE`](../LICENSE) at the repo root.
+See [`LICENSE`](https://github.com/drpaulcoleman/agentforce-mythos-hardening/blob/main/LICENSE) at the repo root.
