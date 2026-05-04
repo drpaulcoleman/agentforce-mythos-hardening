@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   Salesforce CRM Security Hardening — A Defender's Encyclopedia for the Frontier-AI Era
-  Document version 1.3.0 · Last modified 2026-05-03
+  Document version 1.4.0 · Last modified 2026-05-04
   Copyright (c) 2026 Dr. Paul Coleman. All rights reserved.
 
   A vendor-neutral hardening reference for the customer side of the Salesforce
@@ -28,9 +28,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Salesforce CRM Security Hardening &mdash; A Defender's Encyclopedia for the Frontier-AI Era</title>
-<meta name="document-version" content="1.3.0">
-<meta name="last-modified" content="2026-05-03">
-<meta name="source-snapshot" content="2026-05-03">
+<meta name="document-version" content="1.4.0">
+<meta name="last-modified" content="2026-05-04">
+<meta name="source-snapshot" content="2026-05-04">
 <meta name="description" content="Vendor-neutral Salesforce CRM security hardening reference: identity, access, Experience Cloud guest hardening, Connected Apps + AppExchange supply chain, mTLS, secure Apex/LWC/Flow, encryption, detection &amp; response, DevSecOps, and defensive AI augmentation. Threat-informed (UNC6040, UNC6395, Krebs guest exposure, Drift OAuth chain) and standards-aligned (NIST CSF 2.0, OWASP).">
 <meta name="author" content="Dr. Paul Coleman">
 <meta name="robots" content="index, follow">
@@ -1153,12 +1153,12 @@ pre.mermaid g.node[onclick]:hover > path {
     </div>
     <div>
       <h1>Salesforce CRM Security Hardening</h1>
-      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.3.0 &middot; last modified 2026-05-03</span>
+      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.4.0 &middot; last modified 2026-05-04</span>
     </div>
   </div>
   <div class="doc-meta">
     <span><span class="dot dot-section"></span>Pillars: <b>10</b></span>
-    <span><span class="dot dot-path"></span>Appendices: <b>16</b></span>
+    <span><span class="dot dot-path"></span>Appendices: <b>22</b></span>
     <span><span class="dot dot-diagram"></span>Diagrams: <b>20+</b></span>
   </div>
   <input id="search-box" type="text" placeholder="Search sections, patterns, APIs... ( / to focus )">
@@ -1222,10 +1222,17 @@ pre.mermaid g.node[onclick]:hover > path {
     <a href="#appendix-n" class="nav-indent" data-tech-only>N: Changelog</a>
     <a href="#appendix-o" class="nav-indent" data-tech-only>O: Admin Hardening &#9733;</a>
     <a href="#appendix-p" class="nav-indent" data-tech-only>P: Standards Mapping</a>
+    <a href="#appendix-q" class="nav-indent" data-tech-only>Q: IR Runbooks (5)</a>
+    <a href="#appendix-r" class="nav-indent" data-tech-only>R: Breach Notification</a>
+    <a href="#appendix-s" class="nav-indent" data-tech-only>S: Maturity Scorecard</a>
+    <a href="#appendix-t" class="nav-indent" data-tech-only>T: Trailhead Alignment</a>
+    <a href="#appendix-u" class="nav-indent" data-tech-only>U: Well-Architected</a>
+    <a href="#appendix-v" class="nav-indent" data-tech-only>V: Industry Overlays</a>
     <a href="#disclosures">Disclosures</a>
 
     <span class="nav-group" data-exec-only>Executive Focus</span>
     <a href="#exec-bluf" data-exec-only>&#9679; Elevator Brief</a>
+    <a href="#exec-90-min-sprint" data-exec-only>&#9679; 90-Minute Sprint</a>
     <a href="#exec-mythos-reality" data-exec-only>&#9679; Mythos Reality Check</a>
     <a href="#exec-pillars-overview" data-exec-only>&#9679; Ten Pillars Overview</a>
     <a href="#exec-critical-path" data-exec-only>&#9679; 90-Day Sprint</a>
@@ -5970,6 +5977,12 @@ DIFF:
   <table>
     <thead><tr><th>Version</th><th>Date</th><th>Change</th><th>Author</th></tr></thead>
     <tbody>
+      <tr>
+        <td><strong>1.4.0</strong></td>
+        <td>2026-05-04</td>
+        <td>Major expansion: companion <code>reference-impl/</code> Salesforce DX project added in this monorepo (commits 2d15693, 1ff8d96, e7ae130) with bidirectional doc-to-code links. Doc-side enhancements (commit 85bbdac): OpenGraph + Twitter Card metadata, canonical link, errata-channel meta; full <code>@media print</code> stylesheet (page-break-aware, serif body, URL post-rendering); per-pillar TL;DR card at the top of every Pillar I&ndash;X overview (CSS class <code>pillar-tldr</code>); 90-Minute Hardening Sprint exec-tab card for orgs with no security budget; "Companion reference implementation" hero callout in both BLUF cards. Six new appendices (commits bffcfc0, 694b8a6): <strong>Q</strong> &mdash; five concrete IR runbook templates (vishing / ISV / guest exposure / browser extension / AI agent silent compromise) with sub-15-min containment commands and notification drafts. <strong>R</strong> &mdash; breach-notification timing matrix (GDPR / HIPAA / SEC 8-K / NIS2 / GLBA / PCI / Canada / Australia / Brazil / Japan + 10 representative US states + sectoral overlays). <strong>S</strong> &mdash; interactive maturity self-assessment (10 sliders, JS aggregator, localStorage persistence, JSON export to clipboard). <strong>T</strong> &mdash; per-pillar Trailhead alignment (modules, trails, superbadges). <strong>U</strong> &mdash; Salesforce Well-Architected Framework mapping (Trusted / Adaptable / Composable lenses). <strong>V</strong> &mdash; industry-specific overlays (FSC, Health Cloud, Public Sector, Industries / Vlocity / OmniStudio, B2B/B2C Commerce). Sidebar nav extended with Q/R/S/T/U/V entries and the 90-Minute Sprint exec link. Reference list extended to <code>[^43]</code>. Total appendix count: 16 &rarr; 22.</td>
+        <td>Dr. Paul Coleman</td>
+      </tr>
       <tr>
         <td><strong>1.3.0</strong></td>
         <td>2026-05-03</td>
