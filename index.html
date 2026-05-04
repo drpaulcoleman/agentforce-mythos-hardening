@@ -32,6 +32,28 @@
 <meta name="last-modified" content="2026-05-03">
 <meta name="source-snapshot" content="2026-05-03">
 <meta name="description" content="Vendor-neutral Salesforce CRM security hardening reference: identity, access, Experience Cloud guest hardening, Connected Apps + AppExchange supply chain, mTLS, secure Apex/LWC/Flow, encryption, detection &amp; response, DevSecOps, and defensive AI augmentation. Threat-informed (UNC6040, UNC6395, Krebs guest exposure, Drift OAuth chain) and standards-aligned (NIST CSF 2.0, OWASP).">
+<meta name="author" content="Dr. Paul Coleman">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://drpaulcoleman.github.io/agentforce-mythos-hardening/">
+
+<!-- Open Graph / social-share metadata -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Salesforce CRM Security Hardening &mdash; A Defender's Encyclopedia for the Frontier-AI Era">
+<meta property="og:description" content="Vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars, 16+ appendices, fully attributed.">
+<meta property="og:url" content="https://drpaulcoleman.github.io/agentforce-mythos-hardening/">
+<meta property="og:site_name" content="Salesforce CRM Security Hardening">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="Dr. Paul Coleman">
+<meta property="article:published_time" content="2026-05-03T00:00:00Z">
+<meta property="article:modified_time" content="2026-05-04T00:00:00Z">
+
+<!-- Twitter / X card metadata -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Salesforce CRM Security Hardening &mdash; v1.4.0">
+<meta name="twitter:description" content="Threat-informed Salesforce hardening reference. Ten pillars from Identity to Defensive AI, with a companion Salesforce DX reference implementation.">
+
+<!-- Errata / contributions -->
+<meta name="errata-channel" content="https://github.com/drpaulcoleman/agentforce-mythos-hardening/issues">
 
 <!-- Salesforce-aligned fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Source+Code+Pro:wght@400;500;600&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -934,6 +956,186 @@ pre.mermaid g.node[onclick]:hover > path {
   color: var(--text-muted); text-align: center; padding: 20px;
   border-top: 1px solid var(--border-light); margin-top: 24px;
 }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   PILLAR TL;DR -- elevator answer at the top of each pillar overview card
+   ═══════════════════════════════════════════════════════════════════════ */
+.pillar-tldr {
+  background: rgba(0,112,210,0.08);
+  border-left: 4px solid var(--sf-blue);
+  padding: 12px 16px;
+  margin: 12px 0 18px;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 1.55;
+}
+.pillar-tldr strong:first-child { color: var(--sf-blue-light); font-family: 'Montserrat', sans-serif; letter-spacing: 0.04em; text-transform: uppercase; font-size: 11px; display: block; margin-bottom: 4px; }
+.pillar-tldr .one-action { font-weight: 600; color: var(--sf-white); }
+.pillar-tldr .one-action::before { content: "› "; color: var(--sf-blue-light); }
+
+/* 90-minute sprint card -- compact, scannable, printable */
+.sprint-90 { border-color: var(--sf-orange); }
+.sprint-90 h2 { color: var(--sf-orange); }
+.sprint-90 ol { margin: 8px 0 0 22px; }
+.sprint-90 ol li { margin: 4px 0; }
+.sprint-90 .est { font-size: 11px; color: var(--text-muted); font-family: 'Source Code Pro', monospace; }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   PRINT STYLESHEET -- offline / PDF / board-pack rendering
+   Approach: hide chrome (sidebar, header, search, zoom, minimap, view tabs);
+   show ALL cards regardless of view mode; use serif body; force page breaks
+   at major sections; render URLs after their links so the printed copy is
+   self-contained.
+   ═══════════════════════════════════════════════════════════════════════ */
+@media print {
+  /* Hide the interactive chrome */
+  #header,
+  #sidebar,
+  #minimap,
+  #minimap-toggle,
+  #legend,
+  #search-box,
+  #search-count,
+  #zoom-controls,
+  .view-tabs-wrap,
+  .tab-alt-hint {
+    display: none !important;
+  }
+
+  /* Reset page geometry */
+  html, body {
+    overflow: visible !important;
+    height: auto !important;
+    background: #FFFFFF !important;
+    color: #000000 !important;
+    font-family: Georgia, 'Times New Roman', serif !important;
+    font-size: 10.5pt !important;
+    line-height: 1.45 !important;
+  }
+  #arch-viewport {
+    position: static !important;
+    overflow: visible !important;
+    background: #FFFFFF !important;
+    inset: auto !important;
+  }
+  #arch-canvas {
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Show everything regardless of which view tab the user had selected */
+  [data-exec-only],
+  [data-tech-only] {
+    display: block !important;
+  }
+
+  /* Card styling -- white background, dark text, page-break-friendly */
+  .card {
+    background: #FFFFFF !important;
+    color: #000000 !important;
+    border: 1px solid #777 !important;
+    box-shadow: none !important;
+    page-break-inside: avoid;
+    margin: 0 0 18pt 0 !important;
+    padding: 12pt 14pt !important;
+  }
+  .card.hero {
+    page-break-after: always;
+  }
+  .card h1, .card h2, .card h3, .card h4 {
+    color: #16325C !important;
+    page-break-after: avoid;
+  }
+  .card h1 { font-size: 22pt !important; }
+  .card h2 { font-size: 16pt !important; border-bottom: 1px solid #16325C !important; padding-bottom: 4pt !important; }
+  .card h3 { font-size: 13pt !important; }
+
+  /* Force a page break before every Pillar overview card */
+  #pillar-i, #pillar-ii, #pillar-iii, #pillar-iv, #pillar-v,
+  #pillar-vi, #pillar-vii, #pillar-viii, #pillar-ix, #pillar-x,
+  #appendix-a, #appendix-b, #appendix-c, #appendix-d, #appendix-e,
+  #appendix-f, #appendix-g, #appendix-h, #appendix-i, #appendix-j,
+  #appendix-k, #appendix-l, #appendix-m, #appendix-n, #appendix-o,
+  #appendix-p {
+    page-break-before: always;
+  }
+
+  /* Tables: black borders, no backgrounds */
+  table { border-collapse: collapse !important; width: 100% !important; }
+  th, td {
+    border: 1px solid #999 !important;
+    background: #FFFFFF !important;
+    color: #000000 !important;
+    padding: 4pt 6pt !important;
+    font-size: 9.5pt !important;
+  }
+  th { background: #ECEBEA !important; font-weight: 700 !important; }
+
+  /* Code blocks: legible serif-friendly mono, page-break-respecting */
+  pre, code {
+    background: #F4F6F9 !important;
+    color: #000000 !important;
+    border: 1px solid #999 !important;
+    font-family: 'Source Code Pro', 'Courier New', monospace !important;
+    font-size: 8.5pt !important;
+  }
+  pre {
+    padding: 8pt !important;
+    page-break-inside: avoid;
+    white-space: pre-wrap !important;
+    word-break: break-word !important;
+  }
+
+  /* Links: render the URL after the anchor so printed pages are self-contained */
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 8.5pt;
+    color: #555;
+    word-break: break-all;
+  }
+  /* Don't repeat internal anchor URLs */
+  a[href^="#"]::after { content: ""; }
+
+  /* Mermaid diagrams: keep them visible, page-break-aware */
+  .mermaid, pre.mermaid {
+    page-break-inside: avoid;
+    background: #FFFFFF !important;
+    border: 1px solid #999 !important;
+    padding: 6pt !important;
+  }
+
+  /* Page margins */
+  @page {
+    size: letter;
+    margin: 0.75in 0.6in;
+  }
+  @page :first {
+    margin-top: 1in;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   Reference-implementation hero callout
+   ═══════════════════════════════════════════════════════════════════════ */
+.ref-impl-callout {
+  background: linear-gradient(135deg, rgba(4,132,75,0.12), rgba(0,112,210,0.10));
+  border: 1px solid var(--sf-green);
+  border-radius: 6px;
+  padding: 14px 18px;
+  margin: 18px 0 0;
+  font-size: 13px;
+  line-height: 1.55;
+}
+.ref-impl-callout h3 {
+  margin: 0 0 6px;
+  font-size: 13px;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--sf-green-light);
+}
+.ref-impl-callout code { font-size: 11px; }
 </style>
 </head>
 <body data-view="tech">
@@ -1123,7 +1325,52 @@ pre.mermaid g.node[onclick]:hover > path {
     <li>"Frontier AI is contained &mdash; defenders get the same Opus-class model for hardening that the threat lacks. The defender gap is closing faster than the attacker gap."</li>
     <li>"Our quick-win window is 30 days; the structural refactor is 12 months; we will not break integrations along the way."</li>
   </ol>
+  <div class="ref-impl-callout">
+    <h3>&#10003; Companion reference implementation</h3>
+    <p style="margin: 0 0 4px;">Every Apex / metadata / config sample in this whitepaper has a working
+    counterpart in the <a href="./reference-impl/"><code>reference-impl/</code></a> Salesforce DX project
+    in this repo &mdash; clone, fork, or lift the artifacts you need (Apex with passing tests, deployable
+    metadata, GitHub Actions CI, runnable Node tooling, JSON data exports). See
+    <a href="./reference-impl/README.md"><code>reference-impl/README.md</code></a> for the doc-to-code map.</p>
+  </div>
   <p style="margin-top:14px;"><a href="#bluf">&rarr; Full technical brief &middot; tech tab</a></p>
+</div>
+
+<!-- EXEC · 90-Minute Hardening Sprint ----------------------------------- -->
+<div class="card sprint-90" id="exec-90-min-sprint" data-exec-only data-search="90 minute sprint hardening one pager free baseline minimum viable security action no budget">
+  <h2>90-Minute Hardening Sprint &mdash; If You Can Only Do One Thing This Quarter</h2>
+  <p>For orgs with no security budget and no dedicated time, the absolute minimum-viable hardening pass.
+  Every action below is <strong>free</strong> (no Shield, no SSPM, no add-on), and the entire list fits
+  inside 90 minutes for a single admin in a single sitting. Each captures meaningful risk reduction
+  against the 2024&ndash;2026 corpus.</p>
+  <ol>
+    <li><strong>5 min &mdash;</strong> Setup &rarr; OAuth and OpenID Connect Settings &rarr; turn on
+    "Block authentication for uninstalled connected apps." <span class="est">Closes the UNC6040 vishing pivot.</span></li>
+    <li><strong>5 min &mdash;</strong> Same screen &rarr; block User-Agent and Username-Password OAuth flows.
+    <span class="est">Removes deprecated/unsafe flows org-wide.</span></li>
+    <li><strong>10 min &mdash;</strong> Setup &rarr; Health Check &rarr; record the baseline score; fix every High-Risk item inline.
+    <span class="est">Captures whatever the platform's own scoring identifies.</span></li>
+    <li><strong>15 min &mdash;</strong> Setup &rarr; Connected Apps OAuth Usage &rarr; export the report; revoke any app
+    you cannot identify a business owner for.
+    <span class="est">Closes ISV-token-theft persistence (UNC6395 / Drift pattern).</span></li>
+    <li><strong>10 min &mdash;</strong> Setup &rarr; Identity Verification &rarr; require a Security Key as the verification
+    method for every admin profile.
+    <span class="est">FIDO2 is the only MFA factor that survives vishing.</span></li>
+    <li><strong>10 min &mdash;</strong> Setup &rarr; Session Settings &rarr; set Timeout to 2 hours; turn on Lock sessions to IP;
+    require HTTPS-only.
+    <span class="est">Limits stolen-session blast radius.</span></li>
+    <li><strong>10 min &mdash;</strong> Run two SOQL queries: Modify All Data holders and View All Data holders.
+    Manually compare against your expected admin list. Schedule any unexpected holder for revocation.
+    <span class="est">Right-sizes the largest blast-radius grants.</span></li>
+    <li><strong>10 min &mdash;</strong> Audit each Experience Cloud guest profile: turn off API Enabled, View All Users,
+    Run Reports, Export Reports, Manage Public Documents (if any are on).
+    <span class="est">Closes the Krebs / DIVD-2026-00005 pattern.</span></li>
+    <li><strong>5 min &mdash;</strong> Subscribe your team to Salesforce Security Advisories at
+    <code>security.salesforce.com</code>. <span class="est">Free signal channel for new advisories.</span></li>
+    <li><strong>10 min &mdash;</strong> Save the Health Check export, OAuth Usage CSV, and the MAD/VAD lists to a
+    secure, retention-stamped location. <span class="est">Establishes your audit-pack baseline for this quarter.</span></li>
+  </ol>
+  <p style="margin-top:14px;"><a href="#appendix-o">&rarr; The full Day-1 / Week-1 / Month-1 / Quarterly checklist &middot; Appendix O</a></p>
 </div>
 
 <!-- EXEC · Mythos Reality Check ------------------------------------------ -->
@@ -1378,6 +1625,16 @@ gantt
     a competing product. The internal patterns generalized in this document carry no project, customer,
     or company attribution.
   </p>
+  <div class="ref-impl-callout">
+    <h3>&#10003; Reference implementation in this repo</h3>
+    <p style="margin: 0;">Every code, metadata, and config sample below has a working counterpart
+    in <a href="./reference-impl/"><code>reference-impl/</code></a> &mdash; a Salesforce DX project with
+    passing Apex tests, deployable metadata XML, a Health Check custom baseline, GitHub Actions CI,
+    runnable Node tooling for the Experience Cloud scanner and OAuth attestation, and machine-readable
+    JSON exports of the checklist / glossary / risk register / standards mapping. See
+    <a href="./reference-impl/README.md"><code>reference-impl/README.md</code></a> for the doc-to-code
+    map &mdash; every pillar anchor here links to the file that implements it.</p>
+  </div>
 </div>
 
 <!-- TECH · Document Provenance ------------------------------------------- -->
@@ -1709,6 +1966,10 @@ flowchart LR
 <!-- TECH · Pillar I overview -->
 <div class="card" id="pillar-i" data-search="pillar i identity authentication mfa fido2 webauthn high assurance step up sso saml oidc custom login flow auth provider registration handler device activation my domain">
   <h2>Pillar I &middot; Identity &amp; Authentication</h2>
+  <div class="pillar-tldr">
+    <strong>TL;DR &middot; Pillar I</strong>
+    Identity is the gate to every other pillar. The 2025 vishing wave bypassed every MFA factor that can be approved over a phone call. The factor that survives is a hardware key. <span class="one-action">Today's single highest-leverage action: enroll FIDO2 / WebAuthn keys for every administrator and gate all step-up to High Assurance.</span>
+  </div>
   <p>
     Every breach in the 2024&ndash;2026 corpus starts with a credential or a session. Identity is therefore
     the gate to every other pillar. The hardening posture has three dimensions: the <em>factor</em>
@@ -2084,6 +2345,10 @@ sequenceDiagram
 <!-- TECH · Pillar II overview -->
 <div class="card" id="pillar-ii" data-search="pillar ii access control least privilege org wide defaults profile permission set group spring 26 migration role hierarchy sharing rules restriction rules fls user mode reports exports files contentdocument contentversion">
   <h2>Pillar II &middot; Access Control &amp; Least-Privilege Migration</h2>
+  <div class="pillar-tldr">
+    <strong>TL;DR &middot; Pillar II</strong>
+    Salesforce access is a six-layer waterfall (OWD &rarr; Roles &rarr; Sharing &rarr; Restriction Rules &rarr; FLS &rarr; Apex run mode). Profile-based permissions are deprecated; the modern primitive is the Permission Set Group. <span class="one-action">Today's single highest-leverage action: strip View All Data / Modify All Data from every non-admin Permission Set; quarterly attestation thereafter.</span>
+  </div>
   <p>
     Salesforce's access model is a <strong>waterfall</strong>: each layer can only widen access (or in
     Restriction Rules' case, narrow it) within the bounds set by the layer above. Understanding the
@@ -2453,6 +2718,10 @@ graph TD
 <!-- TECH · Pillar III overview -->
 <div class="card" id="pillar-iii" data-search="pillar iii experience cloud communities guest user profile persistent data bleed krebs 2023 vermont tcf bank graphql divd 2026 appomni secure guest user record access critical update charan akiri">
   <h2>Pillar III &middot; Experience Cloud / Communities Guest User Hardening &#9733;</h2>
+  <div class="pillar-tldr">
+    <strong>TL;DR &middot; Pillar III</strong>
+    The single highest-leverage data-leak surface in the corpus &mdash; same misconfiguration pattern at Vermont, TCF Bank, and the 2026 DIVD-2026-00005 disclosure. Guest profiles default-deny, sharing rules narrow, controllers user-context-aware. <span class="one-action">Today's single highest-leverage action: audit every guest user profile against an approved baseline; revoke API Enabled, View All Users, Run Reports, and Export Reports; flag every guest sharing rule for justification.</span>
+  </div>
   <p>
     This is the most consequential pillar in the document. The persistent data-bleed problem in
     customer-facing Experience Cloud sites is what put "Salesforce" and "data exposure" in the same
@@ -2835,6 +3104,10 @@ public static List&lt;Case&gt; getMyCases() {
 <!-- TECH · Pillar IV overview -->
 <div class="card" id="pillar-iv" data-search="pillar iv connected apps external client apps eca oauth flows web server jwt bearer device flow username password user agent appexchange security review supply chain isv refresh token rotation admin pre approval block uninstalled high assurance browser extension chrome enterprise dual agent metadata scan unc6040 unc6395 salesloft drift github repo compromise">
   <h2>Pillar IV &middot; Connected Apps, External Client Apps, OAuth &amp; AppExchange Supply Chain</h2>
+  <div class="pillar-tldr">
+    <strong>TL;DR &middot; Pillar IV</strong>
+    OAuth grants are persistent tokens. Vishing (UNC6040) and ISV repo compromise (UNC6395 / Drift, 700+ orgs) both exit through the same control surface. New integrations should be External Client Apps, not Connected Apps. <span class="one-action">Today's single highest-leverage action: verify Block Uninstalled Connected Apps is on; pull OAuth Usage and revoke every app without an identified business owner.</span>
+  </div>
   <p>
     OAuth grants are <em>persistent tokens</em>. They survive password resets. They survive single-session
     revocation if the refresh token isn't revoked too. They survive the user being deactivated for 24+
@@ -3223,6 +3496,10 @@ sequenceDiagram
 <!-- TECH · Pillar V overview -->
 <div class="card" id="pillar-v" data-search="pillar v api mtls mutual tls named credentials external credentials per user named principal integration user pub sub api ip allowlist certificate rotation digicert global root g2 february 2026 march 2026 200 day max lifespan dual use cert ban">
   <h2>Pillar V &middot; API, Integration Security, mTLS &amp; Certificate Rotation</h2>
+  <div class="pillar-tldr">
+    <strong>TL;DR &middot; Pillar V</strong>
+    Secrets belong in Named Credentials and External Credentials, not Custom Settings. Mutual TLS for high-trust integrations. The 2026 cert transitions (Mar 15 2026 200d, Mar 15 2027 100d, Mar 15 2029 47d) move rotation from annual to operational. <span class="one-action">Today's single highest-leverage action: assign a cert-rotation owner with calendar alerts 30 days before each expiry, and inventory every customer-uploaded cert in scope.</span>
+  </div>
   <p>
     Every integration is a trust boundary. Every secret is a target. The 2026 certificate transitions
     raise the operational bar &mdash; orgs that treated certificate rotation as an annual chore now have
@@ -3462,6 +3739,10 @@ sequenceDiagram
 <!-- TECH · Pillar VI overview -->
 <div class="card" id="pillar-vi" data-search="pillar vi apex lwc soql flow secure coding user mode with security enforced stripinaccessible soql injection bind variable xss csrf visualforce formula tag flow record triggered screen flow invocable apex guest accessible flow shadow flow outbound messages email to case web to lead web to case file upload malware spf dkim dmarc">
   <h2>Pillar VI &middot; Apex / LWC / SOQL / Flow Secure Coding</h2>
+  <div class="pillar-tldr">
+    <strong>TL;DR &middot; Pillar VI</strong>
+    Apex bypasses sharing and FLS by default. Flow run-context is the most underrated leak vector. Form intake (Email-to-Case, Web-to-Lead) is untrusted user input that reaches AI agents. <span class="one-action">Today's single highest-leverage action: USER_MODE on every new SOQL/DML; audit every <code>without sharing</code> class; verify every Record-Triggered Flow's run context.</span>
+  </div>
   <p>
     Salesforce code runs in an environment with strong defaults <em>except</em> Apex's default mode, which
     bypasses sharing and FLS. The hardening discipline: <strong>opt into the strong defaults explicitly</strong>
@@ -3740,6 +4021,10 @@ flowchart TD
 <!-- TECH · Pillar VII overview -->
 <div class="card" id="pillar-vii" data-search="pillar vii data protection classification encryption shield platform encryption byok customer managed key hsm key derivation field audit trail einstein data detect data mask sandbox backup recovery ransomware hyperforce external encryption ecosystem eee gdpr ccpa eu ai act mask encrypt delete lifecycle">
   <h2>Pillar VII &middot; Data Classification, Encryption, Sandboxes &amp; Backup</h2>
+  <div class="pillar-tldr">
+    <strong>TL;DR &middot; Pillar VII</strong>
+    Classify before you encrypt. Sandbox PII is production PII unless masked. Backup is a precondition for ransomware survival, not an option. <span class="one-action">Today's single highest-leverage action: build a four-tier data-classification register (Public / Internal / Confidential / Restricted) and use it to drive encryption, retention, sandbox masking, and backup scope.</span>
+  </div>
   <p>
     Encryption without classification is theater. Classification answers <em>"what data do we have, and
     how sensitive is it?"</em> Encryption then answers <em>"how is the most sensitive subset protected?"</em>
@@ -4005,6 +4290,10 @@ graph TD
 <!-- TECH · Pillar VIII overview -->
 <div class="card" id="pillar-viii" data-search="pillar viii detection response observability health check security center setup audit trail login history real time event monitoring event log objects threat detection enhanced transaction security block mfa notify ai agent compromise irp incident response siem splunk sentinel chronicle elastic new relic mobile mdm mam salesforce mobile app silent compromise indicators">
   <h2>Pillar VIII &middot; Detection, Response &amp; Observability</h2>
+  <div class="pillar-tldr">
+    <strong>TL;DR &middot; Pillar VIII</strong>
+    You cannot respond to what you cannot see. Health Check + Threat Detection are free baselines; Real-Time Event Monitoring + Transaction Security are paid uplifts that turn detection into real-time enforcement. <span class="one-action">Today's single highest-leverage action: stream Real-Time EM events to your SIEM (or batch-export ELFs daily if no Shield); deploy the top-five Transaction Security policies (Bulk export, off-hours admin, mass record update, new-device login, Setup off-hours).</span>
+  </div>
   <p>
     Detection lives on a spectrum: from posture (Health Check), to logs (Setup Audit Trail, Login
     History), to events (Real-Time EM), to anomalies (Threat Detection), to enforcement (Transaction
@@ -4284,6 +4573,10 @@ stateDiagram-v2
 <!-- TECH · Pillar IX overview -->
 <div class="card" id="pillar-ix" data-search="pillar ix devsecops sfdx ci cd github actions gitlab bitbucket pipelines secret management auth url jwt key pmd sfdx scanner unlocked package scratch org signed package metadata repo dual agent scan cross validator sandbox refresh data mask integration user re entitlement">
   <h2>Pillar IX &middot; DevSecOps for Salesforce DX &amp; Org Lifecycle</h2>
+  <div class="pillar-tldr">
+    <strong>TL;DR &middot; Pillar IX</strong>
+    The supply chain into your Salesforce org is the same one the August 2025 Drift breach exploited (compromised GitHub repos &rarr; harvested OAuth tokens &rarr; 700+ orgs). Pipeline hygiene is now a Salesforce concern. <span class="one-action">Today's single highest-leverage action: rotate any SFDX auth URLs ever committed to a repo; move CI auth to OIDC + JWT bearer; gate deploys on PMD + SFDX Scanner.</span>
+  </div>
   <p>
     Salesforce orgs increasingly look like software products: source-of-truth in Git, branches per
     feature, scratch orgs for development, unlocked packages for delivery, CI/CD pipelines for
@@ -4481,6 +4774,10 @@ flowchart LR
 <!-- TECH · Pillar X overview -->
 <div class="card" id="pillar-x" data-search="pillar x ai augmentation defensive ai claude security opus 4.7 sonnet 4.6 haiku 4.5 chatgpt 5 o series project glasswing mythos containment anomaly policy authoring irp companion trust layer zero retention pii scrubbing deterministic re run dual provider failover">
   <h2>Pillar X &middot; AI Augmentation Across the Defense Stack</h2>
+  <div class="pillar-tldr">
+    <strong>TL;DR &middot; Pillar X</strong>
+    Frontier AI is contained on the threat side (Mythos / Glasswing). Defenders have access to Opus-class models for hardening (Claude Security in public beta on Opus 4.7). Use AI as a tool with a Trust Layer, not a momentum claim. <span class="one-action">Today's single highest-leverage action: pick one workflow (metadata audit, anomaly-policy authoring, or IRP companion) and pilot it with explicit human review and zero-retention provider settings before broader rollout.</span>
+  </div>
   <p>
     This pillar is a <em>cross-cutting overlay</em> on Pillars I&ndash;IX, not a parallel control surface.
     Every prior pillar has at least one task that AI can accelerate &mdash; metadata audit, code review,
