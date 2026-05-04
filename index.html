@@ -6574,6 +6574,373 @@ SELECT UserId, LastUsedDate FROM OauthToken WHERE AppName = 'ISV_APP_NAME'</code
 </div>
 
 <!-- ════════════════════════════════════════════════════════════════════════
+     APPENDIX S  ::  MATURITY SELF-ASSESSMENT (interactive scorecard)
+     ════════════════════════════════════════════════════════════════════════ -->
+<div class="card" id="appendix-s" data-search="appendix s maturity self assessment scorecard 0 5 ciso interactive radio button level ad hoc defined managed optimized exemplary posture grade">
+  <h2>Appendix S &middot; Maturity Self-Assessment</h2>
+  <p>Score your org 0&ndash;5 against each pillar. Output is a per-pillar score plus an overall posture
+  grade. Scores persist in your browser's localStorage so you can return to them. Use this on a
+  quarterly cadence and track the trend.</p>
+
+  <div style="background: rgba(0,112,210,0.08); border-left: 4px solid var(--sf-blue); padding: 12px 16px; margin: 12px 0; font-size: 13px;">
+    <strong>Maturity-level anchors:</strong>
+    <table style="margin-top: 8px;">
+      <thead><tr><th>Level</th><th>Label</th><th>Anchor description</th></tr></thead>
+      <tbody>
+        <tr><td>0</td><td>None</td><td>Capability absent or actively avoided.</td></tr>
+        <tr><td>1</td><td>Ad-hoc</td><td>Capability exists in pockets; no policy; success is heroic.</td></tr>
+        <tr><td>2</td><td>Defined</td><td>Policy documented; some implementation; not consistently enforced.</td></tr>
+        <tr><td>3</td><td>Managed</td><td>Implementation consistent; quarterly attestation; metrics tracked.</td></tr>
+        <tr><td>4</td><td>Optimized</td><td>Drift detection automated; trend-based improvement; cross-pillar coordination.</td></tr>
+        <tr><td>5</td><td>Exemplary</td><td>Industry-leading; published artifacts; contributing back to community.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <table id="maturity-form" style="margin-top: 16px;">
+    <thead>
+      <tr>
+        <th style="width: 28%;">Pillar</th>
+        <th style="width: 60%;">Score (drag the slider)</th>
+        <th style="width: 12%; text-align: center;">Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><a href="#pillar-i">I &middot; Identity &amp; Auth</a></td><td><input type="range" min="0" max="5" step="1" value="0" data-pillar="I" class="maturity-slider" style="width: 100%;"></td><td style="text-align: center; font-weight: 700; color: var(--sf-blue-light);" data-pillar-value="I">0</td></tr>
+      <tr><td><a href="#pillar-ii">II &middot; Access Control</a></td><td><input type="range" min="0" max="5" step="1" value="0" data-pillar="II" class="maturity-slider" style="width: 100%;"></td><td style="text-align: center; font-weight: 700; color: var(--sf-blue-light);" data-pillar-value="II">0</td></tr>
+      <tr><td><a href="#pillar-iii">III &middot; Experience Cloud &#9733;</a></td><td><input type="range" min="0" max="5" step="1" value="0" data-pillar="III" class="maturity-slider" style="width: 100%;"></td><td style="text-align: center; font-weight: 700; color: var(--sf-blue-light);" data-pillar-value="III">0</td></tr>
+      <tr><td><a href="#pillar-iv">IV &middot; Connected Apps + ISVs</a></td><td><input type="range" min="0" max="5" step="1" value="0" data-pillar="IV" class="maturity-slider" style="width: 100%;"></td><td style="text-align: center; font-weight: 700; color: var(--sf-blue-light);" data-pillar-value="IV">0</td></tr>
+      <tr><td><a href="#pillar-v">V &middot; API + mTLS + Certs</a></td><td><input type="range" min="0" max="5" step="1" value="0" data-pillar="V" class="maturity-slider" style="width: 100%;"></td><td style="text-align: center; font-weight: 700; color: var(--sf-blue-light);" data-pillar-value="V">0</td></tr>
+      <tr><td><a href="#pillar-vi">VI &middot; Apex/LWC/Flow</a></td><td><input type="range" min="0" max="5" step="1" value="0" data-pillar="VI" class="maturity-slider" style="width: 100%;"></td><td style="text-align: center; font-weight: 700; color: var(--sf-blue-light);" data-pillar-value="VI">0</td></tr>
+      <tr><td><a href="#pillar-vii">VII &middot; Data + Sandbox + Backup</a></td><td><input type="range" min="0" max="5" step="1" value="0" data-pillar="VII" class="maturity-slider" style="width: 100%;"></td><td style="text-align: center; font-weight: 700; color: var(--sf-blue-light);" data-pillar-value="VII">0</td></tr>
+      <tr><td><a href="#pillar-viii">VIII &middot; Detect &amp; Respond</a></td><td><input type="range" min="0" max="5" step="1" value="0" data-pillar="VIII" class="maturity-slider" style="width: 100%;"></td><td style="text-align: center; font-weight: 700; color: var(--sf-blue-light);" data-pillar-value="VIII">0</td></tr>
+      <tr><td><a href="#pillar-ix">IX &middot; DevSecOps</a></td><td><input type="range" min="0" max="5" step="1" value="0" data-pillar="IX" class="maturity-slider" style="width: 100%;"></td><td style="text-align: center; font-weight: 700; color: var(--sf-blue-light);" data-pillar-value="IX">0</td></tr>
+      <tr><td><a href="#pillar-x">X &middot; Defensive AI</a></td><td><input type="range" min="0" max="5" step="1" value="0" data-pillar="X" class="maturity-slider" style="width: 100%;"></td><td style="text-align: center; font-weight: 700; color: var(--sf-blue-light);" data-pillar-value="X">0</td></tr>
+    </tbody>
+  </table>
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 24px;">
+    <div style="background: var(--bg-surface); padding: 18px 22px; border-radius: 6px; border: 1px solid var(--border);">
+      <p style="margin: 0; font-family: 'Montserrat', sans-serif; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted);">Average score</p>
+      <p style="margin: 6px 0 0; font-size: 36px; font-weight: 700; color: var(--sf-blue-light);" id="maturity-avg">0.0</p>
+      <p style="margin: 0; font-size: 12px; color: var(--text-secondary);" id="maturity-avg-label">No score recorded</p>
+    </div>
+    <div style="background: var(--bg-surface); padding: 18px 22px; border-radius: 6px; border: 1px solid var(--border);">
+      <p style="margin: 0; font-family: 'Montserrat', sans-serif; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted);">Posture grade</p>
+      <p style="margin: 6px 0 0; font-size: 36px; font-weight: 700;" id="maturity-grade">&mdash;</p>
+      <p style="margin: 0; font-size: 12px; color: var(--text-secondary);" id="maturity-grade-label">Score yourself to compute</p>
+    </div>
+  </div>
+
+  <div style="margin-top: 20px;">
+    <button id="maturity-reset" style="background: var(--bg-card); border: 1px solid var(--border); color: var(--text-primary); padding: 8px 14px; border-radius: 4px; font-size: 12px; cursor: pointer; font-family: 'Montserrat', sans-serif;">Reset</button>
+    <button id="maturity-export" style="background: var(--sf-blue-faint); border: 1px solid var(--sf-blue); color: var(--sf-blue-light); padding: 8px 14px; border-radius: 4px; font-size: 12px; cursor: pointer; font-family: 'Montserrat', sans-serif; margin-left: 8px;">Export JSON to clipboard</button>
+    <span id="maturity-export-status" style="margin-left: 10px; font-size: 11px; color: var(--text-secondary);"></span>
+  </div>
+
+  <script>
+  (function() {
+    'use strict';
+    var STORAGE_KEY = 'sf-hardening-maturity-v1';
+    var sliders = document.querySelectorAll('.maturity-slider');
+    var avgEl = document.getElementById('maturity-avg');
+    var avgLabelEl = document.getElementById('maturity-avg-label');
+    var gradeEl = document.getElementById('maturity-grade');
+    var gradeLabelEl = document.getElementById('maturity-grade-label');
+    var resetBtn = document.getElementById('maturity-reset');
+    var exportBtn = document.getElementById('maturity-export');
+    var exportStatus = document.getElementById('maturity-export-status');
+
+    function loadStored() {
+      try {
+        var raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : {};
+      } catch (e) { return {}; }
+    }
+    function saveStored(state) {
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+    }
+    function gradeFor(avg) {
+      if (avg < 0.5) return { letter: '—', label: 'No score recorded', color: 'var(--text-muted)' };
+      if (avg < 1.5) return { letter: 'F', label: 'Critical exposure -- begin Day-1 actions immediately', color: '#C23934' };
+      if (avg < 2.5) return { letter: 'D', label: 'Foundational gaps -- prioritize Pillars I-IV', color: '#FF9A3C' };
+      if (avg < 3.5) return { letter: 'C', label: 'Defined posture -- automate drift detection', color: '#FF9A3C' };
+      if (avg < 4.2) return { letter: 'B', label: 'Managed posture -- pursue cross-pillar coordination', color: '#04844B' };
+      if (avg < 4.8) return { letter: 'A', label: 'Optimized posture -- exemplary territory in reach', color: '#04844B' };
+      return { letter: 'A+', label: 'Exemplary -- consider contributing back to community', color: '#04844B' };
+    }
+    function recalc() {
+      var total = 0, count = 0;
+      var scores = {};
+      sliders.forEach(function(s) {
+        var v = parseInt(s.value, 10) || 0;
+        scores[s.dataset.pillar] = v;
+        total += v;
+        count++;
+        var valEl = document.querySelector('[data-pillar-value="' + s.dataset.pillar + '"]');
+        if (valEl) valEl.textContent = String(v);
+      });
+      var avg = count > 0 ? total / count : 0;
+      avgEl.textContent = avg.toFixed(1);
+      var g = gradeFor(avg);
+      gradeEl.textContent = g.letter;
+      gradeEl.style.color = g.color;
+      gradeLabelEl.textContent = g.label;
+      avgLabelEl.textContent = total === 0 ? 'No score recorded' : ('Sum ' + total + ' / 50');
+      saveStored(scores);
+    }
+    var stored = loadStored();
+    sliders.forEach(function(s) {
+      if (stored[s.dataset.pillar] !== undefined) s.value = stored[s.dataset.pillar];
+      s.addEventListener('input', recalc);
+    });
+    resetBtn.addEventListener('click', function() {
+      sliders.forEach(function(s) { s.value = '0'; });
+      try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+      recalc();
+    });
+    exportBtn.addEventListener('click', function() {
+      var snapshot = {
+        framework: 'Salesforce CRM Security Hardening v1.4.0',
+        scored_at: new Date().toISOString(),
+        scores: loadStored(),
+        average: parseFloat(avgEl.textContent) || 0,
+        grade: gradeEl.textContent
+      };
+      var json = JSON.stringify(snapshot, null, 2);
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(json).then(function() {
+          exportStatus.textContent = 'Copied to clipboard.';
+          setTimeout(function() { exportStatus.textContent = ''; }, 3000);
+        }, function() {
+          exportStatus.textContent = 'Clipboard blocked; check console for JSON.';
+          console.log(json);
+        });
+      } else {
+        exportStatus.textContent = 'Clipboard unavailable; check console for JSON.';
+        console.log(json);
+      }
+    });
+    recalc();
+  })();
+  </script>
+
+  <p style="margin-top: 24px; font-size: 12px; color: var(--text-secondary);">
+    <strong>How to read this.</strong> The average score is the simple arithmetic mean of the ten
+    pillar scores. The grade is illustrative; treat it as a conversation starter for your security
+    program, not as a substitute for a CISO-led posture review. Use the JSON export to track
+    quarter-over-quarter trend in your audit pack.
+  </p>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     APPENDIX T  ::  TRAILHEAD ALIGNMENT
+     ════════════════════════════════════════════════════════════════════════ -->
+<div class="card" id="appendix-t" data-search="appendix t trailhead alignment salesforce training modules trail superbadge security badges learning path">
+  <h2>Appendix T &middot; Trailhead Alignment</h2>
+  <p>Each pillar links to relevant Salesforce Trailhead modules / trails / superbadges so that
+  practitioners can complete supporting training without leaving this document. Trailhead module URLs
+  evolve; verify each link against <a href="https://trailhead.salesforce.com" target="_blank" rel="noopener">trailhead.salesforce.com</a>.</p>
+
+  <table>
+    <thead><tr><th>Pillar</th><th>Recommended Trailhead resources</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong><a href="#pillar-i">I &middot; Identity &amp; Auth</a></strong></td>
+        <td>
+          <a href="https://trailhead.salesforce.com/content/learn/modules/identity_basics" target="_blank" rel="noopener">Identity Basics</a> &middot;
+          <a href="https://trailhead.salesforce.com/content/learn/modules/identity_external" target="_blank" rel="noopener">User Authentication</a> &middot;
+          <a href="https://trailhead.salesforce.com/content/learn/modules/multi-factor-authentication-and-mfa-essentials" target="_blank" rel="noopener">Multi-Factor Authentication Essentials</a>
+        </td>
+      </tr>
+      <tr>
+        <td><strong><a href="#pillar-ii">II &middot; Access Control</a></strong></td>
+        <td>
+          <a href="https://trailhead.salesforce.com/content/learn/modules/data_security" target="_blank" rel="noopener">Data Security</a> &middot;
+          <a href="https://trailhead.salesforce.com/content/learn/modules/permission_sets_pdg_team" target="_blank" rel="noopener">Permission Set Groups</a> &middot;
+          <a href="https://trailhead.salesforce.com/content/learn/projects/migrate-to-permission-set-groups" target="_blank" rel="noopener">Migrate to Permission Set Groups (project)</a>
+        </td>
+      </tr>
+      <tr>
+        <td><strong><a href="#pillar-iii">III &middot; Experience Cloud guest hardening</a></strong></td>
+        <td>
+          <a href="https://trailhead.salesforce.com/content/learn/modules/experience-cloud-security" target="_blank" rel="noopener">Experience Cloud Security</a> &middot;
+          <a href="https://trailhead.salesforce.com/content/learn/modules/experience-cloud-guest-user-access" target="_blank" rel="noopener">Guest User Access in Experience Cloud</a>
+        </td>
+      </tr>
+      <tr>
+        <td><strong><a href="#pillar-iv">IV &middot; Connected Apps &amp; ISVs</a></strong></td>
+        <td>
+          <a href="https://trailhead.salesforce.com/content/learn/modules/connected-app-basics" target="_blank" rel="noopener">Connected App Basics</a> &middot;
+          <a href="https://trailhead.salesforce.com/content/learn/modules/external-client-app-basics" target="_blank" rel="noopener">External Client App Basics</a> &middot;
+          <a href="https://trailhead.salesforce.com/content/learn/modules/oauth-design" target="_blank" rel="noopener">OAuth Design</a>
+        </td>
+      </tr>
+      <tr>
+        <td><strong><a href="#pillar-v">V &middot; API + mTLS + Certs</a></strong></td>
+        <td>
+          <a href="https://trailhead.salesforce.com/content/learn/modules/named-credentials" target="_blank" rel="noopener">Named Credentials</a> &middot;
+          <a href="https://trailhead.salesforce.com/content/learn/modules/external-services" target="_blank" rel="noopener">External Services</a>
+        </td>
+      </tr>
+      <tr>
+        <td><strong><a href="#pillar-vi">VI &middot; Secure Apex/LWC/Flow</a></strong></td>
+        <td>
+          <a href="https://trailhead.salesforce.com/content/learn/modules/security-principles" target="_blank" rel="noopener">Security Principles</a> (incl. OWASP Top 10) &middot;
+          <a href="https://trailhead.salesforce.com/content/learn/modules/secure-clientside-development" target="_blank" rel="noopener">Secure Client-Side Development</a> &middot;
+          <a href="https://trailhead.salesforce.com/content/learn/modules/secure-server-side-development" target="_blank" rel="noopener">Secure Server-Side Development</a> &middot;
+          <a href="https://trailhead.salesforce.com/content/learn/superbadges/superbadge_security_specialist" target="_blank" rel="noopener">Security Specialist (superbadge)</a>
+        </td>
+      </tr>
+      <tr>
+        <td><strong><a href="#pillar-vii">VII &middot; Data, Sandbox &amp; Backup</a></strong></td>
+        <td>
+          <a href="https://trailhead.salesforce.com/content/learn/modules/spe_admins" target="_blank" rel="noopener">Shield Platform Encryption</a> &middot;
+          <a href="https://trailhead.salesforce.com/content/learn/modules/data_management" target="_blank" rel="noopener">Data Management</a> &middot;
+          <a href="https://trailhead.salesforce.com/content/learn/modules/sandbox-management" target="_blank" rel="noopener">Sandbox Management</a>
+        </td>
+      </tr>
+      <tr>
+        <td><strong><a href="#pillar-viii">VIII &middot; Detect &amp; Respond</a></strong></td>
+        <td>
+          <a href="https://trailhead.salesforce.com/content/learn/modules/event_monitoring" target="_blank" rel="noopener">Event Monitoring</a> &middot;
+          <a href="https://trailhead.salesforce.com/content/learn/modules/security-basics" target="_blank" rel="noopener">Security Basics (incl. Health Check)</a> &middot;
+          <a href="https://trailhead.salesforce.com/content/learn/modules/transaction-security-basics" target="_blank" rel="noopener">Transaction Security Basics</a>
+        </td>
+      </tr>
+      <tr>
+        <td><strong><a href="#pillar-ix">IX &middot; DevSecOps for DX</a></strong></td>
+        <td>
+          <a href="https://trailhead.salesforce.com/content/learn/trails/sfdx_get_started" target="_blank" rel="noopener">Salesforce DX</a> (trail) &middot;
+          <a href="https://trailhead.salesforce.com/content/learn/modules/unlocked-packages-for-customers" target="_blank" rel="noopener">Unlocked Packages</a> &middot;
+          <a href="https://trailhead.salesforce.com/content/learn/modules/application-lifecycle-management" target="_blank" rel="noopener">Application Lifecycle Management</a>
+        </td>
+      </tr>
+      <tr>
+        <td><strong><a href="#pillar-x">X &middot; Defensive AI</a></strong></td>
+        <td>
+          <a href="https://trailhead.salesforce.com/content/learn/modules/responsible-creation-of-artificial-intelligence" target="_blank" rel="noopener">Responsible Creation of Artificial Intelligence</a> &middot;
+          <a href="https://trailhead.salesforce.com/content/learn/modules/einstein-trust-layer" target="_blank" rel="noopener">Einstein Trust Layer</a> &middot;
+          <a href="https://trailhead.salesforce.com/content/learn/modules/agentforce-trust-and-security" target="_blank" rel="noopener">Agentforce Trust and Security</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="font-size: 12px; color: var(--text-secondary); margin-top: 14px;">Trailhead module URL formats and module names evolve. If a link 404s, search Trailhead by topic name; the badge is usually still there.</p>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     APPENDIX U  ::  SALESFORCE WELL-ARCHITECTED FRAMEWORK MAPPING
+     ════════════════════════════════════════════════════════════════════════ -->
+<div class="card" id="appendix-u" data-search="appendix u salesforce well architected framework lens trusted secure compliant reliable adaptable resilient composable governed value mapping">
+  <h2>Appendix U &middot; Salesforce Well-Architected Framework Mapping</h2>
+  <p>The Salesforce Well-Architected Framework structures architectural decisions across three lenses
+  (<strong>Trusted</strong>, <strong>Adaptable</strong>, <strong>Composable</strong>) with several
+  habits/principles per lens. This appendix maps the ten pillars into the framework so that teams using
+  Well-Architected as their primary architectural discipline can locate the hardening guidance within
+  their existing structure.</p>
+
+  <p style="background: rgba(255,154,60,0.10); border-left: 4px solid #FF9A3C; padding: 10px 14px; font-size: 13px;">
+    <strong>Note on framework currency.</strong> The Well-Architected Framework's lens / habit names
+    evolve. Verify habit naming against <a href="https://architect.salesforce.com/well-architected/" target="_blank" rel="noopener">architect.salesforce.com/well-architected</a>
+    for the version you're aligning against; this mapping uses the published structure as of source-snapshot 2026-05-04.
+  </p>
+
+  <h3>U.1 Trusted lens</h3>
+  <table>
+    <thead><tr><th>Habit / Principle</th><th>Pillars</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Secure</strong> &mdash; Identity, access control, threat protection, secure development</td><td><a href="#pillar-i">I</a>, <a href="#pillar-ii">II</a>, <a href="#pillar-iii">III</a>, <a href="#pillar-iv">IV</a>, <a href="#pillar-v">V</a>, <a href="#pillar-vi">VI</a></td></tr>
+      <tr><td><strong>Compliant</strong> &mdash; Regulatory and industry obligations</td><td><a href="#vii-compliance">VII.9</a>, <a href="#appendix-p">App. P</a>, <a href="#appendix-r">App. R</a></td></tr>
+      <tr><td><strong>Reliable</strong> &mdash; Resilience, monitoring, recovery</td><td><a href="#pillar-viii">VIII</a>, <a href="#vii-backup">VII.6</a></td></tr>
+      <tr><td><strong>Resilient</strong> &mdash; Failure tolerance, business continuity</td><td><a href="#vii-backup">VII.6</a>, <a href="#viii-irp">VIII.6</a>, <a href="#appendix-q">App. Q</a></td></tr>
+      <tr><td><strong>Performant</strong> &mdash; Operational efficiency under load</td><td><a href="#viii-real-time-em">VIII.3</a> (avoid log-volume blowback)</td></tr>
+    </tbody>
+  </table>
+
+  <h3>U.2 Adaptable lens</h3>
+  <table>
+    <thead><tr><th>Habit / Principle</th><th>Pillars</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Resilient</strong> &mdash; Survives change without breaking</td><td><a href="#ii-permset-migration">II.2</a> (PSG migration), <a href="#v-cert-rotation">V.3</a> (cert rotation cadence)</td></tr>
+      <tr><td><strong>Future-proof</strong> &mdash; Architectural decisions that age well</td><td><a href="#iv-eca-transition">IV.1</a> (ECA over ConnectedApp)</td></tr>
+      <tr><td><strong>Maintainable</strong> &mdash; Sustained ops without heroics</td><td><a href="#pillar-ix">IX</a>, <a href="#appendix-o">App. O</a> (operational cadence)</td></tr>
+    </tbody>
+  </table>
+
+  <h3>U.3 Composable lens</h3>
+  <table>
+    <thead><tr><th>Habit / Principle</th><th>Pillars</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Modular</strong> &mdash; Discrete, recombinable building blocks</td><td><a href="#ii-permset-migration">II.2</a> (PSG composition), <a href="#v-named-credentials">V.1</a> (NC + EC decomposition)</td></tr>
+      <tr><td><strong>Layered</strong> &mdash; Clear separation of concerns</td><td><a href="#pillar-vi">VI</a> (Apex run-mode boundaries), <a href="#x-trust-layer">X.3</a> (Trust Layer)</td></tr>
+      <tr><td><strong>Governed</strong> &mdash; Decisions are visible, auditable</td><td><a href="#pillar-ix">IX</a>, <a href="#provenance">Provenance</a></td></tr>
+    </tbody>
+  </table>
+
+  <h3>U.4 Reading guide</h3>
+  <p>If your architectural discipline is Well-Architected-led, treat this appendix as the routing layer:
+  start from a habit you're working on, jump into the corresponding pillar, then reach for the matching
+  reference-implementation artifact in <a href="./reference-impl/"><code>reference-impl/</code></a>.</p>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     APPENDIX V  ::  INDUSTRY-SPECIFIC OVERLAYS
+     ════════════════════════════════════════════════════════════════════════ -->
+<div class="card" id="appendix-v" data-search="appendix v industry specific overlays financial services cloud fsc health cloud public sector government industries vlocity omnistudio b2b commerce b2c commerce">
+  <h2>Appendix V &middot; Industry-Specific Overlays</h2>
+  <p>The ten pillars are general-purpose Salesforce CRM hardening; each industry vertical adds its own
+  threat model, regulatory frame, and architectural specialization. This appendix sketches the deltas.</p>
+
+  <h3>V.1 Financial Services Cloud (FSC)</h3>
+  <ul>
+    <li><strong>Compliance overlay:</strong> GLBA Safeguards Rule, NYDFS Part 500, FFIEC, sectoral state regulators. <a href="#appendix-p">App. P</a>'s SOC 2 / PCI / GLBA mappings apply directly.</li>
+    <li><strong>FSC-specific data sensitivity:</strong> the <code>FinancialAccount</code>, <code>Securities Holdings</code>, and <code>Card</code> objects carry by-default-sensitive data. Treat as Restricted classification (Pillar VII.1).</li>
+    <li><strong>Connected Apps:</strong> custodian-bank integrations, depository-clearance integrations, KYC/AML vendor integrations are per-user-named-principal candidates (Pillar V.4).</li>
+    <li><strong>Mutual TLS:</strong> generally required for FedWire / SWIFT / ACH gateways. Pillar V.2 + 2026 cert transitions are operationally critical.</li>
+    <li><strong>Common breach motif:</strong> wire-transfer fraud via business email compromise feeding back into a Salesforce-tracked deal flow; gate large-dollar workflows with Transaction Security policies (Pillar VIII.5).</li>
+  </ul>
+
+  <h3>V.2 Health Cloud</h3>
+  <ul>
+    <li><strong>Compliance overlay:</strong> HIPAA Privacy + Security + Breach Notification Rules, state HIE (health-information-exchange) statutes, 42 CFR Part 2 for substance-abuse records, and the HIPAA Right of Access (NOT covered by Privacy Center; bespoke Apex usually required).</li>
+    <li><strong>Health Cloud-specific objects:</strong> <code>HealthCloudGA__EhrEncounter__c</code>, care plan, problem-list, medication objects carry PHI. Field Audit Trail mandatory; Shield Platform Encryption strongly recommended.</li>
+    <li><strong>BAA-bound integrations:</strong> every Connected App and ISV touching PHI must be covered by a Business Associate Agreement. Pillar IV procurement framing.</li>
+    <li><strong>Patient portals (Experience Cloud):</strong> Pillar III hardening is non-negotiable; Krebs-pattern guest-profile exposure of PHI is an OCR fine in waiting.</li>
+    <li><strong>Hyperforce + EEE</strong> (Pillar VII.7): increasingly relevant for HIPAA's "appropriate technical safeguards" standard, particularly around BYOK.</li>
+  </ul>
+
+  <h3>V.3 Public Sector / Government Cloud</h3>
+  <ul>
+    <li><strong>Authorization overlay:</strong> FedRAMP (Moderate / High depending on workload), StateRAMP, IL2 / IL4 / IL5 for DoD-aligned tenants. Salesforce Government Cloud Plus carries FedRAMP High; Salesforce Government Cloud carries FedRAMP Moderate.</li>
+    <li><strong>Identity overlay:</strong> typically PIV / CAC / DERILVED-PIV smart card auth via SAML; Pillar I.5 SSO architecture extended with smart-card support; FIDO2 hardware key (YubiKey 5 FIPS) often acceptable as an alternative.</li>
+    <li><strong>Data-residency overlay:</strong> Hyperforce region restricted to specific US regions for FedRAMP-bound workloads. Pillar VII.7.</li>
+    <li><strong>Public-records / FOIA:</strong> retention policies often legally fixed and longer than commercial defaults. Pillar VII.8 + VII.9.</li>
+    <li><strong>Common breach motif:</strong> Krebs-pattern Experience Cloud exposure of resident data (the Vermont incident is the canonical example); Pillar III hardening is the entire mitigation.</li>
+  </ul>
+
+  <h3>V.4 Industries Cloud (Vlocity / OmniStudio)</h3>
+  <ul>
+    <li><strong>Architectural specialization:</strong> OmniScripts, FlexCards, Integration Procedures, DataRaptors. Each has a distinct security model that does not map 1:1 onto core Apex / LWC / Flow.</li>
+    <li><strong>OmniScript / Integration Procedure security:</strong> these run via a managed-package Apex layer; understand who-runs-as semantics for each step. Treat as Pillar VI, with Vlocity-specific verification needed.</li>
+    <li><strong>DataRaptors:</strong> read/write data without USER_MODE awareness; explicit FLS validation in the DataRaptor configuration is required. Audit every DataRaptor that touches sensitive objects.</li>
+    <li><strong>FlexCards reachable from guest:</strong> same exposure pattern as Aura / LWC in Pillar III. Audit every FlexCard granted to a guest profile.</li>
+    <li><strong>Contract / claim / order data:</strong> typically Restricted classification; Field Audit Trail recommended.</li>
+  </ul>
+
+  <h3>V.5 B2B Commerce / B2C Commerce</h3>
+  <ul>
+    <li><strong>Compliance overlay:</strong> PCI DSS v4.0 if cardholder data ever touches the org (it shouldn't &mdash; payment processors should tokenize at the page-load layer). Pillar VII.1 classification + Pillar V.2 mTLS to payment gateways.</li>
+    <li><strong>B2C storefront (Experience Cloud):</strong> the entire Pillar III applies. The customer-facing site IS a guest-user surface; product-catalog metadata is intentionally exposed but customer accounts and order history are not.</li>
+    <li><strong>Cart / order objects:</strong> WebCart, CartItem, Order, OrderItem; treat as Confidential classification minimum.</li>
+    <li><strong>Connected Apps:</strong> ERP / inventory / payment-gateway / fraud-screening integrations are dense in B2B/B2C. Pillar IV's quarterly attestation is operationally critical given the integration count.</li>
+    <li><strong>Common breach motif:</strong> credential-stuffing into customer accounts (loyalty fraud, gift-card cashout). Threat Detection's credential-stuffing signal (Pillar VIII.4) is one of the highest-value-per-cost detections in this vertical.</li>
+  </ul>
+
+  <p style="margin-top: 18px; font-size: 12px; color: var(--text-secondary);">Each overlay above is a starting point. Industry-specific Salesforce architecture is a deep specialty; pair this hardening reference with the corresponding Salesforce Industry Implementation Guide for your vertical.</p>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════════════
      DISCLOSURES + COPYRIGHT
      ════════════════════════════════════════════════════════════════════════ -->
 <div class="card" id="disclosures" data-search="disclosures copyright trademarks ai assisted disclaimer salesforce anthropic independent vendor neutral">
