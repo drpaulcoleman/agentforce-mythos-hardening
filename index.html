@@ -17,18 +17,18 @@
   This document is independent and not affiliated with, endorsed by, or sponsored by
   Salesforce, Inc. or Anthropic, PBC.
 
-  Salesforce(R), Agentforce(TM), Einstein(TM), Data Cloud(TM), Apex(TM), Flow(TM),
-  Lightning(R), Shield(TM), Trailhead(TM), Hyperforce(TM) and related marks are
-  trademarks of Salesforce, Inc. Claude(TM), Opus(TM), Sonnet(TM), Haiku(TM), and
-  Project Glasswing are trademarks of Anthropic, PBC. Used here for educational and
-  technical reference purposes only.
+  Trademarks: Salesforce, Inc.; Anthropic, PBC; OpenAI, Inc.; Google LLC; Microsoft
+  Corporation; Apple Inc.; Yubico, Inc.; the FIDO Alliance; and other rights-holders
+  retain ownership of the marks referenced herein. Used under nominative fair use
+  for educational and technical reference. See the Disclosures, Copyright &
+  Trademarks section near the end of this document for the full attribution list.
 -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Mythos Imperative &mdash; Salesforce CRM Security Hardening</title>
-<meta name="document-version" content="1.5.3">
+<meta name="document-version" content="1.5.4">
 <meta name="last-modified" content="2026-05-04">
 <meta name="source-snapshot" content="2026-05-04">
 <meta name="description" content="The Mythos Imperative: a vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars from Identity to Defensive AI; twenty-two appendices.">
@@ -38,7 +38,7 @@
 
 <!-- Open Graph / social-share metadata -->
 <meta property="og:type" content="article">
-<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.3">
+<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.4">
 <meta property="og:description" content="Vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars, 16+ appendices, fully attributed.">
 <meta property="og:url" content="https://drpaulcoleman.github.io/agentforce-mythos-hardening/">
 <meta property="og:site_name" content="Salesforce CRM Security Hardening">
@@ -49,7 +49,7 @@
 
 <!-- Twitter / X card metadata -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.3">
+<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.4">
 <meta name="twitter:description" content="Threat-informed Salesforce hardening reference. Ten pillars from Identity to Defensive AI, with a companion Salesforce DX reference implementation.">
 
 <!-- Errata / contributions -->
@@ -1214,6 +1214,17 @@ pre.mermaid g.node[onclick]:hover > path {
    specialist readers don't stall on jargon. Collapses to inline block
    on narrow screens; prints as a self-contained box for offline PDFs.
    ═══════════════════════════════════════════════════════════════════════ */
+/* Block-level content that should never get squeezed by a floating .aside-learn:
+   diagrams, code blocks, and tables drop below any active right-float and take
+   the full card width. Prose paragraphs still flow alongside the aside. */
+.card pre.mermaid,
+.card pre[class*="language-"],
+.card pre:not(.mermaid),
+.card table,
+.card .mermaid {
+  clear: both;
+}
+
 .aside-learn {
   float: right; clear: right;
   width: 270px;
@@ -1581,7 +1592,7 @@ pre.mermaid g.node[onclick]:hover > path {
     </div>
     <div>
       <h1><span class="phase-tag">The Mythos Imperative</span><span class="phase-sep">&mdash;</span>Salesforce CRM Security Hardening</h1>
-      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.3 &middot; last modified 2026-05-04</span>
+      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.4 &middot; last modified 2026-05-04</span>
     </div>
   </div>
   <div class="doc-meta">
@@ -1996,7 +2007,7 @@ gantt
 
 <!-- TECH · Hero ---------------------------------------------------------- -->
 <div class="card hero" id="hero" data-search="hero overview salesforce crm security hardening defender encyclopedia frontier ai mythos">
-  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.3 &middot; last modified 2026-05-04</p>
+  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.4 &middot; last modified 2026-05-04</p>
   <h1>The <span class="accent">Mythos Imperative</span><br/><span style="font-size:24px; font-weight:700; opacity:0.92; display:block; margin-top:6px;">A Defender's Encyclopedia for the Frontier-AI Era</span></h1>
   <p class="lede" style="border-left: 3px solid var(--sf-orange); padding: 6px 0 6px 16px; margin-left: 0;">
     <strong style="color: var(--sf-orange); letter-spacing: 0.04em;">Why this exists, why now.</strong>
@@ -6405,6 +6416,15 @@ DIFF:
     <thead><tr><th>Version</th><th>Date</th><th>Change</th><th>Author</th></tr></thead>
     <tbody>
       <tr>
+        <td><strong>1.5.4</strong></td>
+        <td>2026-05-04</td>
+        <td><strong>Trademark attribution &mdash; full coverage pass, plus diagram-vs-aside clear-float fix.</strong>
+        (1) The prior Trademarks paragraph leaned on the catch-all "all other trademarks are the property of their respective owners" clause and listed only ~12 marks explicitly. For a document anchored in branded products, that was thin. Expanded to a structured, multi-paragraph attribution: full Salesforce family (Experience Cloud, AppExchange, every Cloud variant, Vlocity, OmniStudio, OmniScript, DataRaptor, FlexCard, Integration Procedure, MuleSoft, Tableau, Slack, Heroku, Visualforce, Aura, Lightning Web Components, Salesforce DX, Connected App / External Client App, Data Mask, Privacy Center, Security Center, Field Audit Trail, Real-Time Event Monitoring, Threat Detection, Transaction Security, Setup Audit Trail, Login History, Health Check, Permission Set Group, Trust Layer); Anthropic (added Claude Security, Claude Code, Claude Enterprise) with a public-naming note on "Mythos"; OpenAI (added Codex CLI); Google (added Chrome / Chrome Enterprise / Google Cloud / Google Cloud Threat Intelligence / Google Chronicle / Mandiant); Microsoft (entire entry added &mdash; Sentinel, Edge, Edge Enterprise, Copilot, Azure); Apple (Safari); other vendors and standards (Yubico / YubiKey, Splunk via Cisco, Elastic, New Relic, ServiceNow, Salesloft / Drift, DigiCert, FIDO2 / FIDO Alliance, WebAuthn, PMD, SOC 2 / PCI DSS); explicit note on threat-actor designations (UNC6040, UNC6395, ShinyHunters) being public tracking identifiers, not trademarks; publication-name list under fair-use citation; expanded nominative-fair-use closing clause covering competitor-mark co-occurrence and good-faith correction on rights-holder notice.
+        (2) <strong>Mermaid diagram float-clear fix.</strong> User reported the Pillar 2 Permission Waterfall diagram became unreadable on the deployed v1.5.0 page &mdash; root cause was the new <code>.aside-learn</code> right-floating callout in the same card compressing the diagram canvas to the leftover horizontal space. Added <code>clear: both</code> to <code>.card pre.mermaid</code>, <code>.card pre[class*="language-"]</code>, and <code>.card table</code> so any large block element drops below floating asides and gets the full card width. Asides still float for prose paragraphs; only diagrams, code blocks, and tables clear.
+        Header HTML comment block also updated to point readers at the full Disclosures section.</td>
+        <td>Dr. Paul Coleman</td>
+      </tr>
+      <tr>
         <td><strong>1.5.3</strong></td>
         <td>2026-05-04</td>
         <td><strong>Audit-residue cleanup, minimap removal, AI-coach RAG payload.</strong>
@@ -7235,7 +7255,7 @@ SELECT UserId, LastUsedDate FROM OauthToken WHERE AppName = 'ISV_APP_NAME'</code
     });
     exportBtn.addEventListener('click', function() {
       var snapshot = {
-        framework: 'Salesforce CRM Security Hardening v1.5.3',
+        framework: 'Salesforce CRM Security Hardening v1.5.4',
         scored_at: new Date().toISOString(),
         scores: loadStored(),
         average: parseFloat(avgEl.textContent) || 0,
@@ -7530,12 +7550,34 @@ SELECT UserId, LastUsedDate FROM OauthToken WHERE AppName = 'ISV_APP_NAME'</code
   </p>
   <h3>Trademarks</h3>
   <p style="font-size: 12px;">
-    Salesforce&reg;, Agentforce&trade;, Einstein&trade;, Data Cloud&trade;, Apex&trade;, Flow&trade;,
-    Lightning&reg;, Shield&trade;, Trailhead&trade;, Hyperforce&trade;, Pub/Sub API&trade;, and related marks
-    are trademarks of Salesforce, Inc. Claude&trade;, Opus&trade;, Sonnet&trade;, Haiku&trade;, and Project
-    Glasswing are trademarks of Anthropic, PBC. ChatGPT&trade; and o-series are trademarks of OpenAI, Inc.
-    Gemini&trade; is a trademark of Google LLC. All other trademarks are the property of their respective
-    owners. Used here for educational and technical reference purposes only under nominative fair use.
+    <strong>Salesforce family.</strong> Salesforce&reg;, Agentforce&trade;, Einstein&trade;, Trust Layer&trade;, Data Cloud&trade;, Apex&trade;, Flow&trade;, Lightning&reg;, Lightning Web Components&trade; (LWC), Visualforce&reg;, Aura&trade;, Shield&trade;, Trailhead&reg;, Hyperforce&trade;, Pub/Sub API&trade;, AppExchange&reg;, Salesforce DX&trade; (SFDX), Sales Cloud&reg;, Service Cloud&reg;, Experience Cloud&trade;, Health Cloud&trade;, Financial Services Cloud&trade;, Government Cloud&trade;, Government Cloud Plus&trade;, Marketing Cloud&trade;, Industries Cloud&trade;, B2B Commerce&trade;, B2C Commerce&trade;, Vlocity&reg;, OmniStudio&trade;, OmniScript&trade;, DataRaptor&trade;, FlexCard&trade;, Integration Procedure&trade;, MuleSoft&reg;, Tableau&reg;, Slack&reg;, Heroku&reg;, Connected App&trade;, External Client App&trade;, Data Mask&trade;, Privacy Center&trade;, Security Center&trade;, Field Audit Trail&trade;, Real-Time Event Monitoring&trade;, Threat Detection&trade;, Transaction Security&trade;, Setup Audit Trail&trade;, Login History&trade;, Health Check&trade;, Permission Set Group&trade;, and related marks are trademarks of Salesforce, Inc.
+  </p>
+  <p style="font-size: 12px;">
+    <strong>Anthropic.</strong> Claude&trade;, Opus&trade;, Sonnet&trade;, Haiku&trade;, Claude Security&trade;, Claude Code&trade;, Claude Enterprise&trade;, and Project Glasswing&trade; are trademarks of Anthropic, PBC. <strong>"Mythos"</strong> as referenced herein is the public industry name used in Bloomberg / Salesforce Ben / CRN coverage to designate the restricted-access Anthropic model implicated in the April 2026 third-party-vendor incident; the canonical product naming for restricted Anthropic research efforts may evolve and Anthropic's primary communications govern.
+  </p>
+  <p style="font-size: 12px;">
+    <strong>OpenAI.</strong> ChatGPT&trade;, o-series&trade;, and Codex CLI&trade; are trademarks of OpenAI, Inc.
+  </p>
+  <p style="font-size: 12px;">
+    <strong>Google.</strong> Gemini&trade;, Chrome&trade;, Chrome Enterprise&trade;, Google Cloud&trade;, Google Cloud Threat Intelligence&trade;, Google Chronicle&trade;, and Mandiant&reg; are trademarks of Google LLC.
+  </p>
+  <p style="font-size: 12px;">
+    <strong>Microsoft.</strong> Microsoft Sentinel&trade;, Microsoft Edge&trade;, Edge Enterprise&trade;, Copilot&trade;, and Azure&reg; are trademarks of Microsoft Corporation.
+  </p>
+  <p style="font-size: 12px;">
+    <strong>Apple.</strong> Safari&reg; is a trademark of Apple Inc.
+  </p>
+  <p style="font-size: 12px;">
+    <strong>Other vendors and standards.</strong> YubiKey&reg; is a registered trademark of Yubico, Inc. Splunk&reg; is a registered trademark of Splunk Inc. (a Cisco company). Elasticsearch&reg; / Elastic&reg; are registered trademarks of Elasticsearch B.V. New Relic&reg; is a registered trademark of New Relic, Inc. ServiceNow&reg; is a registered trademark of ServiceNow, Inc. Salesloft&reg; is a registered trademark of Salesloft, Inc.; Drift&trade; (now part of Salesloft) is a trademark of Drift.com, Inc. DigiCert&reg; is a registered trademark of DigiCert, Inc. FIDO2&reg; and FIDO&reg; are certification marks of the FIDO Alliance. WebAuthn is a W3C standard. PMD&trade; is a project of the Apache PMD community. SOC 2&reg; is a registered service mark of the AICPA. PCI DSS&reg; is a registered trademark of the PCI Security Standards Council. SSPM &middot; SIEM &middot; CASB &middot; DLP are common security-product category abbreviations and not trademarks of any single vendor.
+  </p>
+  <p style="font-size: 12px;">
+    <strong>Threat-actor designations.</strong> "UNC6040" and "UNC6395" are uncategorized-threat-cluster tracking identifiers maintained by Mandiant / Google Threat Intelligence Group. "ShinyHunters" is a community-recognized threat-actor moniker. These appear here as references to publicly reported incidents, not as trademarks.
+  </p>
+  <p style="font-size: 12px;">
+    <strong>Publication names cited under fair-use citation</strong> (Krebs on Security, Salesforce Ben, Apex Hours, Bloomberg&reg;, CRN&reg;, BleepingComputer, Help Net Security, BlackFog, NetSecurity, Synexc, SQ Magazine, Vantage Point, enosix, Mitiga, AppOmni, Reco, WithSecure&reg;, Varonis&reg;) are properties of their respective publishers / vendors and appear here as bibliographic references.
+  </p>
+  <p style="font-size: 12px;">
+    All other trademarks, service marks, and certification marks are the property of their respective owners. Marks appear in this document in accordance with the doctrine of <strong>nominative fair use</strong>: each mark is used solely to refer to the actual product, service, organization, or incident it identifies; no sponsorship, endorsement, or affiliation by any rights-holder is claimed or implied. Where a mark is owned by a competitor of another mark referenced in the same paragraph, both marks appear by name without ranking. Where any rights-holder believes a reference here is non-compliant with their policy, the author will correct the reference in good faith on notice.
   </p>
   <h3>Copyright</h3>
   <p style="font-size: 12px;">
