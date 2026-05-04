@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   Salesforce CRM Security Hardening — A Defender's Encyclopedia for the Frontier-AI Era
-  Document version 1.4.9 · Last modified 2026-05-04
+  Document version 1.5.16 · Last modified 2026-05-04
   Copyright (c) 2026 Dr. Paul Coleman. All rights reserved.
 
   A vendor-neutral hardening reference for the customer side of the Salesforce
@@ -28,28 +28,28 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Mythos Imperative &mdash; Salesforce CRM Security Hardening</title>
-<meta name="document-version" content="1.5.15">
+<meta name="document-version" content="1.5.16">
 <meta name="last-modified" content="2026-05-04">
 <meta name="source-snapshot" content="2026-05-04">
-<meta name="description" content="The Mythos Imperative: a vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars from Identity to Defensive AI; twenty-two appendices.">
+<meta name="description" content="The Mythos Imperative: a vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars from Identity to Defensive AI; nineteen appendices.">
 <meta name="author" content="Dr. Paul Coleman">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://drpaulcoleman.github.io/agentforce-mythos-hardening/">
 
 <!-- Open Graph / social-share metadata -->
 <meta property="og:type" content="article">
-<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.15">
-<meta property="og:description" content="Vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars, 16+ appendices, fully attributed.">
+<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.16">
+<meta property="og:description" content="Vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars, 19 appendices, fully attributed.">
 <meta property="og:url" content="https://drpaulcoleman.github.io/agentforce-mythos-hardening/">
 <meta property="og:site_name" content="Salesforce CRM Security Hardening">
 <meta property="og:locale" content="en_US">
 <meta property="article:author" content="Dr. Paul Coleman">
-<meta property="article:published_time" content="2026-05-03T00:00:00Z">
+<meta property="article:published_time" content="2026-05-04T00:00:00Z">
 <meta property="article:modified_time" content="2026-05-04T00:00:00Z">
 
 <!-- Twitter / X card metadata -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.15">
+<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.16">
 <meta name="twitter:description" content="Threat-informed Salesforce hardening reference. Ten pillars from Identity to Defensive AI, with a companion Salesforce DX reference implementation.">
 
 <!-- Errata / contributions -->
@@ -1714,13 +1714,13 @@ pre.mermaid g.node[onclick]:hover > path {
     </div>
     <div>
       <h1><span class="phase-tag">The Mythos Imperative</span><span class="phase-sep">&mdash;</span>Salesforce CRM Security Hardening</h1>
-      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.15 &middot; last modified 2026-05-04</span>
+      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.16 &middot; last modified 2026-05-04</span>
     </div>
   </div>
   <div class="doc-meta">
     <span><span class="dot dot-section"></span>Pillars: <b>10</b></span>
     <span><span class="dot dot-path"></span>Appendices: <b>19</b></span>
-    <span><span class="dot dot-diagram"></span>Diagrams: <b>20+</b></span>
+    <span><span class="dot dot-diagram"></span>Diagrams: <b>15</b></span>
   </div>
   <input id="search-box" type="text" placeholder="Search sections, patterns, APIs... ( / to focus )">
   <span id="search-count" title="Matches found"></span>
@@ -1846,14 +1846,14 @@ pre.mermaid g.node[onclick]:hover > path {
 
 <!-- EXEC · Hero ---------------------------------------------------------- -->
 <div class="card hero" id="exec-hero" data-exec-only data-search="hero executive overview elevator pitch security hardening salesforce">
-  <p class="eyebrow">Executive Summary &middot; Salesforce CRM Security Hardening &middot; v1.0.0 &middot; last modified 2026-05-03</p>
+  <p class="eyebrow">Executive Summary &middot; Salesforce CRM Security Hardening &middot; v1.0.0 &middot; last modified 2026-05-04</p>
   <h1>Most Salesforce breaches aren't <span class="accent">platform breaches.</span></h1>
   <p class="lede">
     They are <strong>customer-side configuration, integration, and human-factor breaches</strong> &mdash; vishing,
     OAuth abuse, misconfigured Experience Cloud guest profiles, and rogue browser extensions. The frontier-AI
     threat (Anthropic's Claude Mythos) is real but contained; the actual attack surface in 2024&ndash;2026 looks
     a lot like the attack surface of 2019, just faster and louder. <strong>This document is the customer side
-    of the Salesforce trust partnership: ten hardening pillars, fourteen appendices, vendor-neutral, fully
+    of the Salesforce trust partnership: ten hardening pillars, nineteen appendices, vendor-neutral, fully
     attributed.</strong>
   </p>
   <div class="exec-kpi-grid">
@@ -2129,7 +2129,7 @@ gantt
 
 <!-- TECH · Hero ---------------------------------------------------------- -->
 <div class="card hero" id="hero" data-search="hero overview salesforce crm security hardening defender encyclopedia frontier ai mythos">
-  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.15 &middot; last modified 2026-05-04</p>
+  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.16 &middot; last modified 2026-05-04</p>
   <h1>The <span class="accent">Mythos Imperative</span><br/><span style="font-size:24px; font-weight:700; opacity:0.92; display:block; margin-top:6px;">A Defender's Encyclopedia for the Frontier-AI Era</span></h1>
   <p class="lede" style="border-left: 3px solid var(--sf-orange); padding: 6px 0 6px 16px; margin-left: 0;">
     <strong style="color: var(--sf-orange); letter-spacing: 0.04em;">Why this exists, why now.</strong>
@@ -2157,7 +2157,7 @@ gantt
   <div class="exec-kpi-grid">
     <div class="exec-kpi"><span class="kpi-num">10</span><span class="kpi-label">Hardening Pillars</span><span class="kpi-sub">Identity &rarr; Defensive AI</span></div>
     <div class="exec-kpi"><span class="kpi-num">19</span><span class="kpi-label">Appendices</span><span class="kpi-sub">Apex, metadata, runbooks, scorecard</span></div>
-    <div class="exec-kpi"><span class="kpi-num">20+</span><span class="kpi-label">Mermaid Diagrams</span><span class="kpi-sub">Sequence, state, flow, gantt, C4</span></div>
+    <div class="exec-kpi"><span class="kpi-num">15</span><span class="kpi-label">Mermaid Diagrams</span><span class="kpi-sub">Sequence, state, flow, gantt, C4</span></div>
     <div class="exec-kpi"><span class="kpi-num">100%</span><span class="kpi-label">Attribution</span><span class="kpi-sub">APA-formatted, retrieval-dated</span></div>
   </div>
 </div>
@@ -2287,8 +2287,7 @@ gantt
   <ol>
     <li><strong>Vishing &rarr; OAuth grant abuse (UNC6040 / ShinyHunters).</strong> Attackers impersonate IT
     support over voice, talk the user through visiting Salesforce's verification page, capture the verification
-    code, and ride a freshly-issued OAuth access token into the user's Data Loader. Targets included
-    Confirmed in primary reporting include Google, Cisco, Adidas, Qantas, Allianz Life, and LVMH-group brands (Louis Vuitton, Dior, Tiffany &amp; Co.)<sup><a href="#ref-16" class="ref-link">[16]</a><a href="#ref-17" class="ref-link">[17]</a></sup>; additional names appearing in secondary coverage include Pandora, Chanel, and Starbucks Singapore (treat as not yet primary-source-confirmed).
+    code, and ride a freshly-issued OAuth access token into the user's Data Loader. Confirmed targets in primary reporting include Google, Cisco, Adidas, Qantas, Allianz Life, and LVMH-group brands (Louis Vuitton, Dior, Tiffany &amp; Co.)<sup><a href="#ref-16" class="ref-link">[16]</a><a href="#ref-17" class="ref-link">[17]</a></sup>; additional names appearing in secondary coverage include Pandora, Chanel, and Starbucks Singapore (treat as not yet primary-source-confirmed).
     Per <a href="https://cloud.google.com/blog/topics/threat-intelligence/voice-phishing-data-extortion" target="_blank" rel="noopener">Google Threat Intelligence</a><sup><a href="#ref-17" class="ref-link">[17]</a></sup>, the campaign was a coordinated extortion operation.</li>
 
     <li><strong>ISV / Connected App supply-chain compromise (UNC6395 / Salesloft Drift).</strong> Attackers
@@ -2682,7 +2681,7 @@ sequenceDiagram
   <ol>
     <li><strong>Session Security Levels</strong> on Connected App OAuth Policies &mdash; declarative</li>
     <li><strong>Custom Login Flow</strong> with a Visualforce or Flow Builder page that calls
-    <code>Auth.SessionManagement.setSessionLevel('HIGH_ASSURANCE')</code> after re-challenge &mdash;
+    <code>Auth.SessionManagement.setSessionLevel(Auth.SessionLevel.HIGH_ASSURANCE)</code> after re-challenge &mdash;
     declarative + a small Apex helper</li>
     <li><strong>Transaction Security policy</strong> with Action <code>Multi-Factor Authentication</code>
     &mdash; rule-based, runs at event time</li>
@@ -4691,7 +4690,7 @@ flowchart LR
   </ul>
   <h3>Detection</h3>
   <ul>
-    <li>Real-Time EM: <code>RestApiEvent</code> outbound is not directly captured, but Apex callout latency
+    <li>Real-Time EM: <code>ApiEvent</code> captures inbound REST traffic; outbound callouts are not directly captured, but Apex callout latency
     spikes show in <code>ApexExecutionEvent</code> &mdash; baseline normal callout patterns</li>
     <li>Outbound Messages have their own retry log; large delivery queues to unknown endpoints are a signal</li>
   </ul>
@@ -5126,9 +5125,9 @@ flowchart LR
     <li><strong>LoginEvent</strong>: every login; correlate with Login History</li>
     <li><strong>ReportEvent</strong>: report runs; chunked output</li>
     <li><strong>ListViewEvent</strong>: list view runs</li>
-    <li><strong>ApiEvent</strong>: every API call</li>
-    <li><strong>RestApiEvent</strong>: inbound REST API activity (calls landing on Salesforce; not Apex outbound callouts)</li>
-    <li><strong>BulkApiEvent</strong>: Bulk API operations &mdash; the UNC6040 detection hotspot</li>
+    <li><strong>ApiEvent</strong>: every inbound REST/SOAP API call (this is the catch-all for inbound API activity; not Apex outbound callouts)</li>
+    <li><strong>ApiAnomalyEvent</strong>: Threat-Detection-flagged anomalous API behavior</li>
+    <li><strong>BulkApiResultEvent</strong>: Bulk API operations &mdash; the UNC6040 detection hotspot</li>
     <li><strong>UriEvent</strong>: page visits; gives you a sense of in-app navigation</li>
     <li><strong>LogoutEvent</strong>: end-of-session signal; Logout Event Triggers can run Apex</li>
     <li><strong>TransactionSecurityEvent</strong>: every Transaction Security action taken</li>
@@ -5177,7 +5176,7 @@ flowchart LR
     <thead><tr><th>Policy</th><th>Event</th><th>Action</th><th>Condition</th></tr></thead>
     <tbody>
       <tr><td>Anomalous Report Export</td><td>ReportEvent</td><td>MFA</td><td>RowsProcessed &gt; 10000 OR off-hours</td></tr>
-      <tr><td>Bulk API from non-trusted IP</td><td>BulkApiEvent</td><td>Block</td><td>SourceIP not in Trusted IP Ranges</td></tr>
+      <tr><td>Bulk API from non-trusted IP</td><td>BulkApiResultEvent</td><td>Block</td><td>SourceIP not in Trusted IP Ranges</td></tr>
       <tr><td>Mass record update</td><td>ApiEvent</td><td>MFA</td><td>RowCount &gt; 5000 on sensitive object</td></tr>
       <tr><td>New device login</td><td>LoginEvent</td><td>Notify</td><td>UserAgent / Device fingerprint not in known list</td></tr>
       <tr><td>Off-hours admin action</td><td>ApiEvent / UriEvent</td><td>Notify</td><td>Setup endpoint outside business hours</td></tr>
@@ -6038,7 +6037,7 @@ gantt
   <h4>Detection signals</h4>
   <ul>
     <li>LoginEvent: <code>Application = 'Salesforce Data Loader'</code> from a previously-unseen IP</li>
-    <li>BulkApiEvent: <code>RowsProcessed</code> spike from the affected user within 60 minutes of login</li>
+    <li>BulkApiResultEvent: <code>RowsProcessed</code> spike from the affected user within 60 minutes of login</li>
     <li>OAuth Usage: a freshly-authorized Connected App with no business owner</li>
     <li>User report (out-of-band) of a suspicious phone call</li>
   </ul>
@@ -6053,7 +6052,7 @@ gantt
   <h4>Identify (target: 1 hour)</h4>
   <pre><code class="language-sql">// Bulk API activity by the affected user in the last 24h
 SELECT EventDate, Username, RowsProcessed, OperationType, SourceIp
-FROM BulkApiEvent
+FROM BulkApiResultEvent
 WHERE Username = 'AFFECTED_USER@example.com' AND EventDate = LAST_N_DAYS:1
 ORDER BY EventDate DESC
 
@@ -6091,7 +6090,7 @@ activity. We expect to provide a follow-up summary within [N] days.
   <ul>
     <li>Export Login History for affected user (last 30 days) to CSV; retain per regulatory window</li>
     <li>Export Setup Audit Trail rows touching this user / Connected App</li>
-    <li>Export Real-Time EM ApiEvent + BulkApiEvent + LoginEvent for the user (last 7 days)</li>
+    <li>Export Real-Time EM ApiEvent + BulkApiResultEvent + LoginEvent for the user (last 7 days)</li>
     <li>Snapshot the Connected App's metadata (XML) before deletion</li>
     <li>Hash the export bundle (SHA-256) and record the hash in the incident ticket</li>
   </ul>
@@ -6346,11 +6345,11 @@ public class AcmeSamlJitHandler implements Auth.SamlJitHandler {
         List&lt;AuthSession&gt; active = [
             SELECT Id, LastModifiedDate FROM AuthSession
             WHERE UsersId = :UserInfo.getUserId() AND IsCurrent = false
-            ORDER BY LastModifiedDate ASC WITH USER_MODE];
+            WITH USER_MODE ORDER BY LastModifiedDate ASC];
         if (active.size() &gt;= maxConcurrent) {
             // Revoke oldest sessions until under the limit
             for (Integer i = 0; i &lt; (active.size() - maxConcurrent + 1); i++) {
-                Auth.SessionManagement.endSession(active[i].Id);
+                delete active[i]; // remove the AuthSession record (with sharing required)
             }
         }
         return Auth.SessionManagement.finishLoginFlow();
@@ -6512,7 +6511,7 @@ return (List&lt;Contact&gt;) dec.getRecords();   // SSN__c stripped if running u
   <h2>Appendix E &middot; Transaction Security Policy Reference</h2>
   <div style="background: rgba(255,154,60,0.10); border-left: 4px solid #FF9A3C; padding: 12px 16px; margin: 12px 0; border-radius: 4px; font-size: 13px;">
     <strong>Code-sample disclaimer.</strong> Same as Appendix B. Field names on Real-Time Event Monitoring
-    objects (<code>BulkApiEvent.RowsProcessed</code>, <code>ReportEvent.RowsProcessed</code>,
+    objects (<code>BulkApiResultEvent.RowsProcessed</code>, <code>ReportEvent.RowsProcessed</code>,
     <code>UriEvent.RequestUrl</code>) and <code>TxnSecurity.EventCondition</code> interface contracts
     evolve. <strong>Verify against the Real-Time Event Monitoring developer documentation for your API
     version</strong> before relying on these conditions.
@@ -6521,7 +6520,7 @@ return (List&lt;Contact&gt;) dec.getRecords();   // SSN__c stripped if running u
   <h3>E.1 Block Bulk-API export &gt; 5,000 rows from non-trusted IP</h3>
   <pre><code class="language-java">global class BlockHighVolumeBulkApi implements TxnSecurity.EventCondition {
     public boolean evaluate(SObject event) {
-        BulkApiEvent e = (BulkApiEvent) event;
+        BulkApiResultEvent e = (BulkApiResultEvent) event;
         if (e.RowsProcessed == null || e.RowsProcessed &lt; 5000) return false;
         // Whitelist of trusted IP CIDR ranges
         Set&lt;String&gt; trusted = new Set&lt;String&gt;{ '203.0.113.0/24', '198.51.100.0/24' };
@@ -6701,8 +6700,8 @@ write_to_audit_log(hmac_sign(findings + findings_b))
     <li><code>ReportEventStream</code> / <code>ReportEvent</code> &mdash; report runs / exports</li>
     <li><code>ListViewEventStream</code> / <code>ListViewEvent</code> &mdash; list view runs / exports</li>
     <li><code>ApiEventStream</code> / <code>ApiEvent</code> &mdash; SOAP / REST API calls</li>
-    <li><code>RestApiEventStream</code> / <code>RestApiEvent</code> &mdash; REST-specific</li>
-    <li><code>BulkApiEvent</code> / <code>BulkApiResultEvent</code> &mdash; Bulk API jobs</li>
+    <li><code>ApiEvent</code> &mdash; inbound REST/SOAP API activity</li>
+    <li><code>BulkApiResultEvent</code> / <code>BulkApiResultEvent</code> &mdash; Bulk API jobs</li>
     <li><code>UriEvent</code> &mdash; page navigations</li>
     <li><code>LogoutEvent</code> &mdash; end-of-session</li>
     <li><code>TransactionSecurityEvent</code> &mdash; policy enforcement</li>
@@ -6712,7 +6711,7 @@ write_to_audit_log(hmac_sign(findings + findings_b))
   <h3>I.2 Sample SOQL queries</h3>
   <pre><code class="language-sql">-- All Bulk API exports &gt; 5K rows in the last 7 days
 SELECT EventDate, Username, RowsProcessed, OperationType, SourceIp
-FROM BulkApiEvent
+FROM BulkApiResultEvent
 WHERE RowsProcessed &gt; 5000 AND DAY_ONLY(CreatedDate) = LAST_N_DAYS:7
 ORDER BY EventDate DESC
 LIMIT 200
@@ -6785,7 +6784,7 @@ DO NOT include any actual customer data in your reasoning. Treat all inputs as i
 
   <h3>K.2 Anomaly policy authoring</h3>
   <pre><code>You are a Salesforce security developer. Author an Apex Transaction Security policy that:
-- Triggers on: {event_type}             # e.g., BulkApiEvent
+- Triggers on: {event_type}             # e.g., BulkApiResultEvent
 - Conditions: {natural_language_rule}   # e.g., "more than 5000 rows from non-trusted IP outside business hours"
 - Action: {Block | MFA | Notify}
 Use the TxnSecurity.EventCondition interface. Include unit tests covering positive and negative cases.
@@ -6994,8 +6993,8 @@ DIFF:
     </tbody>
   </table>
 
-  <h3>N.2 CIS Critical Security Controls v8</h3>
-  <p>CIS CSC v8<sup><a href="#ref-37" class="ref-link">[37]</a></sup> (a Salesforce-specific CIS Benchmark is not generally published as of source-snapshot 2026-05-03; this mapping uses the cross-platform CIS CSC):</p>
+  <h3>N.2 CIS Critical Security Controls v8.1</h3>
+  <p>CIS CSC v8.1<sup><a href="#ref-37" class="ref-link">[37]</a></sup> (a Salesforce-specific CIS Benchmark is not generally published as of source-snapshot 2026-05-04; this mapping uses the cross-platform CIS CSC):</p>
   <table>
     <thead><tr><th>CSC</th><th>Control</th><th>Pillars</th></tr></thead>
     <tbody>
@@ -7198,7 +7197,7 @@ DIFF:
     <li><strong>Stop the clock from racing you.</strong> Once "discovery" or "awareness" is documented, the clock is running. Document the timestamp precisely.</li>
     <li><strong>Engage counsel within hours, not days.</strong> Most jurisdictions' deadlines are too tight to defer legal review until the technical investigation finishes.</li>
     <li><strong>Do parallel paths.</strong> Forensics, customer-facing notification drafting, regulator-facing notification drafting, and the post-mortem can all run in parallel; serializing them blows your deadlines.</li>
-    <li><strong>Pre-stage the templates.</strong> The first draft of "what we say to a customer" is faster to edit than to compose under pressure. Keep your templates in version control alongside the runbooks (Appendix N).</li>
+    <li><strong>Pre-stage the templates.</strong> The first draft of "what we say to a customer" is faster to edit than to compose under pressure. Keep your templates in version control alongside the runbooks (Appendix A).</li>
     <li><strong>Track the multi-jurisdiction matrix.</strong> A breach affecting EU + UK + US residents has at least three independent statutory clocks. Build a per-incident tracker that lists each jurisdiction, its deadline, and the assigned owner.</li>
     <li><strong>Document the materiality call.</strong> For SEC 8-K, the 4-business-day clock starts on "materiality determination," not "incident discovery." Document the determination process and timestamp; this is itself a defensible artifact.</li>
   </ol>
@@ -7332,7 +7331,7 @@ DIFF:
     });
     exportBtn.addEventListener('click', function() {
       var snapshot = {
-        framework: 'Salesforce CRM Security Hardening v1.5.15',
+        framework: 'Salesforce CRM Security Hardening v1.5.16',
         scored_at: new Date().toISOString(),
         scores: loadStored(),
         average: parseFloat(avgEl.textContent) || 0,
@@ -7663,8 +7662,8 @@ DIFF:
   </p>
   <h3>Document metadata</h3>
   <p style="font-size: 12px; font-family: 'Source Code Pro', monospace;">
-    version 1.0.0 &middot; last modified 2026-05-03 &middot; source snapshot 2026-05-03 &middot;
-    Build identifier: SF-CRM-HARDENING-1.0.0
+    version 1.5.16 &middot; last modified 2026-05-04 &middot; source snapshot 2026-05-04 &middot;
+    Build identifier: SF-CRM-HARDENING-1.5.16
   </p>
 </div>
 
@@ -7714,12 +7713,12 @@ DIFF:
     <li id="ref-24" style="margin-bottom: 10px;"><span class="ref-marker">[24]</span> <strong>Salesforce Help.</strong> (n.d.). <em>Sharing rules overview (criteria limit, guest sharing rules)</em>. Salesforce Help. Retrieved May 4, 2026, from <a href="https://help.salesforce.com/s/articleView?id=sf.sharing_rules_overview.htm" target="_blank" rel="noopener">https://help.salesforce.com/s/articleView?id=sf.sharing_rules_overview.htm</a></li>
     <li id="ref-23" style="margin-bottom: 10px;"><span class="ref-marker">[23]</span> <strong>Salesforce.</strong> (2026, Spring). <em>Security Implementation Guide v66 (Spring ’26)</em> [PDF]. Salesforce. Retrieved May 4, 2026, from <a href="https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/securityImplGuide.pdf" target="_blank" rel="noopener">https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/securityImplGuide.pdf</a></li>
     <li id="ref-25" style="margin-bottom: 10px;"><span class="ref-marker">[25]</span> <strong>Salesforce Release Notes.</strong> (n.d.). <em>Secure Guest User Record Access</em> [critical update lineage]. Salesforce Help / Release Notes archives.</li>
-    <li id="ref-4" style="margin-bottom: 10px;"><span class="ref-marker">[4]</span> <strong>Salesforce Trust.</strong> (2026, April 13). <em>How Salesforce is preparing for the frontier AI threat landscape</em> [Status / security informational message #20000246; archived locally as part of source-snapshot 2026-05-03 because status posts may rotate out of the live feed]. Salesforce. Retrieved May 4, 2026, from <a href="https://status.salesforce.com/" target="_blank" rel="noopener">https://status.salesforce.com/</a></li>
+    <li id="ref-4" style="margin-bottom: 10px;"><span class="ref-marker">[4]</span> <strong>Salesforce Trust.</strong> (2026, April 13). <em>How Salesforce is preparing for the frontier AI threat landscape</em> [Status / security informational message #20000246; archived locally as part of source-snapshot 2026-05-04 because status posts may rotate out of the live feed]. Salesforce. Retrieved May 4, 2026, from <a href="https://status.salesforce.com/" target="_blank" rel="noopener">https://status.salesforce.com/</a></li>
     <li id="ref-10" style="margin-bottom: 10px;"><span class="ref-marker">[10]</span> <strong>Salesforce Trust.</strong> (n.d.). <em>Security pages</em>. Salesforce Trust. Retrieved May 4, 2026, from <a href="https://trust.salesforce.com/security" target="_blank" rel="noopener">https://trust.salesforce.com/security</a></li>
     <li id="ref-28" style="margin-bottom: 10px;"><span class="ref-marker">[28]</span> <strong>Synexc.</strong> (2025). <em>The new AppExchange security review: How to protect data and pass in 2025</em> [industry coverage]. Synexc Blogs. Retrieved May 4, 2026, from <a href="https://blogs.synexc.com/the-new-appexchange-security-review-how-to-protect-data-and-pass-in-2025/" target="_blank" rel="noopener">https://blogs.synexc.com/the-new-appexchange-security-review-how-to-protect-data-and-pass-in-2025/</a></li>
     <li id="ref-32" style="margin-bottom: 10px;"><span class="ref-marker">[32]</span> <strong>Vantage Point.</strong> (2026). <em>Salesforce certificate transitions 2026: What financial services firms need to know now</em>. Vantage Point Consulting. Retrieved May 4, 2026, from <a href="https://vantagepoint.io/blog/sf/salesforce-certificate-transitions-2026-what-financial-services-firms-need-to-know-now" target="_blank" rel="noopener">https://vantagepoint.io/blog/sf/salesforce-certificate-transitions-2026-what-financial-services-firms-need-to-know-now</a></li>
     <li id="ref-20" style="margin-bottom: 10px;"><span class="ref-marker">[20]</span> <strong>Vantage Point.</strong> (2026). <em>Salesforce security overhaul 2026: Email verification, MFA, IP restrictions complete guide</em>. Vantage Point Consulting. Retrieved May 4, 2026, from <a href="https://vantagepoint.io/blog/sf/salesforce-security-overhaul-2026-email-verification-mfa-preparation-guide" target="_blank" rel="noopener">https://vantagepoint.io/blog/sf/salesforce-security-overhaul-2026-email-verification-mfa-preparation-guide</a></li>
-    <li id="ref-16" style="margin-bottom: 10px;"><span class="ref-marker">[16]</span> <strong>Varonis / Avertium.</strong> (n.d.). <em>UNC6040 / ShinyHunters vishing campaign analysis</em> [industry coverage]. Varonis. Retrieved May 4, 2026, from <a href="https://www.varonis.com/blog/salesforce-vishing-threat-unc604" target="_blank" rel="noopener">https://www.varonis.com/blog/salesforce-vishing-threat-unc604</a></li>
+    <li id="ref-16" style="margin-bottom: 10px;"><span class="ref-marker">[16]</span> <strong>Varonis / Avertium.</strong> (n.d.). <em>UNC6040 / ShinyHunters vishing campaign analysis</em> [industry coverage]. Varonis. Retrieved May 4, 2026, from <a href="https://www.varonis.com/blog/salesforce-vishing-threat-unc6040" target="_blank" rel="noopener">https://www.varonis.com/blog/salesforce-vishing-threat-unc6040</a></li>
     <li id="ref-15" style="margin-bottom: 10px;"><span class="ref-marker">[15]</span> <strong>WithSecure.</strong> (2026). <em>2026 Salesforce threat landscape report</em> [vendor: cloud protection]. WithSecure / CloudProtection. Retrieved May 4, 2026, from <a href="https://cloudprotection.com/page/2026-salesforce-threat-report/" target="_blank" rel="noopener">https://cloudprotection.com/page/2026-salesforce-threat-report/</a></li>
   </ol>
   <h3 style="margin-top:24px;">Supplementary Source Catalog (un-numbered)</h3>
@@ -8135,7 +8134,13 @@ DIFF:
   /* ── Sidebar scroll spy (uses offsetTop for flow layout) ─────────── */
   var sidebarLinks = document.querySelectorAll('#sidebar nav a[href^="#"]');
   function updateActiveSidebar() {
-    var scrollY = viewport.scrollTop + 100; // small offset for "just below header"
+    /* The trigger line must sit BELOW the fixed-header chrome (60px header
+       + ~140px sticky view-tabs) AND below .card { scroll-margin-top: 150px }
+       so that after a click-to-scroll, the just-clicked section is found
+       with a non-negative distance. Pre-v1.5.16 this offset was 100, which
+       was less than scroll-margin-top, causing the previous section's link
+       to remain highlighted on downward navigation until further scroll. */
+    var scrollY = viewport.scrollTop + 200;
     var closest = null, closestDist = Infinity;
     sidebarLinks.forEach(function(link) {
       var id = link.getAttribute('href').slice(1);
@@ -8309,19 +8314,19 @@ DIFF:
       "Help me draft an email to my CIO summarizing what I'm about to do this week.",
       "What can go wrong if I do these checklist items in a sandbox first vs. straight to production?"
     ],
-    'appendix-q': [
+    'appendix-a': [
       "Explain what an Incident Response runbook is, and why each one in this appendix is a separate document.",
       "Pick the OAuth-token-theft runbook and walk me through it like I'm on call right now.",
       "What is the difference between containment, eradication, and recovery in incident response?",
       "How do I tabletop-test these runbooks with my team?"
     ],
-    'appendix-r': [
+    'appendix-o': [
       "Explain breach notification timelines like I'm not a lawyer.",
       "Which of these laws actually apply to me if I'm a US-only company with no EU customers?",
       "What is the GDPR 72-hour notification clock, and when does it start?",
       "What should I have ready BEFORE a breach so I can hit these timelines?"
     ],
-    'appendix-s': [
+    'appendix-p': [
       "Explain what a maturity scorecard is and how I should use this one.",
       "I scored 2.4 average. What does that say about my org, and what is the next milestone?",
       "What is the difference between a Level 3 and a Level 4 control in this model?",
@@ -8343,10 +8348,11 @@ DIFF:
     if (/^viii-|^exec-pillar-viii$/.test(id)) return 'pillar-viii';
     if (/^ix-|^exec-pillar-ix$/.test(id)) return 'pillar-ix';
     if (/^x-|^exec-pillar-x$/.test(id)) return 'pillar-x';
+    if (/^appendix-a/.test(id)) return 'appendix-a';
+    if (/^appendix-m/.test(id)) return 'appendix-m';
+    if (/^appendix-n/.test(id)) return 'appendix-n';
     if (/^appendix-o/.test(id)) return 'appendix-o';
-    if (/^appendix-q/.test(id)) return 'appendix-q';
-    if (/^appendix-r/.test(id)) return 'appendix-r';
-    if (/^appendix-s/.test(id)) return 'appendix-s';
+    if (/^appendix-p/.test(id)) return 'appendix-p';
     if (/^exec-(bluf|mythos|talking)/.test(id)) return 'exec-bluf';
     return 'default';
   }
@@ -8367,10 +8373,11 @@ DIFF:
       'threat-landscape': 'Threat Brief 2024–2026',
       'mythos-reality': 'The Mythos Question',
       'exec-bluf': 'Executive Summary · BLUF',
-      'appendix-o': 'Appendix M · Admin Checklist',
-      'appendix-q': 'Appendix N · IR Runbooks',
-      'appendix-r': 'Appendix O · Breach Notification',
-      'appendix-s': 'Appendix P · Maturity Scorecard'
+      'appendix-a': 'Appendix A · IR Runbooks',
+      'appendix-m': 'Appendix M · Admin Hardening Checklist',
+      'appendix-n': 'Appendix N · Standards Mapping',
+      'appendix-o': 'Appendix O · Breach Notification',
+      'appendix-p': 'Appendix P · Maturity Scorecard'
     };
     return labels[topicKey] || 'this document';
   }
