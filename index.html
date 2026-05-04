@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   Salesforce CRM Security Hardening — A Defender's Encyclopedia for the Frontier-AI Era
-  Document version 1.5.23 · Last modified 2026-05-04
+  Document version 1.5.24 · Last modified 2026-05-04
   Copyright (c) 2026 Dr. Paul Coleman. All rights reserved.
 
   A vendor-neutral hardening reference for the customer side of the Salesforce
@@ -28,7 +28,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Mythos Imperative &mdash; Salesforce CRM Security Hardening</title>
-<meta name="document-version" content="1.5.23">
+<meta name="document-version" content="1.5.24">
 <meta name="last-modified" content="2026-05-04">
 <meta name="source-snapshot" content="2026-05-04">
 <meta name="description" content="The Mythos Imperative: a vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars from Identity to Defensive AI; nineteen appendices.">
@@ -38,7 +38,7 @@
 
 <!-- Open Graph / social-share metadata -->
 <meta property="og:type" content="article">
-<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.23">
+<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.24">
 <meta property="og:description" content="Vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars, 19 appendices, fully attributed.">
 <meta property="og:url" content="https://drpaulcoleman.github.io/agentforce-mythos-hardening/">
 <meta property="og:site_name" content="Salesforce CRM Security Hardening">
@@ -49,7 +49,7 @@
 
 <!-- Twitter / X card metadata -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.23">
+<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.24">
 <meta name="twitter:description" content="Threat-informed Salesforce hardening reference. Ten pillars from Identity to Defensive AI, with a companion Salesforce DX reference implementation.">
 
 <!-- Errata / contributions -->
@@ -1773,7 +1773,7 @@ pre.mermaid g.node[onclick]:hover > path {
     </div>
     <div>
       <h1><span class="phase-tag">The Mythos Imperative</span><span class="phase-sep">&mdash;</span>Salesforce CRM Security Hardening</h1>
-      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.23 &middot; last modified 2026-05-04</span>
+      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.24 &middot; last modified 2026-05-04</span>
     </div>
   </div>
   <div class="doc-meta">
@@ -2189,7 +2189,7 @@ gantt
 
 <!-- TECH · Hero ---------------------------------------------------------- -->
 <div class="card hero" id="hero" data-search="hero overview salesforce crm security hardening defender encyclopedia frontier ai mythos">
-  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.23 &middot; last modified 2026-05-04</p>
+  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.24 &middot; last modified 2026-05-04</p>
   <h1>The <span class="accent">Mythos Imperative</span><br/><span style="font-size:24px; font-weight:700; opacity:0.92; display:block; margin-top:6px;">A Defender's Encyclopedia for the Frontier-AI Era</span></h1>
   <p class="lede" style="border-left: 3px solid var(--sf-orange); padding: 6px 0 6px 16px; margin-left: 0;">
     <strong style="color: var(--sf-orange); letter-spacing: 0.04em;">Why this exists, why now.</strong>
@@ -6762,17 +6762,27 @@ write_to_audit_log(hmac_sign(findings + findings_b))
   <h2>Appendix I &middot; Real-Time Event Monitoring Schema + Queries</h2>
 
   <h3>I.1 Key Event Log Objects</h3>
+  <p style="font-size: 12px; color: var(--text-muted); font-style: italic; margin: 4px 0 10px 0;">
+    Each event-object name links to its Salesforce Object Reference page. Pair the <em>Stream</em> variant
+    (Pub/Sub API gRPC subscriber, real-time) with the queryable variant (SOQL on the Event Log Object,
+    30-day retention with Shield / Event Monitoring).
+  </p>
   <ul>
-    <li><code>LoginEventStream</code> / <code>LoginEvent</code> &mdash; near-real-time login events</li>
-    <li><code>ReportEventStream</code> / <code>ReportEvent</code> &mdash; report runs / exports</li>
-    <li><code>ListViewEventStream</code> / <code>ListViewEvent</code> &mdash; list view runs / exports</li>
-    <li><code>ApiEventStream</code> / <code>ApiEvent</code> &mdash; SOAP / REST API calls</li>
-    <li><code>ApiEvent</code> &mdash; inbound REST/SOAP API activity</li>
-    <li><code>BulkApiResultEvent</code> / <code>BulkApiResultEvent</code> &mdash; Bulk API jobs</li>
-    <li><code>UriEvent</code> &mdash; page navigations</li>
-    <li><code>LogoutEvent</code> &mdash; end-of-session</li>
-    <li><code>TransactionSecurityEvent</code> &mdash; policy enforcement</li>
-    <li><code>ApexExecutionEvent</code> &mdash; Apex performance + scope</li>
+    <li><a href="https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_logineventstream.htm" target="_blank" rel="noopener"><code>LoginEventStream</code></a> / <a href="https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_loginevent.htm" target="_blank" rel="noopener"><code>LoginEvent</code></a> &mdash; near-real-time login events</li>
+    <li><a href="https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_reporteventstream.htm" target="_blank" rel="noopener"><code>ReportEventStream</code></a> / <a href="https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_reportevent.htm" target="_blank" rel="noopener"><code>ReportEvent</code></a> &mdash; report runs / exports</li>
+    <li><a href="https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_listvieweventstream.htm" target="_blank" rel="noopener"><code>ListViewEventStream</code></a> / <a href="https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_listviewevent.htm" target="_blank" rel="noopener"><code>ListViewEvent</code></a> &mdash; list view runs / exports</li>
+    <li><a href="https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_apieventstream.htm" target="_blank" rel="noopener"><code>ApiEventStream</code></a> / <a href="https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_apievent.htm" target="_blank" rel="noopener"><code>ApiEvent</code></a> &mdash; inbound REST / SOAP API activity (catch-all for inbound API calls)</li>
+    <li><a href="https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_apianomalyeventstore.htm" target="_blank" rel="noopener"><code>ApiAnomalyEventStore</code></a> / <a href="https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_apianomalyevent.htm" target="_blank" rel="noopener"><code>ApiAnomalyEvent</code></a> &mdash; Threat-Detection-flagged anomalous API behavior</li>
+    <li><a href="https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_bulkapiresulteventstream.htm" target="_blank" rel="noopener"><code>BulkApiResultEventStream</code></a> / <a href="https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_bulkapiresultevent.htm" target="_blank" rel="noopener"><code>BulkApiResultEvent</code></a> &mdash; Bulk API jobs (the UNC6040 detection hotspot)</li>
+    <li><a href="https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_urievent.htm" target="_blank" rel="noopener"><code>UriEvent</code></a> &mdash; page navigations / Setup paths</li>
+    <li><a href="https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_logoutevent.htm" target="_blank" rel="noopener"><code>LogoutEvent</code></a> &mdash; end-of-session signal</li>
+    <li><a href="https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_credentialstuffingeventstore.htm" target="_blank" rel="noopener"><code>CredentialStuffingEventStore</code></a> / <a href="https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_credentialstuffingevent.htm" target="_blank" rel="noopener"><code>CredentialStuffingEvent</code></a> &mdash; Threat-Detection-flagged credential-stuffing patterns</li>
+    <li><a href="https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_sessionhijackingeventstore.htm" target="_blank" rel="noopener"><code>SessionHijackingEventStore</code></a> / <a href="https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_sessionhijackingevent.htm" target="_blank" rel="noopener"><code>SessionHijackingEvent</code></a> &mdash; Threat-Detection-flagged session anomalies</li>
+    <li><a href="https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_guestuseranomalyeventstore.htm" target="_blank" rel="noopener"><code>GuestUserAnomalyEventStore</code></a> / <a href="https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_guestuseranomalyevent.htm" target="_blank" rel="noopener"><code>GuestUserAnomalyEvent</code></a> &mdash; Threat-Detection signals on Experience Cloud guest profile</li>
+    <li><a href="https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_transactionsecurityevent.htm" target="_blank" rel="noopener"><code>TransactionSecurityEvent</code></a> &mdash; Transaction Security policy enforcement</li>
+    <li><a href="https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_apexexecutionevent.htm" target="_blank" rel="noopener"><code>ApexExecutionEvent</code></a> &mdash; Apex performance + scope</li>
+    <li><a href="https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_loginasevent.htm" target="_blank" rel="noopener"><code>LoginAsEvent</code></a> &mdash; admin "log in as" impersonation events</li>
+    <li><a href="https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_dataexportevent.htm" target="_blank" rel="noopener"><code>DataExportEvent</code></a> &mdash; record-data export operations</li>
   </ul>
 
   <h3>I.2 Sample SOQL queries</h3>
@@ -7399,7 +7409,7 @@ DIFF:
     });
     exportBtn.addEventListener('click', function() {
       var snapshot = {
-        framework: 'Salesforce CRM Security Hardening v1.5.23',
+        framework: 'Salesforce CRM Security Hardening v1.5.24',
         scored_at: new Date().toISOString(),
         scores: loadStored(),
         average: parseFloat(avgEl.textContent) || 0,
@@ -7730,8 +7740,8 @@ DIFF:
   </p>
   <h3>Document metadata</h3>
   <p style="font-size: 12px; font-family: 'Source Code Pro', monospace;">
-    version 1.5.23 &middot; last modified 2026-05-04 &middot; source snapshot 2026-05-04 &middot;
-    Build identifier: SF-CRM-HARDENING-1.5.23
+    version 1.5.24 &middot; last modified 2026-05-04 &middot; source snapshot 2026-05-04 &middot;
+    Build identifier: SF-CRM-HARDENING-1.5.24
   </p>
 </div>
 
