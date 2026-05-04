@@ -59,28 +59,28 @@ reference-impl/
 ├── sfdx-project.json + package.json
 ├── force-app/main/default/
 │   ├── classes/                       # 4 Apex classes + 4 test classes
-│   │   ├── AcmeSamlJitHandler         (Pillar I.6 -- group-driven entitlement)
-│   │   ├── LoginFlowConcurrentLimitController  (Pillar I.4 -- session ceiling)
-│   │   ├── BlockHighVolumeBulkApi     (Pillar VIII.5 / App. D.1 -- TxSec policy)
-│   │   └── ReportExportThresholdMfa   (Pillar VIII.5 / App. D.2 -- TxSec policy)
+│   │   ├── AcmeSamlJitHandler         (Pillar 1.6 -- group-driven entitlement)
+│   │   ├── LoginFlowConcurrentLimitController  (Pillar 1.4 -- session ceiling)
+│   │   ├── BlockHighVolumeBulkApi     (Pillar 8.5 / App. D.1 -- TxSec policy)
+│   │   └── ReportExportThresholdMfa   (Pillar 8.5 / App. D.2 -- TxSec policy)
 │   ├── permissionsets/  +  permissionsetgroups/
-│   │                                  # 3 PermSets composing into 1 PSG (Pillar II.2 / App. E)
+│   │                                  # 3 PermSets composing into 1 PSG (Pillar 2.2 / App. E)
 │   ├── connectedApps/  +  externalClientApps/
-│   │                                  # ConnectedApp + ECA pair (Pillar IV.1 / App. C.1)
+│   │                                  # ConnectedApp + ECA pair (Pillar 4.1 / App. C.1)
 │   ├── namedCredentials/  +  externalCredentials/
-│   │                                  # mTLS Named Credential + per-user EC (Pillar V.1)
+│   │                                  # mTLS Named Credential + per-user EC (Pillar 5.1)
 │   ├── transactionSecurityPolicies/   # 2 policies bound to the Apex above
 │   ├── objects/IdP_Group_Permission_Mapping__mdt/
 │   │                                  # custom-metadata mapping table for the JIT handler
 │   └── customMetadata/                # 1 seed row
-├── baselines/health-check-custom-baseline.xml   # Pillar VIII.1 baseline
+├── baselines/health-check-custom-baseline.xml   # Pillar 8.1 baseline
 ├── ci/
-│   ├── pmd-apex-rules.xml             # PMD ruleset (Pillar IX.2 gate)
+│   ├── pmd-apex-rules.xml             # PMD ruleset (Pillar 9.2 gate)
 │   ├── sfdx-scanner-config.json
 │   └── github-actions/                # static analysis + deploy-validate workflows
 ├── tools/
-│   ├── exp-cloud-scanner/             # Pillar III.8 dual-agent guest-profile scanner (Node)
-│   └── connected-app-attestation/     # Pillar IV.9 quarterly OAuth attestation (Node)
+│   ├── exp-cloud-scanner/             # Pillar 3.8 dual-agent guest-profile scanner (Node)
+│   └── connected-app-attestation/     # Pillar 4.9 quarterly OAuth attestation (Node)
 └── data/                              # machine-readable JSON exports for tooling
     ├── checklist.json                 # Appendix O as JSON
     ├── glossary.json                  # Appendix L as JSON
@@ -116,11 +116,11 @@ See [`reference-impl/README.md`](./reference-impl/README.md) for the full doc-to
 
 | If you are a... | Start here | Then read |
 |---|---|---|
-| **Salesforce admin with 4 hours** | [Appendix O.1 (Day 1 checklist)](https://drpaulcoleman.github.io/agentforce-mythos-hardening/#appendix-o) → [90-Minute Sprint](https://drpaulcoleman.github.io/agentforce-mythos-hardening/#exec-90-min-sprint) | Pillar I (Identity) → Pillar IV (Connected Apps) |
-| **Salesforce architect** | [Threat Brief](https://drpaulcoleman.github.io/agentforce-mythos-hardening/#threat-landscape) | Pillars II → III → IV in order; Appendices A–F |
+| **Salesforce admin with 4 hours** | [Appendix O.1 (Day 1 checklist)](https://drpaulcoleman.github.io/agentforce-mythos-hardening/#appendix-o) → [90-Minute Sprint](https://drpaulcoleman.github.io/agentforce-mythos-hardening/#exec-90-min-sprint) | Pillar 1 (Identity) → Pillar 4 (Connected Apps) |
+| **Salesforce architect** | [Threat Brief](https://drpaulcoleman.github.io/agentforce-mythos-hardening/#threat-landscape) | Pillars 2 → III → IV in order; Appendices A–F |
 | **CISO / executive** | [Executive Summary tab → BLUF](https://drpaulcoleman.github.io/agentforce-mythos-hardening/#exec-bluf) | [Mythos Reality Check](https://drpaulcoleman.github.io/agentforce-mythos-hardening/#exec-mythos-reality) → [Talking-Point Cards](https://drpaulcoleman.github.io/agentforce-mythos-hardening/#exec-talking-points) → [Appendix S Maturity Scorecard](https://drpaulcoleman.github.io/agentforce-mythos-hardening/#appendix-s) |
 | **SI / consultant** | [Critical Path Gantt](https://drpaulcoleman.github.io/agentforce-mythos-hardening/#critical-path) | [Cost & Licensing](https://drpaulcoleman.github.io/agentforce-mythos-hardening/#cost-license) → [Appendix V industry overlays](https://drpaulcoleman.github.io/agentforce-mythos-hardening/#appendix-v) |
-| **ISV / partner** | [Pillar IV Connected Apps](https://drpaulcoleman.github.io/agentforce-mythos-hardening/#pillar-iv) | [IV.5 AppExchange Security Review limits](https://drpaulcoleman.github.io/agentforce-mythos-hardening/#iv-appexchange) → [IV.6 ISV repo compromise pattern](https://drpaulcoleman.github.io/agentforce-mythos-hardening/#iv-isv-compromise) |
+| **ISV / partner** | [Pillar 4 Connected Apps](https://drpaulcoleman.github.io/agentforce-mythos-hardening/#pillar-iv) | [4.5 AppExchange Security Review limits](https://drpaulcoleman.github.io/agentforce-mythos-hardening/#iv-appexchange) → [4.6 ISV repo compromise pattern](https://drpaulcoleman.github.io/agentforce-mythos-hardening/#iv-isv-compromise) |
 | **On-call security responder** | [Appendix Q IR runbook templates](https://drpaulcoleman.github.io/agentforce-mythos-hardening/#appendix-q) | [Appendix R breach-notification timing matrix](https://drpaulcoleman.github.io/agentforce-mythos-hardening/#appendix-r) |
 | **Compliance / audit** | [Appendix P standards mapping](https://drpaulcoleman.github.io/agentforce-mythos-hardening/#appendix-p) (NIST CSF / CIS / ISO / SOC 2 / HIPAA / PCI / EU AI Act) | [Appendix S Maturity Scorecard](https://drpaulcoleman.github.io/agentforce-mythos-hardening/#appendix-s) |
 

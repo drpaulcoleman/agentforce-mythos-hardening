@@ -52,7 +52,7 @@
       "duration": "<= 40 hours",
       "actor": "admin + architect",
       "actions": [
-        { "n": 1, "action": "Guest profile audit per Experience Cloud site (full Pillar III checklist)", "pillar_anchor": "#iii-profile-audit" },
+        { "n": 1, "action": "Guest profile audit per Experience Cloud site (full Pillar 3 checklist)", "pillar_anchor": "#iii-profile-audit" },
         { "n": 2, "action": "First sharing-rules attestation (per object, criteria, justification, signoff)", "pillar_anchor": "#ii-sharing" },
         { "n": 3, "action": "Certificate inventory + ownership assignments + 30-day-before-expiry alerts", "pillar_anchor": "#v-cert-rotation" },
         { "n": 4, "action": "Consolidate or split to one integration user per integration", "pillar_anchor": "#v-integration-users" },

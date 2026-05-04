@@ -8,20 +8,20 @@
     "snapshot_date": "2026-05-04"
   },
   "risks": [
-    { "id": 1, "risk": "Vishing-driven OAuth grant abuse (UNC6040 pattern)", "likelihood": "High", "impact": "High", "primary_control": "FIDO2 + Block Uninstalled Connected Apps + High Assurance + admin pre-approval", "pillars": ["I", "IV"], "residual": "Low" },
-    { "id": 2, "risk": "ISV repo compromise -> OAuth token theft (UNC6395 pattern)", "likelihood": "Medium", "impact": "High", "primary_control": "Refresh-token rotation + ISV breach SLA + RT-EM monitoring", "pillars": ["IV"], "residual": "Medium" },
-    { "id": 3, "risk": "Experience Cloud guest profile misconfig (Krebs / DIVD pattern)", "likelihood": "High", "impact": "High", "primary_control": "Quarterly guest profile audit + automated metadata scanner", "pillars": ["III"], "residual": "Low" },
-    { "id": 4, "risk": "Browser-extension session hijack", "likelihood": "Medium", "impact": "Medium", "primary_control": "Endpoint allowlist + dedicated profile", "pillars": ["IV"], "residual": "Medium" },
-    { "id": 5, "risk": "Apex / Flow run-context bypass on guest path", "likelihood": "Medium", "impact": "High", "primary_control": "USER_MODE migration + Flow run-context audit + static analysis gate", "pillars": ["VI", "IX"], "residual": "Low" },
-    { "id": 6, "risk": "Sandbox PII leakage", "likelihood": "Medium", "impact": "Medium", "primary_control": "Data Mask + sandbox refresh governance", "pillars": ["VII", "IX"], "residual": "Low" },
-    { "id": 7, "risk": "Cert rotation miss -> integration outage", "likelihood": "Medium", "impact": "Medium", "primary_control": "Cert rotation runbook + calendar ownership", "pillars": ["V"], "residual": "Low" },
-    { "id": 8, "risk": "AI agent compromise (silent)", "likelihood": "Low", "impact": "High", "primary_control": "Trust Layer + deterministic re-run + dual-provider + IR scenario", "pillars": ["X", "VIII"], "residual": "Low" },
-    { "id": 9, "risk": "Backup-account compromise -> ransomware unrecoverable", "likelihood": "Low", "impact": "Critical", "primary_control": "Isolated backup account + immutable storage + restore testing", "pillars": ["VII"], "residual": "Low" },
-    { "id": 10, "risk": "Permission drift through quarterly cycles", "likelihood": "High", "impact": "Medium", "primary_control": "Quarterly attestation pack + AI-assisted drift detection", "pillars": ["II", "X"], "residual": "Low" },
-    { "id": 11, "risk": "Malicious Outbound Message / Flow exfiltration", "likelihood": "Low", "impact": "High", "primary_control": "Endpoint inventory + CI gate + RT-EM monitoring", "pillars": ["VI"], "residual": "Low" },
-    { "id": 12, "risk": "Email-to-Case / Web-to-Lead intake injection", "likelihood": "Medium", "impact": "Medium", "primary_control": "Input validation + SPF/DKIM/DMARC + sanitization", "pillars": ["VI"], "residual": "Low" },
-    { "id": 13, "risk": "SIEM gap (no real-time visibility)", "likelihood": "Medium", "impact": "High", "primary_control": "Real-Time EM + SIEM streaming with alerting", "pillars": ["VIII"], "residual": "Low" },
-    { "id": 14, "risk": "Frontier-AI threat acceleration (Mythos-class)", "likelihood": "Low (today)", "impact": "High", "primary_control": "Defender's AI stack to compress timeline; supply-chain hardening", "pillars": ["X", "IV"], "residual": "Medium" },
-    { "id": 15, "risk": "Compliance failure (GDPR / CCPA / EU AI Act / industry-specific)", "likelihood": "Medium", "impact": "High", "primary_control": "Classification register + retention policy + Privacy Center", "pillars": ["VII"], "residual": "Low" }
+    { "id": 1, "risk": "Vishing-driven OAuth grant abuse (UNC6040 pattern)", "likelihood": "High", "impact": "High", "primary_control": "FIDO2 + Block Uninstalled Connected Apps + High Assurance + admin pre-approval", "pillars": ["1", "4"], "residual": "Low" },
+    { "id": 2, "risk": "ISV repo compromise -> OAuth token theft (UNC6395 pattern)", "likelihood": "Medium", "impact": "High", "primary_control": "Refresh-token rotation + ISV breach SLA + RT-EM monitoring", "pillars": ["4"], "residual": "Medium" },
+    { "id": 3, "risk": "Experience Cloud guest profile misconfig (Krebs / DIVD pattern)", "likelihood": "High", "impact": "High", "primary_control": "Quarterly guest profile audit + automated metadata scanner", "pillars": ["3"], "residual": "Low" },
+    { "id": 4, "risk": "Browser-extension session hijack", "likelihood": "Medium", "impact": "Medium", "primary_control": "Endpoint allowlist + dedicated profile", "pillars": ["4"], "residual": "Medium" },
+    { "id": 5, "risk": "Apex / Flow run-context bypass on guest path", "likelihood": "Medium", "impact": "High", "primary_control": "USER_MODE migration + Flow run-context audit + static analysis gate", "pillars": ["6", "9"], "residual": "Low" },
+    { "id": 6, "risk": "Sandbox PII leakage", "likelihood": "Medium", "impact": "Medium", "primary_control": "Data Mask + sandbox refresh governance", "pillars": ["7", "9"], "residual": "Low" },
+    { "id": 7, "risk": "Cert rotation miss -> integration outage", "likelihood": "Medium", "impact": "Medium", "primary_control": "Cert rotation runbook + calendar ownership", "pillars": ["5"], "residual": "Low" },
+    { "id": 8, "risk": "AI agent compromise (silent)", "likelihood": "Low", "impact": "High", "primary_control": "Trust Layer + deterministic re-run + dual-provider + IR scenario", "pillars": ["10", "8"], "residual": "Low" },
+    { "id": 9, "risk": "Backup-account compromise -> ransomware unrecoverable", "likelihood": "Low", "impact": "Critical", "primary_control": "Isolated backup account + immutable storage + restore testing", "pillars": ["7"], "residual": "Low" },
+    { "id": 10, "risk": "Permission drift through quarterly cycles", "likelihood": "High", "impact": "Medium", "primary_control": "Quarterly attestation pack + AI-assisted drift detection", "pillars": ["2", "10"], "residual": "Low" },
+    { "id": 11, "risk": "Malicious Outbound Message / Flow exfiltration", "likelihood": "Low", "impact": "High", "primary_control": "Endpoint inventory + CI gate + RT-EM monitoring", "pillars": ["6"], "residual": "Low" },
+    { "id": 12, "risk": "Email-to-Case / Web-to-Lead intake injection", "likelihood": "Medium", "impact": "Medium", "primary_control": "Input validation + SPF/DKIM/DMARC + sanitization", "pillars": ["6"], "residual": "Low" },
+    { "id": 13, "risk": "SIEM gap (no real-time visibility)", "likelihood": "Medium", "impact": "High", "primary_control": "Real-Time EM + SIEM streaming with alerting", "pillars": ["8"], "residual": "Low" },
+    { "id": 14, "risk": "Frontier-AI threat acceleration (Mythos-class)", "likelihood": "Low (today)", "impact": "High", "primary_control": "Defender's AI stack to compress timeline; supply-chain hardening", "pillars": ["10", "4"], "residual": "Medium" },
+    { "id": 15, "risk": "Compliance failure (GDPR / CCPA / EU AI Act / industry-specific)", "likelihood": "Medium", "impact": "High", "primary_control": "Classification register + retention policy + Privacy Center", "pillars": ["7"], "residual": "Low" }
   ]
 }

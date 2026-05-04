@@ -32,51 +32,51 @@ node tools/connected-app-attestation/attest.js --target hardening-scratch
 
 Every file below maps to a specific whitepaper section. Open the whitepaper card, then jump to the implementing artifact.
 
-### Pillar I — Identity & Authentication
+### Pillar 1 — Identity & Authentication
 | Whitepaper anchor | Artifact |
 |---|---|
-| [I.6 Apex SAML JIT handler](../index.html#i-custom-auth) → [App. A.1](../index.html#appendix-a) | [`force-app/main/default/classes/AcmeSamlJitHandler.cls`](./force-app/main/default/classes/AcmeSamlJitHandler.cls) |
-| [I.4 Custom Login Flow](../index.html#i-login-flow) → [App. A.3](../index.html#appendix-a) | [`force-app/main/default/classes/LoginFlowConcurrentLimitController.cls`](./force-app/main/default/classes/LoginFlowConcurrentLimitController.cls) |
+| [1.6 Apex SAML JIT handler](../index.html#i-custom-auth) → [App. A.1](../index.html#appendix-a) | [`force-app/main/default/classes/AcmeSamlJitHandler.cls`](./force-app/main/default/classes/AcmeSamlJitHandler.cls) |
+| [1.4 Custom Login Flow](../index.html#i-login-flow) → [App. A.3](../index.html#appendix-a) | [`force-app/main/default/classes/LoginFlowConcurrentLimitController.cls`](./force-app/main/default/classes/LoginFlowConcurrentLimitController.cls) |
 | Custom-metadata for IdP-group → PSG mapping | [`force-app/main/default/objects/IdP_Group_Permission_Mapping__mdt/`](./force-app/main/default/objects/IdP_Group_Permission_Mapping__mdt/) |
 
-### Pillar II — Access Control
+### Pillar 2 — Access Control
 | Whitepaper anchor | Artifact |
 |---|---|
-| [II.2 PSG migration shape](../index.html#ii-permset-migration) → [App. E](../index.html#appendix-e) | `permissionsets/Base_Sales_User`, `Manager_Scope`, `Quote_Creator`; `permissionsetgroups/Sales_Manager` |
+| [2.2 PSG migration shape](../index.html#ii-permset-migration) → [App. E](../index.html#appendix-e) | `permissionsets/Base_Sales_User`, `Manager_Scope`, `Quote_Creator`; `permissionsetgroups/Sales_Manager` |
 
-### Pillar IV — Connected Apps & ECAs
+### Pillar 4 — Connected Apps & ECAs
 | Whitepaper anchor | Artifact |
 |---|---|
-| [IV.1 ECA transition](../index.html#iv-eca-transition) → [App. C.1](../index.html#appendix-c) | [`force-app/main/default/connectedApps/Acme_Integration.connectedApp-meta.xml`](./force-app/main/default/connectedApps/Acme_Integration.connectedApp-meta.xml) + ECA placeholder |
+| [4.1 ECA transition](../index.html#iv-eca-transition) → [App. C.1](../index.html#appendix-c) | [`force-app/main/default/connectedApps/Acme_Integration.connectedApp-meta.xml`](./force-app/main/default/connectedApps/Acme_Integration.connectedApp-meta.xml) + ECA placeholder |
 
-### Pillar V — API + mTLS
+### Pillar 5 — API + mTLS
 | Whitepaper anchor | Artifact |
 |---|---|
-| [V.1 Named Credentials](../index.html#v-named-credentials) → [App. C.2](../index.html#appendix-c) | [`force-app/main/default/namedCredentials/Treasury_API.namedCredential-meta.xml`](./force-app/main/default/namedCredentials/Treasury_API.namedCredential-meta.xml) |
-| [V.2 Mutual TLS](../index.html#v-mtls) | External Credential placeholder |
+| [5.1 Named Credentials](../index.html#v-named-credentials) → [App. C.2](../index.html#appendix-c) | [`force-app/main/default/namedCredentials/Treasury_API.namedCredential-meta.xml`](./force-app/main/default/namedCredentials/Treasury_API.namedCredential-meta.xml) |
+| [5.2 Mutual TLS](../index.html#v-mtls) | External Credential placeholder |
 
-### Pillar VIII — Detection & Response
+### Pillar 8 — Detection & Response
 | Whitepaper anchor | Artifact |
 |---|---|
-| [VIII.5 Transaction Security policies](../index.html#viii-transaction-security) → [App. D.1](../index.html#appendix-d) | [`force-app/main/default/classes/BlockHighVolumeBulkApi.cls`](./force-app/main/default/classes/BlockHighVolumeBulkApi.cls) + policy XML |
-| [VIII.5 Report-export MFA gate](../index.html#viii-transaction-security) → [App. D.2](../index.html#appendix-d) | [`force-app/main/default/classes/ReportExportThresholdMfa.cls`](./force-app/main/default/classes/ReportExportThresholdMfa.cls) |
-| [VIII.1 Health Check baseline](../index.html#viii-health-check) | [`baselines/health-check-custom-baseline.xml`](./baselines/health-check-custom-baseline.xml) |
+| [8.5 Transaction Security policies](../index.html#viii-transaction-security) → [App. D.1](../index.html#appendix-d) | [`force-app/main/default/classes/BlockHighVolumeBulkApi.cls`](./force-app/main/default/classes/BlockHighVolumeBulkApi.cls) + policy XML |
+| [8.5 Report-export MFA gate](../index.html#viii-transaction-security) → [App. D.2](../index.html#appendix-d) | [`force-app/main/default/classes/ReportExportThresholdMfa.cls`](./force-app/main/default/classes/ReportExportThresholdMfa.cls) |
+| [8.1 Health Check baseline](../index.html#viii-health-check) | [`baselines/health-check-custom-baseline.xml`](./baselines/health-check-custom-baseline.xml) |
 
-### Pillar III — Experience Cloud audit (Appendix F dual-agent scanner)
+### Pillar 3 — Experience Cloud audit (Appendix F dual-agent scanner)
 | Whitepaper anchor | Artifact |
 |---|---|
-| [III.8 Automated scanner pattern](../index.html#iii-scanner) → [App. F](../index.html#appendix-f) | [`tools/exp-cloud-scanner/`](./tools/exp-cloud-scanner/) |
+| [3.8 Automated scanner pattern](../index.html#iii-scanner) → [App. F](../index.html#appendix-f) | [`tools/exp-cloud-scanner/`](./tools/exp-cloud-scanner/) |
 
-### Pillar IV — OAuth attestation (Appendix O.4 quarterly cadence)
+### Pillar 4 — OAuth attestation (Appendix O.4 quarterly cadence)
 | Whitepaper anchor | Artifact |
 |---|---|
-| [IV.9 OAuth Usage attestation](../index.html#iv-detection-attestation) → [App. O.4](../index.html#appendix-o) | [`tools/connected-app-attestation/`](./tools/connected-app-attestation/) |
+| [4.9 OAuth Usage attestation](../index.html#iv-detection-attestation) → [App. O.4](../index.html#appendix-o) | [`tools/connected-app-attestation/`](./tools/connected-app-attestation/) |
 
-### Pillar IX — DevSecOps
+### Pillar 9 — DevSecOps
 | Whitepaper anchor | Artifact |
 |---|---|
-| [IX.2 Static analysis as a gate](../index.html#ix-static-analysis) | [`ci/pmd-apex-rules.xml`](./ci/pmd-apex-rules.xml), [`ci/sfdx-scanner-config.json`](./ci/sfdx-scanner-config.json) |
-| [IX.4 CI deployment gates](../index.html#ix-deployment-approval) | [`ci/github-actions/`](./ci/github-actions/) |
+| [9.2 Static analysis as a gate](../index.html#ix-static-analysis) | [`ci/pmd-apex-rules.xml`](./ci/pmd-apex-rules.xml), [`ci/sfdx-scanner-config.json`](./ci/sfdx-scanner-config.json) |
+| [9.4 CI deployment gates](../index.html#ix-deployment-approval) | [`ci/github-actions/`](./ci/github-actions/) |
 
 ### Data exports (machine-readable)
 - [`data/checklist.json`](./data/checklist.json) — Appendix O Day-1 / Week-1 / Month-1 / Quarterly checklist as JSON

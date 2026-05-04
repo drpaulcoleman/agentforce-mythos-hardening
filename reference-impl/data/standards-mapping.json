@@ -12,57 +12,57 @@
     "nist_csf_2": {
       "ref": "[^36]",
       "functions": [
-        { "id": "GV", "label": "Govern", "pillars": ["Provenance", "Disclosures", "IV", "IX"] },
-        { "id": "ID", "label": "Identify", "pillars": ["VII.1", "IV.9", "V.3"] },
-        { "id": "PR", "label": "Protect", "pillars": ["I", "II", "III", "V", "VI", "VII"] },
-        { "id": "DE", "label": "Detect", "pillars": ["VIII"] },
-        { "id": "RS", "label": "Respond", "pillars": ["VIII.6"] },
-        { "id": "RC", "label": "Recover", "pillars": ["VII.6"] }
+        { "id": "GV", "label": "Govern", "pillars": ["Provenance", "Disclosures", "4", "9"] },
+        { "id": "ID", "label": "Identify", "pillars": ["7.1", "4.9", "5.3"] },
+        { "id": "PR", "label": "Protect", "pillars": ["1", "2", "3", "5", "6", "7"] },
+        { "id": "DE", "label": "Detect", "pillars": ["8"] },
+        { "id": "RS", "label": "Respond", "pillars": ["8.6"] },
+        { "id": "RC", "label": "Recover", "pillars": ["7.6"] }
       ]
     },
     "cis_csc_v8": {
       "ref": "[^37]",
       "controls": [
-        { "id": 1, "label": "Inventory and Control of Enterprise Assets", "pillars": ["IV", "V"] },
-        { "id": 2, "label": "Inventory and Control of Software Assets", "pillars": ["IV.5"] },
-        { "id": 3, "label": "Data Protection", "pillars": ["VII"] },
-        { "id": 4, "label": "Secure Configuration of Enterprise Assets", "pillars": ["II", "III", "VIII.1"] },
-        { "id": 5, "label": "Account Management", "pillars": ["I", "II"] },
-        { "id": 6, "label": "Access Control Management", "pillars": ["II"] },
-        { "id": 7, "label": "Continuous Vulnerability Management", "pillars": ["IX.2", "X.1"] },
-        { "id": 8, "label": "Audit Log Management", "pillars": ["VIII"] },
-        { "id": 9, "label": "Email and Web Browser Protections", "pillars": ["VI.7", "IV.8"] },
-        { "id": 10, "label": "Malware Defenses", "pillars": ["IV.8", "VI.7"] },
-        { "id": 11, "label": "Data Recovery", "pillars": ["VII.6"] },
-        { "id": 12, "label": "Network Infrastructure Management", "pillars": ["V"] },
-        { "id": 13, "label": "Network Monitoring and Defense", "pillars": ["VIII"] },
-        { "id": 14, "label": "Security Awareness and Skills Training", "pillars": ["IV.7"] },
-        { "id": 15, "label": "Service Provider Management", "pillars": ["IV"] },
-        { "id": 16, "label": "Application Software Security", "pillars": ["VI", "IX"] },
-        { "id": 17, "label": "Incident Response Management", "pillars": ["VIII.6"] }
+        { "id": 1, "label": "Inventory and Control of Enterprise Assets", "pillars": ["4", "5"] },
+        { "id": 2, "label": "Inventory and Control of Software Assets", "pillars": ["4.5"] },
+        { "id": 3, "label": "Data Protection", "pillars": ["7"] },
+        { "id": 4, "label": "Secure Configuration of Enterprise Assets", "pillars": ["2", "3", "8.1"] },
+        { "id": 5, "label": "Account Management", "pillars": ["1", "2"] },
+        { "id": 6, "label": "Access Control Management", "pillars": ["2"] },
+        { "id": 7, "label": "Continuous Vulnerability Management", "pillars": ["9.2", "10.1"] },
+        { "id": 8, "label": "Audit Log Management", "pillars": ["8"] },
+        { "id": 9, "label": "Email and Web Browser Protections", "pillars": ["6.7", "4.8"] },
+        { "id": 10, "label": "Malware Defenses", "pillars": ["4.8", "6.7"] },
+        { "id": 11, "label": "Data Recovery", "pillars": ["7.6"] },
+        { "id": 12, "label": "Network Infrastructure Management", "pillars": ["5"] },
+        { "id": 13, "label": "Network Monitoring and Defense", "pillars": ["8"] },
+        { "id": 14, "label": "Security Awareness and Skills Training", "pillars": ["4.7"] },
+        { "id": 15, "label": "Service Provider Management", "pillars": ["4"] },
+        { "id": 16, "label": "Application Software Security", "pillars": ["6", "9"] },
+        { "id": 17, "label": "Incident Response Management", "pillars": ["8.6"] }
       ]
     },
     "iso_27001_2022": {
       "ref": "[^38]",
       "annex_a": [
-        { "id": "A.5.15", "label": "Access control", "pillars": ["II"] },
-        { "id": "A.5.16", "label": "Identity management", "pillars": ["I"] },
-        { "id": "A.5.17", "label": "Authentication information", "pillars": ["I"] },
-        { "id": "A.5.19-A.5.22", "label": "Supplier relationships", "pillars": ["IV"] },
+        { "id": "A.5.15", "label": "Access control", "pillars": ["2"] },
+        { "id": "A.5.16", "label": "Identity management", "pillars": ["1"] },
+        { "id": "A.5.17", "label": "Authentication information", "pillars": ["1"] },
+        { "id": "A.5.19-A.5.22", "label": "Supplier relationships", "pillars": ["4"] },
         { "id": "A.5.23", "label": "Information security for cloud services", "pillars": ["all"] },
-        { "id": "A.5.24-A.5.27", "label": "Incident management", "pillars": ["VIII.6"] },
-        { "id": "A.5.29", "label": "Information security during disruption", "pillars": ["VII.6"] },
-        { "id": "A.5.30", "label": "ICT readiness for business continuity", "pillars": ["VII.6"] },
-        { "id": "A.6.3", "label": "Awareness, education, training", "pillars": ["IV.7"] },
-        { "id": "A.8.2", "label": "Privileged access rights", "pillars": ["II.9"] },
-        { "id": "A.8.5", "label": "Secure authentication", "pillars": ["I.1", "I.2"] },
-        { "id": "A.8.9", "label": "Configuration management", "pillars": ["VIII.1", "III.8"] },
-        { "id": "A.8.10-A.8.12", "label": "Information deletion / Data masking / DLP", "pillars": ["VII.5", "VII.8"] },
-        { "id": "A.8.13", "label": "Information backup", "pillars": ["VII.6"] },
-        { "id": "A.8.15", "label": "Logging", "pillars": ["VIII"] },
-        { "id": "A.8.16", "label": "Monitoring activities", "pillars": ["VIII.3"] },
-        { "id": "A.8.24", "label": "Use of cryptography", "pillars": ["VII.2"] },
-        { "id": "A.8.25-A.8.34", "label": "Secure development lifecycle", "pillars": ["VI", "IX"] }
+        { "id": "A.5.24-A.5.27", "label": "Incident management", "pillars": ["8.6"] },
+        { "id": "A.5.29", "label": "Information security during disruption", "pillars": ["7.6"] },
+        { "id": "A.5.30", "label": "ICT readiness for business continuity", "pillars": ["7.6"] },
+        { "id": "A.6.3", "label": "Awareness, education, training", "pillars": ["4.7"] },
+        { "id": "A.8.2", "label": "Privileged access rights", "pillars": ["2.9"] },
+        { "id": "A.8.5", "label": "Secure authentication", "pillars": ["1.1", "1.2"] },
+        { "id": "A.8.9", "label": "Configuration management", "pillars": ["8.1", "3.8"] },
+        { "id": "A.8.10-A.8.12", "label": "Information deletion / Data masking / DLP", "pillars": ["7.5", "7.8"] },
+        { "id": "A.8.13", "label": "Information backup", "pillars": ["7.6"] },
+        { "id": "A.8.15", "label": "Logging", "pillars": ["8"] },
+        { "id": "A.8.16", "label": "Monitoring activities", "pillars": ["8.3"] },
+        { "id": "A.8.24", "label": "Use of cryptography", "pillars": ["7.2"] },
+        { "id": "A.8.25-A.8.34", "label": "Secure development lifecycle", "pillars": ["6", "9"] }
       ]
     },
     "soc2_tsc": {
@@ -71,43 +71,43 @@
         { "id": "CC1", "label": "Control Environment", "pillars": ["Provenance", "Disclosures"] },
         { "id": "CC2", "label": "Communication and Information", "pillars": ["Provenance", "Talking Points"] },
         { "id": "CC3", "label": "Risk Assessment", "pillars": ["Risk Register"] },
-        { "id": "CC4", "label": "Monitoring Activities", "pillars": ["VIII"] },
+        { "id": "CC4", "label": "Monitoring Activities", "pillars": ["8"] },
         { "id": "CC5", "label": "Control Activities", "pillars": ["all"] },
-        { "id": "CC6", "label": "Logical and Physical Access Controls", "pillars": ["I", "II", "III", "IV"] },
-        { "id": "CC7", "label": "System Operations", "pillars": ["VIII", "IX"] },
-        { "id": "CC8", "label": "Change Management", "pillars": ["IX"] },
-        { "id": "CC9", "label": "Risk Mitigation", "pillars": ["Risk Register", "IV"] },
-        { "id": "A1", "label": "Availability", "pillars": ["VII.6"] },
-        { "id": "C1", "label": "Confidentiality", "pillars": ["VII"] },
-        { "id": "P1-P8", "label": "Privacy (Notice / Choice / Collection / Use-Retention-Disposal / Access / Disclosure / Quality / Monitoring-Enforcement)", "pillars": ["VII.9"] }
+        { "id": "CC6", "label": "Logical and Physical Access Controls", "pillars": ["1", "2", "3", "4"] },
+        { "id": "CC7", "label": "System Operations", "pillars": ["8", "9"] },
+        { "id": "CC8", "label": "Change Management", "pillars": ["9"] },
+        { "id": "CC9", "label": "Risk Mitigation", "pillars": ["Risk Register", "4"] },
+        { "id": "A1", "label": "Availability", "pillars": ["7.6"] },
+        { "id": "C1", "label": "Confidentiality", "pillars": ["7"] },
+        { "id": "P1-P8", "label": "Privacy (Notice / Choice / Collection / Use-Retention-Disposal / Access / Disclosure / Quality / Monitoring-Enforcement)", "pillars": ["7.9"] }
       ]
     },
     "hipaa_security_rule": {
       "title": "HIPAA Security Rule (45 CFR 164.308 / .310 / .312)",
       "safeguards": [
-        { "type": "Administrative", "section": "164.308", "topic": "Security Management", "pillars": ["VII.1", "Risk Register"] },
-        { "type": "Administrative", "section": "164.308", "topic": "Workforce Security & Information Access Management", "pillars": ["II"] },
-        { "type": "Administrative", "section": "164.308", "topic": "Security Incident Procedures", "pillars": ["VIII.6"] },
-        { "type": "Administrative", "section": "164.308", "topic": "Contingency Plan", "pillars": ["VII.6"] },
+        { "type": "Administrative", "section": "164.308", "topic": "Security Management", "pillars": ["7.1", "Risk Register"] },
+        { "type": "Administrative", "section": "164.308", "topic": "Workforce Security & Information Access Management", "pillars": ["2"] },
+        { "type": "Administrative", "section": "164.308", "topic": "Security Incident Procedures", "pillars": ["8.6"] },
+        { "type": "Administrative", "section": "164.308", "topic": "Contingency Plan", "pillars": ["7.6"] },
         { "type": "Physical", "section": "164.310", "topic": "Physical Safeguards", "note": "Salesforce-managed under platform side of partnership" },
-        { "type": "Technical", "section": "164.312", "topic": "Access Control", "pillars": ["II"] },
-        { "type": "Technical", "section": "164.312", "topic": "Audit Controls", "pillars": ["VIII"] },
-        { "type": "Technical", "section": "164.312", "topic": "Integrity", "pillars": ["VII.3"] },
-        { "type": "Technical", "section": "164.312", "topic": "Person/Entity Authentication", "pillars": ["I"] },
-        { "type": "Technical", "section": "164.312", "topic": "Transmission Security", "pillars": ["V"] }
+        { "type": "Technical", "section": "164.312", "topic": "Access Control", "pillars": ["2"] },
+        { "type": "Technical", "section": "164.312", "topic": "Audit Controls", "pillars": ["8"] },
+        { "type": "Technical", "section": "164.312", "topic": "Integrity", "pillars": ["7.3"] },
+        { "type": "Technical", "section": "164.312", "topic": "Person/Entity Authentication", "pillars": ["1"] },
+        { "type": "Technical", "section": "164.312", "topic": "Transmission Security", "pillars": ["5"] }
       ]
     },
     "pci_dss_v4": {
       "ref": "[^40]",
       "requirements": [
-        { "id": "1-2", "label": "Network security; secure config", "pillars": ["V", "VIII.1"] },
-        { "id": "3", "label": "Protect stored account data", "pillars": ["VII.2"] },
-        { "id": "4", "label": "Protect cardholder data in transmission", "pillars": ["V.2", "V.3"] },
-        { "id": "5-6", "label": "Anti-malware; secure systems", "pillars": ["IV.8", "VI", "IX"] },
-        { "id": "7", "label": "Restrict access by need-to-know", "pillars": ["II"] },
-        { "id": "8", "label": "Identify and authenticate access", "pillars": ["I"] },
-        { "id": "10", "label": "Log and monitor access", "pillars": ["VIII"] },
-        { "id": "11", "label": "Test security regularly", "pillars": ["IX.2", "III.8"] },
+        { "id": "1-2", "label": "Network security; secure config", "pillars": ["5", "8.1"] },
+        { "id": "3", "label": "Protect stored account data", "pillars": ["7.2"] },
+        { "id": "4", "label": "Protect cardholder data in transmission", "pillars": ["5.2", "5.3"] },
+        { "id": "5-6", "label": "Anti-malware; secure systems", "pillars": ["4.8", "6", "9"] },
+        { "id": "7", "label": "Restrict access by need-to-know", "pillars": ["2"] },
+        { "id": "8", "label": "Identify and authenticate access", "pillars": ["1"] },
+        { "id": "10", "label": "Log and monitor access", "pillars": ["8"] },
+        { "id": "11", "label": "Test security regularly", "pillars": ["9.2", "3.8"] },
         { "id": "12", "label": "Information security policy", "pillars": ["Provenance", "Disclosures"] }
       ]
     },
@@ -115,11 +115,11 @@
       "ref": "[^41]",
       "title": "Regulation (EU) 2024/1689",
       "high_risk_obligations": [
-        { "obligation": "Risk management & data governance", "pillars": ["VII.1", "X.3"] },
-        { "obligation": "Human oversight", "pillars": ["X.7"] },
-        { "obligation": "Transparency", "pillars": ["X.5"] },
-        { "obligation": "Cybersecurity", "pillars": ["all", "VIII.6"] },
-        { "obligation": "Post-market monitoring", "pillars": ["VIII.3", "X.3"] }
+        { "obligation": "Risk management & data governance", "pillars": ["7.1", "10.3"] },
+        { "obligation": "Human oversight", "pillars": ["10.7"] },
+        { "obligation": "Transparency", "pillars": ["10.5"] },
+        { "obligation": "Cybersecurity", "pillars": ["all", "8.6"] },
+        { "obligation": "Post-market monitoring", "pillars": ["8.3", "10.3"] }
       ]
     }
   }
