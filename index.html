@@ -28,7 +28,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Mythos Imperative &mdash; Salesforce CRM Security Hardening</title>
-<meta name="document-version" content="1.5.6">
+<meta name="document-version" content="1.5.7">
 <meta name="last-modified" content="2026-05-04">
 <meta name="source-snapshot" content="2026-05-04">
 <meta name="description" content="The Mythos Imperative: a vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars from Identity to Defensive AI; twenty-two appendices.">
@@ -38,7 +38,7 @@
 
 <!-- Open Graph / social-share metadata -->
 <meta property="og:type" content="article">
-<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.6">
+<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.7">
 <meta property="og:description" content="Vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars, 16+ appendices, fully attributed.">
 <meta property="og:url" content="https://drpaulcoleman.github.io/agentforce-mythos-hardening/">
 <meta property="og:site_name" content="Salesforce CRM Security Hardening">
@@ -49,7 +49,7 @@
 
 <!-- Twitter / X card metadata -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.6">
+<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.7">
 <meta name="twitter:description" content="Threat-informed Salesforce hardening reference. Ten pillars from Identity to Defensive AI, with a companion Salesforce DX reference implementation.">
 
 <!-- Errata / contributions -->
@@ -1592,7 +1592,7 @@ pre.mermaid g.node[onclick]:hover > path {
     </div>
     <div>
       <h1><span class="phase-tag">The Mythos Imperative</span><span class="phase-sep">&mdash;</span>Salesforce CRM Security Hardening</h1>
-      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.6 &middot; last modified 2026-05-04</span>
+      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.7 &middot; last modified 2026-05-04</span>
     </div>
   </div>
   <div class="doc-meta">
@@ -2007,7 +2007,7 @@ gantt
 
 <!-- TECH · Hero ---------------------------------------------------------- -->
 <div class="card hero" id="hero" data-search="hero overview salesforce crm security hardening defender encyclopedia frontier ai mythos">
-  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.6 &middot; last modified 2026-05-04</p>
+  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.7 &middot; last modified 2026-05-04</p>
   <h1>The <span class="accent">Mythos Imperative</span><br/><span style="font-size:24px; font-weight:700; opacity:0.92; display:block; margin-top:6px;">A Defender's Encyclopedia for the Frontier-AI Era</span></h1>
   <p class="lede" style="border-left: 3px solid var(--sf-orange); padding: 6px 0 6px 16px; margin-left: 0;">
     <strong style="color: var(--sf-orange); letter-spacing: 0.04em;">Why this exists, why now.</strong>
@@ -3794,34 +3794,89 @@ sequenceDiagram
 </div>
 
 <!-- 4.3 Block Uninstalled / Admin pre-approval -->
-<div class="card" id="iv-block-uninstalled" data-search="block uninstalled connected apps admin pre approved users pre authorized critical update september 2025 default high assurance">
+<div class="card" id="iv-block-uninstalled" data-search="block uninstalled connected apps admin pre approved users pre authorized critical update september 2025 default high assurance auto replication cross org consumer key client id stub shadow registration unc6040 vishing oauth error invalid client managed package installed">
   <h2>4.3 &middot; Block Uninstalled Connected Apps + Admin Pre-Approval</h2>
+
+  <h3>The default behavior this turns off</h3>
   <p>
-    "Block uninstalled connected apps" is a critical update enabled by default for most users since
-    September 2025<sup><a href="#ref-6" class="ref-link">[6]</a></sup>. It prevents users from authorizing Connected Apps that have not been
-    installed/approved by an admin. This is the single highest-leverage control against the UNC6040
-    pattern: even if an attacker tricks a user into approving a malicious Connected App, the
-    authorization fails because the app was never admin-approved.
+    By default, Salesforce treats a Connected App's <code>consumer_key</code> (OAuth <code>client_id</code>)
+    as <em>globally addressable across orgs</em>. When a user in <strong>your</strong> org follows an OAuth
+    authorize URL whose <code>client_id</code> resolves to a Connected App registered in <strong>some other
+    org</strong>, the platform <strong>auto-creates a "shadow" Connected App entry in your org</strong>
+    keyed off that <code>client_id</code>, presents the consent screen, and (on user approval) issues a
+    token. The app definition is essentially replicated into your org on first authorization, with no
+    admin involvement. This auto-replication is the property UNC6040 / ShinyHunters-style vishing
+    weaponized: register a malicious Connected App in a throwaway attacker-controlled org, then phone
+    the victim through approving the OAuth verification code in <em>your</em> org. The platform performs
+    the cross-org replication; the victim sees only a normal-looking consent screen.
   </p>
+
+  <h3>The setting that turns it off</h3>
+  <p>
+    <strong>"Block authentication for uninstalled connected apps"</strong>, in <em>Setup &rarr; OAuth and
+    OpenID Connect Settings</em>. When enabled, the platform refuses to auto-create the shadow record;
+    the OAuth request fails with an <code>invalid_client</code>-class error <em>before</em> the consent
+    screen ever renders. The user sees a generic OAuth error page (no consent prompt, no app branding,
+    nothing to click through). If you are watching for it, this is what a successful block looks like in
+    the wild &mdash; train operators to recognize and report it rather than retry.
+  </p>
+  <p>
+    Status: <strong>default-on for most orgs since September 2025</strong><sup><a href="#ref-6" class="ref-link">[6]</a></sup>
+    via the "Block Authentication for Uninstalled Connected Apps" critical update. Orgs created
+    <em>after</em> the rollout date inherit it on; some orgs created before may still have it off &mdash;
+    verify rather than assume. This is the single highest-leverage control against the UNC6040 pattern:
+    even if an attacker convinces a user to approve a malicious Connected App, the authorization fails
+    at the platform layer because the app was never admin-approved in <em>your</em> org.
+  </p>
+
   <h3>Verify it is on</h3>
   <ul>
-    <li>Setup &rarr; OAuth and OpenID Connect Settings &rarr; "Block authentication for uninstalled
-    connected apps" &mdash; enabled</li>
+    <li>Setup &rarr; OAuth and OpenID Connect Settings &rarr; <strong>"Block authentication for uninstalled
+    connected apps"</strong> &mdash; toggle: enabled</li>
     <li>For each Connected App you <em>do</em> use: Manage &rarr; Edit Policies &rarr; <strong>Permitted
     Users: "Admin approved users are pre-authorized"</strong> &mdash; not "All users may self-authorize"</li>
   </ul>
+
   <h3>The admin pre-approval contract</h3>
   <p>
-    With pre-authorization, a user cannot grant the Connected App scopes; only an admin assigns the app
-    to a user via Permission Set or profile. This makes app authorization a reviewed, auditable, multi-step
-    process &mdash; matching the 30-day quick-win lane.
+    With pre-authorization, a user cannot grant the Connected App scopes themselves; only an admin assigns
+    the app to a user via Permission Set or profile. This makes app authorization a reviewed, auditable,
+    multi-step process &mdash; matching the 30-day quick-win lane.
   </p>
+
   <h3>High Assurance gate on Connected Apps</h3>
   <p>
-    Per OAuth Policy: <strong>"High Assurance session required"</strong>. Combined with FIDO2 (Pillar 1),
-    this means even an admin pre-approving the app must touch a hardware key. Vishing attacks that try to
-    bypass this require the attacker to physically possess the admin's hardware key &mdash; the practical
+    Per OAuth Policy: <strong>"High Assurance session required"</strong>. Combined with FIDO2 (<a href="#pillar-i" class="pillar-link">Pillar 1</a>),
+    this means even an admin pre-approving the app must touch a hardware key. Vishing attacks that try
+    to bypass this require the attacker to physically possess the admin's hardware key &mdash; the practical
     impossibility that the entire identity pillar is built around.
+  </p>
+
+  <h3>What this control does <em>not</em> cover</h3>
+  <p>
+    The block is on the <strong>auto-replication path</strong>. It is <em>not</em> a defense against the
+    cases where a Connected App definition is already legitimately present in your org. Specifically:
+  </p>
+  <ul>
+    <li><strong>Managed-package Connected Apps.</strong> If your org has installed an AppExchange package
+    that ships a Connected App, that app <em>is</em> installed (not "uninstalled") in your org &mdash; the
+    block does not apply. A compromised ISV (UNC6395 / Salesloft Drift, August 2025) abuses this path,
+    not the auto-replication path. <a href="#iv-appexchange" class="pillar-link">Pillar 4.5</a> (AppExchange Security Review)
+    and <a href="#iv-isv-compromise" class="pillar-link">Pillar 4.6</a> (ISV repo compromise pattern) are the relevant defenses.</li>
+    <li><strong>Connected Apps you registered yourself.</strong> Apps created in your org via Setup or via
+    a metadata deploy are also "installed," and follow the per-app Permitted Users policy plus any High
+    Assurance policy you set. The block is silent here.</li>
+    <li><strong>External Client Apps (ECA).</strong> The Spring '26 successor primitive
+    (<a href="#iv-eca-transition" class="pillar-link">Pillar 4.1</a>) has its own equivalent control surface; verify the same
+    posture there as you migrate.</li>
+    <li><strong>Browser-extension session hijack</strong> (<a href="#iv-browser-extensions" class="pillar-link">Pillar 4.8</a>).
+    A compromised extension reuses the user's existing authenticated session &mdash; no Connected App
+    authorization is requested at all, so this control plane is bypassed entirely.</li>
+  </ul>
+  <p>
+    In short: <strong>"Block Uninstalled Connected Apps" closes the cross-org auto-replication door.</strong>
+    The other doors &mdash; ISV supply chain, your own app inventory, browser-resident agents &mdash; need
+    their own controls (Pillars 4.4&ndash;4.9).
   </p>
 </div>
 
@@ -6519,6 +6574,18 @@ DIFF:
     <thead><tr><th>Version</th><th>Date</th><th>Change</th><th>Author</th></tr></thead>
     <tbody>
       <tr>
+        <td><strong>1.5.7</strong></td>
+        <td>2026-05-04</td>
+        <td><strong>Pillar 4.3 expanded &mdash; "Block Uninstalled Connected Apps" mechanism, default state, and what it does not cover.</strong>
+        User asked the right question: "how do you turn off the default org CRM feature that auto-replicates a Connected App config defined in another org?" The doc named the setting but didn't spell out the mechanism it gates or the boundaries of the protection. Rewrote 4.3 to lead with the default behavior being turned off, then walk through:
+        (a) <strong>The default behavior the toggle disables</strong> &mdash; Salesforce treats a Connected App's <code>consumer_key</code> (OAuth <code>client_id</code>) as globally addressable across orgs; on first authorization in your org the platform <em>auto-creates a "shadow" Connected App entry keyed off that client_id</em>, presents the consent screen, and issues a token. The app definition is replicated into your org with no admin involvement &mdash; this is the property UNC6040 / ShinyHunters vishing weaponized.
+        (b) <strong>The setting that turns it off</strong> &mdash; "Block authentication for uninstalled connected apps" in Setup &rarr; OAuth and OpenID Connect Settings. When enabled, the platform refuses to auto-create the shadow record; the OAuth request fails with an <code>invalid_client</code>-class error <em>before</em> the consent screen renders. The user sees a generic OAuth error page (no consent prompt, no app branding). Train operators to recognize this as a successful block rather than retry.
+        (c) <strong>Default state</strong> &mdash; default-on for most orgs since September 2025 via the critical update. Orgs created after the rollout inherit it on; some orgs created before may still have it off. Verify rather than assume.
+        (d) <strong>What this control does NOT cover</strong> &mdash; new section explicitly listing the four cases the block is silent on: managed-package Connected Apps (already "installed"; UNC6395 / Salesloft Drift abused this path), Connected Apps you registered yourself, External Client Apps (Spring '26 successor primitive with its own equivalent surface), and browser-extension session hijack (no OAuth authorization is requested at all; reuses the user's existing session).
+        Added <code>data-search</code> keywords for the new concepts (auto replication, cross-org, consumer key, client_id, stub, shadow registration, invalid_client, managed package, installed) so the search box surfaces this card on those queries.</td>
+        <td>Dr. Paul Coleman</td>
+      </tr>
+      <tr>
         <td><strong>1.5.6</strong></td>
         <td>2026-05-04</td>
         <td><strong>Pillar 1.8 X-Sec-Token row sharpened + Permission Waterfall diagram redrawn.</strong>
@@ -7373,7 +7440,7 @@ SELECT UserId, LastUsedDate FROM OauthToken WHERE AppName = 'ISV_APP_NAME'</code
     });
     exportBtn.addEventListener('click', function() {
       var snapshot = {
-        framework: 'Salesforce CRM Security Hardening v1.5.6',
+        framework: 'Salesforce CRM Security Hardening v1.5.7',
         scored_at: new Date().toISOString(),
         scores: loadStored(),
         average: parseFloat(avgEl.textContent) || 0,
