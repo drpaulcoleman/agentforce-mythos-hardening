@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   Salesforce CRM Security Hardening — A Defender's Encyclopedia for the Frontier-AI Era
-  Document version 1.4.2 · Last modified 2026-05-04
+  Document version 1.4.3 · Last modified 2026-05-04
   Copyright (c) 2026 Dr. Paul Coleman. All rights reserved.
 
   A vendor-neutral hardening reference for the customer side of the Salesforce
@@ -28,7 +28,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Salesforce CRM Security Hardening &mdash; A Defender's Encyclopedia for the Frontier-AI Era</title>
-<meta name="document-version" content="1.4.2">
+<meta name="document-version" content="1.4.3">
 <meta name="last-modified" content="2026-05-04">
 <meta name="source-snapshot" content="2026-05-04">
 <meta name="description" content="Vendor-neutral Salesforce CRM security hardening reference: identity, access, Experience Cloud guest hardening, Connected Apps + AppExchange supply chain, mTLS, secure Apex/LWC/Flow, encryption, detection &amp; response, DevSecOps, and defensive AI augmentation. Threat-informed (UNC6040, UNC6395, Krebs guest exposure, Drift OAuth chain) and standards-aligned (NIST CSF 2.0, OWASP).">
@@ -1247,7 +1247,7 @@ pre.mermaid g.node[onclick]:hover > path {
     </div>
     <div>
       <h1>Salesforce CRM Security Hardening</h1>
-      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.4.2 &middot; last modified 2026-05-04</span>
+      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.4.3 &middot; last modified 2026-05-04</span>
     </div>
   </div>
   <div class="doc-meta">
@@ -1752,32 +1752,37 @@ gantt
 <div class="card" id="glossary" data-search="glossary terms quick reference acronyms key concepts">
   <h2>Glossary &mdash; Quick Reference</h2>
   <p style="margin-bottom:12px;">
-    The terms most likely to be needed in-line. <strong>Each term hyperlinks to its primary in-doc treatment</strong>;
-    <a href="#appendix-l">Appendix L</a> holds the full alphabetized glossary with cross-links to every
-    occurrence and to the authoritative Salesforce or standards URL.
+    The 20 terms most likely to be needed in-line. Each term links to its primary in-doc
+    treatment. <a href="#appendix-l">Appendix L</a> holds the full alphabetized glossary
+    with cross-links to every occurrence and to the authoritative Salesforce or standards URL.
   </p>
-  <div class="exec-kpi-grid" style="grid-template-columns: 1fr 1fr;">
-    <div class="exec-bubble"><strong><a href="#pillar-i">FIDO2 / WebAuthn</a></strong> &mdash; phishing-resistant hardware-key authentication; the only MFA factor that survives vishing.</div>
-    <div class="exec-bubble"><strong><a href="#pillar-i">High Assurance session</a></strong> &mdash; session-level trust marker requiring stronger MFA for sensitive operations.</div>
-    <div class="exec-bubble"><strong><a href="#pillar-ii">OWD (Org-Wide Defaults)</a></strong> &mdash; baseline record-access posture; Private is the foundation of every hardening pillar.</div>
-    <div class="exec-bubble"><strong><a href="#pillar-ii">Permission Set Group</a></strong> &mdash; the modern least-privilege primitive; will replace profile permissions per Salesforce direction (the original Spring '26 enforcement date was postponed<sup>[42]</sup>; new hard date pending).</div>
-    <div class="exec-bubble"><strong><a href="#pillar-iii">Guest user profile</a></strong> &mdash; the unauthenticated identity used by Experience Cloud public sites; the top data-leak vector.</div>
-    <div class="exec-bubble"><strong><a href="#pillar-iv">External Client App (ECA)</a></strong> &mdash; Spring '26 replacement for Connected Apps; preferred for new integrations.</div>
-    <div class="exec-bubble"><strong><a href="#pillar-iv">OAuth refresh token rotation</a></strong> &mdash; periodic re-issuance of refresh tokens to reduce token-theft blast radius.</div>
-    <div class="exec-bubble"><strong><a href="#pillar-v">Named Credential / External Credential</a></strong> &mdash; the only sanctioned way to store integration secrets in Salesforce.</div>
-    <div class="exec-bubble"><strong><a href="#pillar-v">Mutual TLS (mTLS)</a></strong> &mdash; both sides of a TLS handshake present certificates; required for high-trust integrations.</div>
-    <div class="exec-bubble"><strong><a href="#pillar-vi">USER_MODE</a></strong> &mdash; modern Apex query mode that enforces FLS and CRUD automatically; preferred over <code>WITH SECURITY_ENFORCED</code>.</div>
-    <div class="exec-bubble"><strong><a href="#pillar-vi">Flow run-context</a></strong> &mdash; "system" vs. "user" context decision that determines whether a Flow respects sharing and FLS.</div>
-    <div class="exec-bubble"><strong><a href="#pillar-vii">Shield Platform Encryption</a></strong> &mdash; Salesforce's at-rest encryption product; supports BYOK / customer-managed keys.</div>
-    <div class="exec-bubble"><strong><a href="#pillar-vii">Field Audit Trail</a></strong> &mdash; long-retention forensic audit on classified fields (Shield).</div>
-    <div class="exec-bubble"><strong><a href="#pillar-vii">Data Mask</a></strong> &mdash; sandbox PII anonymization product; required for non-prod compliance.</div>
-    <div class="exec-bubble"><strong><a href="#pillar-viii">Real-Time Event Monitoring</a></strong> &mdash; queryable, near-real-time event log objects (Shield / EM add-on).</div>
-    <div class="exec-bubble"><strong><a href="#pillar-viii">Threat Detection</a></strong> &mdash; Salesforce's built-in anomaly detection (free for all customers).</div>
-    <div class="exec-bubble"><strong><a href="#pillar-viii">Transaction Security</a></strong> &mdash; rule-based policy framework that can Block / require MFA / Notify on events.</div>
-    <div class="exec-bubble"><strong><a href="#pillar-ix">Unlocked package + signed</a></strong> &mdash; modern Salesforce DX deployment unit; signing is the supply-chain control.</div>
-    <div class="exec-bubble"><strong><a href="#pillar-x">Project Glasswing</a></strong> &mdash; Anthropic's restricted research program housing the Mythos model.</div>
-    <div class="exec-bubble"><strong><a href="#pillar-x">Claude Security</a></strong> &mdash; Anthropic's vulnerability-scanning product (Opus 4.7, public beta May 2026); explicitly NOT Mythos.</div>
-  </div>
+  <table>
+    <thead>
+      <tr><th style="width: 26%;">Term</th><th>Definition</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><a href="#pillar-x">Claude Security</a></td><td>Anthropic's vulnerability-scanning product (Opus 4.7, public beta May 2026); explicitly <em>not</em> Mythos.</td></tr>
+      <tr><td><a href="#pillar-vii">Data Mask</a></td><td>Sandbox PII anonymization product; required for non-prod compliance.</td></tr>
+      <tr><td><a href="#pillar-iv">External Client App (ECA)</a></td><td>Spring '26 replacement for Connected Apps; preferred for new integrations.</td></tr>
+      <tr><td><a href="#pillar-vii">Field Audit Trail</a></td><td>Long-retention forensic audit on classified fields (Shield).</td></tr>
+      <tr><td><a href="#pillar-i">FIDO2 / WebAuthn</a></td><td>Phishing-resistant hardware-key authentication; the only MFA factor that survives vishing.</td></tr>
+      <tr><td><a href="#pillar-vi">Flow run-context</a></td><td>"System" vs. "user" context decision that determines whether a Flow respects sharing and FLS.</td></tr>
+      <tr><td><a href="#pillar-iii">Guest user profile</a></td><td>Unauthenticated identity used by Experience Cloud public sites; the top data-leak vector.</td></tr>
+      <tr><td><a href="#pillar-i">High Assurance session</a></td><td>Session-level trust marker requiring stronger MFA for sensitive operations.</td></tr>
+      <tr><td><a href="#pillar-v">Mutual TLS (mTLS)</a></td><td>Both sides of a TLS handshake present certificates; required for high-trust integrations.</td></tr>
+      <tr><td><a href="#pillar-v">Named / External Credential</a></td><td>Sanctioned secret-storage primitives for integration credentials.</td></tr>
+      <tr><td><a href="#pillar-iv">OAuth refresh-token rotation</a></td><td>Periodic re-issuance of refresh tokens to reduce token-theft blast radius.</td></tr>
+      <tr><td><a href="#pillar-ii">OWD (Org-Wide Defaults)</a></td><td>Baseline record-access posture; Private is the foundation of every hardening pillar.</td></tr>
+      <tr><td><a href="#pillar-ii">Permission Set Group</a></td><td>Modern least-privilege primitive; will replace profile permissions per Salesforce direction (original Spring '26 enforcement postponed<sup>[42]</sup>; new date pending).</td></tr>
+      <tr><td><a href="#pillar-x">Project Glasswing</a></td><td>Anthropic's restricted research program housing the Mythos model.</td></tr>
+      <tr><td><a href="#pillar-viii">Real-Time Event Monitoring</a></td><td>Queryable, near-real-time event log objects (Shield / EM add-on).</td></tr>
+      <tr><td><a href="#pillar-vii">Shield Platform Encryption</a></td><td>Salesforce's at-rest encryption product; supports BYOK / customer-managed keys.</td></tr>
+      <tr><td><a href="#pillar-viii">Threat Detection</a></td><td>Salesforce's built-in anomaly detection (free for all customers).</td></tr>
+      <tr><td><a href="#pillar-viii">Transaction Security</a></td><td>Rule-based policy framework that can Block / require MFA / Notify on events.</td></tr>
+      <tr><td><a href="#pillar-ix">Unlocked package + signed</a></td><td>Modern Salesforce DX deployment unit; signing is the supply-chain control.</td></tr>
+      <tr><td><a href="#pillar-vi">USER_MODE</a></td><td>Modern Apex query mode that enforces FLS and CRUD automatically; preferred over <code>WITH SECURITY_ENFORCED</code>.</td></tr>
+    </tbody>
+  </table>
   <p style="margin-top:14px;"><a href="#appendix-l">&rarr; Full alphabetized glossary &middot; Appendix L</a></p>
 </div>
 
@@ -6025,6 +6030,12 @@ DIFF:
   <table>
     <thead><tr><th>Version</th><th>Date</th><th>Change</th><th>Author</th></tr></thead>
     <tbody>
+      <tr>
+        <td><strong>1.4.3</strong></td>
+        <td>2026-05-04</td>
+        <td>Glossary "Quick Reference" card simplified: replaced the <code>exec-bubble</code> grid (which carried decorative "EXECUTIVE SUMMARY" badges that didn't belong in a tech-tab card) with a clean two-column term/definition table. Entries alphabetized A&rarr;Z. No content lost; same 20 terms with the same anchor links.</td>
+        <td>Dr. Paul Coleman</td>
+      </tr>
       <tr>
         <td><strong>1.4.2</strong></td>
         <td>2026-05-04</td>
