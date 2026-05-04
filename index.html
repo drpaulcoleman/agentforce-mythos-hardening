@@ -28,7 +28,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Mythos Imperative &mdash; Salesforce CRM Security Hardening</title>
-<meta name="document-version" content="1.5.0">
+<meta name="document-version" content="1.5.3">
 <meta name="last-modified" content="2026-05-04">
 <meta name="source-snapshot" content="2026-05-04">
 <meta name="description" content="The Mythos Imperative: a vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars from Identity to Defensive AI; twenty-two appendices.">
@@ -38,7 +38,7 @@
 
 <!-- Open Graph / social-share metadata -->
 <meta property="og:type" content="article">
-<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.0">
+<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.3">
 <meta property="og:description" content="Vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars, 16+ appendices, fully attributed.">
 <meta property="og:url" content="https://drpaulcoleman.github.io/agentforce-mythos-hardening/">
 <meta property="og:site_name" content="Salesforce CRM Security Hardening">
@@ -49,7 +49,7 @@
 
 <!-- Twitter / X card metadata -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.0">
+<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.3">
 <meta name="twitter:description" content="Threat-informed Salesforce hardening reference. Ten pillars from Identity to Defensive AI, with a companion Salesforce DX reference implementation.">
 
 <!-- Errata / contributions -->
@@ -327,6 +327,18 @@ td a:visited, th a:visited { color: #8ECAE6; }
 }
 .apa-refs li a { color: #5AB4E0; text-decoration: none; border-bottom: 1px dotted rgba(91,180,213,0.45); }
 .apa-refs li a:hover { color: #FFFFFF; border-bottom-color: #FFFFFF; }
+
+/* Inline pillar references hotlinked from body prose: subtle, on-hover emphasis. */
+a.pillar-link {
+  color: var(--sf-blue-light);
+  text-decoration: none;
+  border-bottom: 1px dotted rgba(91,180,213,0.30);
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+a.pillar-link:hover {
+  color: #FFFFFF;
+  border-bottom-color: #FFFFFF;
+}
 
 /* Footnote markers linking back to References. Subtle by default; underline on hover. */
 sup .ref-link, a.ref-link {
@@ -1029,31 +1041,6 @@ ol.numbered li strong { color: var(--sf-blue-light); font-weight: 600; }
 .card.dim { opacity: 0.12; transition: opacity 0.3s ease; }
 .card.match { opacity: 1; box-shadow: 0 0 0 2px var(--sf-blue), 0 8px 32px rgba(0,112,210,0.3); transition: opacity 0.3s ease; }
 
-/* ─── Minimap ─── */
-#minimap {
-  position: fixed; bottom: 16px; right: 16px;
-  width: 120px; height: 300px;
-  background: rgba(13,27,42,0.95); border: 1px solid var(--border);
-  border-radius: 8px; z-index: 999; overflow: hidden; cursor: crosshair;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.7); backdrop-filter: blur(8px);
-}
-#minimap canvas { width: 100%; height: 100%; display: block; }
-#minimap-label {
-  position: absolute; top: 6px; left: 8px;
-  font-family: 'Source Code Pro', monospace; font-size: 9px;
-  color: var(--text-muted); pointer-events: none;
-  letter-spacing: 0.08em; text-transform: uppercase;
-}
-#minimap-toggle {
-  position: fixed; bottom: 324px; right: 16px;
-  background: var(--bg-dark); border: 1px solid var(--border);
-  color: var(--text-secondary);
-  font-family: 'Source Code Pro', monospace; font-size: 9px;
-  padding: 4px 12px; border-radius: 4px; cursor: pointer; z-index: 999;
-  letter-spacing: 0.06em; text-transform: uppercase;
-}
-#minimap-toggle:hover { background: var(--sf-blue-faint); color: var(--sf-blue); border-color: var(--sf-blue); }
-
 /* ─── Legend ─── */
 #legend {
   position: fixed; bottom: 16px; left: 256px;
@@ -1182,7 +1169,7 @@ pre.mermaid g.node[onclick]:hover > path {
 
 /* ─── Print-friendly ─── */
 @media print {
-  #header, #sidebar, #minimap, #minimap-toggle, #legend, #zoom-controls { display: none !important; }
+  #header, #sidebar, #legend, #zoom-controls { display: none !important; }
   #arch-viewport { position: static; overflow: visible; left: 0; }
   #arch-canvas { width: 100%; max-width: 100%; padding: 0 20px; }
   .card { page-break-inside: avoid; margin-bottom: 24px; }
@@ -1419,8 +1406,6 @@ pre.mermaid g.node[onclick]:hover > path {
   /* Hide the interactive chrome */
   #header,
   #sidebar,
-  #minimap,
-  #minimap-toggle,
   #legend,
   #search-box,
   #search-count,
@@ -1596,7 +1581,7 @@ pre.mermaid g.node[onclick]:hover > path {
     </div>
     <div>
       <h1><span class="phase-tag">The Mythos Imperative</span><span class="phase-sep">&mdash;</span>Salesforce CRM Security Hardening</h1>
-      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.0 &middot; last modified 2026-05-04</span>
+      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.3 &middot; last modified 2026-05-04</span>
     </div>
   </div>
   <div class="doc-meta">
@@ -2011,7 +1996,7 @@ gantt
 
 <!-- TECH · Hero ---------------------------------------------------------- -->
 <div class="card hero" id="hero" data-search="hero overview salesforce crm security hardening defender encyclopedia frontier ai mythos">
-  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.0 &middot; last modified 2026-05-04</p>
+  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.3 &middot; last modified 2026-05-04</p>
   <h1>The <span class="accent">Mythos Imperative</span><br/><span style="font-size:24px; font-weight:700; opacity:0.92; display:block; margin-top:6px;">A Defender's Encyclopedia for the Frontier-AI Era</span></h1>
   <p class="lede" style="border-left: 3px solid var(--sf-orange); padding: 6px 0 6px 16px; margin-left: 0;">
     <strong style="color: var(--sf-orange); letter-spacing: 0.04em;">Why this exists, why now.</strong>
@@ -2570,7 +2555,7 @@ sequenceDiagram
   </ol>
   <p>
     Pillar 8 covers the Transaction Security route in detail; this card establishes the contract.
-    Pillar 1.4 covers Custom Login Flows as the universal hook.
+    <a href="#i-login-flow" class="pillar-link">Pillar 1.4</a> covers Custom Login Flows as the universal hook.
   </p>
 </div>
 
@@ -4299,7 +4284,7 @@ flowchart LR
 <div class="card" id="vi-apex-runmodes" data-search="apex user mode security enforced stripinaccessible accesslevel sharing keyword run mode soql dml">
   <h2>6.1 &middot; Apex Run Modes &mdash; USER_MODE as the Default</h2>
   <p>
-    The hierarchy was covered in Pillar 2.6. The rule for new code: <strong><code>WITH USER_MODE</code></strong>
+    The hierarchy was covered in <a href="#ii-fls" class="pillar-link">Pillar 2.6</a>. The rule for new code: <strong><code>WITH USER_MODE</code></strong>
     on every SOQL, <strong><code>AccessLevel.USER_MODE</code></strong> on every DML, <strong><code>with
     sharing</code></strong> or <strong><code>inherited sharing</code></strong> on every class. Default
     System-mode Apex is the historical default and the historical bug source.
@@ -5195,7 +5180,7 @@ flowchart LR
   <h2>9.4 &middot; Deployment Approval Workflow</h2>
   <ul>
     <li>2-reviewer minimum for any deployment to Prod (1 architect + 1 admin/QA at minimum)</li>
-    <li>Approval recorded with FIDO2 hardware-key touch (Pillar 1.8 Tier 2 classification)</li>
+    <li>Approval recorded with FIDO2 hardware-key touch (<a href="#pillar-i" class="pillar-link">Pillar 1.8</a> Tier 2 classification)</li>
     <li>Approval log HMAC-chained for tamper evidence (each approval references the prior approval's hash; tampering with one approval breaks the chain)</li>
     <li>Auto-revert on test failure within window (e.g., if Apex tests in the destination fall below 90% within 10 minutes of deploy, auto-revert)</li>
     <li>Change Advisory Board (CAB) for high-risk changes (sharing changes, profile changes, security-impactful PSG changes)</li>
@@ -5424,7 +5409,7 @@ flowchart LR
 <div class="card" id="x-anomaly-authoring" data-search="ai assisted anomaly policy authoring transaction security apex policy natural language to code prompt library">
   <h2>10.4 &middot; AI-Assisted Anomaly Policy Authoring</h2>
   <p>
-    The Transaction Security policy library (Pillar 8.5) covers most observed anomalies. Tail policies
+    The Transaction Security policy library (<a href="#viii-transaction-security" class="pillar-link">Pillar 8.5</a>) covers most observed anomalies. Tail policies
     &mdash; org-specific patterns &mdash; are where AI accelerates. The pattern:
   </p>
   <ol>
@@ -6275,7 +6260,7 @@ flowchart LR
      ════════════════════════════════════════════════════════════════════════ -->
 <div class="card" id="appendix-j" data-search="appendix j ai prompt library ciso governance anomaly authoring irp companion metadata audit health check baseline">
   <h2>Appendix J &middot; AI Prompt Library</h2>
-  <p><em>Production-ready prompts. Use with Claude / ChatGPT / Gemini under the Trust Layer pattern (Pillar 10.3). Adapt org-specific names; never include real PII.</em></p>
+  <p><em>Production-ready prompts. Use with Claude / ChatGPT / Gemini under the Trust Layer pattern (<a href="#x-trust-layer" class="pillar-link">Pillar 10.3</a>). Adapt org-specific names; never include real PII.</em></p>
 
   <h3>J.1 CISO Health Check baseline derivation</h3>
   <pre><code>You are a Salesforce security architect. Given the following inputs, propose a custom Health Check
@@ -6363,18 +6348,18 @@ DIFF:
   <table>
     <thead><tr><th>Term</th><th>Definition</th><th>Primary anchor</th><th>External</th></tr></thead>
     <tbody>
-      <tr><td><strong>@AuraEnabled</strong></td><td>Apex annotation marking a method callable from Aura/LWC; guest-callable by default.</td><td><a href="#iii-lwc-aura">3.5</a> &middot; <a href="#appendix-b">App. B</a></td><td><a href="https://developer.salesforce.com/docs/atlas.en-us.apexref.meta/apexref/apex_classes_annotation_AuraEnabled.htm" target="_blank" rel="noopener">SF Help</a></td></tr>
+      <tr><td><strong>@AuraEnabled</strong></td><td>Apex annotation marking a method callable from Aura/LWC; guest-callable by default.</td><td><a href="#iii-lwc-aura">3.5</a> &middot; <a href="#appendix-b">Appendix B</a></td><td><a href="https://developer.salesforce.com/docs/atlas.en-us.apexref.meta/apexref/apex_classes_annotation_AuraEnabled.htm" target="_blank" rel="noopener">SF Help</a></td></tr>
       <tr><td><strong>BYOK</strong></td><td>Bring Your Own Key &mdash; customer-managed encryption key material.</td><td><a href="#vii-encrypt">7.2</a></td><td><a href="https://help.salesforce.com/s/articleView?id=sf.security_pe_byok.htm" target="_blank" rel="noopener">SF Help</a></td></tr>
       <tr><td><strong>Claude Security</strong></td><td>Anthropic's vulnerability-scanning product (in public beta as of May 1 2026) on Opus 4.7; explicitly NOT Mythos.</td><td><a href="#x-claude-security">10.1</a></td><td><a href="https://claude.ai/security" target="_blank" rel="noopener">Anthropic</a></td></tr>
-      <tr><td><strong>Connected App</strong></td><td>OAuth integration registration; being superseded by External Client Apps in Spring '26.</td><td><a href="#iv-eca-transition">4.1</a> &middot; <a href="#appendix-c">App. C</a></td><td><a href="https://help.salesforce.com/s/articleView?id=sf.connected_app_overview.htm" target="_blank" rel="noopener">SF Help</a></td></tr>
-      <tr><td><strong>Custom Login Flow</strong></td><td>Post-auth, pre-homepage hook for step-up / disclosure / session control.</td><td><a href="#i-login-flow">1.4</a> &middot; <a href="#appendix-a">App. A</a></td><td><a href="https://help.salesforce.com/s/articleView?id=sf.security_login_flow_overview.htm" target="_blank" rel="noopener">SF Help</a></td></tr>
+      <tr><td><strong>Connected App</strong></td><td>OAuth integration registration; being superseded by External Client Apps in Spring '26.</td><td><a href="#iv-eca-transition">4.1</a> &middot; <a href="#appendix-c">Appendix C</a></td><td><a href="https://help.salesforce.com/s/articleView?id=sf.connected_app_overview.htm" target="_blank" rel="noopener">SF Help</a></td></tr>
+      <tr><td><strong>Custom Login Flow</strong></td><td>Post-auth, pre-homepage hook for step-up / disclosure / session control.</td><td><a href="#i-login-flow">1.4</a> &middot; <a href="#appendix-a">Appendix A</a></td><td><a href="https://help.salesforce.com/s/articleView?id=sf.security_login_flow_overview.htm" target="_blank" rel="noopener">SF Help</a></td></tr>
       <tr><td><strong>Data Mask</strong></td><td>Salesforce add-on for sandbox PII anonymization.</td><td><a href="#vii-sandbox">7.5</a></td><td><a href="https://help.salesforce.com/s/articleView?id=sf.data_mask_overview.htm" target="_blank" rel="noopener">SF Help</a></td></tr>
       <tr><td><strong>Device Activation</strong></td><td>Required for SSO logins as of Feb 2026; confirms device authorization separately from user.</td><td><a href="#i-my-domain">1.7</a></td><td><a href="https://vantagepoint.io/blog/sf/salesforce-security-overhaul-2026-email-verification-mfa-preparation-guide" target="_blank" rel="noopener">Vantage Point</a></td></tr>
       <tr><td><strong>EEE (External Encryption Ecosystem)</strong></td><td>Customer key material managed in external KMS; integrates with Shield.</td><td><a href="#vii-hyperforce">7.7</a></td><td>SF Shield docs</td></tr>
       <tr><td><strong>Einstein Data Detect</strong></td><td>Bundled data classifier; finds sensitive data patterns.</td><td><a href="#vii-detect">7.4</a></td><td>SF Help</td></tr>
-      <tr><td><strong>Event Log Object</strong></td><td>Queryable Real-Time EM event store; 30-day retention; SOQL-only on Hyperforce.</td><td><a href="#viii-real-time-em">8.3</a> &middot; <a href="#appendix-h">App. H</a></td><td>SF Help</td></tr>
+      <tr><td><strong>Event Log Object</strong></td><td>Queryable Real-Time EM event store; 30-day retention; SOQL-only on Hyperforce.</td><td><a href="#viii-real-time-em">8.3</a> &middot; <a href="#appendix-h">Appendix H</a></td><td>SF Help</td></tr>
       <tr><td><strong>External Client App (ECA)</strong></td><td>Spring '26 replacement for Connected Apps; finer-grained policy.</td><td><a href="#iv-eca-transition">4.1</a></td><td>SF Help</td></tr>
-      <tr><td><strong>External Credential</strong></td><td>Newer credential primitive; supports per-user named principals.</td><td><a href="#v-named-credentials">5.1</a> &middot; <a href="#appendix-c">App. C</a></td><td>SF Help</td></tr>
+      <tr><td><strong>External Credential</strong></td><td>Newer credential primitive; supports per-user named principals.</td><td><a href="#v-named-credentials">5.1</a> &middot; <a href="#appendix-c">Appendix C</a></td><td>SF Help</td></tr>
       <tr><td><strong>Federation Identifier</strong></td><td>SSO user identifier, decoupled from email/username; preferred for SAML resilience.</td><td><a href="#i-sso">1.5</a></td><td>SF Help</td></tr>
       <tr><td><strong>Field Audit Trail</strong></td><td>Long-retention forensic audit on classified fields (Shield).</td><td><a href="#vii-fat">7.3</a></td><td>SF Help</td></tr>
       <tr><td><strong>FIDO2 / WebAuthn</strong></td><td>Phishing-resistant hardware-key auth; the only MFA factor that survives vishing.</td><td><a href="#i-fido2">1.2</a></td><td><a href="https://help.salesforce.com/s/articleView?id=sf.mfa_supported_verification_methods_securitykey.htm" target="_blank" rel="noopener">SF Help</a></td></tr>
@@ -6383,28 +6368,28 @@ DIFF:
       <tr><td><strong>Guest user profile</strong></td><td>Unauthenticated identity used by Experience Cloud public sites; top data-leak vector.</td><td><a href="#pillar-iii">Pillar 3</a></td><td><a href="https://www.salesforce.com/blog/protecting-your-data-essential-actions-to-secure-experience-cloud-guest-user-access/" target="_blank" rel="noopener">Salesforce blog</a></td></tr>
       <tr><td><strong>High Assurance session</strong></td><td>Stronger session security level requiring stronger MFA for sensitive ops.</td><td><a href="#i-high-assurance">1.3</a></td><td>SF Help</td></tr>
       <tr><td><strong>Hyperforce</strong></td><td>AWS-based public-cloud Salesforce infrastructure with regional residency.</td><td><a href="#vii-hyperforce">7.7</a></td><td>SF Help</td></tr>
-      <tr><td><strong>JIT Provisioning</strong></td><td>Just-in-Time user creation/update from SSO assertion.</td><td><a href="#i-sso">1.5</a> &middot; <a href="#appendix-a">App. A</a></td><td>SF Help</td></tr>
+      <tr><td><strong>JIT Provisioning</strong></td><td>Just-in-Time user creation/update from SSO assertion.</td><td><a href="#i-sso">1.5</a> &middot; <a href="#appendix-a">Appendix A</a></td><td>SF Help</td></tr>
       <tr><td><strong>Mutual TLS (mTLS)</strong></td><td>Both sides of TLS present certs; required for high-trust integrations.</td><td><a href="#v-mtls">5.2</a></td><td>SF Help</td></tr>
       <tr><td><strong>My Domain</strong></td><td>Custom branded login URL; required for SSO and many security features.</td><td><a href="#i-my-domain">1.7</a></td><td>SF Help</td></tr>
       <tr><td><strong>Mythos</strong></td><td>Anthropic's most capable model, restricted to Project Glasswing.</td><td><a href="#mythos-reality">Threat Brief</a> &middot; <a href="#x-limits">10.7</a></td><td><a href="https://www.anthropic.com/glasswing" target="_blank" rel="noopener">Anthropic</a></td></tr>
-      <tr><td><strong>Named Credential</strong></td><td>Sanctioned secret-storage primitive; holds endpoint + auth.</td><td><a href="#v-named-credentials">5.1</a> &middot; <a href="#appendix-c">App. C</a></td><td>SF Help</td></tr>
+      <tr><td><strong>Named Credential</strong></td><td>Sanctioned secret-storage primitive; holds endpoint + auth.</td><td><a href="#v-named-credentials">5.1</a> &middot; <a href="#appendix-c">Appendix C</a></td><td>SF Help</td></tr>
       <tr><td><strong>OAuth Web Server flow</strong></td><td>Recommended OAuth flow with auth code + PKCE.</td><td><a href="#iv-oauth-flows">4.2</a></td><td>SF Help</td></tr>
       <tr><td><strong>OWD</strong></td><td>Org-Wide Default &mdash; baseline record-access posture.</td><td><a href="#ii-owd">2.1</a></td><td>SF Help</td></tr>
-      <tr><td><strong>Permission Set Group</strong></td><td>Modern least-privilege primitive; will replace profile permissions (Salesforce postponed the original Spring '26 enforcement date; revised date pending).</td><td><a href="#ii-permset-migration">2.2</a> &middot; <a href="#appendix-e">App. E</a></td><td>SF Help</td></tr>
+      <tr><td><strong>Permission Set Group</strong></td><td>Modern least-privilege primitive; will replace profile permissions (Salesforce postponed the original Spring '26 enforcement date; revised date pending).</td><td><a href="#ii-permset-migration">2.2</a> &middot; <a href="#appendix-e">Appendix E</a></td><td>SF Help</td></tr>
       <tr><td><strong>Project Glasswing</strong></td><td>Anthropic's restricted research program housing Mythos.</td><td><a href="#mythos-reality">Threat Brief</a></td><td><a href="https://www.anthropic.com/glasswing" target="_blank" rel="noopener">Anthropic</a></td></tr>
-      <tr><td><strong>Real-Time Event Monitoring</strong></td><td>Queryable, near-real-time event log objects (Shield).</td><td><a href="#viii-real-time-em">8.3</a> &middot; <a href="#appendix-h">App. H</a></td><td>SF Help</td></tr>
+      <tr><td><strong>Real-Time Event Monitoring</strong></td><td>Queryable, near-real-time event log objects (Shield).</td><td><a href="#viii-real-time-em">8.3</a> &middot; <a href="#appendix-h">Appendix H</a></td><td>SF Help</td></tr>
       <tr><td><strong>Restriction Rule</strong></td><td>Narrow-access primitive; can override sharing widening.</td><td><a href="#ii-restriction">2.5</a></td><td>SF Help</td></tr>
       <tr><td><strong>Salesforce Data Mask</strong></td><td>See "Data Mask".</td><td><a href="#vii-sandbox">7.5</a></td><td>SF Help</td></tr>
-      <tr><td><strong>SAML JIT Handler</strong></td><td>Apex extension point for custom SSO provisioning.</td><td><a href="#i-custom-auth">1.6</a> &middot; <a href="#appendix-a">App. A</a></td><td>SF Help</td></tr>
+      <tr><td><strong>SAML JIT Handler</strong></td><td>Apex extension point for custom SSO provisioning.</td><td><a href="#i-custom-auth">1.6</a> &middot; <a href="#appendix-a">Appendix A</a></td><td>SF Help</td></tr>
       <tr><td><strong>Secure Guest User Record Access</strong></td><td>Critical update lineage 2021&ndash;2026 progressively closing guest-access bypasses.</td><td><a href="#iii-history">3.2</a></td><td>SF Help</td></tr>
       <tr><td><strong>Shield Platform Encryption</strong></td><td>Salesforce's at-rest encryption product; supports BYOK.</td><td><a href="#vii-encrypt">7.2</a></td><td>SF Help</td></tr>
       <tr><td><strong>Threat Detection</strong></td><td>Salesforce's built-in anomaly detection (free for all customers).</td><td><a href="#viii-threat-detection">8.4</a></td><td>SF Help</td></tr>
-      <tr><td><strong>Transaction Security</strong></td><td>Real-time enforcement &mdash; Block/MFA/Notify on events.</td><td><a href="#viii-transaction-security">8.5</a> &middot; <a href="#appendix-d">App. D</a></td><td>SF Help</td></tr>
+      <tr><td><strong>Transaction Security</strong></td><td>Real-time enforcement &mdash; Block/MFA/Notify on events.</td><td><a href="#viii-transaction-security">8.5</a> &middot; <a href="#appendix-d">Appendix D</a></td><td>SF Help</td></tr>
       <tr><td><strong>Trust Layer</strong></td><td>PII-scrub + zero-retention boundary for AI use; Einstein Trust Layer for platform AI.</td><td><a href="#x-trust-layer">10.3</a></td><td><a href="https://www.salesforce.com/artificial-intelligence/trusted-ai/" target="_blank" rel="noopener">SF</a></td></tr>
       <tr><td><strong>UNC6040 / ShinyHunters</strong></td><td>Vishing campaign &rarr; Data Loader OAuth grant; 2025.</td><td><a href="#threat-landscape">Threat Brief</a> &middot; <a href="#iv-vishing">4.7</a></td><td><a href="https://cloud.google.com/blog/topics/threat-intelligence/voice-phishing-data-extortion" target="_blank" rel="noopener">Google TI</a></td></tr>
       <tr><td><strong>UNC6395 / Salesloft Drift</strong></td><td>ISV repo compromise &rarr; OAuth token theft, 700+ orgs; August 2025.</td><td><a href="#threat-landscape">Threat Brief</a> &middot; <a href="#iv-isv-compromise">4.6</a></td><td><a href="https://www.mitiga.io/blog/shinyhunters-and-unc6395-inside-the-salesforce-and-salesloft-breaches" target="_blank" rel="noopener">Mitiga</a></td></tr>
       <tr><td><strong>Unlocked Package</strong></td><td>Modern Salesforce DX deployment unit; signing recommended.</td><td><a href="#ix-unlocked-signed">9.3</a></td><td>SF Help</td></tr>
-      <tr><td><strong>USER_MODE</strong></td><td>Modern Apex query mode enforcing FLS/CRUD automatically.</td><td><a href="#vi-apex-runmodes">6.1</a> &middot; <a href="#appendix-b">App. B</a></td><td>SF Help</td></tr>
+      <tr><td><strong>USER_MODE</strong></td><td>Modern Apex query mode enforcing FLS/CRUD automatically.</td><td><a href="#vi-apex-runmodes">6.1</a> &middot; <a href="#appendix-b">Appendix B</a></td><td>SF Help</td></tr>
     </tbody>
   </table>
 </div>
@@ -6419,6 +6404,32 @@ DIFF:
   <table>
     <thead><tr><th>Version</th><th>Date</th><th>Change</th><th>Author</th></tr></thead>
     <tbody>
+      <tr>
+        <td><strong>1.5.3</strong></td>
+        <td>2026-05-04</td>
+        <td><strong>Audit-residue cleanup, minimap removal, AI-coach RAG payload.</strong>
+        (1) <strong>"App. X" &rarr; "Appendix X" everywhere</strong> &mdash; user-flagged terse abbreviation; 23 hyperlinked occurrences (glossary, well-architected mapping, industry overlays) updated so display text reads "Appendix C / D / O / P / Q / R" etc. The reader's eye no longer trips over "App. P's SOC 2 / PCI / GLBA mappings."
+        (2) <strong>Pillar references hotlinked in body prose</strong> &mdash; 18 unlinked "Pillar N.M" mentions across Appendix V (Industry Overlays) plus 5 in earlier sections wrapped in <code>&lt;a class="pillar-link"&gt;</code> targeting the appropriate parent or subsection anchor. New <code>.pillar-link</code> CSS: dotted underline + hover-emphasis, consistent with other internal-cross-reference links.
+        (3) <strong>Roman-numeral residue cleanup</strong> &mdash; 8 occurrences of <code>&lt;a href="#pillar-ix"&gt;IX&lt;/a&gt;</code> in the Well-Architected mapping table (Appendix U) updated to display "Pillar 9" matching the v1.4.8 Arabic-numeral convention.
+        (4) <strong>"Provenance card" &rarr; "Disclaimer"</strong> &mdash; 5 link-display-text occurrences relabeled to match the actual heading on that card. The <code>id="provenance"</code> anchor preserved for backward compat.
+        (5) <strong>Acronym spell-outs in Appendix V Industry Overlays</strong> on first use within the section: GLBA (Gramm-Leach-Bliley Act), NYDFS (New York Department of Financial Services), FFIEC (Federal Financial Institutions Examination Council), KYC/AML (Know-Your-Customer / Anti-Money-Laundering), FedWire / SWIFT / ACH (each now expanded), BEC (business email compromise), HIPAA (Health Insurance Portability and Accountability Act), StateRAMP, PIV / CAC (Personal Identity Verification / Common Access Card). Reader can land in any industry overlay subsection without prior context and still parse it.
+        (6) <strong>Minimap removed</strong> &mdash; the bottom-right minimap canvas + toggle button + ~85 lines of associated rendering JS were valuable for the previous sprawling-architecture-canvas layout but redundant in the current single-column scroll layout, and were physically overlapping the Ask-AI floating widget at the same screen corner. CSS, HTML, JS, and print-stylesheet selectors all removed cleanly.
+        (7) <strong>AI Coach: clipboard payload now includes a context preamble + canonical document URL</strong> with the current section anchor. The visible button still shows just the user's chosen prompt; the clipboard receives a short preamble pointing the receiving AI at <code>https://drpaulcoleman.github.io/agentforce-mythos-hardening/#&lt;section&gt;</code> so any assistant (Gemini, Claude, ChatGPT, Copilot, browser-native panel) can fetch the source and ground its answer in the document's own framing rather than relying on whatever it remembers about Salesforce security from training data. Treat as a mini-RAG handoff. Help text in the panel updated to reflect this.
+        Files touched: <code>index.html</code> only.</td>
+        <td>Dr. Paul Coleman</td>
+      </tr>
+      <tr>
+        <td><strong>1.5.2</strong></td>
+        <td>2026-05-04</td>
+        <td>Sidebar nav restructure to match v1.5.0's relocation of References. The "M: References" entry in the appendix list was removed (it pointed to a section no longer in the appendix lineup); a new top-level "References &rarr;" link was added at the bottom of the sidebar after Disclosures, styled in <code>sf-blue-light</code> + bold so it reads as a final destination rather than another appendix.</td>
+        <td>Dr. Paul Coleman</td>
+      </tr>
+      <tr>
+        <td><strong>1.5.1</strong></td>
+        <td>2026-05-04</td>
+        <td>Header-bar overflow fix. The v1.5.0 Mythos-Imperative eyebrow placement (small orange line stacked ABOVE the h1) overflowed the 60&thinsp;px fixed header on some viewports. Switched to inline em-dash treatment per user request: <code>[ORANGE caps]&nbsp;THE MYTHOS IMPERATIVE&nbsp;&mdash;&nbsp;[WHITE]&nbsp;Salesforce CRM Security Hardening</code>. Single-line h1, header stays at 60&thinsp;px, no canvas lost.</td>
+        <td>Dr. Paul Coleman</td>
+      </tr>
       <tr>
         <td><strong>1.5.0</strong></td>
         <td>2026-05-04</td>
@@ -6557,7 +6568,7 @@ DIFF:
       <tr><td>8</td><td>Verify MFA contractually enforced</td><td>Setup &rarr; Identity Verification</td><td>"Require multi-factor authentication for all direct UI logins": ON</td><td><a href="#i-mfa-matrix">1.1</a></td></tr>
       <tr><td>9</td><td>Set admin profile session timeout to ≤ 2 hours</td><td>Setup &rarr; Session Settings &rarr; Timeout Value</td><td>Value: 2 hours or less</td><td><a href="#i-high-assurance">1.3</a></td></tr>
       <tr><td>10</td><td>Lock sessions to IP for desktop clients</td><td>Setup &rarr; Session Settings</td><td>"Lock sessions to IP address": ON</td><td><a href="#i-high-assurance">1.3</a></td></tr>
-      <tr><td>11</td><td>Document the Day-1 baseline</td><td>Save Health Check export, OAuth Usage CSV, MAD/VAD list to secure store</td><td>Files dated; access-restricted</td><td><a href="#provenance">Provenance</a></td></tr>
+      <tr><td>11</td><td>Document the Day-1 baseline</td><td>Save Health Check export, OAuth Usage CSV, MAD/VAD list to secure store</td><td>Files dated; access-restricted</td><td><a href="#provenance">Disclaimer</a></td></tr>
     </tbody>
   </table>
 
@@ -6575,7 +6586,7 @@ DIFF:
       <tr><td>8</td><td>Force re-MFA on inactive admin accounts</td><td>Permission Set &rarr; "MFA Required" assigned to admins</td><td>Test login challenges for MFA</td><td><a href="#i-mfa-matrix">1.1</a></td></tr>
       <tr><td>9</td><td>Freeze users inactive &gt; 90 days</td><td><code>SELECT Id, Username FROM User WHERE LastLoginDate &lt; LAST_N_DAYS:90 AND IsActive = true</code> &rarr; Freeze</td><td>Frozen-user list documented</td><td><a href="#ii-mad-vad">2.9</a></td></tr>
       <tr><td>10</td><td>Disable Connected App self-authorization</td><td>Each Connected App &rarr; Manage &rarr; Edit Policies &rarr; Permitted Users = "Admin approved users are pre-authorized"</td><td>Non-admin user cannot self-authorize app</td><td><a href="#iv-block-uninstalled">4.3</a></td></tr>
-      <tr><td>11</td><td>Sign-off: Week-1 attestation</td><td>Dated, signed (electronic), retained</td><td>Filed in audit pack</td><td><a href="#provenance">Provenance</a></td></tr>
+      <tr><td>11</td><td>Sign-off: Week-1 attestation</td><td>Dated, signed (electronic), retained</td><td>Filed in audit pack</td><td><a href="#provenance">Disclaimer</a></td></tr>
     </tbody>
   </table>
 
@@ -6583,23 +6594,23 @@ DIFF:
   <table>
     <thead><tr><th>#</th><th>Action</th><th>Pillar</th></tr></thead>
     <tbody>
-      <tr><td>1</td><td>Guest profile audit per Experience Cloud site (full Pillar 3 checklist)</td><td><a href="#iii-profile-audit">3.3</a> &middot; <a href="#appendix-f">App. F</a></td></tr>
+      <tr><td>1</td><td>Guest profile audit per Experience Cloud site (full Pillar 3 checklist)</td><td><a href="#iii-profile-audit">3.3</a> &middot; <a href="#appendix-f">Appendix F</a></td></tr>
       <tr><td>2</td><td>First sharing-rules attestation (per object, criteria, justification, signoff)</td><td><a href="#ii-sharing">2.4</a></td></tr>
-      <tr><td>3</td><td>Certificate inventory + ownership assignments + 30-day-before-expiry alerts</td><td><a href="#v-cert-rotation">5.3</a> &middot; <a href="#appendix-g">App. G</a></td></tr>
+      <tr><td>3</td><td>Certificate inventory + ownership assignments + 30-day-before-expiry alerts</td><td><a href="#v-cert-rotation">5.3</a> &middot; <a href="#appendix-g">Appendix G</a></td></tr>
       <tr><td>4</td><td>Consolidate or split to one integration user per integration</td><td><a href="#v-integration-users">5.4</a></td></tr>
       <tr><td>5</td><td>CSP Trusted Sites audit; remove unused entries</td><td><a href="#vi-shadow-flow">6.6</a></td></tr>
       <tr><td>6</td><td>Remove Public Read/Write OWD on objects with PII or financial data</td><td><a href="#ii-owd">2.1</a></td></tr>
-      <tr><td>7</td><td>Custom Login Flow drafted for System Admin profile (step-up High Assurance for Setup access)</td><td><a href="#i-login-flow">1.4</a> &middot; <a href="#appendix-a">App. A</a></td></tr>
+      <tr><td>7</td><td>Custom Login Flow drafted for System Admin profile (step-up High Assurance for Setup access)</td><td><a href="#i-login-flow">1.4</a> &middot; <a href="#appendix-a">Appendix A</a></td></tr>
       <tr><td>8</td><td>Browser extension allowlist deployed via Chrome / Edge / Safari MDM</td><td><a href="#iv-browser-extensions">4.8</a></td></tr>
       <tr><td>9</td><td>Setup Audit Trail + Login History nightly export to retention store</td><td><a href="#viii-audit-login">8.2</a></td></tr>
-      <tr><td>10</td><td>Real-Time Event Monitoring &rarr; SIEM streaming (or ELF batch if no Shield)</td><td><a href="#viii-real-time-em">8.3</a> &middot; <a href="#appendix-i">App. I</a></td></tr>
-      <tr><td>11</td><td>Top-5 Transaction Security policies deployed (Bulk export, off-hours admin, mass record update, new-device login, Setup off-hours)</td><td><a href="#viii-transaction-security">8.5</a> &middot; <a href="#appendix-d">App. D</a></td></tr>
+      <tr><td>10</td><td>Real-Time Event Monitoring &rarr; SIEM streaming (or ELF batch if no Shield)</td><td><a href="#viii-real-time-em">8.3</a> &middot; <a href="#appendix-i">Appendix I</a></td></tr>
+      <tr><td>11</td><td>Top-5 Transaction Security policies deployed (Bulk export, off-hours admin, mass record update, new-device login, Setup off-hours)</td><td><a href="#viii-transaction-security">8.5</a> &middot; <a href="#appendix-d">Appendix D</a></td></tr>
       <tr><td>12</td><td>Restore-test drill on a sample object from backup</td><td><a href="#vii-backup">7.6</a></td></tr>
       <tr><td>13</td><td>IRP tabletop walkthrough with on-call team (1 vishing + 1 OAuth-abuse scenario)</td><td><a href="#viii-irp">8.6</a></td></tr>
       <tr><td>14</td><td>Run Einstein Data Detect (or equivalent) on free-text custom fields</td><td><a href="#vii-detect">7.4</a></td></tr>
-      <tr><td>15</td><td>Cert rotation runbook drafted; calendar alerts set</td><td><a href="#appendix-g">App. G</a></td></tr>
+      <tr><td>15</td><td>Cert rotation runbook drafted; calendar alerts set</td><td><a href="#appendix-g">Appendix G</a></td></tr>
       <tr><td>16</td><td>Integration-user lifecycle review (each integration user labeled, scoped, owner)</td><td><a href="#v-integration-users">5.4</a></td></tr>
-      <tr><td>17</td><td>Sign-off: Month-1 attestation</td><td><a href="#provenance">Provenance</a></td></tr>
+      <tr><td>17</td><td>Sign-off: Month-1 attestation</td><td><a href="#provenance">Disclaimer</a></td></tr>
     </tbody>
   </table>
 
@@ -6697,7 +6708,7 @@ DIFF:
       <tr><td>13</td><td>Network Monitoring and Defense</td><td><a href="#pillar-viii">VIII</a></td></tr>
       <tr><td>14</td><td>Security Awareness and Skills Training</td><td><a href="#iv-vishing">4.7 (operator training)</a></td></tr>
       <tr><td>15</td><td>Service Provider Management</td><td><a href="#pillar-iv">IV (ISVs)</a></td></tr>
-      <tr><td>16</td><td>Application Software Security</td><td><a href="#pillar-vi">VI</a>, <a href="#pillar-ix">IX</a></td></tr>
+      <tr><td>16</td><td>Application Software Security</td><td><a href="#pillar-vi">VI</a>, <a href="#pillar-ix">Pillar 9</a></td></tr>
       <tr><td>17</td><td>Incident Response Management</td><td><a href="#viii-irp">8.6</a></td></tr>
       <tr><td>18</td><td>Penetration Testing</td><td>Out of scope (referenced)</td></tr>
     </tbody>
@@ -6725,7 +6736,7 @@ DIFF:
       <tr><td>A.8 Tech &mdash; A.8.15</td><td>Logging</td><td><a href="#pillar-viii">VIII</a></td></tr>
       <tr><td>A.8 Tech &mdash; A.8.16</td><td>Monitoring activities</td><td><a href="#viii-real-time-em">8.3</a></td></tr>
       <tr><td>A.8 Tech &mdash; A.8.24</td><td>Use of cryptography</td><td><a href="#vii-encrypt">7.2</a></td></tr>
-      <tr><td>A.8 Tech &mdash; A.8.25&ndash;8.34</td><td>Secure development lifecycle, application security</td><td><a href="#pillar-vi">VI</a>, <a href="#pillar-ix">IX</a></td></tr>
+      <tr><td>A.8 Tech &mdash; A.8.25&ndash;8.34</td><td>Secure development lifecycle, application security</td><td><a href="#pillar-vi">VI</a>, <a href="#pillar-ix">Pillar 9</a></td></tr>
     </tbody>
   </table>
 
@@ -6740,8 +6751,8 @@ DIFF:
       <tr><td>CC4</td><td>Monitoring Activities</td><td><a href="#pillar-viii">VIII</a></td></tr>
       <tr><td>CC5</td><td>Control Activities</td><td>All pillars</td></tr>
       <tr><td>CC6</td><td>Logical and Physical Access Controls</td><td><a href="#pillar-i">I</a>, <a href="#pillar-ii">II</a>, <a href="#pillar-iii">III</a>, <a href="#pillar-iv">IV</a></td></tr>
-      <tr><td>CC7</td><td>System Operations</td><td><a href="#pillar-viii">VIII</a>, <a href="#pillar-ix">IX</a></td></tr>
-      <tr><td>CC8</td><td>Change Management</td><td><a href="#pillar-ix">IX</a></td></tr>
+      <tr><td>CC7</td><td>System Operations</td><td><a href="#pillar-viii">VIII</a>, <a href="#pillar-ix">Pillar 9</a></td></tr>
+      <tr><td>CC8</td><td>Change Management</td><td><a href="#pillar-ix">Pillar 9</a></td></tr>
       <tr><td>CC9</td><td>Risk Mitigation</td><td>Risk Register, <a href="#pillar-iv">IV (vendor mgmt)</a></td></tr>
       <tr><td>A1 (Availability)</td><td>System availability</td><td><a href="#vii-backup">7.6</a></td></tr>
       <tr><td>C1 (Confidentiality)</td><td>Confidential info protection</td><td><a href="#pillar-vii">VII</a></td></tr>
@@ -6777,7 +6788,7 @@ DIFF:
       <tr><td>1&ndash;2</td><td>Install/maintain network security; secure config</td><td><a href="#pillar-v">V</a>, <a href="#viii-health-check">8.1</a></td></tr>
       <tr><td>3</td><td>Protect stored account data</td><td><a href="#vii-encrypt">7.2</a></td></tr>
       <tr><td>4</td><td>Protect cardholder data with strong cryptography during transmission</td><td><a href="#v-mtls">5.2</a>, <a href="#v-cert-rotation">5.3</a></td></tr>
-      <tr><td>5&ndash;6</td><td>Anti-malware; develop/maintain secure systems</td><td><a href="#iv-browser-extensions">4.8</a>, <a href="#pillar-vi">VI</a>, <a href="#pillar-ix">IX</a></td></tr>
+      <tr><td>5&ndash;6</td><td>Anti-malware; develop/maintain secure systems</td><td><a href="#iv-browser-extensions">4.8</a>, <a href="#pillar-vi">VI</a>, <a href="#pillar-ix">Pillar 9</a></td></tr>
       <tr><td>7</td><td>Restrict access by business need-to-know</td><td><a href="#pillar-ii">II</a></td></tr>
       <tr><td>8</td><td>Identify and authenticate access</td><td><a href="#pillar-i">I</a></td></tr>
       <tr><td>9</td><td>Restrict physical access (mostly out of platform scope)</td><td>(out of scope)</td></tr>
@@ -6794,7 +6805,7 @@ DIFF:
     <a href="#pillar-ii">II</a>, <a href="#pillar-vii">VII</a>, <a href="#pillar-viii">VIII</a>.</li>
     <li><strong>SOX</strong> (public companies, financial reporting integrity) &mdash; access control over
     financial systems; change management; audit trails; aligns to <a href="#pillar-ii">II</a>,
-    <a href="#pillar-viii">VIII</a>, <a href="#pillar-ix">IX</a>.</li>
+    <a href="#pillar-viii">VIII</a>, <a href="#pillar-ix">Pillar 9</a>.</li>
     <li><strong>FERPA</strong> (education records) &mdash; access control, parental/student rights, audit;
     aligns to <a href="#pillar-ii">II</a>, <a href="#vii-compliance">7.9</a>, <a href="#pillar-viii">VIII</a>.</li>
   </ul>
@@ -7224,7 +7235,7 @@ SELECT UserId, LastUsedDate FROM OauthToken WHERE AppName = 'ISV_APP_NAME'</code
     });
     exportBtn.addEventListener('click', function() {
       var snapshot = {
-        framework: 'Salesforce CRM Security Hardening v1.5.0',
+        framework: 'Salesforce CRM Security Hardening v1.5.3',
         scored_at: new Date().toISOString(),
         scores: loadStored(),
         average: parseFloat(avgEl.textContent) || 0,
@@ -7374,9 +7385,9 @@ SELECT UserId, LastUsedDate FROM OauthToken WHERE AppName = 'ISV_APP_NAME'</code
     <thead><tr><th>Habit / Principle</th><th>Pillars</th></tr></thead>
     <tbody>
       <tr><td><strong>Secure</strong> &mdash; Identity, access control, threat protection, secure development</td><td><a href="#pillar-i">I</a>, <a href="#pillar-ii">II</a>, <a href="#pillar-iii">III</a>, <a href="#pillar-iv">IV</a>, <a href="#pillar-v">V</a>, <a href="#pillar-vi">VI</a></td></tr>
-      <tr><td><strong>Compliant</strong> &mdash; Regulatory and industry obligations</td><td><a href="#vii-compliance">7.9</a>, <a href="#appendix-p">App. P</a>, <a href="#appendix-r">App. R</a></td></tr>
+      <tr><td><strong>Compliant</strong> &mdash; Regulatory and industry obligations</td><td><a href="#vii-compliance">7.9</a>, <a href="#appendix-p">Appendix P</a>, <a href="#appendix-r">Appendix R</a></td></tr>
       <tr><td><strong>Reliable</strong> &mdash; Resilience, monitoring, recovery</td><td><a href="#pillar-viii">VIII</a>, <a href="#vii-backup">7.6</a></td></tr>
-      <tr><td><strong>Resilient</strong> &mdash; Failure tolerance, business continuity</td><td><a href="#vii-backup">7.6</a>, <a href="#viii-irp">8.6</a>, <a href="#appendix-q">App. Q</a></td></tr>
+      <tr><td><strong>Resilient</strong> &mdash; Failure tolerance, business continuity</td><td><a href="#vii-backup">7.6</a>, <a href="#viii-irp">8.6</a>, <a href="#appendix-q">Appendix Q</a></td></tr>
       <tr><td><strong>Performant</strong> &mdash; Operational efficiency under load</td><td><a href="#viii-real-time-em">8.3</a> (avoid log-volume blowback)</td></tr>
     </tbody>
   </table>
@@ -7387,7 +7398,7 @@ SELECT UserId, LastUsedDate FROM OauthToken WHERE AppName = 'ISV_APP_NAME'</code
     <tbody>
       <tr><td><strong>Resilient</strong> &mdash; Survives change without breaking</td><td><a href="#ii-permset-migration">2.2</a> (PSG migration), <a href="#v-cert-rotation">5.3</a> (cert rotation cadence)</td></tr>
       <tr><td><strong>Future-proof</strong> &mdash; Architectural decisions that age well</td><td><a href="#iv-eca-transition">4.1</a> (ECA over ConnectedApp)</td></tr>
-      <tr><td><strong>Maintainable</strong> &mdash; Sustained ops without heroics</td><td><a href="#pillar-ix">IX</a>, <a href="#appendix-o">App. O</a> (operational cadence)</td></tr>
+      <tr><td><strong>Maintainable</strong> &mdash; Sustained ops without heroics</td><td><a href="#pillar-ix">Pillar 9</a>, <a href="#appendix-o">Appendix O</a> (operational cadence)</td></tr>
     </tbody>
   </table>
 
@@ -7397,7 +7408,7 @@ SELECT UserId, LastUsedDate FROM OauthToken WHERE AppName = 'ISV_APP_NAME'</code
     <tbody>
       <tr><td><strong>Modular</strong> &mdash; Discrete, recombinable building blocks</td><td><a href="#ii-permset-migration">2.2</a> (PSG composition), <a href="#v-named-credentials">5.1</a> (NC + EC decomposition)</td></tr>
       <tr><td><strong>Layered</strong> &mdash; Clear separation of concerns</td><td><a href="#pillar-vi">VI</a> (Apex run-mode boundaries), <a href="#x-trust-layer">10.3</a> (Trust Layer)</td></tr>
-      <tr><td><strong>Governed</strong> &mdash; Decisions are visible, auditable</td><td><a href="#pillar-ix">IX</a>, <a href="#provenance">Provenance</a></td></tr>
+      <tr><td><strong>Governed</strong> &mdash; Decisions are visible, auditable</td><td><a href="#pillar-ix">Pillar 9</a>, <a href="#provenance">Disclaimer</a></td></tr>
     </tbody>
   </table>
 
@@ -7417,47 +7428,47 @@ SELECT UserId, LastUsedDate FROM OauthToken WHERE AppName = 'ISV_APP_NAME'</code
 
   <h3>5.1 Financial Services Cloud (FSC)</h3>
   <ul>
-    <li><strong>Compliance overlay:</strong> GLBA Safeguards Rule, NYDFS Part 500, FFIEC, sectoral state regulators. <a href="#appendix-p">App. P</a>'s SOC 2 / PCI / GLBA mappings apply directly.</li>
-    <li><strong>FSC-specific data sensitivity:</strong> the <code>FinancialAccount</code>, <code>Securities Holdings</code>, and <code>Card</code> objects carry by-default-sensitive data. Treat as Restricted classification (Pillar 7.1).</li>
-    <li><strong>Connected Apps:</strong> custodian-bank integrations, depository-clearance integrations, KYC/AML vendor integrations are per-user-named-principal candidates (Pillar 5.4).</li>
-    <li><strong>Mutual TLS:</strong> generally required for FedWire / SWIFT / ACH gateways. Pillar 5.2 + 2026 cert transitions are operationally critical.</li>
-    <li><strong>Common breach motif:</strong> wire-transfer fraud via business email compromise feeding back into a Salesforce-tracked deal flow; gate large-dollar workflows with Transaction Security policies (Pillar 8.5).</li>
+    <li><strong>Compliance overlay:</strong> Gramm-Leach-Bliley Act (GLBA) Safeguards Rule, New York Department of Financial Services (NYDFS) Part 500, Federal Financial Institutions Examination Council (FFIEC), sectoral state regulators. <a href="#appendix-p">Appendix P</a>'s SOC 2 / PCI / GLBA mappings apply directly.</li>
+    <li><strong>FSC-specific data sensitivity:</strong> the <code>FinancialAccount</code>, <code>Securities Holdings</code>, and <code>Card</code> objects carry by-default-sensitive data. Treat as Restricted classification (<a href="#pillar-vii" class="pillar-link">Pillar 7.1</a>).</li>
+    <li><strong>Connected Apps:</strong> custodian-bank integrations, depository-clearance integrations, Know-Your-Customer / Anti-Money-Laundering (KYC/AML) vendor integrations are per-user-named-principal candidates (<a href="#pillar-v" class="pillar-link">Pillar 5.4</a>).</li>
+    <li><strong>Mutual TLS:</strong> generally required for Federal Reserve wire transfer (FedWire), SWIFT (Society for Worldwide Interbank Financial Telecommunication), and Automated Clearing House (ACH) gateways. <a href="#pillar-v" class="pillar-link">Pillar 5.2</a> + 2026 cert transitions are operationally critical.</li>
+    <li><strong>Common breach motif:</strong> wire-transfer fraud via business email compromise (BEC) feeding back into a Salesforce-tracked deal flow; gate large-dollar workflows with Transaction Security policies (<a href="#pillar-viii" class="pillar-link">Pillar 8.5</a>).</li>
   </ul>
 
   <h3>5.2 Health Cloud</h3>
   <ul>
-    <li><strong>Compliance overlay:</strong> HIPAA Privacy + Security + Breach Notification Rules, state HIE (health-information-exchange) statutes, 42 CFR Part 2 for substance-abuse records, and the HIPAA Right of Access (NOT covered by Privacy Center; bespoke Apex usually required).</li>
+    <li><strong>Compliance overlay:</strong> Health Insurance Portability and Accountability Act (HIPAA) Privacy + Security + Breach Notification Rules, state HIE (health-information-exchange) statutes, 42 CFR Part 2 for substance-abuse records, and the HIPAA Right of Access (NOT covered by Privacy Center; bespoke Apex usually required).</li>
     <li><strong>Health Cloud-specific objects:</strong> <code>HealthCloudGA__EhrEncounter__c</code>, care plan, problem-list, medication objects carry PHI. Field Audit Trail mandatory; Shield Platform Encryption strongly recommended.</li>
-    <li><strong>BAA-bound integrations:</strong> every Connected App and ISV touching PHI must be covered by a Business Associate Agreement. Pillar 4 procurement framing.</li>
-    <li><strong>Patient portals (Experience Cloud):</strong> Pillar 3 hardening is non-negotiable; Krebs-pattern guest-profile exposure of PHI is an OCR fine in waiting.</li>
-    <li><strong>Hyperforce + EEE</strong> (Pillar 7.7): increasingly relevant for HIPAA's "appropriate technical safeguards" standard, particularly around BYOK.</li>
+    <li><strong>BAA-bound integrations:</strong> every Connected App and ISV touching PHI must be covered by a Business Associate Agreement. <a href="#pillar-iv" class="pillar-link">Pillar 4</a> procurement framing.</li>
+    <li><strong>Patient portals (Experience Cloud):</strong> <a href="#pillar-iii" class="pillar-link">Pillar 3</a> hardening is non-negotiable; Krebs-pattern guest-profile exposure of PHI is an OCR fine in waiting.</li>
+    <li><strong>Hyperforce + EEE</strong> (<a href="#pillar-vii" class="pillar-link">Pillar 7.7</a>): increasingly relevant for HIPAA's "appropriate technical safeguards" standard, particularly around BYOK.</li>
   </ul>
 
   <h3>5.3 Public Sector / Government Cloud</h3>
   <ul>
-    <li><strong>Authorization overlay:</strong> FedRAMP (Moderate / High depending on workload), StateRAMP, IL2 / IL4 / IL5 for DoD-aligned tenants. Salesforce Government Cloud Plus carries FedRAMP High; Salesforce Government Cloud carries FedRAMP Moderate.</li>
-    <li><strong>Identity overlay:</strong> typically PIV / CAC / DERILVED-PIV smart card auth via SAML; Pillar 1.5 SSO architecture extended with smart-card support; FIDO2 hardware key (YubiKey 5 FIPS) often acceptable as an alternative.</li>
-    <li><strong>Data-residency overlay:</strong> Hyperforce region restricted to specific US regions for FedRAMP-bound workloads. Pillar 7.7.</li>
-    <li><strong>Public-records / FOIA:</strong> retention policies often legally fixed and longer than commercial defaults. Pillar 7.8 + 7.9.</li>
-    <li><strong>Common breach motif:</strong> Krebs-pattern Experience Cloud exposure of resident data (the Vermont incident is the canonical example); Pillar 3 hardening is the entire mitigation.</li>
+    <li><strong>Authorization overlay:</strong> FedRAMP (Moderate / High depending on workload), StateRAMP (state-government cloud authorization program), IL2 / IL4 / IL5 for DoD-aligned tenants. Salesforce Government Cloud Plus carries FedRAMP High; Salesforce Government Cloud carries FedRAMP Moderate.</li>
+    <li><strong>Identity overlay:</strong> typically Personal Identity Verification (PIV) / Common Access Card (CAC) / Derived-PIV smart card auth via SAML; <a href="#pillar-i" class="pillar-link">Pillar 1.5</a> SSO architecture extended with smart-card support; FIDO2 hardware key (YubiKey 5 FIPS) often acceptable as an alternative.</li>
+    <li><strong>Data-residency overlay:</strong> Hyperforce region restricted to specific US regions for FedRAMP-bound workloads. <a href="#pillar-vii" class="pillar-link">Pillar 7.7</a>.</li>
+    <li><strong>Public-records / FOIA:</strong> retention policies often legally fixed and longer than commercial defaults. <a href="#pillar-vii" class="pillar-link">Pillar 7.8</a> + 7.9.</li>
+    <li><strong>Common breach motif:</strong> Krebs-pattern Experience Cloud exposure of resident data (the Vermont incident is the canonical example); <a href="#pillar-iii" class="pillar-link">Pillar 3</a> hardening is the entire mitigation.</li>
   </ul>
 
   <h3>5.4 Industries Cloud (Vlocity / OmniStudio)</h3>
   <ul>
     <li><strong>Architectural specialization:</strong> OmniScripts, FlexCards, Integration Procedures, DataRaptors. Each has a distinct security model that does not map 1:1 onto core Apex / LWC / Flow.</li>
-    <li><strong>OmniScript / Integration Procedure security:</strong> these run via a managed-package Apex layer; understand who-runs-as semantics for each step. Treat as Pillar 6, with Vlocity-specific verification needed.</li>
+    <li><strong>OmniScript / Integration Procedure security:</strong> these run via a managed-package Apex layer; understand who-runs-as semantics for each step. Treat as <a href="#pillar-vi" class="pillar-link">Pillar 6</a>, with Vlocity-specific verification needed.</li>
     <li><strong>DataRaptors:</strong> read/write data without USER_MODE awareness; explicit FLS validation in the DataRaptor configuration is required. Audit every DataRaptor that touches sensitive objects.</li>
-    <li><strong>FlexCards reachable from guest:</strong> same exposure pattern as Aura / LWC in Pillar 3. Audit every FlexCard granted to a guest profile.</li>
+    <li><strong>FlexCards reachable from guest:</strong> same exposure pattern as Aura / LWC in <a href="#pillar-iii" class="pillar-link">Pillar 3</a>. Audit every FlexCard granted to a guest profile.</li>
     <li><strong>Contract / claim / order data:</strong> typically Restricted classification; Field Audit Trail recommended.</li>
   </ul>
 
   <h3>5.5 B2B Commerce / B2C Commerce</h3>
   <ul>
-    <li><strong>Compliance overlay:</strong> PCI DSS v4.0 if cardholder data ever touches the org (it shouldn't &mdash; payment processors should tokenize at the page-load layer). Pillar 7.1 classification + Pillar 5.2 mTLS to payment gateways.</li>
-    <li><strong>B2C storefront (Experience Cloud):</strong> the entire Pillar 3 applies. The customer-facing site IS a guest-user surface; product-catalog metadata is intentionally exposed but customer accounts and order history are not.</li>
+    <li><strong>Compliance overlay:</strong> PCI DSS v4.0 if cardholder data ever touches the org (it shouldn't &mdash; payment processors should tokenize at the page-load layer). <a href="#pillar-vii" class="pillar-link">Pillar 7.1</a> classification + <a href="#pillar-v" class="pillar-link">Pillar 5.2</a> mTLS to payment gateways.</li>
+    <li><strong>B2C storefront (Experience Cloud):</strong> the entire <a href="#pillar-iii" class="pillar-link">Pillar 3</a> applies. The customer-facing site IS a guest-user surface; product-catalog metadata is intentionally exposed but customer accounts and order history are not.</li>
     <li><strong>Cart / order objects:</strong> WebCart, CartItem, Order, OrderItem; treat as Confidential classification minimum.</li>
-    <li><strong>Connected Apps:</strong> ERP / inventory / payment-gateway / fraud-screening integrations are dense in B2B/B2C. Pillar 4's quarterly attestation is operationally critical given the integration count.</li>
-    <li><strong>Common breach motif:</strong> credential-stuffing into customer accounts (loyalty fraud, gift-card cashout). Threat Detection's credential-stuffing signal (Pillar 8.4) is one of the highest-value-per-cost detections in this vertical.</li>
+    <li><strong>Connected Apps:</strong> ERP / inventory / payment-gateway / fraud-screening integrations are dense in B2B/B2C. <a href="#pillar-iv" class="pillar-link">Pillar 4</a>'s quarterly attestation is operationally critical given the integration count.</li>
+    <li><strong>Common breach motif:</strong> credential-stuffing into customer accounts (loyalty fraud, gift-card cashout). Threat Detection's credential-stuffing signal (<a href="#pillar-viii" class="pillar-link">Pillar 8.4</a>) is one of the highest-value-per-cost detections in this vertical.</li>
   </ul>
 
   <p style="margin-top: 18px; font-size: 12px; color: var(--text-secondary);">Each overlay above is a starting point. Industry-specific Salesforce architecture is a deep specialty; pair this hardening reference with the corresponding Salesforce Industry Implementation Guide for your vertical.</p>
@@ -7475,7 +7486,7 @@ SELECT UserId, LastUsedDate FROM OauthToken WHERE AppName = 'ISV_APP_NAME'</code
     reviewed by OpenAI Codex CLI (codex-cli 0.128.0) and Google Gemini CLI (0.40.1) before content
     drafting began. All factual claims about 2024&ndash;2026 incidents and Salesforce platform features
     were cross-checked against official documentation and independent reporting per the verification
-    rule in the <a href="#provenance">Provenance card</a>; citations are in <a href="#appendix-m">Appendix M</a>.
+    rule in the <a href="#provenance">Disclaimer</a>; citations are in <a href="#appendix-m">Appendix M</a>.
   </p>
   <h3>Vendor-neutrality &amp; competitive positioning disclosure</h3>
   <p>
@@ -7623,15 +7634,6 @@ SELECT UserId, LastUsedDate FROM OauthToken WHERE AppName = 'ISV_APP_NAME'</code
 </div>
 
 <!-- ════════════════════════════════════════════════════════════════════════
-     MINIMAP
-     ════════════════════════════════════════════════════════════════════════ -->
-<button id="minimap-toggle">Toggle Minimap</button>
-<div id="minimap">
-  <span id="minimap-label">MINIMAP &middot; drag to pan</span>
-  <canvas id="minimap-canvas" width="120" height="440"></canvas>
-</div>
-
-<!-- ════════════════════════════════════════════════════════════════════════
      INTERACTIVITY JS — Continuous-Scroll Layout
      ════════════════════════════════════════════════════════════════════════ -->
 <script>
@@ -7639,9 +7641,6 @@ SELECT UserId, LastUsedDate FROM OauthToken WHERE AppName = 'ISV_APP_NAME'</code
   'use strict';
 
   var viewport       = document.getElementById('arch-viewport');
-  var minimapCanvas  = document.getElementById('minimap-canvas');
-  var mmCtx          = minimapCanvas.getContext('2d');
-  var minimapVisible = true;
 
   /* ── Mermaid: view-aware rendering ───────────────────────────────────
      mermaid.initialize() has startOnLoad:false (see <head>). We capture
@@ -7914,7 +7913,6 @@ SELECT UserId, LastUsedDate FROM OauthToken WHERE AppName = 'ISV_APP_NAME'</code
         viewport.scrollTo({ top: 0, behavior: 'smooth' });
       }
     }
-    requestAnimationFrame(updateMinimap);
   }
   document.querySelectorAll('.view-tab').forEach(function(btn) {
     btn.addEventListener('click', function() {
@@ -7945,7 +7943,6 @@ SELECT UserId, LastUsedDate FROM OauthToken WHERE AppName = 'ISV_APP_NAME'</code
     document.getElementById('arch-canvas').style.transform = 'scale(' + window.sfCurrentZoom + ')';
     document.getElementById('arch-canvas').style.transformOrigin = 'top center';
     document.getElementById('zoom-level').textContent = Math.round(window.sfCurrentZoom * 100) + '%';
-    requestAnimationFrame(updateMinimap);
   }
   window.sfCurrentZoom = 1.0;
   document.getElementById('zoom-in').onclick    = function() { setZoom(window.sfCurrentZoom + 0.1); };
@@ -7966,7 +7963,6 @@ SELECT UserId, LastUsedDate FROM OauthToken WHERE AppName = 'ISV_APP_NAME'</code
       searchBox.classList.remove('has-results', 'no-results');
       searchCount.textContent = ''; searchCount.className = 'empty';
       searchIndex = -1;
-      requestAnimationFrame(updateMinimap);
       return;
     }
     cards.forEach(function(c) {
@@ -7993,7 +7989,6 @@ SELECT UserId, LastUsedDate FROM OauthToken WHERE AppName = 'ISV_APP_NAME'</code
       searchBox.classList.add('no-results'); searchBox.classList.remove('has-results');
       searchCount.className = 'none'; searchCount.textContent = '0 results';
     }
-    requestAnimationFrame(updateMinimap);
   }
 
   function cycleSearch(forward) {
@@ -8008,57 +8003,6 @@ SELECT UserId, LastUsedDate FROM OauthToken WHERE AppName = 'ISV_APP_NAME'</code
     if (e.key === 'Enter') { e.preventDefault(); cycleSearch(!e.shiftKey); }
     else if (e.key === 'Escape') { e.preventDefault(); searchBox.value = ''; runSearch(''); searchBox.blur(); }
   });
-
-  /* ── Minimap — scroll-position-aware ─────────────────────────────── */
-  function updateMinimap() {
-    if (!minimapVisible) return;
-    var cw = minimapCanvas.width, ch = minimapCanvas.height;
-    var totalH = viewport.scrollHeight || 1;
-    mmCtx.clearRect(0, 0, cw, ch);
-    mmCtx.fillStyle = 'rgba(13,27,42,0.7)';
-    mmCtx.fillRect(0, 0, cw, ch);
-
-    // Draw each card as a proportional block
-    var cards = document.querySelectorAll('.card');
-    cards.forEach(function(card) {
-      var top  = card.offsetTop;
-      var h    = card.offsetHeight;
-      var y    = (top / totalH) * ch;
-      var ht   = Math.max((h / totalH) * ch, 2);
-      var color = 'rgba(0,112,210,0.5)';
-      if (card.classList.contains('hero'))  color = 'rgba(0,112,210,0.85)';
-      if (card.classList.contains('match')) color = 'rgba(4,132,75,0.95)';
-      if (card.classList.contains('dim'))   color = 'rgba(91,123,165,0.15)';
-      mmCtx.fillStyle = color;
-      mmCtx.fillRect(8, y, cw - 16, ht);
-    });
-
-    // Viewport indicator
-    var vy = (viewport.scrollTop / totalH) * ch;
-    var vh = (viewport.clientHeight / totalH) * ch;
-    mmCtx.strokeStyle = '#0070D2';
-    mmCtx.lineWidth   = 2;
-    mmCtx.strokeRect(4, vy, cw - 8, vh);
-  }
-
-  // Minimap click-to-scroll
-  var minimapDragging = false;
-  function minimapNavigate(ev) {
-    var rect = minimapCanvas.getBoundingClientRect();
-    var my = (ev.clientY - rect.top) / rect.height;
-    var totalH = viewport.scrollHeight || 1;
-    viewport.scrollTo({ top: Math.max(0, my * totalH - viewport.clientHeight / 2), behavior: 'auto' });
-  }
-  minimapCanvas.addEventListener('mousedown', function(e) { minimapDragging = true; minimapNavigate(e); });
-  document.addEventListener('mousemove', function(e) { if (minimapDragging) minimapNavigate(e); });
-  document.addEventListener('mouseup', function() { minimapDragging = false; });
-
-  document.getElementById('minimap-toggle').addEventListener('click', function() {
-    minimapVisible = !minimapVisible;
-    document.getElementById('minimap').style.display = minimapVisible ? 'block' : 'none';
-  });
-
-  viewport.addEventListener('scroll', function() { requestAnimationFrame(updateMinimap); });
 
   /* ── Keyboard shortcuts ──────────────────────────────────────────── */
   document.addEventListener('keydown', function(e) {
@@ -8114,7 +8058,6 @@ SELECT UserId, LastUsedDate FROM OauthToken WHERE AppName = 'ISV_APP_NAME'</code
   }
 
   whenMermaidReady(function() {
-    updateMinimap();
     updateActiveSidebar();
     if (location.hash && location.hash.length > 1) {
       var t = document.getElementById(location.hash.slice(1));
@@ -8146,7 +8089,7 @@ SELECT UserId, LastUsedDate FROM OauthToken WHERE AppName = 'ISV_APP_NAME'</code
     <button class="ai-coach-close" type="button" aria-label="Close">&times;</button>
     <h4>Ask any AI assistant about this section</h4>
     <p class="ai-coach-section">Currently viewing: <strong id="ai-coach-section-name">this document</strong></p>
-    <p class="ai-coach-help">Click any prompt below to copy it. Then paste it into Gemini, Claude, ChatGPT, Copilot, or your browser's AI panel for a plain-English explanation tailored to where you are in the document.</p>
+    <p class="ai-coach-help">Click any prompt below to copy. The clipboard also receives a short context preamble pointing the AI at this document's URL + the section you're reading, so any assistant (Gemini, Claude, ChatGPT, Copilot, or your browser's AI panel) can ground its answer in the source.</p>
     <ul class="ai-coach-prompts" id="ai-coach-prompts"></ul>
     <p class="ai-coach-footnote">No data is sent from this page. You supply your own AI assistant.</p>
   </div>
@@ -8340,6 +8283,29 @@ SELECT UserId, LastUsedDate FROM OauthToken WHERE AppName = 'ISV_APP_NAME'</code
     }
   }
 
+  // Build the clipboard payload: visible prompt + a hidden "context" preamble
+  // that points the receiving AI at the source URL (with the section anchor)
+  // so it can RAG against the document. The user only sees the question they
+  // chose; the receiving AI gets the URL + framing for free.
+  function buildCopyPayload(promptText, topicKey) {
+    // Canonical URL (origin + path, no hash) -- the GitHub Pages public URL
+    // is the same whether the reader is on file:// or production, so this
+    // ensures the receiving AI can fetch a real readable copy regardless.
+    var canonicalBase = "https://drpaulcoleman.github.io/agentforce-mythos-hardening/";
+    var anchor = (topicKey && topicKey !== 'default') ? ('#' + topicKey) : '';
+    var url = canonicalBase + anchor;
+    var sectionLabelText = getSectionDisplay(topicKey);
+    var preamble = ""
+      + "Context for your answer: I'm reading \"The Mythos Imperative — Salesforce CRM "
+      + "Security Hardening\" by Dr. Paul Coleman, currently at the section titled "
+      + "\"" + sectionLabelText + "\". The full document is published at:\n"
+      + url + "\n"
+      + "Please open and read that URL (or the surrounding section) before answering, "
+      + "then ground your reply in the document's own framing. Translate any jargon to "
+      + "plain English on first use. My question:\n\n";
+    return preamble + promptText;
+  }
+
   function renderPrompts(topicKey) {
     var list = prompts[topicKey] || prompts['default'];
     promptsList.innerHTML = '';
@@ -8350,7 +8316,7 @@ SELECT UserId, LastUsedDate FROM OauthToken WHERE AppName = 'ISV_APP_NAME'</code
       btn.type = 'button';
       btn.textContent = text;
       btn.addEventListener('click', function() {
-        copyToClipboard(text);
+        copyToClipboard(buildCopyPayload(text, topicKey));
         btn.classList.add('copied');
         setTimeout(function() { btn.classList.remove('copied'); }, 1800);
       });
