@@ -5,6 +5,8 @@ A vendor-neutral, threat-informed hardening reference for the **customer side** 
 > ## **[→ Read the whitepaper at drpaulcoleman.github.io/agentforce-mythos-hardening](https://drpaulcoleman.github.io/agentforce-mythos-hardening/)**
 >
 > The published page is the primary deliverable. This README is the GitHub-side summary for people who land in the repo first.
+>
+> **Desktop only.** The whitepaper is designed for screens 1900×1200 or larger — diagrams, the dual-tab fold, the sidebar nav, the search box, and the interactive maturity scorecard all assume a wide canvas and a pointing device. Mobile and small-tablet rendering is not supported.
 
 ---
 

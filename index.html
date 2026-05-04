@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   Salesforce CRM Security Hardening — A Defender's Encyclopedia for the Frontier-AI Era
-  Document version 1.4.8 · Last modified 2026-05-04
+  Document version 1.4.9 · Last modified 2026-05-04
   Copyright (c) 2026 Dr. Paul Coleman. All rights reserved.
 
   A vendor-neutral hardening reference for the customer side of the Salesforce
@@ -28,7 +28,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Salesforce CRM Security Hardening &mdash; A Defender's Encyclopedia for the Frontier-AI Era</title>
-<meta name="document-version" content="1.4.8">
+<meta name="document-version" content="1.4.9">
 <meta name="last-modified" content="2026-05-04">
 <meta name="source-snapshot" content="2026-05-04">
 <meta name="description" content="Vendor-neutral Salesforce CRM security hardening reference: identity, access, Experience Cloud guest hardening, Connected Apps + AppExchange supply chain, mTLS, secure Apex/LWC/Flow, encryption, detection &amp; response, DevSecOps, and defensive AI augmentation. Threat-informed (UNC6040, UNC6395, Krebs guest exposure, Drift OAuth chain) and standards-aligned (NIST CSF 2.0, OWASP).">
@@ -1338,7 +1338,7 @@ pre.mermaid g.node[onclick]:hover > path {
     </div>
     <div>
       <h1>Salesforce CRM Security Hardening</h1>
-      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.4.8 &middot; last modified 2026-05-04</span>
+      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.4.9 &middot; last modified 2026-05-04</span>
     </div>
   </div>
   <div class="doc-meta">
@@ -1604,50 +1604,36 @@ pre.mermaid g.node[onclick]:hover > path {
     Encryption and Detection only matter once data is classified.</strong>
   </p>
   <pre class="mermaid">
-graph LR
+flowchart LR
     classDef foundation fill:#04844B,stroke:#04844B,color:#FFF;
     classDef priority fill:#C23934,stroke:#C23934,color:#FFF;
     classDef standard fill:#0070D2,stroke:#0070D2,color:#FFF;
     classDef overlay fill:#9050E9,stroke:#9050E9,color:#FFF;
 
-    subgraph FOUNDATION["FOUNDATION"]
-        direction TB
-        I[1 &middot; Identity &amp; Auth]:::foundation
-        II[2 &middot; Access Control]:::foundation
-    end
+    %% Defensive AI overlay sits above the row, dotted edges to the pillars it touches
+    PX[10 &middot; Defensive AI<br/>cross-cutting overlay]:::overlay
 
-    subgraph PRIORITY["PRIORITY EXPOSURES"]
-        direction TB
-        III[3 &middot; Experience Cloud &#9733;]:::priority
-        IV[4 &middot; Connected Apps &amp; ISVs]:::priority
-    end
+    %% Pillars 1-9 in a single horizontal row, ordered by dependency
+    P1[1 &middot; Identity]:::foundation
+    P2[2 &middot; Access]:::foundation
+    P3[3 &middot; Experience<br/>Cloud &#9733;]:::priority
+    P4[4 &middot; Connected<br/>Apps &amp; ISVs]:::priority
+    P5[5 &middot; API + mTLS]:::standard
+    P6[6 &middot; Code &amp; Flow]:::standard
+    P7[7 &middot; Data]:::standard
+    P8[8 &middot; Detect &amp; Respond]:::standard
+    P9[9 &middot; DevSecOps]:::standard
 
-    subgraph STANDARD["STANDARD PILLARS"]
-        direction TB
-        V[5 &middot; API + mTLS]:::standard
-        VI[6 &middot; Apex/LWC/Flow]:::standard
-        VII[7 &middot; Data &amp; Encryption]:::standard
-        VIII[8 &middot; Detect &amp; Respond]:::standard
-        IX[9 &middot; DevSecOps]:::standard
-    end
+    P1 --&gt; P2
+    P2 --&gt; P3
+    P2 --&gt; P4
+    P4 --&gt; P5 --&gt; P6 --&gt; P7 --&gt; P8 --&gt; P9
+    P3 -.-&gt; P7
 
-    subgraph OVERLAY["DEFENSIVE OVERLAY"]
-        X[10 &middot; Defensive AI]:::overlay
-    end
-
-    I --&gt; II
-    II --&gt; III
-    II --&gt; IV
-    III --&gt; VII
-    IV --&gt; V
-    V --&gt; VI
-    VI --&gt; VII
-    VII --&gt; VIII
-    VIII --&gt; IX
-    X -.overlay.-&gt; I
-    X -.overlay.-&gt; III
-    X -.overlay.-&gt; IV
-    X -.overlay.-&gt; VIII
+    PX -.overlay.-&gt; P1
+    PX -.overlay.-&gt; P3
+    PX -.overlay.-&gt; P4
+    PX -.overlay.-&gt; P8
   </pre>
   <p style="margin-top:14px;"><a href="#pillar-i">&rarr; Drill in: Pillar 1 (tech tab)</a></p>
 </div>
@@ -1850,6 +1836,9 @@ gantt
     <p style="margin: 0 0 6px;"><strong>This is not official Salesforce documentation.</strong> It is an independent, vendor-neutral hardening reference written by Dr. Paul Coleman. Salesforce, Inc. has not reviewed, endorsed, or approved this document. Where this document conflicts with official Salesforce documentation, official Salesforce documentation governs.</p>
     <p style="margin: 0 0 6px;"><strong>The author takes responsibility for all opinions, recommendations, interpretations, and any errors herein.</strong></p>
     <p style="margin: 0; font-size: 12px; color: var(--text-secondary);">&copy; 2026 Dr. Paul Coleman. All rights reserved. See <a href="#disclosures">Disclosures</a> for trademarks, AI-assistance attribution, and the full warranty / liability statement.</p>
+  </div>
+  <div style="background: rgba(255,154,60,0.10); border-left: 4px solid #FF9A3C; padding: 12px 16px; margin: 12px 0; border-radius: 4px; font-size: 13px;">
+    <strong>Desktop-only viewing.</strong> This document is designed for desktop screens (1900&times;1200 or larger). Diagrams, the dual-tab fold, the sidebar nav, the search box, and the maturity-scorecard sliders all assume a wide canvas and a pointing device. Mobile and small-tablet rendering is not supported &mdash; the document will display on those devices but layout, scroll behavior, and interactive elements will degrade. Use the <code>@media print</code> stylesheet for offline / PDF reading instead.
   </div>
 </div>
 
@@ -4993,23 +4982,31 @@ flowchart LR
     classDef gate fill:#04844B,stroke:#04844B,color:#FFF;
     classDef trust fill:#FF9A3C,stroke:#FF9A3C,color:#000;
 
-    AI[Defender's AI Stack<br/>Opus 4.7 / GPT-5 / local]:::ai
-    TL[Trust Layer<br/>zero retention, PII scrub,<br/>deterministic re-run]:::trust
+    AI[Defender's AI Stack &mdash; Claude Opus 4.7 &middot; GPT-5 &middot; local]:::ai
+    TL[Trust Layer &mdash; zero retention &middot; PII scrub &middot; deterministic re-run]:::trust
 
-    subgraph PILLARS["AI overlay across Pillars 1-IX"]
-        direction TB
-        P1[1 &middot; Identity audit<br/>SAML claim review]:::pillar
-        P2[2 &middot; PermSet drift<br/>migration planning]:::pillar
-        P3[3 &middot; Guest profile audit<br/>scanner authoring]:::pillar
-        P4[4 &middot; OAuth grant analysis<br/>ISV risk scoring]:::pillar
-        P5[5 &middot; Cert runbook<br/>credential inventory]:::pillar
-        P6[6 &middot; Apex code review<br/>SOQL injection scan]:::pillar
-        P7[7 &middot; Classification proposal<br/>retention draft]:::pillar
-        P8[8 &middot; Anomaly authoring<br/>IRP companion]:::pillar
-        P9[9 &middot; PR review<br/>scanner triage]:::pillar
-    end
+    AI --&gt; TL
 
-    AI --&gt; TL --&gt; PILLARS
+    %% Pillars 1-9 spread horizontally beneath the Trust Layer (one row, no subgraph)
+    P1[1 &middot; Identity<br/>SAML claim review]:::pillar
+    P2[2 &middot; Access<br/>PSG drift]:::pillar
+    P3[3 &middot; Guest profile<br/>scanner authoring]:::pillar
+    P4[4 &middot; OAuth grants<br/>ISV risk scoring]:::pillar
+    P5[5 &middot; Cert runbook<br/>NC inventory]:::pillar
+    P6[6 &middot; Apex review<br/>SOQL injection scan]:::pillar
+    P7[7 &middot; Classification<br/>retention draft]:::pillar
+    P8[8 &middot; Anomaly authoring<br/>IRP companion]:::pillar
+    P9[9 &middot; PR review<br/>scanner triage]:::pillar
+
+    TL --&gt; P1
+    TL --&gt; P2
+    TL --&gt; P3
+    TL --&gt; P4
+    TL --&gt; P5
+    TL --&gt; P6
+    TL --&gt; P7
+    TL --&gt; P8
+    TL --&gt; P9
   </pre>
   <h3>Subsection map</h3>
   <ul>
@@ -6906,7 +6903,7 @@ SELECT UserId, LastUsedDate FROM OauthToken WHERE AppName = 'ISV_APP_NAME'</code
     function gradeFor(avg) {
       if (avg < 0.5) return { letter: '—', label: 'No score recorded', color: 'var(--text-muted)' };
       if (avg < 1.5) return { letter: 'F', label: 'Critical exposure -- begin Day-1 actions immediately', color: '#C23934' };
-      if (avg < 2.5) return { letter: 'D', label: 'Foundational gaps -- prioritize Pillars 1-IV', color: '#FF9A3C' };
+      if (avg < 2.5) return { letter: 'D', label: 'Foundational gaps -- prioritize Pillars 1-4', color: '#FF9A3C' };
       if (avg < 3.5) return { letter: 'C', label: 'Defined posture -- automate drift detection', color: '#FF9A3C' };
       if (avg < 4.2) return { letter: 'B', label: 'Managed posture -- pursue cross-pillar coordination', color: '#04844B' };
       if (avg < 4.8) return { letter: 'A', label: 'Optimized posture -- exemplary territory in reach', color: '#04844B' };
