@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   Salesforce CRM Security Hardening — A Defender's Encyclopedia for the Frontier-AI Era
-  Document version 1.2.0 · Last modified 2026-05-03
+  Document version 1.3.0 · Last modified 2026-05-03
   Copyright (c) 2026 Dr. Paul Coleman. All rights reserved.
 
   A vendor-neutral hardening reference for the customer side of the Salesforce
@@ -12,7 +12,7 @@
 
   Threat-informed (UNC6040 / UNC6395 / Krebs-pattern guest exposure / Drift OAuth chain
   / browser-extension hijack / AI prompt-injection via web forms / Mythos supply-chain).
-  Standards-aligned (NIST CSF 2.0, OWASP Top 10, CIS Salesforce Benchmark).
+  Standards-aligned (NIST CSF 2.0, OWASP Top 10, CIS Critical Security Controls v8).
 
   This document is independent and not affiliated with, endorsed by, or sponsored by
   Salesforce, Inc. or Anthropic, PBC.
@@ -28,7 +28,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Salesforce CRM Security Hardening &mdash; A Defender's Encyclopedia for the Frontier-AI Era</title>
-<meta name="document-version" content="1.2.0">
+<meta name="document-version" content="1.3.0">
 <meta name="last-modified" content="2026-05-03">
 <meta name="source-snapshot" content="2026-05-03">
 <meta name="description" content="Vendor-neutral Salesforce CRM security hardening reference: identity, access, Experience Cloud guest hardening, Connected Apps + AppExchange supply chain, mTLS, secure Apex/LWC/Flow, encryption, detection &amp; response, DevSecOps, and defensive AI augmentation. Threat-informed (UNC6040, UNC6395, Krebs guest exposure, Drift OAuth chain) and standards-aligned (NIST CSF 2.0, OWASP).">
@@ -951,7 +951,7 @@ pre.mermaid g.node[onclick]:hover > path {
     </div>
     <div>
       <h1>Salesforce CRM Security Hardening</h1>
-      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.2.0 &middot; last modified 2026-05-03</span>
+      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.3.0 &middot; last modified 2026-05-03</span>
     </div>
   </div>
   <div class="doc-meta">
@@ -1117,7 +1117,7 @@ pre.mermaid g.node[onclick]:hover > path {
   <p><strong>Six elevator lines you can lift verbatim:</strong></p>
   <ol>
     <li>"Salesforce platform is hardened by Salesforce. Our half of the partnership is configuration, integration, identity, and people."</li>
-    <li>"The 2025 breach wave hit 700+ orgs through vishing and OAuth grant abuse &mdash; not through any Salesforce platform vulnerability."</li>
+    <li>"The 2025 breach wave hit hundreds of orgs &mdash; the largest single chain (UNC6395 / Salesloft Drift OAuth tokens, August 2025) reached 700+ environments via a third-party ISV; the parallel UNC6040 vishing campaign hit a separate set of named victims. Neither chain exploited a Salesforce platform vulnerability per the public reporting."</li>
     <li>"FIDO2 hardware keys are the only MFA factor that resists vishing. Push notifications and SMS do not."</li>
     <li>"Most data exposure on Experience Cloud sites is one misconfigured guest sharing rule away. We have an automated audit for it."</li>
     <li>"Frontier AI is contained &mdash; defenders get the same Opus-class model for hardening that the threat lacks. The defender gap is closing faster than the attacker gap."</li>
@@ -1585,6 +1585,13 @@ flowchart LR
 <div class="card" id="mythos-reality" data-search="mythos reality check anthropic claude project glasswing supply chain frontier ai bloomberg salesforce response opus 4.7 claude security">
   <h2>The Mythos Question &mdash; Reality Check</h2>
   <h3>What Mythos is &mdash; and isn't</h3>
+  <p style="background: rgba(0,112,210,0.06); border-left: 3px solid #0070D2; padding: 10px 14px; margin: 10px 0; font-size: 13px;">
+    <strong>Provenance note.</strong> "Mythos" and "Project Glasswing" are 2026-dated public references that
+    appear in industry reporting (Bloomberg, Salesforce Ben, CRN) cited in this document. Naming
+    conventions for restricted Anthropic research efforts may evolve; verify current product names and
+    program boundaries against Anthropic's primary communications before quoting these terms in
+    customer-facing material.
+  </p>
   <p>
     Anthropic's most capable model, restricted to <a href="https://www.anthropic.com/glasswing" target="_blank" rel="noopener">Project Glasswing<sup>[2]</sup></a>
     &mdash; the restriction is itself a proactive Anthropic safety measure. Public reporting describes
@@ -3080,8 +3087,10 @@ sequenceDiagram
     Allianz Life, and LVMH-group brands (Louis Vuitton, Dior, Tiffany &amp; Co.). Additional names
     that appear in secondary coverage but are <em>not</em> attributed in primary sources include
     Pandora, Chanel, and Starbucks Singapore &mdash; treat as unverified pending primary-source
-    confirmation. Tracker: UNC6040, with self-claimed affiliation to the ShinyHunters /
-    Scattered Spider / Lapsus$ ecosystem.
+    confirmation. Tracker: UNC6040 (Google Threat Intelligence Group designation). UNC6040 has publicly
+    <em>claimed</em> affiliation with ShinyHunters; researchers also discuss overlap with
+    Scattered Spider / Lapsus$ tradecraft, but those linkages are not all formally confirmed in
+    primary threat-intel attributions and should not be conflated as a single ecosystem.
   </p>
   <h3>The kill chain</h3>
   <ol>
@@ -4102,7 +4111,7 @@ stateDiagram-v2
     <li><strong>ReportEvent</strong>: report runs; chunked output</li>
     <li><strong>ListViewEvent</strong>: list view runs</li>
     <li><strong>ApiEvent</strong>: every API call</li>
-    <li><strong>RestApiEvent</strong>: REST callouts</li>
+    <li><strong>RestApiEvent</strong>: inbound REST API activity (calls landing on Salesforce; not Apex outbound callouts)</li>
     <li><strong>BulkApiEvent</strong>: Bulk API operations &mdash; the UNC6040 detection hotspot</li>
     <li><strong>UriEvent</strong>: page visits; gives you a sense of in-app navigation</li>
     <li><strong>LogoutEvent</strong>: end-of-session signal; Logout Event Triggers can run Apex</li>
@@ -4527,8 +4536,8 @@ graph TD
 <div class="card" id="x-claude-security" data-search="claude security opus 4.7 public beta may 2026 vulnerability scanning remediation enterprise admin console webhook slack jira directory level scheduled scans triage tracking">
   <h2>X.1 &middot; Claude Security (Opus 4.7) &mdash; Public Beta May 2026</h2>
   <p>
-    Anthropic's general-availability security product, built on <strong>Claude Opus 4.7</strong> (explicitly
-    not Mythos). Per <a href="https://claude.ai/security" target="_blank" rel="noopener">Anthropic<sup>[9]</sup></a>:
+    Anthropic's security product, in <strong>public beta as of May 1 2026</strong>, built on <strong>Claude Opus 4.7</strong>
+    (explicitly not Mythos). Per <a href="https://claude.ai/security" target="_blank" rel="noopener">Anthropic<sup>[9]</sup></a>:
     "scheduled scans, directory-level scanning, advanced triage tracking, export options, webhook
     integrations to Slack and Jira."
   </p>
@@ -4922,6 +4931,13 @@ gantt
 <div class="card" id="appendix-a" data-search="appendix a identity auth code saml jit handler registration handler custom claims login flow apex visualforce auth provider">
   <h2>Appendix A &middot; Identity &amp; Auth Code Reference</h2>
   <p><em>Reference patterns for Pillar I. Adapt to your org's IdP and naming conventions.</em></p>
+  <div style="background: rgba(255,154,60,0.10); border-left: 4px solid #FF9A3C; padding: 12px 16px; margin: 12px 0; border-radius: 4px; font-size: 13px;">
+    <strong>Code-sample disclaimer.</strong> The Apex / Visualforce / metadata XML below is <em>illustrative</em>
+    of the recommended patterns. Method signatures, interface contracts, and metadata-schema element names
+    evolve across Salesforce releases. <strong>Always verify the exact API surface against the current
+    Apex Reference Guide and Metadata API Developer Guide</strong> for your target API version before
+    deploying. Treat these samples as architectural guidance, not as drop-in code.
+  </div>
 
   <h3>A.1 Apex SAML JIT Handler &mdash; group-driven entitlement</h3>
   <pre><code>// File: AcmeSamlJitHandler.cls
@@ -5046,6 +5062,14 @@ public class AcmeSamlJitHandler implements Auth.SamlJitHandler {
      ════════════════════════════════════════════════════════════════════════ -->
 <div class="card" id="appendix-b" data-search="appendix b apex secure coding user mode security enforced stripinaccessible bind variable escapesinglequotes guest controller">
   <h2>Appendix B &middot; Apex Secure-Coding Reference</h2>
+  <div style="background: rgba(255,154,60,0.10); border-left: 4px solid #FF9A3C; padding: 12px 16px; margin: 12px 0; border-radius: 4px; font-size: 13px;">
+    <strong>Code-sample disclaimer.</strong> Same as Appendix A &mdash; samples are illustrative; verify
+    against the current Apex Reference Guide and Metadata API Developer Guide for your target API
+    version. Notably: <code>WITH USER_MODE</code> and <code>AccessLevel.USER_MODE</code> are intended to be
+    chosen <em>one or the other</em> (not both); <code>Security.stripInaccessible</code> is meant for
+    queries that did <em>not</em> already enforce FLS via <code>USER_MODE</code>; <code>Case</code> does
+    not have a standard <code>Name</code> field. Adapt accordingly.
+  </div>
 
   <h3>B.1 USER_MODE on every SOQL and DML</h3>
   <pre><code>public with sharing class CaseService {
@@ -5079,23 +5103,39 @@ public static List&lt;KnowledgeArticleVersion&gt; getPublicArticles(String topic
   <h3>B.3 Dynamic SOQL with typed binds</h3>
   <pre><code>public List&lt;SObject&gt; safeDynamicSearch(String objectName, String filterField, String userInput) {
     // Whitelist object and field names (never accept these from user input)
-    Set&lt;String&gt; allowedObjects = new Set&lt;String&gt;{'Contact','Account','Case'};
-    Set&lt;String&gt; allowedFields  = new Set&lt;String&gt;{'Name','Email','Subject'};
-    if (!allowedObjects.contains(objectName) || !allowedFields.contains(filterField)) {
+    // Per-object allowlist of safe fields (Case has no standard Name field; use CaseNumber/Subject)
+    Map&lt;String, Set&lt;String&gt;&gt; allowedFieldsByObject = new Map&lt;String, Set&lt;String&gt;&gt;{
+        'Contact' =&gt; new Set&lt;String&gt;{'Name','Email'},
+        'Account' =&gt; new Set&lt;String&gt;{'Name','Industry'},
+        'Case'    =&gt; new Set&lt;String&gt;{'CaseNumber','Subject'}
+    };
+    Set&lt;String&gt; allowedObjects = allowedFieldsByObject.keySet();
+    Set&lt;String&gt; allowedFields  = allowedFieldsByObject.get(objectName);
+    if (!allowedObjects.contains(objectName) || allowedFields == null || !allowedFields.contains(filterField)) {
         throw new AuraHandledException('Invalid query target');
     }
-    String soql = 'SELECT Id, Name FROM ' + objectName +
-                  ' WHERE ' + filterField + ' LIKE :pattern WITH USER_MODE LIMIT 20';
+    // Pick a safe SELECT field per object (Case lacks Name; use CaseNumber)
+    String selectField = (objectName == 'Case') ? 'CaseNumber' : 'Name';
+    // Use AccessLevel.USER_MODE on queryWithBinds; do NOT also add WITH USER_MODE in the SOQL string
+    String soql = 'SELECT Id, ' + selectField + ' FROM ' + objectName +
+                  ' WHERE ' + filterField + ' LIKE :pattern LIMIT 20';
     Map&lt;String, Object&gt; binds = new Map&lt;String, Object&gt;{ 'pattern' =&gt; '%' + userInput + '%' };
     return Database.queryWithBinds(soql, binds, AccessLevel.USER_MODE);
 }
 </code></pre>
 
   <h3>B.4 Security.stripInaccessible</h3>
-  <pre><code>SObjectAccessDecision dec = Security.stripInaccessible(
+  <p style="font-size: 12px; color: var(--text-secondary);">
+    Use this when you have a SOQL result obtained <em>without</em> FLS enforcement (no <code>USER_MODE</code> /
+    <code>SECURITY_ENFORCED</code>) and you want to strip inaccessible fields before returning to the
+    caller. Combining <code>WITH USER_MODE</code> with <code>stripInaccessible</code> is redundant
+    (USER_MODE will throw on inaccessible fields) and not the intended pattern.
+  </p>
+  <pre><code>// Query in SYSTEM mode (no USER_MODE / SECURITY_ENFORCED), then strip:
+SObjectAccessDecision dec = Security.stripInaccessible(
     AccessType.READABLE,
-    [SELECT Id, Name, Email, Phone, SSN__c FROM Contact WHERE AccountId = :acctId WITH USER_MODE]);
-return (List&lt;Contact&gt;) dec.getRecords();   // SSN__c stripped if user can't see it
+    [SELECT Id, Name, Email, Phone, SSN__c FROM Contact WHERE AccountId = :acctId]);
+return (List&lt;Contact&gt;) dec.getRecords();   // SSN__c stripped if running user can't see it
 </code></pre>
 </div>
 
@@ -5104,6 +5144,15 @@ return (List&lt;Contact&gt;) dec.getRecords();   // SSN__c stripped if user can'
      ════════════════════════════════════════════════════════════════════════ -->
 <div class="card" id="appendix-c" data-search="appendix c metadata xml connectedapp external client app named credential external credential remote site setting csp trusted site samlssoconfig auth provider permission set permissionsetgroup">
   <h2>Appendix C &middot; Metadata XML Reference</h2>
+  <div style="background: rgba(255,154,60,0.10); border-left: 4px solid #FF9A3C; padding: 12px 16px; margin: 12px 0; border-radius: 4px; font-size: 13px;">
+    <strong>Schema disclaimer.</strong> The XML below shows the architectural <em>shape</em> of these
+    metadata types. Exact element names, attribute names, and enum values evolve across API versions;
+    several elements shown here (e.g., <code>rotateRefreshToken</code>, <code>sessionLevelRequired</code>
+    on <code>oauthConfig</code>; <code>protocol=Mtls</code> on <code>NamedCredential</code>) may differ
+    from the canonical schema in your target API version. <strong>Always validate against the current
+    <a href="https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/" target="_blank" rel="noopener">Metadata API Developer Guide</a></strong>
+    and the current <code>package.xml</code> version your org is on.
+  </div>
 
   <h3>C.1 Connected App with hardened OAuth policy</h3>
   <pre><code>&lt;ConnectedApp xmlns="http://soap.sforce.com/2006/04/metadata"&gt;
@@ -5159,6 +5208,13 @@ return (List&lt;Contact&gt;) dec.getRecords();   // SSN__c stripped if user can'
      ════════════════════════════════════════════════════════════════════════ -->
 <div class="card" id="appendix-d" data-search="appendix d transaction security apex policy report event bulk api event login event mass record condition builder">
   <h2>Appendix D &middot; Transaction Security Policy Reference</h2>
+  <div style="background: rgba(255,154,60,0.10); border-left: 4px solid #FF9A3C; padding: 12px 16px; margin: 12px 0; border-radius: 4px; font-size: 13px;">
+    <strong>Code-sample disclaimer.</strong> Same as Appendix A. Field names on Real-Time Event Monitoring
+    objects (<code>BulkApiEvent.RowsProcessed</code>, <code>ReportEvent.RowsProcessed</code>,
+    <code>UriEvent.RequestUrl</code>) and <code>TxnSecurity.EventCondition</code> interface contracts
+    evolve. <strong>Verify against the Real-Time Event Monitoring developer documentation for your API
+    version</strong> before relying on these conditions.
+  </div>
 
   <h3>D.1 Block Bulk-API export &gt; 5,000 rows from non-trusted IP</h3>
   <pre><code>global class BlockHighVolumeBulkApi implements TxnSecurity.EventCondition {
@@ -5315,10 +5371,20 @@ write_to_audit_log(hmac_sign(findings + findings_b))
     <li>Incident drill: simulate expired cert; verify alerting, runbook, and recovery time</li>
   </ol>
 
-  <h3>G.4 Future: 47-day projection (2028)</h3>
-  <p>By 2028, max lifespan is projected to drop further (47 days, per browser industry roadmap). Plan
-  for monthly rotation as steady-state by 2028. Automation is no longer optional &mdash; certs become as
-  routine as DNS records.</p>
+  <h3>G.4 Future: stepped reduction to 47 days (2027 &rarr; 2029)</h3>
+  <p>The CA/Browser Forum's <strong>Ballot SC-081v3</strong> (approved April 11, 2025) defines a stepped
+  schedule<sup>[43]</sup>:</p>
+  <table>
+    <thead><tr><th>Effective date</th><th>Max public-TLS cert lifespan</th></tr></thead>
+    <tbody>
+      <tr><td>(prior to Mar 15, 2026)</td><td>398 days</td></tr>
+      <tr><td><strong>March 15, 2026</strong></td><td>200 days</td></tr>
+      <tr><td><strong>March 15, 2027</strong></td><td>100 days</td></tr>
+      <tr><td><strong>March 15, 2029</strong></td><td>47 days (10-day domain-validation reuse)</td></tr>
+    </tbody>
+  </table>
+  <p>Plan for quarterly rotation by 2027 and near-monthly by 2029. Automation is no longer optional &mdash;
+  certs become as routine as DNS records.</p>
 </div>
 
 <!-- ════════════════════════════════════════════════════════════════════════
@@ -5489,7 +5555,7 @@ DIFF:
     <tbody>
       <tr><td><strong>@AuraEnabled</strong></td><td>Apex annotation marking a method callable from Aura/LWC; guest-callable by default.</td><td><a href="#iii-lwc-aura">III.5</a> &middot; <a href="#appendix-b">App. B</a></td><td><a href="https://developer.salesforce.com/docs/atlas.en-us.apexref.meta/apexref/apex_classes_annotation_AuraEnabled.htm" target="_blank" rel="noopener">SF Help</a></td></tr>
       <tr><td><strong>BYOK</strong></td><td>Bring Your Own Key &mdash; customer-managed encryption key material.</td><td><a href="#vii-encrypt">VII.2</a></td><td><a href="https://help.salesforce.com/s/articleView?id=sf.security_pe_byok.htm" target="_blank" rel="noopener">SF Help</a></td></tr>
-      <tr><td><strong>Claude Security</strong></td><td>Anthropic's GA security product on Opus 4.7; explicitly NOT Mythos.</td><td><a href="#x-claude-security">X.1</a></td><td><a href="https://claude.ai/security" target="_blank" rel="noopener">Anthropic</a></td></tr>
+      <tr><td><strong>Claude Security</strong></td><td>Anthropic's vulnerability-scanning product (in public beta as of May 1 2026) on Opus 4.7; explicitly NOT Mythos.</td><td><a href="#x-claude-security">X.1</a></td><td><a href="https://claude.ai/security" target="_blank" rel="noopener">Anthropic</a></td></tr>
       <tr><td><strong>Connected App</strong></td><td>OAuth integration registration; being superseded by External Client Apps in Spring '26.</td><td><a href="#iv-eca-transition">IV.1</a> &middot; <a href="#appendix-c">App. C</a></td><td><a href="https://help.salesforce.com/s/articleView?id=sf.connected_app_overview.htm" target="_blank" rel="noopener">SF Help</a></td></tr>
       <tr><td><strong>Custom Login Flow</strong></td><td>Post-auth, pre-homepage hook for step-up / disclosure / session control.</td><td><a href="#i-login-flow">I.4</a> &middot; <a href="#appendix-a">App. A</a></td><td><a href="https://help.salesforce.com/s/articleView?id=sf.security_login_flow_overview.htm" target="_blank" rel="noopener">SF Help</a></td></tr>
       <tr><td><strong>Data Mask</strong></td><td>Salesforce add-on for sandbox PII anonymization.</td><td><a href="#vii-sandbox">VII.5</a></td><td><a href="https://help.salesforce.com/s/articleView?id=sf.data_mask_overview.htm" target="_blank" rel="noopener">SF Help</a></td></tr>
@@ -5544,7 +5610,7 @@ DIFF:
     <li id="ref-1"><strong>Salesforce Ben</strong> &mdash; Henry Martin, "Claude Mythos Security Breach: Salesforce Architects Warned of Critical Danger" (Apr 22 2026). <a href="https://www.salesforceben.com/claude-mythos-security-breach-salesforce-architects-warned-of-critical-danger/" target="_blank" rel="noopener">salesforceben.com</a></li>
     <li id="ref-2"><strong>Anthropic</strong> &mdash; Project Glasswing announcements. <a href="https://www.anthropic.com/glasswing" target="_blank" rel="noopener">anthropic.com/glasswing</a></li>
     <li id="ref-3"><strong>Bloomberg</strong> &mdash; "Anthropic's Mythos Model is Being Accessed by Unauthorized Users" (Apr 21 2026). <a href="https://www.bloomberg.com/news/articles/2026-04-21/anthropic-s-mythos-model-is-being-accessed-by-unauthorized-users" target="_blank" rel="noopener">bloomberg.com</a></li>
-    <li id="ref-4"><strong>Salesforce Trust</strong> &mdash; "How Salesforce is preparing for the frontier AI threat landscape," Status post (Apr 13 2026). <a href="https://status.salesforce.com/" target="_blank" rel="noopener">status.salesforce.com</a></li>
+    <li id="ref-4"><strong>Salesforce Trust</strong> &mdash; "How Salesforce is preparing for the frontier AI threat landscape," Status post (Apr 13 2026). The post appears in Salesforce's status / security informational message stream; the canonical post URL is informational message ID #20000246 on <a href="https://status.salesforce.com/" target="_blank" rel="noopener">status.salesforce.com</a>. (Status posts may rotate out of the live feed; archived locally as part of source-snapshot 2026-05-03.)</li>
     <li id="ref-5"><strong>Apex Hours / Jitendra Zaa</strong> &mdash; "Salesforce Data Breach Prevention: The Complete Security Hardening Guide for Admins and Developers" (Dec 2025). <a href="https://www.jitendrazaa.com/blog/salesforce/salesforce-security-ultimate-guide/" target="_blank" rel="noopener">jitendrazaa.com</a></li>
     <li id="ref-6"><strong>Apex Hours</strong> &mdash; ibid (browser extension threat coverage). <a href="https://www.apexhours.com/salesforce-data-breaches-what-really-went-wrong-and-how-to-protect-your-org/" target="_blank" rel="noopener">apexhours.com</a></li>
     <li id="ref-7"><strong>Reco</strong> (vendor: SSPM) &mdash; "CISO Guide to Salesforce Security." <a href="https://www.reco.ai" target="_blank" rel="noopener">reco.ai</a></li>
@@ -5583,6 +5649,7 @@ DIFF:
     <li id="ref-40"><strong>PCI Security Standards Council</strong> &mdash; PCI DSS v4.0. <a href="https://www.pcisecuritystandards.org/document_library/" target="_blank" rel="noopener">pcisecuritystandards.org</a></li>
     <li id="ref-41"><strong>European Union</strong> &mdash; Regulation (EU) 2024/1689 (the "AI Act"). <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj" target="_blank" rel="noopener">eur-lex.europa.eu</a></li>
     <li id="ref-42"><strong>Salesforce Help</strong> &mdash; "Permissions in Profiles Retirement Postponed" (Salesforce Knowledge article). <a href="https://help.salesforce.com/s/articleView?id=003834041&amp;language=en_US&amp;type=1" target="_blank" rel="noopener">help.salesforce.com</a> &middot; See also <a href="https://www.salesforceben.com/salesforce-permissions-profiles-the-latest-retirement-updates/" target="_blank" rel="noopener">Salesforce Ben coverage</a> for community context.</li>
+    <li id="ref-43"><strong>CA/Browser Forum</strong> &mdash; Ballot SC-081v3 "Introduce Schedule of Reducing Validity and Data Reuse Periods" (approved April 11, 2025). <a href="https://cabforum.org/2025/04/11/ballot-sc081v3-introduce-schedule-of-reducing-validity-and-data-reuse-periods/" target="_blank" rel="noopener">cabforum.org</a> &middot; <a href="https://www.digicert.com/blog/tls-certificate-lifetimes-will-officially-reduce-to-47-days" target="_blank" rel="noopener">DigiCert</a> for industry context.</li>
   </ol>
   <h3 style="margin-top:24px;">Additional Source Catalog (not numbered; supplementary)</h3>
   <ul>
@@ -5606,6 +5673,12 @@ DIFF:
   <table>
     <thead><tr><th>Version</th><th>Date</th><th>Change</th><th>Author</th></tr></thead>
     <tbody>
+      <tr>
+        <td><strong>1.3.0</strong></td>
+        <td>2026-05-03</td>
+        <td>Chunked Codex CLI hallucinations audit (no-web variant) returned 30 findings (4 critical, 12 high, 11 medium, 3 low). Applied: <em>Code-sample disclaimers</em> added to Appendices A, B, C, D acknowledging that exact API signatures and metadata-schema element names evolve across releases and must be verified against current docs. <em>Apex/SOQL fixes</em>: B.3 dynamic SOQL revised to use <em>either</em> <code>WITH USER_MODE</code> <em>or</em> <code>AccessLevel.USER_MODE</code> (not both); per-object allowlist of fields (Case has no standard <code>Name</code> field, uses <code>CaseNumber</code>). B.4 <code>stripInaccessible</code> example clarified &mdash; intended for queries <em>without</em> USER_MODE/SECURITY_ENFORCED. <em>Real-Time EM</em>: <code>RestApiEvent</code> description corrected from "REST callouts" to "inbound REST API activity (not Apex outbound callouts)." <em>Cert lifespan</em>: Appendix G.4 expanded to the full CA/B Forum Ballot SC-081v3 stepped schedule (Mar 2026 &rarr; 200 days, Mar 2027 &rarr; 100 days, Mar 2029 &rarr; 47 days), reference [^43] added. <em>Claude Security</em>: corrected "general-availability" to "in public beta as of May 1 2026" (resolves a contradiction with the May-2026 public-beta framing). <em>Mythos provenance note</em> added to the reality-check card flagging "Mythos" / "Project Glasswing" as 2026-dated public references whose naming conventions may evolve. <em>Victim attribution</em>: separated UNC6395 (Drift, 700+ orgs) from UNC6040 (vishing, named-victim list); softened ShinyHunters / Scattered Spider / Lapsus$ ecosystem-conflation to "claimed-affiliation / tradecraft overlap, not formally confirmed as one ecosystem." <em>Standards</em>: SOC 2 P1&ndash;P8 enumerated by name; HIPAA &sect;164.310 added with platform-side scope note; "CIS Salesforce Benchmark" replaced with "CIS Critical Security Controls v8" in the document subtitle to resolve a contradiction (a Salesforce-specific CIS Benchmark is not generally published).</td>
+        <td>Dr. Paul Coleman</td>
+      </tr>
       <tr>
         <td><strong>1.2.0</strong></td>
         <td>2026-05-03</td>
@@ -5785,7 +5858,7 @@ DIFF:
   </table>
 
   <h3>P.2 CIS Critical Security Controls v8</h3>
-  <p>CIS CSC v8<sup>[37]</sup> (Salesforce-specific CIS Benchmarks were not generally published as of 2026-05; mapping uses the cross-platform CIS CSC):</p>
+  <p>CIS CSC v8<sup>[37]</sup> (a Salesforce-specific CIS Benchmark is not generally published as of source-snapshot 2026-05-03; this mapping uses the cross-platform CIS CSC):</p>
   <table>
     <thead><tr><th>CSC</th><th>Control</th><th>Pillars</th></tr></thead>
     <tbody>
@@ -5852,11 +5925,14 @@ DIFF:
       <tr><td>CC9</td><td>Risk Mitigation</td><td>Risk Register, <a href="#pillar-iv">IV (vendor mgmt)</a></td></tr>
       <tr><td>A1 (Availability)</td><td>System availability</td><td><a href="#vii-backup">VII.6</a></td></tr>
       <tr><td>C1 (Confidentiality)</td><td>Confidential info protection</td><td><a href="#pillar-vii">VII</a></td></tr>
-      <tr><td>P1&ndash;8 (Privacy)</td><td>Privacy of personal info</td><td><a href="#vii-compliance">VII.9</a></td></tr>
+      <tr><td>P1&ndash;P8 (Privacy)</td><td>Privacy criteria covering Notice (P1), Choice/Consent (P2), Collection (P3), Use/Retention/Disposal (P4), Access (P5), Disclosure (P6), Quality (P7), Monitoring/Enforcement (P8)</td><td><a href="#vii-compliance">VII.9</a></td></tr>
     </tbody>
   </table>
 
-  <h3>P.5 HIPAA Security Rule (45 CFR &sect;164.308&ndash;.312)</h3>
+  <h3>P.5 HIPAA Security Rule (45 CFR &sect;164.308 / .310 / .312)</h3>
+  <p style="font-size: 12px; color: var(--text-secondary);">Physical Safeguards (&sect;164.310) are largely
+  out-of-scope for this customer-side Salesforce hardening reference (Salesforce manages physical data
+  center security under the platform side of the partnership), but are included here for completeness.</p>
   <table>
     <thead><tr><th>Safeguard</th><th>Standard</th><th>Pillars</th></tr></thead>
     <tbody>
