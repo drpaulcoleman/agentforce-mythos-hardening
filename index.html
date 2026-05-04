@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   Salesforce CRM Security Hardening — A Defender's Encyclopedia for the Frontier-AI Era
-  Document version 1.5.16 · Last modified 2026-05-04
+  Document version 1.5.17 · Last modified 2026-05-04
   Copyright (c) 2026 Dr. Paul Coleman. All rights reserved.
 
   A vendor-neutral hardening reference for the customer side of the Salesforce
@@ -28,7 +28,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Mythos Imperative &mdash; Salesforce CRM Security Hardening</title>
-<meta name="document-version" content="1.5.16">
+<meta name="document-version" content="1.5.17">
 <meta name="last-modified" content="2026-05-04">
 <meta name="source-snapshot" content="2026-05-04">
 <meta name="description" content="The Mythos Imperative: a vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars from Identity to Defensive AI; nineteen appendices.">
@@ -38,7 +38,7 @@
 
 <!-- Open Graph / social-share metadata -->
 <meta property="og:type" content="article">
-<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.16">
+<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.17">
 <meta property="og:description" content="Vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars, 19 appendices, fully attributed.">
 <meta property="og:url" content="https://drpaulcoleman.github.io/agentforce-mythos-hardening/">
 <meta property="og:site_name" content="Salesforce CRM Security Hardening">
@@ -49,7 +49,7 @@
 
 <!-- Twitter / X card metadata -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.16">
+<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.17">
 <meta name="twitter:description" content="Threat-informed Salesforce hardening reference. Ten pillars from Identity to Defensive AI, with a companion Salesforce DX reference implementation.">
 
 <!-- Errata / contributions -->
@@ -1714,7 +1714,7 @@ pre.mermaid g.node[onclick]:hover > path {
     </div>
     <div>
       <h1><span class="phase-tag">The Mythos Imperative</span><span class="phase-sep">&mdash;</span>Salesforce CRM Security Hardening</h1>
-      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.16 &middot; last modified 2026-05-04</span>
+      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.17 &middot; last modified 2026-05-04</span>
     </div>
   </div>
   <div class="doc-meta">
@@ -1963,7 +1963,7 @@ pre.mermaid g.node[onclick]:hover > path {
   <p>
     <strong>What still moves the needle.</strong> Vishing (UNC6040), OAuth abuse via compromised ISVs (UNC6395
     / Salesloft Drift, 700+ orgs), Experience Cloud guest profile misconfig (Krebs 2023 &rarr; ongoing), browser
-    extensions hijacking authenticated sessions (35+ extensions, 3.7M users in Dec 2024<sup><a href="#ref-5" class="ref-link">[5]</a></sup>),
+    extensions hijacking authenticated sessions (35+ extensions, 2.6M users in Dec 2024<sup><a href="#ref-5" class="ref-link">[5]</a></sup>),
     AI prompt injection via web-to-lead and case intake forms<sup><a href="#ref-6" class="ref-link">[6]</a></sup>.
   </p>
   <p style="margin-top:14px;"><a href="#mythos-reality">&rarr; Full technical analysis &middot; tech tab</a></p>
@@ -2066,7 +2066,8 @@ gantt
       <tr><td>Health Check + custom baselines</td><td>&#9989;</td><td>&mdash;</td><td>All editions</td></tr>
       <tr><td>Setup Audit Trail (180d)</td><td>&#9989;</td><td>Field Audit Trail (long retention, big-data backend)</td><td>Shield</td></tr>
       <tr><td>Login History (6mo)</td><td>&#9989;</td><td>Real-Time Event Monitoring (queryable Event Log Objects, 30d retention)</td><td>Shield / EM add-on</td></tr>
-      <tr><td>Threat Detection</td><td>&#9989; (all customers)</td><td>Enhanced Transaction Security (Block / MFA / Notify)</td><td>Shield</td></tr>
+      <tr><td>Threat Detection (anomaly events)</td><td>&#10060; (Shield / EM only)</td><td>Threat Detection event objects (ApiAnomalyEvent, CredentialStuffingEvent, ReportAnomalyEvent, SessionHijackingEvent) + Enhanced Transaction Security (Block / MFA / Notify)</td><td>Shield</td></tr>
+      <tr><td>Basic login anomaly cues</td><td>&#9989; (all customers)</td><td>New-device email warnings; suspicious-login flags in Login History</td><td>&mdash;</td></tr>
       <tr><td>Encryption</td><td>Classic field encryption (limited)</td><td>Shield Platform Encryption + BYOK</td><td>Shield</td></tr>
       <tr><td>Sandbox PII protection</td><td>Sandbox templates</td><td>Salesforce Data Mask</td><td>Data Mask add-on</td></tr>
       <tr><td>Posture / config drift across orgs</td><td>Per-org Health Check</td><td>Security Center (multi-org) / 3rd-party SSPM</td><td>Security Center / SSPM</td></tr>
@@ -2129,7 +2130,7 @@ gantt
 
 <!-- TECH · Hero ---------------------------------------------------------- -->
 <div class="card hero" id="hero" data-search="hero overview salesforce crm security hardening defender encyclopedia frontier ai mythos">
-  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.16 &middot; last modified 2026-05-04</p>
+  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.17 &middot; last modified 2026-05-04</p>
   <h1>The <span class="accent">Mythos Imperative</span><br/><span style="font-size:24px; font-weight:700; opacity:0.92; display:block; margin-top:6px;">A Defender's Encyclopedia for the Frontier-AI Era</span></h1>
   <p class="lede" style="border-left: 3px solid var(--sf-orange); padding: 6px 0 6px 16px; margin-left: 0;">
     <strong style="color: var(--sf-orange); letter-spacing: 0.04em;">Why this exists, why now.</strong>
@@ -2258,7 +2259,7 @@ gantt
       <tr><td><a href="#pillar-x">Project Glasswing</a></td><td>Anthropic's restricted research program housing the Mythos model.</td></tr>
       <tr><td><a href="#pillar-viii">Real-Time Event Monitoring</a></td><td>Queryable, near-real-time event log objects (Shield / EM add-on).</td></tr>
       <tr><td><a href="#pillar-vii">Shield Platform Encryption</a></td><td>Salesforce's at-rest encryption product; supports BYOK / customer-managed keys.</td></tr>
-      <tr><td><a href="#pillar-viii">Threat Detection</a></td><td>Salesforce's built-in anomaly detection (free for all customers).</td></tr>
+      <tr><td><a href="#pillar-viii">Threat Detection</a></td><td>Salesforce's structured anomaly-event objects (Shield / Event Monitoring license required); distinct from the free basic login-anomaly warnings shown in Login History.</td></tr>
       <tr><td><a href="#pillar-viii">Transaction Security</a></td><td>Rule-based policy framework that can Block / require MFA / Notify on events.</td></tr>
       <tr><td><a href="#pillar-ix">Unlocked package + signed</a></td><td>Modern Salesforce DX deployment unit; signing is the supply-chain control.</td></tr>
       <tr><td><a href="#pillar-vi">USER_MODE</a></td><td>Modern Apex query mode that enforces FLS and CRUD automatically; preferred over <code>WITH SECURITY_ENFORCED</code>.</td></tr>
@@ -2307,8 +2308,8 @@ gantt
     <a href="https://csirt.divd.nl/cases/DIVD-2026-00005/" target="_blank" rel="noopener">DIVD-2026-00005</a><sup><a href="#ref-13" class="ref-link">[13]</a></sup>,
     a GraphQL-endpoint variant identified by AppOmni research.</li>
 
-    <li><strong>Browser-extension session hijack.</strong> 35+ Chrome extensions compromised in a December
-    2024 supply-chain attack, stealing session cookies and credentials from 3.7 million users<sup><a href="#ref-14" class="ref-link">[14]</a></sup>.
+    <li><strong>Browser-extension session hijack.</strong> 33 Chrome extensions (Cyberhaven primary reporting; some industry coverage cited higher counts) compromised in a December
+    2024 supply-chain attack, stealing session cookies and credentials from 2.6 million users (per Cyberhaven primary reporting)<sup><a href="#ref-14" class="ref-link">[14]</a></sup>.
     Extensions are <strong>invisible</strong> to Salesforce's OAuth Usage and Connected App reports because
     they piggyback on the authenticated browser session rather than requesting their own OAuth grant.
     Endpoint allowlisting (Chrome Enterprise) is the only defense.</li>
@@ -3521,7 +3522,7 @@ flowchart LR
       <tr><td>Summer '20</td><td>Guest user OWD set to Private (mandatory)</td><td>Made it impossible to give guest users Public Read/Write OWD &mdash; the Spring '20 floor</td></tr>
       <tr><td>Winter '21</td><td>"Secure Guest User Record Access" critical update<sup><a href="#ref-25" class="ref-link">[25]</a></sup></td><td>Guest sharing rules can no longer use "All Internal Users" as the source group; explicit guest-aware groups required</td></tr>
       <tr><td>Summer '21</td><td>Manual sharing to guest user prevented</td><td>Closed manual-sharing bypass</td></tr>
-      <tr><td>Winter '22</td><td>Aura controller hardening</td><td><code>@AuraEnabled</code> methods called from guest context have FLS enforced by default in Apex</td></tr>
+      <tr><td>Winter '22</td><td>Aura controller hardening (reachability tightening)</td><td>Guest-callable <code>@AuraEnabled</code> methods continue to require explicit FLS enforcement in Apex (<code>with sharing</code> + <code>WITH USER_MODE</code> / <code>AccessLevel.USER_MODE</code>); the Winter '22 update tightened <em>which</em> classes are reachable from guest profiles, not whether Apex auto-enforces FLS (it doesn't).</td></tr>
       <tr><td>2023</td><td>Krebs exposé &mdash; Vermont, TCF Bank<sup><a href="#ref-12" class="ref-link">[12]</a></sup></td><td>Public attention; Salesforce response: customer misconfiguration, not platform vulnerability</td></tr>
       <tr><td>2024&ndash;2025</td><td>Ongoing critical updates on guest-context Apex execution</td><td>Tightened default behavior of system-mode Apex called from guest-accessible Lightning components</td></tr>
       <tr><td>2026</td><td>DIVD-2026-00005 disclosed (AppOmni research)<sup><a href="#ref-13" class="ref-link">[13]</a></sup></td><td>GraphQL endpoint variant of the guest-access bypass; same pattern, new query surface</td></tr>
@@ -3895,7 +3896,7 @@ sequenceDiagram
       <tr><td><strong>Client Credentials flow</strong></td><td>&#9989; Acceptable</td><td>Service-to-service without a user identity (avoid for record access; prefer JWT Bearer with named integration user)</td></tr>
       <tr><td><strong>User-Agent flow</strong> (implicit)</td><td>&#10071; Block at the org level</td><td>Per Salesforce official guidance; legacy SPA flow superseded by web-server + PKCE<sup><a href="#ref-26" class="ref-link">[26]</a></sup></td></tr>
       <tr><td><strong>Username-Password (ROPC) flow</strong></td><td>&#10071; Block at the org level</td><td>Salesforce official guidance: do not use; sends credentials directly to the app</td></tr>
-      <tr><td><strong>Device flow</strong></td><td>&#10060; Removed September 2025</td><td>Was used by Data Loader and similar; removal closed a vishing pivot</td></tr>
+      <tr><td><strong>Device flow</strong></td><td>&#9888; Discouraged for vishing-target use</td><td>Originally surfaced in the UNC6040 phone-channel exploitation pattern (the verification-code prompt is what the attacker walks the victim through). Salesforce continues to support OAuth 2.0 Device Authorization Flow for legitimate IoT integrations &mdash; treat it as a high-risk flow, restrict it to specific Connected Apps, and pair with admin pre-approval + Block Uninstalled Connected Apps so the victim cannot complete a verification-code grant on an attacker-controlled app.</td></tr>
     </tbody>
   </table>
   <h3>Block at the org level</h3>
@@ -4145,7 +4146,7 @@ sequenceDiagram
 </div>
 
 <!-- 4.8 Browser extensions -->
-<div class="card" id="iv-browser-extensions" data-search="browser extension chrome enterprise allowlist invisible threat session cookie 35 extensions december 2024 supply chain 3.7 million users">
+<div class="card" id="iv-browser-extensions" data-search="browser extension chrome enterprise allowlist invisible threat session cookie 35 extensions december 2024 supply chain 2.6 million users (per Cyberhaven primary reporting)">
   <h2>4.8 &middot; Browser Extensions &mdash; the Invisible OAuth Bypass</h2>
   <p>
     Browser extensions are the most overlooked OAuth-grant <em>equivalent</em>: they ride the
@@ -4155,8 +4156,8 @@ sequenceDiagram
     Apps list. They are invisible to all native Salesforce monitoring.
   </p>
   <p>
-    The December 2024 supply-chain attack compromised 35+ Chrome extensions, stealing session cookies
-    and credentials from 3.7 million users<sup><a href="#ref-6" class="ref-link">[6]</a><a href="#ref-14" class="ref-link">[14]</a></sup>. None of those extensions had Salesforce-issued
+    The December 2024 supply-chain attack compromised 33 Chrome extensions (Cyberhaven primary reporting; some industry coverage cited higher counts), stealing session cookies
+    and credentials from 2.6 million users (per Cyberhaven primary reporting)<sup><a href="#ref-6" class="ref-link">[6]</a><a href="#ref-14" class="ref-link">[14]</a></sup>. None of those extensions had Salesforce-issued
     OAuth grants. They didn't need them.
   </p>
   <h3>Hardening levers (endpoint-side, not Salesforce-side)</h3>
@@ -4834,7 +4835,7 @@ flowchart LR
   <table>
     <thead><tr><th>Layer</th><th>What it does</th><th>Use case</th></tr></thead>
     <tbody>
-      <tr><td><strong>TDE (Transparent Disk Encryption)</strong></td><td>All Salesforce data on disk; Salesforce-managed; default-on</td><td>Foundational; not configurable</td></tr>
+      <tr><td><strong>Salesforce data-at-rest encryption</strong> (default platform encryption; Salesforce-managed)</td><td>All Salesforce data on disk; Salesforce-managed; default-on</td><td>Foundational; not configurable</td></tr>
       <tr><td><strong>Shield Platform Encryption</strong></td><td>Per-field opt-in encryption; preserves search/workflow/validation; multiple modes (probabilistic, deterministic, case-insensitive deterministic)</td><td>Classified fields (PII, financial, health)</td></tr>
       <tr><td><strong>Classic Encryption</strong> (legacy)</td><td>Per-field text encryption; very limited downstream functionality</td><td>Legacy only; migrate to Shield</td></tr>
     </tbody>
@@ -4990,7 +4991,7 @@ flowchart LR
   <ul>
     <li><strong>GDPR / CCPA: data subject rights</strong> require export and deletion within statutory
     windows. Tooling: Data Loader / Apex job for export; soft+hard delete + Field Audit Trail purge for
-    deletion. Privacy Center is Salesforce's bundled product for managing these workflows.</li>
+    deletion. Privacy Center is a Salesforce add-on (separate license) for managing these workflows.</li>
     <li><strong>EU AI Act</strong> (effective 2025&ndash;2026): high-risk AI systems require risk management,
     data governance, human oversight, transparency. Salesforce-side AI (Einstein, Agentforce) inherits
     customer-side governance for any in-scope use case &mdash; classification + audit + human-in-loop are
@@ -5030,7 +5031,7 @@ flowchart LR
   <h2>Pillar 8 &middot; Detection, Response &amp; Observability</h2>
   <div class="pillar-tldr">
     <strong>TL;DR &middot; Pillar 8</strong>
-    You cannot respond to what you cannot see. Health Check + Threat Detection are free baselines; Real-Time Event Monitoring + Transaction Security are paid uplifts that turn detection into real-time enforcement. <span class="one-action">Today's single highest-leverage action: stream Real-Time EM events to your SIEM via the Pub/Sub API (or fall back to a daily Event Log File / ELF batch pull while the streaming pipeline is being built &mdash; both delivery modes require the Event Monitoring license, bundled in Shield or sold standalone); deploy the top-five Transaction Security policies (Bulk export, off-hours admin, mass record update, new-device login, Setup off-hours).</span>
+    You cannot respond to what you cannot see. Health Check, Setup Audit Trail, Login History, and basic login-anomaly cues are the free baselines. <strong>Threat Detection events</strong> (structured anomaly objects) and <strong>Enhanced Transaction Security</strong> (Block / MFA / Notify) are part of the paid Real-Time Event Monitoring / Shield license. <span class="one-action">Today's single highest-leverage action: stream Real-Time EM events to your SIEM via the Pub/Sub API (or fall back to a daily Event Log File / ELF batch pull while the streaming pipeline is being built &mdash; both delivery modes require the Event Monitoring license, bundled in Shield or sold standalone); deploy the top-five Transaction Security policies (Bulk export, off-hours admin, mass record update, new-device login, Setup off-hours).</span>
   </div>
   <p>
     Detection lives on a spectrum: from posture (Health Check), to logs (Setup Audit Trail, Login
@@ -5064,7 +5065,7 @@ flowchart LR
     <li><a href="#viii-health-check">8.1 Health Check + Security Center</a></li>
     <li><a href="#viii-audit-login">8.2 Setup Audit Trail + Login History (free baseline)</a></li>
     <li><a href="#viii-real-time-em">8.3 Real-Time Event Monitoring &amp; retention reality</a></li>
-    <li><a href="#viii-threat-detection">8.4 Threat Detection (free) &amp; what it covers</a></li>
+    <li><a href="#viii-threat-detection">8.4 Threat Detection &mdash; what it covers (Shield / EM)</a></li>
     <li><a href="#viii-transaction-security">8.5 Enhanced Transaction Security &mdash; Block / MFA / Notify</a></li>
     <li><a href="#viii-irp">8.6 Incident Response Plan + AI agent compromise scenario</a></li>
     <li><a href="#viii-siem">8.7 SIEM streaming &mdash; Splunk / Sentinel / Chronicle / Elastic / New Relic</a></li>
@@ -5143,12 +5144,16 @@ flowchart LR
 
 <!-- 8.4 Threat Detection -->
 <div class="card" id="viii-threat-detection" data-search="threat detection anomalous report export session hijacking credential stuffing api anomaly free shield ml machine learning">
-  <h2>8.4 &middot; Threat Detection (Free) &mdash; What It Covers</h2>
+  <h2>8.4 &middot; Threat Detection &mdash; What It Covers (Shield / Event Monitoring)</h2>
   <p>
-    Threat Detection is bundled at no extra cost for all Salesforce customers (per Salesforce Help).
-    It uses statistical and ML methods to surface specific anomaly classes.
+    Threat Detection is the structured anomaly-event surface that Salesforce ships as part of the
+    <strong>Real-Time Event Monitoring / Shield</strong> license &mdash; <em>not</em> a free baseline.
+    The free baseline is Login History (which shows basic new-device flags and suspicious-login warnings)
+    plus Setup Audit Trail. Threat Detection adds machine-learning-tuned anomaly events that fire on
+    specific high-signal patterns and that Transaction Security policies can subscribe to for real-time
+    enforcement.
   </p>
-  <h3>Detection categories</h3>
+  <h3>Detection categories (events emitted)</h3>
   <ul>
     <li><strong>Anomalous report and data exports</strong> &mdash; off-baseline export volumes / patterns</li>
     <li><strong>Session hijacking</strong> &mdash; multiple sessions from divergent geographies in close
@@ -5157,9 +5162,15 @@ flowchart LR
     <li><strong>Anomalous API access</strong> &mdash; off-baseline API call volumes from individual users</li>
   </ul>
   <p>
-    Findings appear in Real-Time EM as Threat Detection events. Subscribe via Logout Event Triggers,
-    Apex, or SIEM streaming. Tune false-positive thresholds via the Salesforce console; Threat Detection
-    is intentionally tuned conservatively, so expect to lower the threshold for noisy events.
+    Findings appear in Real-Time EM as structured event records (e.g., <code>ApiAnomalyEvent</code>,
+    <code>CredentialStuffingEvent</code>, <code>ReportAnomalyEvent</code>, <code>SessionHijackingEvent</code>,
+    <code>GuestUserAnomalyEvent</code>). Subscribe via the <strong>Pub/Sub API</strong> (gRPC streaming
+    to a SIEM-side consumer), via <strong>Apex Subscribers</strong> on the platform event objects, or
+    via <strong>Transaction Security policies</strong> for inline Block / MFA / Notify actions.
+    (Logout Event Triggers fire on logout specifically &mdash; useful for tying anomaly cleanup to
+    session-end, but not a generic subscription path.) Threat Detection is intentionally tuned
+    conservatively; expect to lower the threshold for events that are noisy in your specific traffic
+    pattern.
   </p>
 </div>
 
@@ -5779,7 +5790,7 @@ flowchart LR
     <tbody>
       <tr><td>Posture &amp; baseline</td><td>Health Check (all editions)</td><td>Security Center (multi-org), 3rd-party SSPM</td><td>Security Center add-on; SSPM vendor</td></tr>
       <tr><td>Audit / forensic logs</td><td>Setup Audit Trail (180d), Login History (6mo)</td><td>Field Audit Trail (long retention, big-data backend)</td><td>Shield</td></tr>
-      <tr><td>Real-time event monitoring</td><td>Threat Detection (free for all)</td><td>Real-Time Event Monitoring (queryable Event Log Objects, 30-day retention)</td><td>Shield / EM add-on</td></tr>
+      <tr><td>Real-time event monitoring</td><td>Threat Detection event objects (Shield / EM)</td><td>Real-Time Event Monitoring (queryable Event Log Objects, 30-day retention)</td><td>Shield / EM add-on</td></tr>
       <tr><td>Real-time enforcement</td><td>&mdash;</td><td>Enhanced Transaction Security (Block / MFA / Notify)</td><td>Shield</td></tr>
       <tr><td>Encryption at rest</td><td>Classic field-level (limited)</td><td>Shield Platform Encryption + BYOK + EEE</td><td>Shield</td></tr>
       <tr><td>Sandbox PII protection</td><td>Sandbox templates</td><td>Salesforce Data Mask</td><td>Data Mask add-on</td></tr>
@@ -6005,7 +6016,7 @@ gantt
       <tr><td><strong>SAML JIT Handler</strong></td><td>Apex extension point for custom SSO provisioning.</td><td><a href="#i-custom-auth">1.6</a> &middot; <a href="#appendix-b">Appendix B</a></td><td>SF Help</td></tr>
       <tr><td><strong>Secure Guest User Record Access</strong></td><td>Critical update lineage 2021&ndash;2026 progressively closing guest-access bypasses.</td><td><a href="#iii-history">3.2</a></td><td>SF Help</td></tr>
       <tr><td><strong>Shield Platform Encryption</strong></td><td>Salesforce's at-rest encryption product; supports BYOK.</td><td><a href="#vii-encrypt">7.2</a></td><td>SF Help</td></tr>
-      <tr><td><strong>Threat Detection</strong></td><td>Salesforce's built-in anomaly detection (free for all customers).</td><td><a href="#viii-threat-detection">8.4</a></td><td>SF Help</td></tr>
+      <tr><td><strong>Threat Detection</strong></td><td>Salesforce's structured anomaly-event surface in Real-Time Event Monitoring (Shield / EM license required); distinct from the free basic login-anomaly warnings shown in Login History.</td><td><a href="#viii-threat-detection">8.4</a></td><td>SF Help</td></tr>
       <tr><td><strong>Transaction Security</strong></td><td>Real-time enforcement &mdash; Block/MFA/Notify on events.</td><td><a href="#viii-transaction-security">8.5</a> &middot; <a href="#appendix-e">Appendix E</a></td><td>SF Help</td></tr>
       <tr><td><strong>Trust Layer</strong></td><td>PII-scrub + zero-retention boundary for AI use; Einstein Trust Layer for platform AI.</td><td><a href="#x-trust-layer">10.3</a></td><td><a href="https://www.salesforce.com/artificial-intelligence/trusted-ai/" target="_blank" rel="noopener">SF</a></td></tr>
       <tr><td><strong>UNC6040 / ShinyHunters</strong></td><td>Vishing campaign &rarr; Data Loader OAuth grant; 2025.</td><td><a href="#threat-landscape">Threat Brief</a> &middot; <a href="#iv-vishing">4.7</a></td><td><a href="https://cloud.google.com/blog/topics/threat-intelligence/voice-phishing-data-extortion" target="_blank" rel="noopener">Google TI</a></td></tr>
@@ -7116,9 +7127,10 @@ DIFF:
   </ul>
 
   <h3>N.8 EU AI Act (Regulation (EU) 2024/1689)</h3>
+  <p style="background: rgba(255,154,60,0.08); border-left: 3px solid var(--sf-orange); padding: 8px 14px; margin: 8px 0;"><strong>Scoping note.</strong> EU AI Act high-risk obligations apply only when the AI system is in scope per <strong>Article 6 / Annex III</strong> (e.g., biometric categorization, employment / education / credit scoring, law enforcement, critical infrastructure). Not every Salesforce / Agentforce / custom-AI workload triggers high-risk status &mdash; map your specific use case to Annex III before assuming the obligations below apply. Consult qualified counsel for the in-scope determination.</p>
   <p>EU AI Act<sup><a href="#ref-41" class="ref-link">[41]</a></sup> high-risk AI systems require risk management, data governance, human oversight,
   transparency, accuracy/robustness/cybersecurity, post-market monitoring. For Salesforce orgs running
-  Agentforce or custom AI, mapping:</p>
+  Agentforce or custom AI <em>that fall in scope under Annex III</em>, mapping:</p>
   <ul>
     <li>Risk management &amp; data governance &rarr; <a href="#vii-classify">7.1</a> + <a href="#x-trust-layer">10.3</a></li>
     <li>Human oversight &rarr; <a href="#x-limits">10.7 (decision autonomy levels)</a></li>
@@ -7152,7 +7164,7 @@ DIFF:
     <tbody>
       <tr><td><strong>GDPR (EU)</strong></td><td>Aware of personal-data breach</td><td>72 hours to supervisory authority</td><td>"Without undue delay" if high risk to rights and freedoms</td><td>Personal data of EU data subjects</td></tr>
       <tr><td><strong>UK GDPR</strong></td><td>Aware of personal-data breach</td><td>72 hours to ICO</td><td>"Without undue delay" if high risk</td><td>Personal data of UK data subjects</td></tr>
-      <tr><td><strong>HIPAA Breach Notification Rule</strong></td><td>Discovery (first day known or should have been known)</td><td>HHS within 60 days; if &ge; 500 individuals, also "without unreasonable delay"</td><td>60 days to affected individuals</td><td>Unsecured PHI</td></tr>
+      <tr><td><strong>HIPAA Breach Notification Rule</strong></td><td>Discovery (first day known or should have been known)</td><td>If &ge; 500 individuals affected: HHS within 60 days "without unreasonable delay" + media notice in affected state/jurisdiction. If &lt; 500: HHS in annual log (no later than 60 days after the end of the calendar year).</td><td>60 days to affected individuals (regardless of size)</td><td>Unsecured PHI</td></tr>
       <tr><td><strong>SEC Cyber 8-K (US public companies)</strong></td><td>Material cybersecurity incident determined</td><td>4 business days from materiality determination</td><td>n/a (investor-facing)</td><td>Material to a reasonable investor</td></tr>
       <tr><td><strong>EU NIS2</strong></td><td>Aware of significant incident</td><td>Early warning within 24h; incident notification within 72h; final report within 1 month</td><td>Recipients of services as appropriate</td><td>Essential / important entities</td></tr>
       <tr><td><strong>GLBA Safeguards Rule (US financial)</strong></td><td>Notification event triggered</td><td>FTC within 30 days for notification events affecting &ge; 500 consumers</td><td>"As soon as possible"</td><td>Customer information</td></tr>
@@ -7331,7 +7343,7 @@ DIFF:
     });
     exportBtn.addEventListener('click', function() {
       var snapshot = {
-        framework: 'Salesforce CRM Security Hardening v1.5.16',
+        framework: 'Salesforce CRM Security Hardening v1.5.17',
         scored_at: new Date().toISOString(),
         scores: loadStored(),
         average: parseFloat(avgEl.textContent) || 0,
@@ -7662,8 +7674,8 @@ DIFF:
   </p>
   <h3>Document metadata</h3>
   <p style="font-size: 12px; font-family: 'Source Code Pro', monospace;">
-    version 1.5.16 &middot; last modified 2026-05-04 &middot; source snapshot 2026-05-04 &middot;
-    Build identifier: SF-CRM-HARDENING-1.5.16
+    version 1.5.17 &middot; last modified 2026-05-04 &middot; source snapshot 2026-05-04 &middot;
+    Build identifier: SF-CRM-HARDENING-1.5.17
   </p>
 </div>
 
@@ -7684,7 +7696,7 @@ DIFF:
     <li id="ref-5" style="margin-bottom: 10px;"><span class="ref-marker">[5]</span> <strong>Apex Hours / Zaa, J.</strong> (2025, December). <em>Salesforce data breach prevention: The complete security hardening guide for admins and developers</em>. Apex Hours. Retrieved May 4, 2026, from <a href="https://www.jitendrazaa.com/blog/salesforce/salesforce-security-ultimate-guide/" target="_blank" rel="noopener">https://www.jitendrazaa.com/blog/salesforce/salesforce-security-ultimate-guide/</a></li>
     <li id="ref-8" style="margin-bottom: 10px;"><span class="ref-marker">[8]</span> <strong>AppOmni.</strong> (n.d.). <em>Detecting UNC6040 vishing in Salesforce OAuth attacks</em> [vendor: SSPM]. AppOmni Blog. Retrieved May 4, 2026, from <a href="https://appomni.com/blog/detecting-unc6040-vishing-in-salesforce-oauth-attacks/" target="_blank" rel="noopener">https://appomni.com/blog/detecting-unc6040-vishing-in-salesforce-oauth-attacks/</a></li>
     <li id="ref-18" style="margin-bottom: 10px;"><span class="ref-marker">[18]</span> <strong>BlackFog.</strong> (2025). <em>The Salesforce breach wave of 2025: Google, Workday, and Salesloft</em>. BlackFog. Retrieved May 4, 2026, from <a href="https://www.blackfog.com/the-salesforce-breach-wave-of-2025/" target="_blank" rel="noopener">https://www.blackfog.com/the-salesforce-breach-wave-of-2025/</a></li>
-    <li id="ref-14" style="margin-bottom: 10px;"><span class="ref-marker">[14]</span> <strong>BleepingComputer.</strong> (2024, December). <em>35+ Chrome extensions compromised in supply-chain attack (3.7 million users impacted)</em> [industry coverage]. BleepingComputer.</li>
+    <li id="ref-14" style="margin-bottom: 10px;"><span class="ref-marker">[14]</span> <strong>BleepingComputer.</strong> (2024, December). <em>33 Chrome extensions (Cyberhaven primary reporting; some industry coverage cited higher counts) compromised in supply-chain attack (2.6 million users (per Cyberhaven primary reporting) impacted)</em> [industry coverage]. BleepingComputer.</li>
     <li id="ref-3" style="margin-bottom: 10px;"><span class="ref-marker">[3]</span> <strong>Bloomberg.</strong> (2026, April 21). <em>Anthropic’s Mythos model is being accessed by unauthorized users</em>. Bloomberg. Retrieved May 4, 2026, from <a href="https://www.bloomberg.com/news/articles/2026-04-21/anthropic-s-mythos-model-is-being-accessed-by-unauthorized-users" target="_blank" rel="noopener">https://www.bloomberg.com/news/articles/2026-04-21/anthropic-s-mythos-model-is-being-accessed-by-unauthorized-users</a></li>
     <li id="ref-43" style="margin-bottom: 10px;"><span class="ref-marker">[43]</span> <strong>CA/Browser Forum.</strong> (2025, April 11). <em>Ballot SC-081v3: Introduce schedule of reducing validity and data reuse periods</em>. CA/Browser Forum. Retrieved May 4, 2026, from <a href="https://cabforum.org/2025/04/11/ballot-sc081v3-introduce-schedule-of-reducing-validity-and-data-reuse-periods/" target="_blank" rel="noopener">https://cabforum.org/2025/04/11/ballot-sc081v3-introduce-schedule-of-reducing-validity-and-data-reuse-periods/</a> &middot; Industry context: <a href="https://www.digicert.com/blog/tls-certificate-lifetimes-will-officially-reduce-to-47-days" target="_blank" rel="noopener">DigiCert</a></li>
     <li id="ref-37" style="margin-bottom: 10px;"><span class="ref-marker">[37]</span> <strong>Center for Internet Security.</strong> (n.d.). <em>CIS Critical Security Controls v8.1</em>. CIS. Retrieved May 4, 2026, from <a href="https://www.cisecurity.org/controls/v8-1" target="_blank" rel="noopener">https://www.cisecurity.org/controls/v8-1</a></li>
