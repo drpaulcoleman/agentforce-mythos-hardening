@@ -19,3 +19,7 @@ TOXICITY_AUDIT_PROMPT.md
 
 # Backup artifacts
 *.bak
+
+# Salesforce DX local cache / scratch state
+.sfdx/
+**/.sfdx/
