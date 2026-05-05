@@ -5607,7 +5607,7 @@ flowchart LR
     Frontier AI is contained on the threat side (Mythos / Glasswing). Defenders have access to Opus-class models for hardening (Claude Security in public beta on Opus 4.7). Use AI as a tool with a Trust Layer, not a momentum claim. <span class="one-action">Today's single highest-leverage action: pick one workflow (metadata audit, anomaly-policy authoring, or IRP companion) and pilot it with explicit human review and zero-retention provider settings before broader rollout.</span>
   </div>
   <p>
-    This pillar is a <em>cross-cutting overlay</em> on Pillars 1&ndash;IX, not a parallel control surface.
+    This pillar is a <em>cross-cutting overlay</em> on Pillars 1&ndash;9, not a parallel control surface.
     Every prior pillar has at least one task that AI can accelerate &mdash; metadata audit, code review,
     anomaly authoring, IRP execution, baseline derivation. The hardening principle: <strong>use AI on
     YOUR side of the partnership</strong>. Salesforce uses AI to defend the platform; you use AI to
@@ -5985,20 +5985,20 @@ gantt
   <table>
     <thead><tr><th>#</th><th>Risk</th><th>Likelihood</th><th>Impact</th><th>Primary control</th><th>Residual</th></tr></thead>
     <tbody>
-      <tr><td>1</td><td>Vishing-driven OAuth grant abuse (UNC6040 pattern)</td><td>High</td><td>High</td><td>FIDO2 + Block Uninstalled + High Assurance + admin pre-approval (Pillar 1, IV)</td><td>Low</td></tr>
+      <tr><td>1</td><td>Vishing-driven OAuth grant abuse (UNC6040 pattern)</td><td>High</td><td>High</td><td>FIDO2 + Block Uninstalled + High Assurance + admin pre-approval (Pillars 1, 4)</td><td>Low</td></tr>
       <tr><td>2</td><td>ISV repo compromise &rarr; OAuth token theft (UNC6395 pattern)</td><td>Medium</td><td>High</td><td>Refresh-token rotation + ISV breach SLA + RT-EM monitoring (Pillar 4)</td><td>Medium</td></tr>
       <tr><td>3</td><td>Experience Cloud guest profile misconfig (Krebs / DIVD pattern)</td><td>High</td><td>High</td><td>Quarterly guest profile audit + automated metadata scanner (Pillar 3)</td><td>Low</td></tr>
       <tr><td>4</td><td>Browser-extension session hijack</td><td>Medium</td><td>Medium</td><td>Endpoint allowlist + dedicated profile (Pillar 4)</td><td>Medium</td></tr>
-      <tr><td>5</td><td>Apex / Flow run-context bypass on guest path</td><td>Medium</td><td>High</td><td>USER_MODE migration + Flow run-context audit + static analysis gate (Pillar 6, IX)</td><td>Low</td></tr>
-      <tr><td>6</td><td>Sandbox PII leakage</td><td>Medium</td><td>Medium</td><td>Data Mask + sandbox refresh governance (Pillar 7, IX)</td><td>Low</td></tr>
+      <tr><td>5</td><td>Apex / Flow run-context bypass on guest path</td><td>Medium</td><td>High</td><td>USER_MODE migration + Flow run-context audit + static analysis gate (Pillars 6, 9)</td><td>Low</td></tr>
+      <tr><td>6</td><td>Sandbox PII leakage</td><td>Medium</td><td>Medium</td><td>Data Mask + sandbox refresh governance (Pillars 7, 9)</td><td>Low</td></tr>
       <tr><td>7</td><td>Cert rotation miss &rarr; integration outage</td><td>Medium</td><td>Medium</td><td>Cert rotation runbook + calendar ownership (Pillar 5)</td><td>Low</td></tr>
-      <tr><td>8</td><td>AI agent compromise (silent)</td><td>Low</td><td>High</td><td>Trust Layer + deterministic re-run + dual-provider + IR scenario (Pillar 10, VIII)</td><td>Low</td></tr>
+      <tr><td>8</td><td>AI agent compromise (silent)</td><td>Low</td><td>High</td><td>Trust Layer + deterministic re-run + dual-provider + IR scenario (Pillars 10, 8)</td><td>Low</td></tr>
       <tr><td>9</td><td>Backup-account compromise &rarr; ransomware unrecoverable</td><td>Low</td><td>Critical</td><td>Isolated backup account + immutable storage + restore testing (Pillar 7)</td><td>Low</td></tr>
-      <tr><td>10</td><td>Permission drift through quarterly cycles</td><td>High</td><td>Medium</td><td>Quarterly attestation pack + AI-assisted drift detection (Pillar 2, X)</td><td>Low</td></tr>
+      <tr><td>10</td><td>Permission drift through quarterly cycles</td><td>High</td><td>Medium</td><td>Quarterly attestation pack + AI-assisted drift detection (Pillars 2, 10)</td><td>Low</td></tr>
       <tr><td>11</td><td>Malicious Outbound Message / Flow exfiltration</td><td>Low</td><td>High</td><td>Endpoint inventory + CI gate + RT-EM monitoring (Pillar 6)</td><td>Low</td></tr>
       <tr><td>12</td><td>Email-to-Case / Web-to-Lead intake injection</td><td>Medium</td><td>Medium</td><td>Input validation + SPF/DKIM/DMARC + sanitization (Pillar 6)</td><td>Low</td></tr>
       <tr><td>13</td><td>SIEM gap (no real-time visibility)</td><td>Medium</td><td>High</td><td>Real-Time EM + SIEM streaming with alerting (Pillar 8)</td><td>Low</td></tr>
-      <tr><td>14</td><td>Frontier-AI threat acceleration (Mythos-class)</td><td>Low (today)</td><td>High</td><td>Defender's AI stack to compress timeline; supply-chain hardening on Connected Apps (Pillar 10, IV)</td><td>Medium</td></tr>
+      <tr><td>14</td><td>Frontier-AI threat acceleration (Mythos-class)</td><td>Low (today)</td><td>High</td><td>Defender's AI stack to compress timeline; supply-chain hardening on Connected Apps (Pillars 10, 4)</td><td>Medium</td></tr>
       <tr><td>15</td><td>Compliance failure (GDPR / CCPA / EU AI Act / industry-specific)</td><td>Medium</td><td>High</td><td>Classification register + retention policy + Privacy Center (Pillar 7)</td><td>Low</td></tr>
     </tbody>
   </table>
