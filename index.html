@@ -5263,9 +5263,20 @@ flowchart LR
 <div class="card" id="viii-transaction-security" data-search="enhanced transaction security block multi factor authentication notify policy condition builder apex policy event types report login data export api">
   <h2>8.5 &middot; Enhanced Transaction Security &mdash; Block / MFA / Notify</h2>
   <p>
-    Transaction Security turns events into <em>real-time enforcement</em>: a policy fires on a matching
-    event and takes one of three actions &mdash; <strong>Block</strong>, <strong>require Multi-Factor
-    Authentication</strong>, or <strong>Notify</strong>.
+    Transaction Security turns events into <em>real-time enforcement</em>: for events the platform
+    can intercept synchronously (LoginEvent, ApiEvent, BulkApiResultEvent, ReportEvent, et al.), a
+    matching policy holds the in-flight request and takes one of three actions &mdash; <strong>Block</strong>,
+    <strong>require Multi-Factor Authentication</strong>, or <strong>Notify</strong>.
+  </p>
+  <p>
+    <strong>How "MFA" actually enforces.</strong> The MFA action does <em>not</em> inject a custom prompt
+    into the calling UI. It redirects the request to Salesforce's stock <em>Verify Your Identity</em>
+    page &mdash; the same High Assurance step-up flow used by Session Security Levels. On successful
+    verification the session is raised to High Assurance and the original request resumes.
+    Practical consequence: MFA enforcement requires a browser request path. For headless flows
+    (Bulk API export, REST API integrations, server-to-server jobs) there is no UI to redirect to,
+    so MFA degrades to a refusal &mdash; in those cases use <strong>Block</strong> as the action.
+    See <a href="https://developer.salesforce.com/docs/atlas.en-us.securityImplGuide.meta/securityImplGuide/enhanced_transaction_security_actions_notifs.htm" target="_blank" rel="noopener">Enhanced Transaction Security &mdash; Actions &amp; Notifications &#8599;</a>.
   </p>
   <h3>Anomaly policy library (concrete examples)</h3>
   <table>
@@ -6581,6 +6592,14 @@ return (List&lt;Contact&gt;) dec.getRecords();   // SSN__c stripped if running u
     evolve. <strong>Verify against the Real-Time Event Monitoring developer documentation for your API
     version</strong> before relying on these conditions.
   </div>
+  <p style="font-size: 13px; margin-top: -4px;">
+    <strong>Action semantics reference.</strong> The behaviour of <em>Block</em> / <em>Multi-Factor
+    Authentication</em> / <em>Notify</em> &mdash; including the MFA action's redirect to the stock High
+    Assurance step-up flow and its degradation to a refusal on headless paths &mdash; is documented at
+    <a href="https://developer.salesforce.com/docs/atlas.en-us.securityImplGuide.meta/securityImplGuide/enhanced_transaction_security_actions_notifs.htm" target="_blank" rel="noopener">Enhanced Transaction Security &mdash; Actions &amp; Notifications &#8599;</a>.
+    See also <a href="#viii-transaction-security" class="pillar-link">Pillar 8.5</a> for the in-document
+    treatment.
+  </p>
 
   <h3>E.1 Block Bulk-API export &gt; 5,000 rows from non-trusted IP</h3>
   <pre><code class="language-java">global class BlockHighVolumeBulkApi implements TxnSecurity.EventCondition {
