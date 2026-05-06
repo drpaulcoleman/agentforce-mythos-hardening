@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   Salesforce CRM Security Hardening — A Defender's Encyclopedia for the Frontier-AI Era
-  Document version 1.5.27 · Last modified 2026-05-04
+  Document version 1.5.29 · Last modified 2026-05-06
   Copyright (c) 2026 Dr. Paul Coleman. All rights reserved.
 
   A vendor-neutral hardening reference for the customer side of the Salesforce
@@ -28,9 +28,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Mythos Imperative &mdash; Salesforce CRM Security Hardening</title>
-<meta name="document-version" content="1.5.27">
-<meta name="last-modified" content="2026-05-04">
-<meta name="source-snapshot" content="2026-05-04">
+<meta name="document-version" content="1.5.29">
+<meta name="last-modified" content="2026-05-06">
+<meta name="source-snapshot" content="2026-05-06">
 <meta name="description" content="The Mythos Imperative: a vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars from Identity to Defensive AI; nineteen appendices.">
 <meta name="author" content="Dr. Paul Coleman">
 <meta name="robots" content="index, follow">
@@ -38,18 +38,18 @@
 
 <!-- Open Graph / social-share metadata -->
 <meta property="og:type" content="article">
-<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.27">
+<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.29">
 <meta property="og:description" content="Vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars, 19 appendices, fully attributed.">
 <meta property="og:url" content="https://drpaulcoleman.github.io/agentforce-mythos-hardening/">
 <meta property="og:site_name" content="Salesforce CRM Security Hardening">
 <meta property="og:locale" content="en_US">
 <meta property="article:author" content="Dr. Paul Coleman">
-<meta property="article:published_time" content="2026-05-04T00:00:00Z">
-<meta property="article:modified_time" content="2026-05-04T00:00:00Z">
+<meta property="article:published_time" content="2026-05-06T00:00:00Z">
+<meta property="article:modified_time" content="2026-05-06T00:00:00Z">
 
 <!-- Twitter / X card metadata -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.27">
+<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.29">
 <meta name="twitter:description" content="Threat-informed Salesforce hardening reference. Ten pillars from Identity to Defensive AI, with a companion Salesforce DX reference implementation.">
 
 <!-- Errata / contributions -->
@@ -1773,7 +1773,7 @@ pre.mermaid g.node[onclick]:hover > path {
     </div>
     <div>
       <h1><span class="phase-tag">The Mythos Imperative</span><span class="phase-sep">&mdash;</span>Salesforce CRM Security Hardening</h1>
-      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.27 &middot; last modified 2026-05-04</span>
+      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.29 &middot; last modified 2026-05-06</span>
     </div>
   </div>
   <div class="doc-meta">
@@ -1805,6 +1805,7 @@ pre.mermaid g.node[onclick]:hover > path {
     <a href="#threat-landscape">2024&ndash;2026 Landscape</a>
     <a href="#mythos-reality">The Mythos Question</a>
     <a href="#scope-frame">Scope &amp; Frame</a>
+    <a href="#platform-roadmap">Platform Roadmap (SF)</a>
 
     <span class="nav-group">Hardening Pillars</span>
     <a href="#pillar-i">1 &middot; Identity &amp; Auth</a>
@@ -1905,7 +1906,7 @@ pre.mermaid g.node[onclick]:hover > path {
 
 <!-- EXEC · Hero ---------------------------------------------------------- -->
 <div class="card hero" id="exec-hero" data-exec-only data-search="hero executive overview elevator pitch security hardening salesforce">
-  <p class="eyebrow">Executive Summary &middot; Salesforce CRM Security Hardening &middot; v1.0.0 &middot; last modified 2026-05-04</p>
+  <p class="eyebrow">Executive Summary &middot; Salesforce CRM Security Hardening &middot; v1.0.0 &middot; last modified 2026-05-06</p>
   <h1>Most Salesforce breaches aren't <span class="accent">platform breaches.</span></h1>
   <p class="lede">
     They are <strong>customer-side configuration, integration, and human-factor breaches</strong> &mdash; vishing,
@@ -2089,8 +2090,8 @@ gantt
     dateFormat  YYYY-MM-DD
     axisFormat  %b %d
     section Quick Wins (≤30d)
-    Health Check baseline + fix high/med    :crit, qw1, 2026-05-04, 7d
-    MFA enforcement, FIDO2 for admins       :crit, qw2, 2026-05-04, 14d
+    Health Check baseline + fix high/med    :crit, qw1, 2026-05-06, 7d
+    MFA enforcement, FIDO2 for admins       :crit, qw2, 2026-05-06, 14d
     Block Uninstalled Connected Apps        :qw3, 2026-05-11, 5d
     OAuth Usage audit + token rotation      :qw4, 2026-05-11, 14d
     section High-Risk Mitigation (30-90d)
@@ -2106,6 +2107,13 @@ gantt
     DevSecOps pipeline + signed packages    :sr4, 2026-09-07, 120d
     Backup &amp; recovery testing            :sr5, 2026-11-02, 60d
   </pre>
+  <p style="margin-top:14px;">
+    <strong>Vendor-driven deadlines anchoring this sprint:</strong>
+    <em>Phishing-resistant MFA for privileged users</em> &mdash; sandbox 2026-06-22, production 2026-07-01.
+    <em>MFA for all employees</em> &mdash; sandbox 2026-06-22, production 2026-07-20.
+    Customer-side hardening sprint dates above must complete <em>before</em> these.
+    See <a href="#platform-roadmap">Platform Roadmap</a> for the full vendor schedule.
+  </p>
   <p style="margin-top:14px;"><a href="#critical-path">&rarr; Full Gantt with cost overlay &middot; tech tab</a></p>
 </div>
 
@@ -2126,7 +2134,7 @@ gantt
       <tr><td>Setup Audit Trail (180d)</td><td>&#9989;</td><td>Field Audit Trail (long retention, big-data backend)</td><td>Shield</td></tr>
       <tr><td>Login History (6mo)</td><td>&#9989;</td><td>Real-Time Event Monitoring (queryable Event Log Objects, 30d retention)</td><td>Shield / EM add-on</td></tr>
       <tr><td>Threat Detection (anomaly events)</td><td>&#10060; (Shield / EM only)</td><td>Threat Detection event objects (ApiAnomalyEvent, CredentialStuffingEvent, ReportAnomalyEvent, SessionHijackingEvent) + Enhanced Transaction Security (Block / MFA / Notify)</td><td>Shield</td></tr>
-      <tr><td>Basic login anomaly cues</td><td>&#9989; (all customers)</td><td>New-device email warnings; suspicious-login flags in Login History</td><td>&mdash;</td></tr>
+      <tr><td>Login anomaly detection + automated containment</td><td>&#9989; (all customers as of early Apr 2026 &mdash; Salesforce-shipped AI model)</td><td>New-device email warnings; suspicious-login flags in Login History; auto-freeze + token revocation on detected anomaly. Coexists with Shield's <code>LoginAnomalyEvent</code> until at least 2026-06-30. See <a href="#viii-login-anomaly">Pillar 8.9</a>.</td><td>&mdash;</td></tr>
       <tr><td>Encryption</td><td>Classic field encryption (limited)</td><td>Shield Platform Encryption + BYOK</td><td>Shield</td></tr>
       <tr><td>Sandbox PII protection</td><td>Sandbox templates</td><td>Salesforce Data Mask</td><td>Data Mask add-on</td></tr>
       <tr><td>Posture / config drift across orgs</td><td>Per-org Health Check</td><td>Security Center (multi-org) / 3rd-party SSPM</td><td>Security Center / SSPM</td></tr>
@@ -2189,7 +2197,7 @@ gantt
 
 <!-- TECH · Hero ---------------------------------------------------------- -->
 <div class="card hero" id="hero" data-search="hero overview salesforce crm security hardening defender encyclopedia frontier ai mythos">
-  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.27 &middot; last modified 2026-05-04</p>
+  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.29 &middot; last modified 2026-05-06</p>
   <h1>The <span class="accent">Mythos Imperative</span><br/><span style="font-size:24px; font-weight:700; opacity:0.92; display:block; margin-top:6px;">A Defender's Encyclopedia for the Frontier-AI Era</span></h1>
   <p class="lede" style="border-left: 3px solid var(--sf-orange); padding: 6px 0 6px 16px; margin-left: 0;">
     <strong style="color: var(--sf-orange); letter-spacing: 0.04em;">Why this exists, why now.</strong>
@@ -2564,6 +2572,139 @@ flowchart LR
   </p>
 </div>
 
+<!-- ════════════════════════════════════════════════════════════════════════
+     PLATFORM ROADMAP  ::  SALESFORCE-SIDE SECURITY ENFORCEMENT SCHEDULE
+     ════════════════════════════════════════════════════════════════════════ -->
+<div class="card" id="platform-roadmap" data-search="platform roadmap salesforce side security enforcement schedule kb 005317465 005316660 005318944 005319571 005321561 005321563 005321565 005321566 005321567 email domain verification anonymizing vpn proxy login anomaly phishing resistant mfa step-up authentication time-based session level policy transaction security policy enhancements may june july 2026">
+  <h2>Platform Roadmap &middot; Salesforce-Side Security Enforcement Schedule</h2>
+  <p>
+    This is the <strong>vendor-driven</strong> deadline tracker &mdash; immovable dates set by Salesforce
+    as part of its 2026 platform-security enforcement program. Compare to the
+    <a href="#critical-path" class="pillar-link">customer-side critical path Gantt</a>
+    (movable, set by your hardening sprint).
+    Authoritative source: <a href="https://help.salesforce.com/s/articleView?id=005317465&amp;type=1" target="_blank" rel="noopener">KB 005317465 &mdash; Security-Related Product Updates to the Salesforce Platform &#8599;</a>
+    (published 2026-05-05; deep-dive KBs cited per row).
+  </p>
+
+  <div class="pillar-tldr">
+    <strong>TL;DR &middot; What's already in effect (as of 2026-05-06)</strong>
+    Email Domain Verification Phase 1 in production (Apr 13); Phase 2 active in sandbox (Apr 14); Anonymizing-VPN / Proxy / High-Risk-IP automated containment on Connected App + API (Apr 24); Extended AI-driven Login Anomaly Detection with auto-freeze + token revoke (early Apr).
+    <span class="one-action">Today's single highest-leverage action: confirm your <em>Modify All Data</em> + <em>View All Data</em> + <em>Customize Application</em> + <em>Author Apex</em> permission holders are enrolled in phishing-resistant MFA (Security Key or Built-in Authenticator) before <strong>2026-07-01</strong> &mdash; that's Salesforce's hard production lockout for privileged users.</span>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width:3%;">#</th>
+        <th style="width:24%;">Control</th>
+        <th style="width:22%;">Sandbox</th>
+        <th style="width:22%;">Production</th>
+        <th style="width:12%;">Status today</th>
+        <th>Coverage in this doc</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1a</td>
+        <td><strong>Email Domain Verification &mdash; Phase 1</strong> (new + unallowlisted existing sending domains)<br/>
+          <a href="https://help.salesforce.com/s/articleView?id=005316660&amp;type=1" target="_blank" rel="noopener">KB 005316660 &#8599;</a></td>
+        <td>2026-03-24 &ndash; 2026-04-10</td>
+        <td>Starting <strong>2026-04-13</strong></td>
+        <td>&#10003; In effect</td>
+        <td><a href="#vii-verified-sender-domain" class="pillar-link">Pillar 7.x</a></td>
+      </tr>
+      <tr>
+        <td>1b</td>
+        <td><strong>Email Domain Verification &mdash; Phase 2</strong> (allowlisted domains)</td>
+        <td>Starting 2026-04-14</td>
+        <td>TBD</td>
+        <td>&#10003; Sandbox in effect</td>
+        <td><a href="#vii-verified-sender-domain" class="pillar-link">Pillar 7.x</a></td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td><strong>Anonymizing VPN / Proxy / High-Risk IP containment</strong> (Connected App + API)<br/>
+          <a href="https://help.salesforce.com/s/articleView?id=005318944&amp;type=1" target="_blank" rel="noopener">KB 005318944 &#8599;</a></td>
+        <td>&mdash;</td>
+        <td>Applied <strong>2026-04-24</strong></td>
+        <td>&#10003; In effect</td>
+        <td><a href="#iv-ip-reputation" class="pillar-link">Pillar 4.x</a></td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td><strong>Extended Login Anomaly Detection + automated containment</strong><br/>
+          <a href="https://help.salesforce.com/s/articleView?id=005319571&amp;type=1" target="_blank" rel="noopener">KB 005319571 &#8599;</a></td>
+        <td>&mdash;</td>
+        <td>Applied early Apr 2026</td>
+        <td>&#10003; In effect</td>
+        <td><a href="#viii-login-anomaly" class="pillar-link">Pillar 8.x</a></td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td><strong>Phishing-Resistant MFA for Privileged Users</strong> (System Admin profile, MAD, VAD, Customize Application, Author Apex)<br/>
+          <a href="https://help.salesforce.com/s/articleView?id=005321563&amp;type=1" target="_blank" rel="noopener">KB 005321563 &#8599;</a></td>
+        <td>2026-06-22 (7-day stagger)</td>
+        <td><strong>2026-07-01</strong> (30-day stagger)</td>
+        <td>&#9888; Upcoming</td>
+        <td><a href="#i-mfa-roadmap" class="pillar-link">Pillar 1.y</a></td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td><strong>MFA for All Employee Users</strong> (non-privileged employee logins, including SSO)<br/>
+          <a href="https://help.salesforce.com/s/articleView?id=005321561&amp;type=1" target="_blank" rel="noopener">KB 005321561 &#8599;</a></td>
+        <td>2026-06-22 (7-day stagger)</td>
+        <td><strong>2026-07-20</strong> (30-day stagger)</td>
+        <td>&#9888; Upcoming</td>
+        <td><a href="#i-mfa-roadmap" class="pillar-link">Pillar 1.y</a></td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td><strong>Step-up Auth for Report Activities</strong> (Time-Based Session Level Policy)<br/>
+          <a href="https://help.salesforce.com/s/articleView?id=005321566&amp;type=1" target="_blank" rel="noopener">KB 005321566 &#8599;</a></td>
+        <td>Avail 2026-05-27 (7d) &rarr; Enforced 2026-06-03 (7d)</td>
+        <td>Avail 2026-05-27 (15d) &rarr; Enforced <strong>2026-06-10</strong> (20d)</td>
+        <td>&#9888; Upcoming</td>
+        <td><a href="#viii-stepup-reports" class="pillar-link">Pillar 8.x</a></td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td><strong>Step-up Auth for Anomalous Report Export</strong> (ML-driven; report-only mode then auto-contain)<br/>
+          <a href="https://help.salesforce.com/s/articleView?id=005321567&amp;type=1" target="_blank" rel="noopener">KB 005321567 &#8599;</a></td>
+        <td>2026-06-22</td>
+        <td><strong>2026-07-13</strong></td>
+        <td>&#9888; Upcoming</td>
+        <td><a href="#viii-stepup-anomalous" class="pillar-link">Pillar 8.x</a></td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td><strong>Transaction Security Policy Enhancements</strong> (new <code>Modify Transaction Security Policy</code> permission + default ReportEvent TSP on &gt;10K-record UI exports)<br/>
+          <a href="https://help.salesforce.com/s/articleView?id=005321565&amp;type=1" target="_blank" rel="noopener">KB 005321565 &#8599;</a></td>
+        <td>Avail 2026-06-01 &rarr; Enforced 2026-06-22</td>
+        <td>Avail 2026-06-15 &rarr; Enforced <strong>2026-07-13</strong></td>
+        <td>&#9888; Upcoming</td>
+        <td><a href="#viii-transaction-security" class="pillar-link">Pillar 8.5</a></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>The next 75 days</h3>
+  <ul>
+    <li><strong>2026-05-27</strong> &mdash; Time-Based Session Level Policy for Reports becomes <em>available</em> in sandbox + production. Configure cool-down (2&ndash;120 min, default 120) at Identity Verification &rarr; Session Security Level Policies &rarr; Reports and Dashboards.</li>
+    <li><strong>2026-06-01 / 2026-06-15</strong> &mdash; TSP Enhancements <em>available</em> (sandbox / prod); review the new <code>Modify Transaction Security Policy</code> permission and the default disabled ReportEvent TSP.</li>
+    <li><strong>2026-06-03 / 2026-06-10</strong> &mdash; Time-Based Session Level Policy <em>enforced</em> (sandbox / prod). Fail-closed: MFA service unavailable &rarr; report blocked. No trusted-IP exemption.</li>
+    <li><strong>2026-06-22</strong> &mdash; Sandbox Day. Five enforcements activate together: phishing-resistant MFA for privileged users, MFA for all employees, anomalous-report-export step-up, TSP enhancements enforced, and end of TSP-management read-only grace.</li>
+    <li><strong>2026-07-01</strong> &mdash; Privileged-user phishing-resistant MFA <em>enforced</em> in production. Salesforce Authenticator + TOTP no longer acceptable for users with System Administrator profile, MAD, VAD, Customize Application, or Author Apex.</li>
+    <li><strong>2026-07-13</strong> &mdash; Anomalous-report-export step-up enforced in production; TSP enhancements enforced in production.</li>
+    <li><strong>2026-07-20</strong> &mdash; MFA for all employee users enforced in production. End-state for the platform-side enforcement program.</li>
+  </ul>
+
+  <p>
+    Vendor-driven dates are immovable. Customer-side hardening sprint dates &mdash; the
+    <a href="#critical-path" class="pillar-link">Critical Path Gantt</a> &mdash; should land
+    <em>before</em> these so you arrive at each enforcement deadline already compliant rather than racing it.
+  </p>
+</div>
+
 <!-- ====================================================================== -->
 <!-- PILLARS 1-10  ::  populated in subsequent build phases                  -->
 <!-- ====================================================================== -->
@@ -2679,21 +2820,29 @@ sequenceDiagram
     minimum. The factor matrix below is what actually matters in 2026:
   </p>
   <table>
-    <thead><tr><th>Factor</th><th>Vishing-resistant?</th><th>Phishing-resistant?</th><th>Where to use</th></tr></thead>
+    <thead><tr><th>Factor</th><th>Vishing-resistant?</th><th>Phishing-resistant?</th><th>SF tier (2026)</th><th>Where to use</th></tr></thead>
     <tbody>
-      <tr><td>Password only</td><td>&#10060; No</td><td>&#10060; No</td><td>Never as sole factor</td></tr>
-      <tr><td>SMS / voice OTP</td><td>&#10060; No (read aloud)</td><td>&#10060; No</td><td>Backup only; deprecate</td></tr>
-      <tr><td>TOTP app (Authenticator)</td><td>&#10060; No (read aloud)</td><td>&#10060; No (entered into phishing site)</td><td>Acceptable for non-admin baseline</td></tr>
-      <tr><td>Push notification</td><td>&#10060; No (user approves under social pressure)</td><td>&#9888; Partial (number-matching helps)</td><td>Acceptable for non-admin; <strong>not for admins</strong></td></tr>
-      <tr><td>Lightning Login (passwordless)</td><td>&#9989; Yes (biometric)</td><td>&#9888; Partial</td><td>End-user convenience; not High Assurance</td></tr>
-      <tr><td><strong>FIDO2 / WebAuthn hardware key</strong></td><td>&#9989; <strong>Yes</strong></td><td>&#9989; <strong>Yes (origin-bound assertion)</strong></td><td><strong>Mandatory for admins, ops, integration approvers</strong></td></tr>
-      <tr><td>Platform authenticator (Windows Hello / Touch ID / Face ID)</td><td>&#9989; Yes</td><td>&#9989; Yes</td><td>Acceptable substitute on managed devices</td></tr>
+      <tr><td>Password only</td><td>&#10060; No</td><td>&#10060; No</td><td>Weak / No MFA</td><td>Never as sole factor</td></tr>
+      <tr><td>SMS / voice OTP</td><td>&#10060; No (read aloud)</td><td>&#10060; No</td><td>Weak / No MFA</td><td>Backup only; deprecate</td></tr>
+      <tr><td>TOTP app (Authenticator)</td><td>&#10060; No (read aloud)</td><td>&#10060; No (entered into phishing site)</td><td>Standard</td><td>Acceptable for non-admin baseline. <strong>Not acceptable for privileged users post-Jul 1, 2026.</strong></td></tr>
+      <tr><td>Push notification</td><td>&#10060; No (user approves under social pressure)</td><td>&#9888; Partial (number-matching helps)</td><td>Standard</td><td>Acceptable for non-admin; <strong>not for privileged users post-Jul 1</strong></td></tr>
+      <tr><td>Lightning Login (passwordless)</td><td>&#9989; Yes (biometric)</td><td>&#9989; Yes (passkey-based)</td><td>Phishing-Resistant</td><td>Recommended phishing-resistant default per Salesforce</td></tr>
+      <tr><td><strong>FIDO2 / WebAuthn hardware key</strong></td><td>&#9989; <strong>Yes</strong></td><td>&#9989; <strong>Yes (origin-bound assertion)</strong></td><td>Phishing-Resistant</td><td><strong>Mandatory for privileged users (Admin profile, MAD, VAD, Customize Application, Author Apex)</strong></td></tr>
+      <tr><td>Platform authenticator (Windows Hello / Touch ID / Face ID)</td><td>&#9989; Yes</td><td>&#9989; Yes</td><td>Phishing-Resistant</td><td>Acceptable substitute on managed devices for privileged + standard users</td></tr>
     </tbody>
   </table>
   <p>
     The vishing-resistance column is the column that matters in 2026. UNC6040 succeeded because users
     read TOTP codes over the phone or approved push notifications under social pressure. A hardware
     key cannot be approved remotely &mdash; the user must physically possess and touch it.
+  </p>
+  <p>
+    The "SF tier" column maps each factor to Salesforce's three-tier classification used by the 2026
+    enforcement program. Privileged users (System Admin profile, Modify All Data, View All Data,
+    Customize Application, or Author Apex) are <strong>blocked at login</strong> if their factor lands
+    in Standard or Weak after 2026-07-01 production / 2026-06-22 sandbox &mdash; covered in detail at
+    <a href="#i-strength-tiers" class="pillar-link">Pillar 1.8</a> and
+    <a href="#i-mfa-roadmap" class="pillar-link">Pillar 1.9</a>.
   </p>
   <p><strong>Anti-pattern.</strong> Trusted IP Ranges as a substitute for MFA. They are not. The Apex Hours
   guide<sup><a href="#ref-6" class="ref-link">[6]</a></sup> documents this misconception explicitly. IP allowlisting reduces attack surface;
@@ -3086,6 +3235,164 @@ sequenceDiagram
     <a href="#appendix-e">&rarr; Reference policy code &middot; Appendix E</a> &middot;
     <a href="#iv-block-uninstalled" class="pillar-link">&rarr; Block Uninstalled Connected Apps &middot; Pillar 4.3</a></p>
 </div>
+
+<!-- 1.8 Authentication Strength Tiers + AMR/ACR signal mapping -->
+<div class="card" id="i-strength-tiers" data-search="authentication strength tier phishing resistant standard weak no mfa amr acr authentication context class reference authentication methods reference rfc 8176 sso identity provider okta entra adfs ping signal value cert fido fido2 fpt hwk iris pin pki pop retina sc smartcard swk tlsclient user vbm wia x509 face mobiletwofactorcontract multipleauthn okta_verify passkey webauthn pwd sms tel email">
+  <h2>1.8 &middot; Authentication Strength Tiers (Salesforce three-tier model + AMR/ACR signals)</h2>
+  <p>
+    Salesforce's 2026 enforcement program introduces an explicit three-tier classification of every
+    successful login. The tier governs whether the login is accepted, blocked, or used to trigger a
+    follow-on MFA enrollment prompt. <strong>For SSO logins, the tier is determined entirely by the
+    AMR / ACR signal your Identity Provider transmits</strong> &mdash; not by what your IdP actually
+    did. If your IdP performs phishing-resistant MFA but doesn't transmit a recognized signal, the
+    login is treated as Weak / No MFA at the Salesforce side.
+  </p>
+  <table>
+    <thead>
+      <tr><th>Tier</th><th>Direct Salesforce login (verifier)</th><th>SSO (AMR/ACR signal)</th><th>Privileged users<br/>(Admin, MAD, VAD, Customize App, Author Apex)</th><th>All other users</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Phishing-Resistant MFA</strong></td>
+        <td>Security Keys (WebAuthn), Built-in Authenticators (Touch ID, Windows Hello, Face ID)</td>
+        <td><code>cert</code>, <code>fido</code>, <code>fido2</code>, <code>fpt</code>, <code>hwk</code>, <code>iris</code>, <code>pin</code>, <code>pki</code>, <code>pop</code>, <code>retina</code>, <code>sc</code>, <code>smartcard</code>, <code>swk</code>, <code>TLSClient</code>, <code>user</code>, <code>vbm</code>, <code>wia</code>, <code>x509</code></td>
+        <td>&#10003; <strong>Login succeeds</strong></td>
+        <td>&#10003; <strong>Login succeeds</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Standard MFA</strong></td>
+        <td>Salesforce Authenticator, TOTP apps (Google/Microsoft Auth), admin-generated temp codes</td>
+        <td><code>face</code>, <code>mobiletwofactorcontract</code>, <code>multipleauthn</code>, <code>okta_verify</code>, <code>passkey</code>, <code>webauthn</code></td>
+        <td>&#10060; <strong>Blocked &mdash; must enroll phishing-resistant verifier</strong></td>
+        <td>&#10003; Login succeeds</td>
+      </tr>
+      <tr>
+        <td><strong>Weak / No MFA</strong></td>
+        <td>No MFA</td>
+        <td><code>pwd</code>, <code>sms</code>, <code>tel</code>, <code>email</code></td>
+        <td>&#10060; Blocked &mdash; must enroll phishing-resistant verifier</td>
+        <td>&#10060; Blocked &mdash; must enroll standard MFA verifier</td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="margin-top:8px;"><em>Signal values per
+    <a href="https://help.salesforce.com/s/articleView?id=005321563&amp;type=1" target="_blank" rel="noopener">KB 005321563 &#8599;</a> (privileged users) and
+    <a href="https://help.salesforce.com/s/articleView?id=005321561&amp;type=1" target="_blank" rel="noopener">KB 005321561 &#8599;</a> (all employees);
+    Salesforce notes "these values are subject to change."</em></p>
+
+  <h3>Counter-intuitive findings worth flagging to your IdP team</h3>
+  <ul>
+    <li><strong>The AMR values <code>passkey</code> and <code>webauthn</code> land in <em>Standard</em> tier</strong> &mdash; not Phishing-Resistant. Despite WebAuthn being the underlying technology, Salesforce's classification only treats the more specific signals (<code>fido</code>, <code>fido2</code>, <code>cert</code>, etc.) as phishing-resistant. If your IdP transmits the generic <code>webauthn</code> AMR for hardware-key logins, your privileged users will be blocked at Salesforce despite using a security key end-to-end.</li>
+    <li><strong>Default behavior is Weak / No MFA</strong>: a missing AMR/ACR claim is interpreted as no MFA. Confirm your IdP transmits one of the recognized values for every login type.</li>
+    <li><strong>SAML ACR values are NOT yet recorded in Login History</strong> (planned for a future Salesforce release). Use a third-party SAML tracer to inspect responses today. The Salesforce SAML Validator currently classifies signals as "strong" / "weak" only &mdash; not aligned with the new three-tier nomenclature.</li>
+    <li><strong>API logins are unaffected</strong> by this enforcement &mdash; UI logins only. JWT Bearer and Client Credentials OAuth flows are unaffected; Web Server and Hybrid flows are subject to enforcement because they require UI login to complete authorization.</li>
+  </ul>
+
+  <h3>How to verify your IdP's signals</h3>
+  <ul>
+    <li><strong>OIDC AMR</strong>: confirm via Login History &mdash; Salesforce records the AMR claim from the OIDC ID token.</li>
+    <li><strong>SAML ACR</strong>: use a SAML tracer browser extension (e.g. SAML-tracer for Firefox / Chrome) to inspect the <code>&lt;saml:AuthnContextClassRef&gt;</code> element in the IdP's response.</li>
+    <li><strong>Test now, before Jul 1 / Jul 20</strong>: enroll a privileged test user in your IdP's phishing-resistant MFA, log in to a sandbox via SSO, confirm the AMR/ACR you actually receive matches the Phishing-Resistant column above. If not, work with your IdP vendor to update the configuration.</li>
+  </ul>
+
+  <p style="margin-top:14px;"><a href="#i-mfa-roadmap" class="pillar-link">&rarr; MFA Enforcement Roadmap &middot; Pillar 1.9</a> &middot;
+    <a href="#platform-roadmap" class="pillar-link">&rarr; Platform Roadmap &middot; vendor-driven dates</a></p>
+</div>
+
+<!-- 1.9 MFA Enforcement Roadmap + Customer Prep -->
+<div class="card" id="i-mfa-roadmap" data-search="mfa enforcement roadmap privileged user admin system administrator profile modify all data view all data customize application author apex waive multi factor authentication for exempt users permission sandbox production deadline jun 22 jul 1 jul 20 2026 mobile sdk 13.2.0 13.2.1 login for admin button login ux username first passwordless passkey trial org grace period oauth web server hybrid jwt bearer client credentials">
+  <h2>1.9 &middot; MFA Enforcement Roadmap &amp; Customer Prep (Jun&ndash;Jul 2026)</h2>
+
+  <div class="pillar-tldr">
+    <strong>TL;DR</strong>
+    Salesforce blocks logins for <em>privileged</em> users without phishing-resistant MFA starting <strong>2026-06-22 (sandbox)</strong> / <strong>2026-07-01 (production)</strong>, and for <em>all</em> employee users without any MFA starting <strong>2026-06-22 (sandbox)</strong> / <strong>2026-07-20 (production)</strong>. Sandbox MFA enforcement is <strong>new</strong> &mdash; previously sandboxes were excluded.
+    <span class="one-action">Today's single highest-leverage action: pull a list of every user with System Administrator profile, Modify All Data, View All Data, Customize Application, or Author Apex (directly or via permission set); enroll each in a Security Key or Built-in Authenticator <em>this week</em>. Salesforce Authenticator and TOTP apps no longer count for this population after Jul 1.</span>
+  </div>
+
+  <h3>Privileged user definition (read this first)</h3>
+  <p>
+    "Privileged user" for the Jul 1 deadline means anyone holding <strong>any one</strong> of the following,
+    granted directly or via Permission Set / Permission Set Group:
+  </p>
+  <ul>
+    <li>System Administrator profile</li>
+    <li><code>Modify All Data</code> (MAD)</li>
+    <li><code>View All Data</code> (VAD)</li>
+    <li><code>Customize Application</code></li>
+    <li><code>Author Apex</code></li>
+  </ul>
+  <p>
+    The <code>Author Apex</code> inclusion is broader than most readers expect &mdash; many developers and
+    consultants hold this without holding "admin" in any other sense. Audit before assuming your privileged
+    population matches your admin headcount.
+  </p>
+
+  <h3>What changes on the enforcement dates</h3>
+  <table>
+    <thead><tr><th>Change</th><th>Impact</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Org-wide setting "Require multi-factor authentication (MFA) for all direct UI logins to your Salesforce org"</td>
+        <td>Becomes <strong>active and uneditable</strong> on the enforcement date. Admins can no longer disable it.</td>
+      </tr>
+      <tr>
+        <td><code>Waive Multi-Factor Authentication for Exempt Users</code> permission</td>
+        <td><strong>No longer auto-exempts.</strong> Users with this permission are prompted to enroll and use MFA. To preserve exemption for valid use cases (e.g. automated test tooling), <strong>contact Salesforce Support</strong> for explicit approval.</td>
+      </tr>
+      <tr>
+        <td>Trial Org &rarr; subscription transition</td>
+        <td><strong>30-day grace period removed.</strong> MFA required immediately on conversion.</td>
+      </tr>
+      <tr>
+        <td>Sandbox MFA enforcement</td>
+        <td><strong>Newly required</strong> as of 2026-06-22. Previously, sandboxes were excluded from MFA requirements; this is a behavioural change for orgs that depended on no-MFA sandbox access.</td>
+      </tr>
+      <tr>
+        <td>Login UX flow</td>
+        <td><strong>Username-first, then password / passkey.</strong> The login.salesforce.com and My Domain pages display the username field first; password / passkey field shown after the user clicks <em>Log In</em>. <strong>Breaks test automation</strong> built against the previous single-page flow. Requires updates to existing automated tests.</td>
+      </tr>
+      <tr>
+        <td>Passkey-first registration prompt</td>
+        <td>When a privileged user must register a new MFA method, they are prompted for a Passkey (Built-in Authenticator or Security Key) by default. Non-privileged users retain the option to choose a third-party authenticator app.</td>
+      </tr>
+      <tr>
+        <td>Mobile SDK 13.2.0 and earlier</td>
+        <td>Default WebView authentication mode <strong>cannot support phishing-resistant MFA</strong> (no Security Key support). Workarounds: (a) configure Advanced Authentication in My Domain settings and use My Domain as login server, or (b) Salesforce Mobile App users can use the <em>Login with Email</em> option. <strong>Mobile SDK 13.2.1 (May 2026)</strong> adds a <em>Login for Admin</em> menu item that forces browser-based authentication.</td>
+      </tr>
+      <tr>
+        <td>OAuth flows affected</td>
+        <td>Web Server and Hybrid token flows require UI login &rarr; subject to MFA enforcement. <strong>JWT Bearer and Client Credentials flows are unaffected</strong> (no UI login).</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Customer prep checklist</h3>
+  <ol>
+    <li><strong>Audit privileged population.</strong> SOQL: enumerate users with System Administrator profile + each of the four permissions (MAD, VAD, Customize Application, Author Apex), via direct assignment and via Permission Sets / PSGs. Use User Access and Permissions Assistant if available.</li>
+    <li><strong>Inventory <code>Waive MFA</code> assignments.</strong> Any user holding this permission today will lose auto-exemption on the enforcement date. For valid retain cases, open a Salesforce Support case <em>now</em> &mdash; do not assume default behavior.</li>
+    <li><strong>Enable Security Keys + Built-in Authenticators in Setup &mdash; Identity Verification.</strong> Once enabled, these are available to <em>all</em> org users (no admin-only restriction is possible).</li>
+    <li><strong>Activate passkey login.</strong> Identity Verification &rarr; toggle on "Allow passwordless login with passkeys" for the fastest phishing-resistant flow.</li>
+    <li><strong>Configure SSO for AMR/ACR compliance.</strong> Either (a) update your IdP to require phishing-resistant MFA + transmit a recognized AMR/ACR signal (see the <a href="#i-strength-tiers" class="pillar-link">three-tier model + signal mapping</a>), or (b) enable Salesforce MFA on top of SSO for affected users. Verify AMR via Login History; verify SAML ACR via a third-party tracer.</li>
+    <li><strong>Establish access recovery procedures.</strong> Admins must be able to generate temporary identity verification codes for locked-out users. If the only Admin is locked out, contact Salesforce Support for a one-time login code.</li>
+    <li><strong>Pre-register users.</strong> Communicate timeline; encourage MFA enrollment <em>before</em> enforcement to avoid login disruption on the day.</li>
+    <li><strong>Test in sandbox.</strong> Sandbox is enforced first (2026-06-22) &mdash; treat it as the dress rehearsal for production. Validate the username-first login flow in test automation suites.</li>
+    <li><strong>Verify Mobile SDK app posture.</strong> If shipping or consuming Mobile SDK apps for privileged users, confirm the version and authentication mode; plan upgrades to 13.2.1 or pre-configure Advanced Authentication.</li>
+  </ol>
+
+  <h3>Resolution paths if a user is locked out</h3>
+  <ul>
+    <li><strong>Standard user.</strong> Org admin generates temporary identity verification code; user re-registers a verifier.</li>
+    <li><strong>Privileged user without phishing-resistant verifier.</strong> Contact Salesforce Support for a one-time login code; cannot proceed without that.</li>
+    <li><strong>SSO signal issue.</strong> If your IdP performs phishing-resistant MFA but transmits an unrecognized AMR/ACR (most common: generic <code>webauthn</code> instead of <code>fido2</code>), users will see Salesforce MFA enrollment prompts despite a successful IdP MFA. Coordinate with the IdP vendor to update the signal.</li>
+    <li><strong>Org with only one Admin locked out.</strong> Salesforce Support is the only path. Document the contact procedure now.</li>
+  </ul>
+
+  <p style="margin-top:14px;"><a href="#i-strength-tiers" class="pillar-link">&rarr; Authentication Strength Tiers + AMR/ACR signals &middot; Pillar 1.8</a> &middot;
+    <a href="#i-fido2" class="pillar-link">&rarr; FIDO2 / WebAuthn config &middot; Pillar 1.2</a> &middot;
+    <a href="https://help.salesforce.com/s/articleView?id=005321563&amp;type=1" target="_blank" rel="noopener">KB 005321563 &mdash; Phishing-Resistant MFA for Privileged Users &#8599;</a> &middot;
+    <a href="https://help.salesforce.com/s/articleView?id=005321561&amp;type=1" target="_blank" rel="noopener">KB 005321561 &mdash; MFA for All Employee Users &#8599;</a></p>
+</div>
+
 <!-- ════════════════════════════════════════════════════════════════════════
      PILLAR II  ::  ACCESS CONTROL & LEAST-PRIVILEGE MIGRATION
      ════════════════════════════════════════════════════════════════════════ -->
@@ -4306,6 +4613,55 @@ sequenceDiagram
   <p style="margin-top:14px;"><a href="#appendix-g">&rarr; Reference scanner architecture &middot; Appendix G</a> &middot;
     <a href="#appendix-d">&rarr; Connected App / ECA metadata XML examples &middot; Appendix D</a></p>
 </div>
+
+<!-- 4.x Salesforce-Side IP Reputation Containment -->
+<div class="card" id="iv-ip-reputation" data-search="salesforce side ip reputation containment anonymizing vpn proxy high risk ip address connected app api traffic automatic freeze user account oauth refresh token revoke modify all data administrator notification email salesforce security notification kb 005318944 november 20 2025 april 24 2026 session management restoration unfreeze reauth">
+  <h2>4.10 &middot; Salesforce-Side IP Reputation Containment (enforced 2026-04-24)</h2>
+  <p>
+    A new platform-side defense distinct from the customer-side IP allowlist. Since
+    <strong>2025-11-20</strong> Salesforce has been monitoring suspicious authentication patterns; on
+    <strong>2026-04-24</strong> the program expanded to <em>auto-contain</em> any user account whose
+    Connected App or API traffic originates from anonymizing VPNs, public proxies, or high-risk IP
+    addresses. <strong>This is now in effect.</strong>
+  </p>
+
+  <h3>What happens automatically when detected</h3>
+  <ol>
+    <li>The affected user account is <strong>frozen</strong>.</li>
+    <li>All <strong>OAuth refresh tokens</strong> granted to the user are <strong>revoked</strong>.</li>
+    <li>An email titled <em>"Salesforce Security notification"</em> is delivered to (a) the affected user and (b) all org admins / users with <code>Modify All Data</code>.</li>
+    <li>The user must contact their org admin to restore access.</li>
+  </ol>
+  <p>
+    <strong>Containment applies <em>before</em> admin review.</strong> Users may lose access
+    several minutes before the notification email is read.
+  </p>
+
+  <h3>Restoration runbook for SOC / admin team</h3>
+  <ol>
+    <li>From Setup, open <strong>Session Management</strong>. Review session origin, authentication method, connected app details for the affected user.</li>
+    <li>Look for IP addresses from unfamiliar geographic locations, unexpected connected apps, or API calls outside the user's typical work hours. Reference the
+      <a href="https://help.salesforce.com/s/articleView?id=005319571&amp;type=1" target="_blank" rel="noopener">Salesforce Log Analysis Guide</a> for structured triage.</li>
+    <li>If activity reflects typical usage: unfreeze the user, instruct them to reauthenticate, reset password, and <strong>stop using the anonymizing VPN / proxy</strong> &mdash; continued use re-triggers containment.</li>
+    <li>If activity does NOT reflect typical usage: keep frozen; treat as suspected account takeover; engage IRP runbook (Pillar 8.6).</li>
+    <li>Notify the user to <strong>reauthorize Connected Apps</strong> &mdash; the refresh-token revocation means existing OAuth grants no longer work for UI or API.</li>
+  </ol>
+
+  <h3>What this means for legitimate VPN users</h3>
+  <p>
+    If your business processes legitimately route through a privacy / corporate VPN that Salesforce
+    classifies as anonymizing, you have two paths:
+  </p>
+  <ul>
+    <li><strong>Stop routing Salesforce traffic through it.</strong> Most corporate VPNs are not classified as anonymizing; the trigger is specifically for consumer privacy VPN services and Tor-style proxies.</li>
+    <li><strong>Open a Salesforce Customer Support case</strong> to discuss alternatives if a route change isn't feasible.</li>
+  </ul>
+
+  <p style="margin-top:14px;">
+    <a href="#viii-login-anomaly" class="pillar-link">&rarr; Extended Login Anomaly Detection &middot; Pillar 8.x</a> &middot;
+    <a href="https://help.salesforce.com/s/articleView?id=005318944&amp;type=1" target="_blank" rel="noopener">KB 005318944 &mdash; Preventing Connections from Anonymizing VPNs &#8599;</a></p>
+</div>
+
 <!-- ════════════════════════════════════════════════════════════════════════
      PILLAR V  ::  API + mTLS + CERT ROTATION
      ════════════════════════════════════════════════════════════════════════ -->
@@ -4820,6 +5176,12 @@ flowchart LR
     addresses for delivery telemetry</li>
     <li>For Salesforce-sent mail, configure DKIM keys in Setup &rarr; Email &rarr; DKIM Keys</li>
   </ul>
+  <p>
+    <strong>Outbound counterpart (in effect 2026-04-13 production):</strong> Salesforce now blocks
+    outbound mail from <em>unverified sending domains</em>. The same DKIM key configured here
+    doubles as the customer-side verification mechanism for the outbound rule. See
+    <a href="#vii-verified-sender-domain" class="pillar-link">Pillar 7.10 &mdash; Outbound Email Verified Sender Domain Enforcement</a>.
+  </p>
 </div>
 <!-- ════════════════════════════════════════════════════════════════════════
      PILLAR VII  ::  DATA CLASSIFICATION, ENCRYPTION, SANDBOXES & BACKUP
@@ -4979,9 +5341,17 @@ flowchart LR
   <h2>7.5 &middot; Sandbox Security &amp; Data Mask</h2>
   <p>
     Sandbox PII is production PII. A Full Sandbox refreshed last week contains every record from
-    production. Sandbox users are typically less rigorously administered; sandbox MFA enforcement is
-    sometimes weaker; sandbox API integrations are sometimes less monitored. The result: sandbox is
-    often the easiest path to production data.
+    production. Sandbox users are typically less rigorously administered; sandbox API integrations
+    are sometimes less monitored. The result: sandbox is often the easiest path to production data.
+  </p>
+  <p>
+    <strong>New as of 2026-06-22:</strong> Salesforce begins enforcing employee MFA in sandbox orgs
+    too &mdash; previously sandboxes were excluded from the MFA requirement. Privileged users (Admin
+    profile, MAD, VAD, Customize Application, Author Apex) require <em>phishing-resistant</em> MFA
+    starting 2026-06-22 sandbox / 2026-07-01 production; all employee users require any MFA starting
+    2026-06-22 sandbox / 2026-07-20 production. See
+    <a href="#i-mfa-roadmap" class="pillar-link">Pillar 1.9</a> for the full enforcement schedule and
+    customer prep checklist.
   </p>
   <h3>Hardening levers</h3>
   <ul>
@@ -5086,6 +5456,90 @@ flowchart LR
     pillar's hardening provides the platform for</li>
   </ul>
 </div>
+
+<!-- 7.x Outbound Email Verified Sender Domain Enforcement -->
+<div class="card" id="vii-verified-sender-domain" data-search="outbound email verified sender domain enforcement mandatory sending email domain verification dkim authorized email domain list spring 26 patch 11 phase 1 phase 2 allowlist substitute email address salesforce now sends email only from verified domains kb 005316660 march 24 march 26 april 13 april 14 2026 trust status deliverability">
+  <h2>7.10 &middot; Outbound Email &mdash; Verified Sender Domain Enforcement (in effect 2026-04-13)</h2>
+  <p>
+    Salesforce no longer delivers emails sent from <strong>unverified sending domains</strong>, even
+    if the individual email address is verified. The check applies to the domain after the
+    <code>@</code> &mdash; that domain must be verified via an active DKIM key OR a verified entry
+    in the <em>Authorized Email Domains</em> list. This pairs with (and is distinct from) inbound
+    SPF/DKIM/DMARC, which is covered separately at
+    <a href="#vi-email-intake" class="pillar-link">Pillar 6</a>.
+  </p>
+
+  <h3>Rollout phases</h3>
+  <table>
+    <thead><tr><th>Phase</th><th>Scope</th><th>Sandbox</th><th>Production</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Spring '26 patch 11 deployment</strong></td>
+        <td>Patch that activates the verification check in your org</td>
+        <td>Started 2026-03-24</td>
+        <td>Started 2026-03-26</td>
+      </tr>
+      <tr>
+        <td><strong>Phase 1</strong></td>
+        <td>New sending domains (added after 2026-02-25) + existing domains <em>not</em> on the temporary allowlist</td>
+        <td>2026-03-24 &ndash; 2026-04-10</td>
+        <td>Starting <strong>2026-04-13</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Phase 2</strong></td>
+        <td>Allowlisted domains must also be verified</td>
+        <td>Starting 2026-04-14</td>
+        <td>TBD</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>
+    To check what patch your org is on: <strong>Trust Status &rarr;</strong> search for your My Domain
+    name or instance &rarr; Maintenance tab.
+  </p>
+
+  <h3>Allowlist (temporary breathing room)</h3>
+  <p>
+    Salesforce auto-generated a temporary allowlist of email-sending domains in late February 2026
+    based on observed usage. Phase 1 doesn't enforce against allowlisted domains; Phase 2 will.
+    See the Salesforce KB <em>"Determine Your Temporarily Allowlisted Email-Sending Domains"</em>
+    to identify what's currently on your allowlist. Allowlisting buys time but is <strong>not
+    permanent</strong> &mdash; plan for Phase 2 verification regardless.
+  </p>
+
+  <h3>Verification mechanisms</h3>
+  <ul>
+    <li><strong>DKIM key (preferred).</strong> Setup &rarr; Email &rarr; DKIM Keys &rarr; create a key per sending domain (and subdomain). Cryptographic signature on outbound mail; receivers verify the signature.</li>
+    <li><strong>Authorized Email Domains list.</strong> Setup-side allowlist that can be used when DKIM isn't available.</li>
+    <li><strong>Substitute email address (break-glass).</strong> On the Deliverability page in Setup, select <em>"Use a substitute email address for unverified domains."</em> Sends from <code>email@UniqueId.sfcustomeremail.com</code> (the user's display name is preserved). Useful for users with public email addresses, consultants, site users, and system-generated emails from shared accounts on unverified domains.</li>
+  </ul>
+
+  <h3>Exemptions (these scenarios are NOT subject to verification)</h3>
+  <ul>
+    <li>Emails sent through Gmail&trade; or Office 365&reg; (Outlook) integrations</li>
+    <li>Emails sent via Einstein Activity Capture ("Inbox")</li>
+    <li>Email addresses with public-domain suffixes: <code>@gmail.com</code>, <code>@hotmail.com</code>, <code>@outlook.com</code></li>
+    <li>Marketing Cloud / Marketing Cloud Advanced emails</li>
+    <li>Trial orgs &mdash; not impacted by this requirement</li>
+    <li>Salesforce Free Suite and Database.com editions</li>
+  </ul>
+
+  <h3>Customer prep checklist</h3>
+  <ol>
+    <li>Pull the list of email-sending domains in use across your org. Setup &rarr; Email &rarr; Deliverability page surfaces verification status.</li>
+    <li>For each domain, verify either via DKIM key or Authorized Email Domains entry.</li>
+    <li>If you have shared mailboxes / consultant addresses on unverified domains, enable the substitute-email-address option <em>before</em> Phase 2.</li>
+    <li>Test by sending a system-generated email (e.g. password reset, alert) from each org-wide address &mdash; failures will land in Email Logs.</li>
+    <li>For Phase 2 prep, audit the temporary allowlist; verify any allowlisted domains your org actively uses.</li>
+  </ol>
+
+  <p style="margin-top:14px;">
+    <a href="#vi-email-intake" class="pillar-link">&rarr; Inbound SPF/DKIM/DMARC &middot; Pillar 6</a> &middot;
+    <a href="https://help.salesforce.com/s/articleView?id=005316660&amp;type=1" target="_blank" rel="noopener">KB 005316660 &mdash; Mandatory Sending-Email Domain Verification Timeline &#8599;</a> &middot;
+    <a href="https://help.salesforce.com/s/articleView?id=release-notes.rn_sales_productivity_email_domain_verify.htm&amp;type=5" target="_blank" rel="noopener">Spring '26 Release Note &mdash; Verify Your Email Domain Ownership &#8599;</a>
+  </p>
+</div>
+
 <!-- ════════════════════════════════════════════════════════════════════════
      PILLAR VIII  ::  DETECTION, RESPONSE & OBSERVABILITY
      ════════════════════════════════════════════════════════════════════════ -->
@@ -5296,6 +5750,37 @@ flowchart LR
     <li>Condition Builder: declarative; covers most cases without code</li>
     <li>Apex condition: implement <code>TxnSecurity.EventCondition</code>; full programmatic flexibility for anything Condition Builder can't express</li>
   </ul>
+
+  <h3>Transaction Security Policy Enhancements (Available 2026-06-01 sandbox / 2026-06-15 prod; Enforced 2026-06-22 sandbox / 2026-07-13 prod)</h3>
+  <p>
+    Salesforce is shipping two material changes to TSP that customers must absorb:
+  </p>
+  <ol>
+    <li>
+      <strong>New <code>Modify Transaction Security Policy</code> user permission.</strong> Required <em>in
+      addition to</em> <code>Customize Application</code> for any create / update / delete / enable / disable
+      operation on TSPs. <code>Customize Application</code> alone yields read-only access. <strong>TSP CRUD
+      operations via UI also require step-up authentication.</strong> Audit your current TSP managers and
+      assign the new permission before the production enforcement on <strong>2026-07-13</strong>.
+    </li>
+    <li>
+      <strong>Default <code>ReportEvent</code> TSP for &gt;10,000-record UI exports.</strong> Salesforce
+      ships a default Transaction Security Policy on <code>ReportEvent</code> for all Salesforce Shield +
+      Event Monitoring customers. Trigger condition: report export via UI exceeds 10,000 records &rarr;
+      step-up authentication required. <strong>The default policy is deployed <em>disabled</em></strong>;
+      admins review it in sandbox first, then enable. Salesforce will <strong>not</strong> auto-enable the
+      default if (a) the admin has edited it, or (b) the org already has another <code>ReportEvent</code>
+      policy. Existing customer-authored policies are unaffected.
+    </li>
+  </ol>
+  <p>
+    See <a href="https://help.salesforce.com/s/articleView?id=005321565&amp;type=1" target="_blank" rel="noopener">KB 005321565 &mdash; Transaction Security Policy Enhancements &#8599;</a>
+    for full details, and note the overlap with the platform-shipped
+    <a href="#viii-stepup-reports" class="pillar-link">Time-Based Session Level Policy for Reports</a> (Pillar 8.10) &mdash;
+    if you have customer-authored row-count-threshold report-export policies (e.g. the
+    <code>ReportExportThresholdMfa</code> example in Appendix E.2), check whether the platform features now meet your needs first.
+  </p>
+
   <p style="margin-top:14px;"><a href="#appendix-e">&rarr; Reference Apex policies (anomalous-export blocker, off-hours admin notify, mass-record-read MFA challenge) &middot; Appendix E</a></p>
 </div>
 
@@ -5379,8 +5864,143 @@ flowchart LR
     <li><strong>MAM</strong> enforces app-level controls within Salesforce Mobile: clipboard restrict, screenshot block, "open in" allowlist, data-wipe on policy violation</li>
     <li><strong>Connected App: Mobile App-specific OAuth scopes + IP / device restriction</strong></li>
     <li><strong>Login History filter on Application = Salesforce for iOS / Android</strong> &mdash; baseline normal mobile traffic; alert on anomalies</li>
+    <li><strong>Mobile SDK 13.2.0 and earlier limitation:</strong> default WebView authentication mode <em>cannot</em> support phishing-resistant MFA (Security Keys). Privileged users blocked from logging in unless My Domain is configured for Advanced Authentication. <strong>Mobile SDK 13.2.1 (May 2026)</strong> adds a <em>Login for Admin</em> menu item that forces browser-based authentication, enabling phishing-resistant MFA automatically. Salesforce Mobile App users can also use <em>Login with Email</em> as a workaround. See <a href="#i-mfa-roadmap" class="pillar-link">Pillar 1.9</a>.</li>
   </ul>
 </div>
+
+<!-- 8.9 Extended Login Anomaly Detection + Containment -->
+<div class="card" id="viii-login-anomaly" data-search="extended login anomaly detection automated containment ai driven machine learning network activity client authentication geolocation user freeze access token revoke refresh token revoke password reset salesforce security notification security contacts modify all data shield threat detection coexistence june 30 2026 kb 005319571 anonymizing proxy">
+  <h2>8.9 &middot; Extended Login Anomaly Detection + Automated Containment (in effect early Apr 2026)</h2>
+  <p>
+    Distinct from the <a href="#viii-threat-detection" class="pillar-link">Shield Threat Detection</a>
+    <code>LoginAnomalyEvent</code> already covered in Pillar 8.4, Salesforce deployed an
+    <strong>AI-driven</strong> login-anomaly model with <strong>automated containment</strong> in early
+    April 2026. The two systems coexist: Shield's existing <code>LoginAnomalyEvent</code> continues
+    operating <strong>at least until 2026-06-30</strong>; in rare cases, customers may see duplicate
+    detections during the overlap window.
+  </p>
+
+  <h3>Detection signals</h3>
+  <p>
+    The model evaluates four behavior dimensions for each login:
+  </p>
+  <ul>
+    <li><strong>Network activity</strong> &mdash; source IP, ASN, prior history</li>
+    <li><strong>Client</strong> &mdash; user-agent, device fingerprint</li>
+    <li><strong>Authentication events</strong> &mdash; method, factor, success / failure cadence</li>
+    <li><strong>Geolocation</strong> &mdash; deviation from prior session geography</li>
+  </ul>
+  <p>
+    Detection fires when significant deviations are observed, including (but not limited to) novel use
+    of anonymizing proxies. The model also fires for novel patterns <em>absent</em> proxies &mdash; for
+    example, an admin login from a new geography during off-hours with an unfamiliar client.
+  </p>
+
+  <h3>What containment does (automatic)</h3>
+  <ol>
+    <li>The user is automatically <strong>frozen</strong> (all sessions terminated).</li>
+    <li>All access and refresh tokens granted to that user are <strong>revoked</strong>.</li>
+    <li>If the user authenticates with a password, they're required to <strong>reset that password</strong> after the admin unfreezes them.</li>
+    <li>Email titled <em>"Salesforce Security notification"</em> is delivered to <strong>Security Contacts</strong> (when populated) or to all users with <code>Modify All Data</code> if Security Contacts isn't set.</li>
+  </ol>
+
+  <h3>Resolve a containment event</h3>
+  <ol>
+    <li>If you recognize the affected login: instruct the user to <strong>avoid VPNs with anonymizing proxies</strong>. If your business processes require an anonymizing proxy, open a Salesforce Support case to discuss alternatives.</li>
+    <li>If you don't recognize the login: <strong>verify MFA is strictly enforced</strong> for the user; treat as a suspected account-takeover event; engage IRP runbook (Pillar 8.6).</li>
+    <li>Review logs for evidence of unauthorized activity using the <a href="https://help.salesforce.com/s/articleView?id=005319571&amp;type=1" target="_blank" rel="noopener">Salesforce Log Analysis Guide</a>.</li>
+  </ol>
+
+  <p style="margin-top:14px;">
+    <a href="#iv-ip-reputation" class="pillar-link">&rarr; IP Reputation Containment &middot; Pillar 4.10</a> &middot;
+    <a href="https://help.salesforce.com/s/articleView?id=005319571&amp;type=1" target="_blank" rel="noopener">KB 005319571 &mdash; Extended Login Anomaly Detections and Containment &#8599;</a></p>
+</div>
+
+<!-- 8.10 Time-Based Session Level Policy for Reports -->
+<div class="card" id="viii-stepup-reports" data-search="time based session level policy step up authentication report run view export cool down period 2 120 minutes identity verification session security level policies reports dashboards trusted ip exemption fail closed mfa service unavailable kb 005321566 may 27 june 3 june 10 2026 sso users sms email otp passkey security key salesforce authenticator totp">
+  <h2>8.10 &middot; Time-Based Session Level Policy for Reports (Available 2026-05-27, Enforced 2026-06-10 prod)</h2>
+  <p>
+    A new mandatory time-based step-up MFA framework, distinct from the customer-authored
+    <a href="#viii-transaction-security" class="pillar-link">Transaction Security policies</a> in
+    Pillar 8.5. Salesforce-shipped, default-on, and configured at <strong>Identity Verification &rarr;
+    Session Security Level Policies &rarr; Reports and Dashboards</strong>. Report Export is the first
+    sensitive action covered; more action types are expected in subsequent waves.
+  </p>
+
+  <h3>Timeline</h3>
+  <ul>
+    <li><strong>Available in Sandboxes:</strong> 2026-05-27 (7-day stagger)</li>
+    <li><strong>Available in Production:</strong> 2026-05-27 (15-day stagger)</li>
+    <li><strong>Enforced in Sandboxes:</strong> 2026-06-03 (7-day stagger)</li>
+    <li><strong>Enforced in Production:</strong> <strong>2026-06-10</strong> (20-day stagger)</li>
+  </ul>
+
+  <h3>How it works</h3>
+  <ul>
+    <li><strong>Configurable cool-down period:</strong> 2&ndash;120 minutes (default 120). Setup via
+      <code>Identity Verification &rarr; Session Security Level Policies &rarr; Reports and Dashboards
+      &rarr; "Require step-up authentication within cool-down period"</code>.</li>
+    <li><strong>Trigger is "run or VIEW" the report</strong> &mdash; not just on click of Download / Export. This broader trigger is intentional: it catches UI-based screen-scraping and browser data capture that happens without an explicit export click.</li>
+    <li><strong>MFA at login does NOT reset the step-up timer.</strong> The cool-down clock is <em>separate</em> from the login session. A user who logged in with MFA 30 minutes ago will still be challenged on report run if cool-down has expired since their last step-up.</li>
+    <li><strong>Trusted IP / corporate network does NOT exempt.</strong> The check is enforced regardless of network position.</li>
+    <li><strong>Mandatory for SSO users too.</strong> SSO users without a registered Salesforce MFA verifier are challenged via <strong>SMS or email OTP</strong>. SSO users without a reachable email or phone are blocked &mdash; ensure all users have at least one reachable channel registered.</li>
+    <li><strong>Fail-closed posture:</strong> if the MFA service is unavailable, the report is blocked. Plan accordingly for DR and availability scenarios.</li>
+    <li><strong>Supported challenge methods:</strong> Passkeys, Security Keys, Salesforce Authenticator, TOTP apps, SMS OTP, email OTP.</li>
+  </ul>
+
+  <h3>Customer prep checklist</h3>
+  <ol>
+    <li>When the feature lands in your sandbox (after May 27), open <strong>Identity Verification &rarr; Session Security Level Policies &rarr; Reports and Dashboards</strong>. Select <em>"Require step-up authentication within cool-down period."</em> Adjust the cool-down value within the 2&ndash;120 minute range.</li>
+    <li>Confirm every user has at least one reachable verification channel: registered Salesforce MFA verifier, current email address, or SMS phone number. SSO-only users are at highest risk; in-app prompts for unconfigured users start rolling out in May 2026.</li>
+    <li>Test in sandbox before the production enforcement on Jun 10. Confirm report-running, not just exporting, triggers the challenge as expected.</li>
+    <li>Update SOC monitoring to expect step-up challenge events; baseline the rate so you can detect anomalies.</li>
+    <li>Update operational runbooks: a fail-closed event during MFA-service incident means business reports stop. Pre-arrange Salesforce Support contact path.</li>
+  </ol>
+
+  <p style="margin-top:14px;">
+    <a href="#viii-stepup-anomalous" class="pillar-link">&rarr; Anomalous Report Export Step-up &middot; Pillar 8.11</a> &middot;
+    <a href="#viii-transaction-security" class="pillar-link">&rarr; Customer-authored TSP &middot; Pillar 8.5</a> &middot;
+    <a href="https://help.salesforce.com/s/articleView?id=005321566&amp;type=1" target="_blank" rel="noopener">KB 005321566 &mdash; Step-up Authentication Requirements on Report Actions &#8599;</a></p>
+</div>
+
+<!-- 8.11 Anomalous Report Export Step-up -->
+<div class="card" id="viii-stepup-anomalous" data-search="anomalous report export step up authentication ml machine learning behavioral anomaly detection ui report download report only mode auto containment gradual activation kb 005321567 june 22 july 13 2026 sandbox production sensitive action sms email otp registered mfa">
+  <h2>8.11 &middot; Anomalous Report Export Step-up (ML-driven; Enforced 2026-07-13 prod)</h2>
+  <p>
+    Distinct from the time-based policy in 8.10 (deterministic, runs every cool-down window), this
+    is a <strong>machine-learning</strong> control that evaluates user behavior continuously and
+    fires step-up MFA when a deviation is detected. <strong>Currently scoped to UI report
+    downloads only</strong> &mdash; despite the parent roadmap article framing this as "anomalous
+    behavior" generically, the deep-dive
+    (<a href="https://help.salesforce.com/s/articleView?id=005321567&amp;type=1" target="_blank" rel="noopener">KB 005321567 &#8599;</a>)
+    explicitly limits the current scope to UI report exports.
+  </p>
+
+  <h3>Timeline</h3>
+  <ul>
+    <li><strong>Sandboxes:</strong> 2026-06-22</li>
+    <li><strong>Production:</strong> <strong>2026-07-13</strong></li>
+    <li><strong>Activation pattern:</strong> gradual rollout, starting in <strong>report-only mode</strong> before full auto-containment. Customers will see telemetry of detected anomalies before behavior changes for users.</li>
+  </ul>
+
+  <h3>What users experience</h3>
+  <ul>
+    <li><strong>Most users see no change</strong> &mdash; the model only acts on detected behavioral anomalies.</li>
+    <li><strong>When anomaly fires:</strong> user is challenged with a step-up MFA challenge on their next sensitive action (e.g. report export), <em>even if they recently completed a step-up MFA</em>.</li>
+    <li><strong>Users without a registered Salesforce MFA verifier and no valid email or phone</strong> are <strong>blocked</strong> outright &mdash; they cannot complete the step-up challenge. Same prep applies as 8.10: ensure every user has at least one reachable channel.</li>
+  </ul>
+
+  <h3>Prep</h3>
+  <ol>
+    <li>The prep overlaps with 8.10 &mdash; ensure all users (especially SSO-only) have at least one verification channel.</li>
+    <li>Watch the report-only telemetry phase to baseline what the model considers anomalous in your environment before auto-containment kicks in.</li>
+  </ol>
+
+  <p style="margin-top:14px;">
+    <a href="#viii-stepup-reports" class="pillar-link">&rarr; Time-Based Session Level Policy &middot; Pillar 8.10</a> &middot;
+    <a href="https://help.salesforce.com/s/articleView?id=005321567&amp;type=1" target="_blank" rel="noopener">KB 005321567 &mdash; Step-up Authentication in Anomalous Report Export &#8599;</a></p>
+</div>
+
 <!-- ════════════════════════════════════════════════════════════════════════
      PILLAR IX  ::  DEVSECOPS FOR DX & ORG LIFECYCLE
      ════════════════════════════════════════════════════════════════════════ -->
@@ -5928,8 +6548,8 @@ gantt
     dateFormat  YYYY-MM-DD
     axisFormat  %b
     section Pillar 1 (Identity)
-    Health Check + MFA enforcement                  :crit, q1, 2026-05-04, 14d
-    FIDO2 for admins                                 :crit, q2, 2026-05-04, 14d
+    Health Check + MFA enforcement                  :crit, q1, 2026-05-06, 14d
+    FIDO2 for admins                                 :crit, q2, 2026-05-06, 14d
     Custom Login Flow + tier classification         :h1, after q2, 30d
     SAML/OIDC + Apex JIT handlers                    :s1, after h1, 60d
     section Pillar 2 (Access)
@@ -5941,7 +6561,7 @@ gantt
     Automated metadata scanner + crawler             :h2, after q4, 60d
     Quarterly attestation cadence (ongoing)          :ongoing1, after h2, 365d
     section Pillar 4 (Connected Apps)
-    OAuth Usage attestation + Block Uninstalled      :crit, q5, 2026-05-04, 14d
+    OAuth Usage attestation + Block Uninstalled      :crit, q5, 2026-05-06, 14d
     Connected App inventory + token rotation         :h3, 2026-05-25, 45d
     ECA migration of new integrations                :s4, 2026-08-03, 180d
     section Pillar 5 (API + mTLS)
@@ -6615,6 +7235,15 @@ return (List&lt;Contact&gt;) dec.getRecords();   // SSN__c stripped if running u
 </code></pre>
 
   <h3>E.2 MFA challenge on report export &gt; 10K rows or off-hours</h3>
+  <div style="background: rgba(255,154,60,0.10); border-left: 4px solid #FF9A3C; padding: 12px 16px; margin: 12px 0; border-radius: 4px; font-size: 13px;">
+    <strong>Platform-shipped overlap (2026-06-10 prod / 2026-07-13 prod).</strong> Salesforce now ships
+    a default <code>ReportEvent</code> Transaction Security Policy that triggers step-up auth on UI
+    exports exceeding 10,000 records (see <a href="#viii-transaction-security" class="pillar-link">Pillar 8.5 &mdash; TSP Enhancements</a>),
+    plus a Time-Based Session Level Policy for report run / view (see <a href="#viii-stepup-reports" class="pillar-link">Pillar 8.10</a>).
+    The Apex policy below predates both. Before deploying, check whether the platform features now
+    cover your row-count-threshold use case &mdash; if so, prefer the platform feature; this Apex
+    sample is still useful for off-hours conditions or non-default thresholds.
+  </div>
   <pre><code class="language-java">global class ReportExportThresholdMfa implements TxnSecurity.EventCondition {
     public boolean evaluate(SObject event) {
         ReportEvent e = (ReportEvent) event;
@@ -7149,7 +7778,7 @@ DIFF:
   </table>
 
   <h3>N.2 CIS Critical Security Controls v8.1</h3>
-  <p>CIS CSC v8.1<sup><a href="#ref-37" class="ref-link">[37]</a></sup> (a Salesforce-specific CIS Benchmark is not generally published as of source-snapshot 2026-05-04; this mapping uses the cross-platform CIS CSC):</p>
+  <p>CIS CSC v8.1<sup><a href="#ref-37" class="ref-link">[37]</a></sup> (a Salesforce-specific CIS Benchmark is not generally published as of source-snapshot 2026-05-06; this mapping uses the cross-platform CIS CSC):</p>
   <table>
     <thead><tr><th>CSC</th><th>Control</th><th>Pillars</th></tr></thead>
     <tbody>
@@ -7487,7 +8116,7 @@ DIFF:
     });
     exportBtn.addEventListener('click', function() {
       var snapshot = {
-        framework: 'Salesforce CRM Security Hardening v1.5.27',
+        framework: 'Salesforce CRM Security Hardening v1.5.29',
         scored_at: new Date().toISOString(),
         scores: loadStored(),
         average: parseFloat(avgEl.textContent) || 0,
@@ -7629,7 +8258,7 @@ DIFF:
   <p style="background: rgba(255,154,60,0.10); border-left: 4px solid #FF9A3C; padding: 10px 14px; font-size: 13px;">
     <strong>Note on framework currency.</strong> The Well-Architected Framework's lens / habit names
     evolve. Verify habit naming against <a href="https://architect.salesforce.com/well-architected/" target="_blank" rel="noopener">architect.salesforce.com/well-architected</a>
-    for the version you're aligning against; this mapping uses the published structure as of source-snapshot 2026-05-04.
+    for the version you're aligning against; this mapping uses the published structure as of source-snapshot 2026-05-06.
   </p>
 
   <h3>R.1 Trusted lens</h3>
@@ -7818,8 +8447,8 @@ DIFF:
   </p>
   <h3>Document metadata</h3>
   <p style="font-size: 12px; font-family: 'Source Code Pro', monospace;">
-    version 1.5.27 &middot; last modified 2026-05-04 &middot; source snapshot 2026-05-04 &middot;
-    Build identifier: SF-CRM-HARDENING-1.5.27
+    version 1.5.29 &middot; last modified 2026-05-06 &middot; source snapshot 2026-05-06 &middot;
+    Build identifier: SF-CRM-HARDENING-1.5.29
   </p>
 </div>
 
@@ -7870,7 +8499,7 @@ DIFF:
     <li id="ref-24" style="margin-bottom: 10px;"><span class="ref-marker">[24]</span> <strong>Salesforce Help.</strong> (n.d.). <em>Sharing rules overview (criteria limit, guest sharing rules)</em>. Salesforce Help. Retrieved May 4, 2026, from <a href="https://help.salesforce.com/s/articleView?id=sf.sharing_rules_overview.htm" target="_blank" rel="noopener">https://help.salesforce.com/s/articleView?id=sf.sharing_rules_overview.htm</a></li>
     <li id="ref-23" style="margin-bottom: 10px;"><span class="ref-marker">[23]</span> <strong>Salesforce.</strong> (2026, Spring). <em>Security Implementation Guide v66 (Spring ’26)</em> [PDF]. Salesforce. Retrieved May 4, 2026, from <a href="https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/securityImplGuide.pdf" target="_blank" rel="noopener">https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/securityImplGuide.pdf</a></li>
     <li id="ref-25" style="margin-bottom: 10px;"><span class="ref-marker">[25]</span> <strong>Salesforce Release Notes.</strong> (n.d.). <em>Secure Guest User Record Access</em> [critical update lineage]. Salesforce Help / Release Notes archives.</li>
-    <li id="ref-4" style="margin-bottom: 10px;"><span class="ref-marker">[4]</span> <strong>Salesforce Trust.</strong> (2026, April 13). <em>How Salesforce is preparing for the frontier AI threat landscape</em> [Status / security informational message #20000246; archived locally as part of source-snapshot 2026-05-04 because status posts may rotate out of the live feed]. Salesforce. Retrieved May 4, 2026, from <a href="https://status.salesforce.com/" target="_blank" rel="noopener">https://status.salesforce.com/</a></li>
+    <li id="ref-4" style="margin-bottom: 10px;"><span class="ref-marker">[4]</span> <strong>Salesforce Trust.</strong> (2026, April 13). <em>How Salesforce is preparing for the frontier AI threat landscape</em> [Status / security informational message #20000246; archived locally as part of source-snapshot 2026-05-06 because status posts may rotate out of the live feed]. Salesforce. Retrieved May 4, 2026, from <a href="https://status.salesforce.com/" target="_blank" rel="noopener">https://status.salesforce.com/</a></li>
     <li id="ref-10" style="margin-bottom: 10px;"><span class="ref-marker">[10]</span> <strong>Salesforce Trust.</strong> (n.d.). <em>Security pages</em>. Salesforce Trust. Retrieved May 4, 2026, from <a href="https://trust.salesforce.com/security" target="_blank" rel="noopener">https://trust.salesforce.com/security</a></li>
     <li id="ref-28" style="margin-bottom: 10px;"><span class="ref-marker">[28]</span> <strong>Synexc.</strong> (2025). <em>The new AppExchange security review: How to protect data and pass in 2025</em> [industry coverage]. Synexc Blogs. Retrieved May 4, 2026, from <a href="https://blogs.synexc.com/the-new-appexchange-security-review-how-to-protect-data-and-pass-in-2025/" target="_blank" rel="noopener">https://blogs.synexc.com/the-new-appexchange-security-review-how-to-protect-data-and-pass-in-2025/</a></li>
     <li id="ref-32" style="margin-bottom: 10px;"><span class="ref-marker">[32]</span> <strong>Vantage Point.</strong> (2026). <em>Salesforce certificate transitions 2026: What financial services firms need to know now</em>. Vantage Point Consulting. Retrieved May 4, 2026, from <a href="https://vantagepoint.io/blog/sf/salesforce-certificate-transitions-2026-what-financial-services-firms-need-to-know-now" target="_blank" rel="noopener">https://vantagepoint.io/blog/sf/salesforce-certificate-transitions-2026-what-financial-services-firms-need-to-know-now</a></li>
@@ -8548,6 +9177,7 @@ DIFF:
   function topicForId(id) {
     if (!id) return 'default';
     if (id in prompts) return id;
+    if (id === 'platform-roadmap') return 'platform-roadmap';
     if (/^i-|^exec-pillar-i$/.test(id)) return 'pillar-i';
     if (/^ii-|^exec-pillar-ii$/.test(id)) return 'pillar-ii';
     if (/^iii-|^exec-pillar-iii$/.test(id)) return 'pillar-iii';
@@ -8582,6 +9212,7 @@ DIFF:
       'pillar-x': 'Pillar 10 · Defensive AI',
       'threat-landscape': 'Threat Brief 2024–2026',
       'mythos-reality': 'The Mythos Question',
+      'platform-roadmap': 'Platform Roadmap · Salesforce Enforcement Schedule',
       'exec-bluf': 'Executive Summary · BLUF',
       'appendix-a': 'Appendix A · IR Runbooks',
       'appendix-m': 'Appendix M · Admin Hardening Checklist',
