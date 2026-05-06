@@ -8866,6 +8866,26 @@ DIFF:
   var searchMatches = [];
   var searchIndex   = -1;
 
+  /* Find the most-specific element inside `card` whose text contains q.
+     querySelectorAll returns elements in document order, so a parent
+     paragraph that contains a matching <code> child is encountered
+     before its child — we return the parent, which is the better
+     contextual scroll target. Fallback: the card itself when the match
+     came from data-search keywords or no descendant matched cleanly.   */
+  function findScrollTargetInCard(card, q) {
+    var children = card.querySelectorAll(
+      'h2, h3, h4, h5, p, li, td, dt, dd, blockquote, pre, summary'
+    );
+    for (var i = 0; i < children.length; i++) {
+      var el = children[i];
+      // Skip if invisible (e.g., inside a collapsed details element)
+      if (el.offsetParent === null && el.tagName !== 'SUMMARY') continue;
+      var t = (el.textContent || '').toLowerCase();
+      if (t.indexOf(q) !== -1) return el;
+    }
+    return card;
+  }
+
   function runSearch(q) {
     var cards = document.querySelectorAll('.card');
     searchMatches = [];
@@ -8886,7 +8906,10 @@ DIFF:
       var haystack = ((c.dataset.search || '') + ' ' + (c.textContent || '')).toLowerCase();
       if (haystack.indexOf(q) !== -1) {
         c.classList.remove('dim'); c.classList.add('match');
-        searchMatches.push(c);
+        // Match the card visually, but scroll to the specific paragraph /
+        // list item / heading inside that contains the term — long cards
+        // (e.g. Pillar 1.10 MFA Roadmap) shouldn't dump the user at the top.
+        searchMatches.push(findScrollTargetInCard(c, q));
       } else {
         c.classList.add('dim'); c.classList.remove('match');
       }
