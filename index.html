@@ -2841,8 +2841,8 @@ sequenceDiagram
     enforcement program. Privileged users (System Admin profile, Modify All Data, View All Data,
     Customize Application, or Author Apex) are <strong>blocked at login</strong> if their factor lands
     in Standard or Weak after 2026-07-01 production / 2026-06-22 sandbox &mdash; covered in detail at
-    <a href="#i-strength-tiers" class="pillar-link">Pillar 1.8</a> and
-    <a href="#i-mfa-roadmap" class="pillar-link">Pillar 1.9</a>.
+    <a href="#i-strength-tiers" class="pillar-link">Pillar 1.9</a> and
+    <a href="#i-mfa-roadmap" class="pillar-link">Pillar 1.10</a>.
   </p>
   <p><strong>Anti-pattern.</strong> Trusted IP Ranges as a substitute for MFA. They are not. The Apex Hours
   guide<sup><a href="#ref-6" class="ref-link">[6]</a></sup> documents this misconception explicitly. IP allowlisting reduces attack surface;
@@ -3236,9 +3236,9 @@ sequenceDiagram
     <a href="#iv-block-uninstalled" class="pillar-link">&rarr; Block Uninstalled Connected Apps &middot; Pillar 4.3</a></p>
 </div>
 
-<!-- 1.8 Authentication Strength Tiers + AMR/ACR signal mapping -->
+<!-- 1.9 Authentication Strength Tiers + AMR/ACR signal mapping -->
 <div class="card" id="i-strength-tiers" data-search="authentication strength tier phishing resistant standard weak no mfa amr acr authentication context class reference authentication methods reference rfc 8176 sso identity provider okta entra adfs ping signal value cert fido fido2 fpt hwk iris pin pki pop retina sc smartcard swk tlsclient user vbm wia x509 face mobiletwofactorcontract multipleauthn okta_verify passkey webauthn pwd sms tel email">
-  <h2>1.8 &middot; Authentication Strength Tiers (Salesforce three-tier model + AMR/ACR signals)</h2>
+  <h2>1.9 &middot; Authentication Strength Tiers (Salesforce three-tier model + AMR/ACR signals)</h2>
   <p>
     Salesforce's 2026 enforcement program introduces an explicit three-tier classification of every
     successful login. The tier governs whether the login is accepted, blocked, or used to trigger a
@@ -3295,13 +3295,13 @@ sequenceDiagram
     <li><strong>Test now, before Jul 1 / Jul 20</strong>: enroll a privileged test user in your IdP's phishing-resistant MFA, log in to a sandbox via SSO, confirm the AMR/ACR you actually receive matches the Phishing-Resistant column above. If not, work with your IdP vendor to update the configuration.</li>
   </ul>
 
-  <p style="margin-top:14px;"><a href="#i-mfa-roadmap" class="pillar-link">&rarr; MFA Enforcement Roadmap &middot; Pillar 1.9</a> &middot;
+  <p style="margin-top:14px;"><a href="#i-mfa-roadmap" class="pillar-link">&rarr; MFA Enforcement Roadmap &middot; Pillar 1.10</a> &middot;
     <a href="#platform-roadmap" class="pillar-link">&rarr; Platform Roadmap &middot; vendor-driven dates</a></p>
 </div>
 
-<!-- 1.9 MFA Enforcement Roadmap + Customer Prep -->
+<!-- 1.10 MFA Enforcement Roadmap + Customer Prep -->
 <div class="card" id="i-mfa-roadmap" data-search="mfa enforcement roadmap privileged user admin system administrator profile modify all data view all data customize application author apex waive multi factor authentication for exempt users permission sandbox production deadline jun 22 jul 1 jul 20 2026 mobile sdk 13.2.0 13.2.1 login for admin button login ux username first passwordless passkey trial org grace period oauth web server hybrid jwt bearer client credentials">
-  <h2>1.9 &middot; MFA Enforcement Roadmap &amp; Customer Prep (Jun&ndash;Jul 2026)</h2>
+  <h2>1.10 &middot; MFA Enforcement Roadmap &amp; Customer Prep (Jun&ndash;Jul 2026)</h2>
 
   <div class="pillar-tldr">
     <strong>TL;DR</strong>
@@ -3387,7 +3387,7 @@ sequenceDiagram
     <li><strong>Org with only one Admin locked out.</strong> Salesforce Support is the only path. Document the contact procedure now.</li>
   </ul>
 
-  <p style="margin-top:14px;"><a href="#i-strength-tiers" class="pillar-link">&rarr; Authentication Strength Tiers + AMR/ACR signals &middot; Pillar 1.8</a> &middot;
+  <p style="margin-top:14px;"><a href="#i-strength-tiers" class="pillar-link">&rarr; Authentication Strength Tiers + AMR/ACR signals &middot; Pillar 1.9</a> &middot;
     <a href="#i-fido2" class="pillar-link">&rarr; FIDO2 / WebAuthn config &middot; Pillar 1.2</a> &middot;
     <a href="https://help.salesforce.com/s/articleView?id=005321563&amp;type=1" target="_blank" rel="noopener">KB 005321563 &mdash; Phishing-Resistant MFA for Privileged Users &#8599;</a> &middot;
     <a href="https://help.salesforce.com/s/articleView?id=005321561&amp;type=1" target="_blank" rel="noopener">KB 005321561 &mdash; MFA for All Employee Users &#8599;</a></p>
@@ -5350,7 +5350,7 @@ flowchart LR
     profile, MAD, VAD, Customize Application, Author Apex) require <em>phishing-resistant</em> MFA
     starting 2026-06-22 sandbox / 2026-07-01 production; all employee users require any MFA starting
     2026-06-22 sandbox / 2026-07-20 production. See
-    <a href="#i-mfa-roadmap" class="pillar-link">Pillar 1.9</a> for the full enforcement schedule and
+    <a href="#i-mfa-roadmap" class="pillar-link">Pillar 1.10</a> for the full enforcement schedule and
     customer prep checklist.
   </p>
   <h3>Hardening levers</h3>
@@ -5864,7 +5864,7 @@ flowchart LR
     <li><strong>MAM</strong> enforces app-level controls within Salesforce Mobile: clipboard restrict, screenshot block, "open in" allowlist, data-wipe on policy violation</li>
     <li><strong>Connected App: Mobile App-specific OAuth scopes + IP / device restriction</strong></li>
     <li><strong>Login History filter on Application = Salesforce for iOS / Android</strong> &mdash; baseline normal mobile traffic; alert on anomalies</li>
-    <li><strong>Mobile SDK 13.2.0 and earlier limitation:</strong> default WebView authentication mode <em>cannot</em> support phishing-resistant MFA (Security Keys). Privileged users blocked from logging in unless My Domain is configured for Advanced Authentication. <strong>Mobile SDK 13.2.1 (May 2026)</strong> adds a <em>Login for Admin</em> menu item that forces browser-based authentication, enabling phishing-resistant MFA automatically. Salesforce Mobile App users can also use <em>Login with Email</em> as a workaround. See <a href="#i-mfa-roadmap" class="pillar-link">Pillar 1.9</a>.</li>
+    <li><strong>Mobile SDK 13.2.0 and earlier limitation:</strong> default WebView authentication mode <em>cannot</em> support phishing-resistant MFA (Security Keys). Privileged users blocked from logging in unless My Domain is configured for Advanced Authentication. <strong>Mobile SDK 13.2.1 (May 2026)</strong> adds a <em>Login for Admin</em> menu item that forces browser-based authentication, enabling phishing-resistant MFA automatically. Salesforce Mobile App users can also use <em>Login with Email</em> as a workaround. See <a href="#i-mfa-roadmap" class="pillar-link">Pillar 1.10</a>.</li>
   </ul>
 </div>
 
