@@ -1,7 +1,7 @@
                                                                                                                                                               <!DOCTYPE html>
 <!--
   Salesforce CRM Security Hardening — A Defender's Encyclopedia for the Frontier-AI Era
-  Document version 1.5.35 · Last modified 2026-05-11
+  Document version 1.5.36 · Last modified 2026-05-11
   Copyright (c) 2026 Dr. Paul Coleman. All rights reserved.
 
   A vendor-neutral hardening reference for the customer side of the Salesforce
@@ -28,7 +28,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">                                  
 <title>The Mythos Imperative &mdash; Salesforce CRM Security Hardening</title>                                                      
-<meta name="document-version" content="1.5.35">
+<meta name="document-version" content="1.5.36">
 <meta name="last-modified" content="2026-05-06">
 <meta name="source-snapshot" content="2026-05-06">
 <meta name="description" content="The Mythos Imperative: a vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars from Identity to Defensive AI; nineteen appendices.">
@@ -38,7 +38,7 @@
 
 <!-- Open Graph / social-share metadata -->
 <meta property="og:type" content="article">
-<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.35">
+<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.36">
 <meta property="og:description" content="Vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars, 19 appendices, fully attributed.">
 <meta property="og:url" content="https://drpaulcoleman.github.io/agentforce-mythos-hardening/">
 <meta property="og:site_name" content="Salesforce CRM Security Hardening">
@@ -49,7 +49,7 @@
 
 <!-- Twitter / X card metadata -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.35">
+<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.36">
 <meta name="twitter:description" content="Threat-informed Salesforce hardening reference. Ten pillars from Identity to Defensive AI, with a companion Salesforce DX reference implementation.">
 
 <!-- Errata / contributions -->
@@ -1758,7 +1758,7 @@ pre.mermaid g.node[onclick]:hover > path {
 .ref-impl-callout code { font-size: 11px; }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   SCANNABLE LISTS + Q&A CARDS (v1.5.35)
+   SCANNABLE LISTS + Q&A CARDS (v1.5.36)
    For dense list/prose sections that need clearer item separation
    without changing line-height (which is already generous at 1.8).
    ═══════════════════════════════════════════════════════════════════════ */
@@ -1932,7 +1932,7 @@ pre.mermaid g.node[onclick]:hover > path {
     </div>
     <div>
       <h1><span class="phase-tag">The Mythos Imperative</span><span class="phase-sep">&mdash;</span>Salesforce CRM Security Hardening</h1>
-      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.35 &middot; last modified 2026-05-11</span>
+      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.36 &middot; last modified 2026-05-11</span>
     </div>
   </div>
   <div class="doc-meta">
@@ -2356,7 +2356,7 @@ gantt
 
 <!-- TECH · Hero ---------------------------------------------------------- -->
 <div class="card hero" id="hero" data-search="hero overview salesforce crm security hardening defender encyclopedia frontier ai mythos">
-  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.35 &middot; last modified 2026-05-11</p>
+  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.36 &middot; last modified 2026-05-11</p>
   <h1>The <span class="accent">Mythos Imperative</span><br/><span style="font-size:24px; font-weight:700; opacity:0.92; display:block; margin-top:6px;">A Defender's Encyclopedia for the Frontier-AI Era</span></h1>
   <p class="lede" style="border-left: 3px solid var(--sf-orange); padding: 6px 0 6px 16px; margin-left: 0;">
     <strong style="color: var(--sf-orange); letter-spacing: 0.04em;">Why this exists, why now.</strong>
@@ -3837,7 +3837,7 @@ flowchart LR
     <ul>
       <li>Same <code>LoginEvent</code> and <code>LoginHistory</code> records as TOTP; same SIEM ingest path (Appendix I).</li>
       <li><strong>What changes:</strong> the <code>AuthenticationMethodReference</code> column shows the AMR value (<code>fido2</code>, <code>webauthn</code>, <code>passkey</code>).</li>
-      <li><strong>Gap:</strong> SAML ACR values are not yet recorded in Login History as of v1.5.35 (planned future Salesforce release) &mdash; use a SAML tracer extension to inspect ACR until then.</li>
+      <li><strong>Gap:</strong> SAML ACR values are not yet recorded in Login History as of v1.5.36 (planned future Salesforce release) &mdash; use a SAML tracer extension to inspect ACR until then.</li>
     </ul>
   </div>
 
@@ -4532,8 +4532,11 @@ flowchart LR
     <li><strong>"All" filters.</strong> A rule that shares "All records owned by group X" is shared until
     group membership changes &mdash; new internal users added to X auto-publish their records.</li>
     <li><strong>Hierarchy-based grant to guests.</strong> Hierarchical sharing was disabled for guest users
-    in Winter '21, but legacy rules sometimes were left in place; audit for any rule with
-    <code>Effective_Grant_Type = 'Hierarchy'</code>.</li>
+    in Winter '21, but legacy rules sometimes were left in place; audit each guest sharing rule's
+    metadata and inspect the relevant <code>{Object}Share</code> objects' <code>RowCause</code> field
+    for legacy hierarchy / manual / implicit shares that should no longer apply to the guest.
+    (Note: there is no <code>Effective_Grant_Type</code> field on share objects &mdash; audit via
+    sharing-rule metadata + <code>RowCause</code> on the share records.)</li>
   </ul>
 </div>
 
@@ -5202,19 +5205,26 @@ sequenceDiagram
     addresses. <strong>This is now in effect.</strong>
   </p>
 
-  <h3>What happens automatically when detected</h3>
+  <h3>What happens automatically when detected (per KB 005318944)</h3>
   <ol>
-    <li>The affected user account is <strong>frozen</strong> and all active sessions are terminated.</li>
-    <li>All <strong>OAuth access AND refresh tokens</strong> granted to the user are <strong>revoked</strong> &mdash; both bearer tokens active in the session and any persisted refresh tokens.</li>
-    <li>At unfreeze the user is required to <strong>reset their password</strong> (if they authenticate with a password) before regaining access.</li>
+    <li>The affected user account is <strong>frozen</strong>.</li>
+    <li>All <strong>OAuth refresh tokens</strong> granted to the user are <strong>revoked</strong>.</li>
     <li>An email titled <em>"Salesforce Security notification"</em> is delivered to (a) the affected user and (b) all org admins / users with <code>Modify All Data</code>.</li>
-    <li>The user must contact their org admin to restore access.</li>
+    <li>The user must contact their org admin to restore access; reauthorize Connected Apps after unfreeze since refresh tokens are gone.</li>
   </ol>
   <p>
     <strong>Containment applies <em>before</em> admin review.</strong> Users may lose access
-    several minutes before the notification email is read. The same containment side-effects apply
-    for the Extended Login Anomaly program in <a href="#viii-login-anomaly" class="pillar-link">Pillar 8.9</a>
-    &mdash; both programs converge on the same enforcement primitives.
+    several minutes before the notification email is read.
+  </p>
+  <p style="font-size: 12px;">
+    <strong>Note:</strong> The companion <a href="#viii-login-anomaly" class="pillar-link">Pillar 8.9 Extended
+    Login Anomaly</a> program (KB 005319571) is broader &mdash; it also terminates all sessions, revokes
+    <em>access</em> tokens in addition to refresh tokens, and requires password reset at unfreeze
+    when the user authenticates with a password. The two anomaly programs share the freeze + refresh-token-revoke + email primitive but the Extended Login Anomaly program adds the
+    session/access-token/password-reset side-effects per KB 005319571 specifically. Read both KBs
+    directly for the canonical side-effect list per program.
+    <a href="https://help.salesforce.com/s/articleView?id=005318944&amp;type=1" target="_blank" rel="noopener">[KB 005318944 &#8599;]</a>
+    <a href="https://help.salesforce.com/s/articleView?id=005319571&amp;type=1" target="_blank" rel="noopener">[KB 005319571 &#8599;]</a>
   </p>
 
   <h3>Restoration runbook for SOC / admin team</h3>
@@ -5447,7 +5457,7 @@ sequenceDiagram
     <li>Permission Set Group: integration-specific, scoped to the objects + fields the integration touches</li>
     <li>"API Enabled" yes; "Modify All Data" no; "View All Data" no; specific object permissions only</li>
     <li>Login IP Range: locked to the integration source's static IPs</li>
-    <li>MFA: yes &mdash; but via JWT Bearer flow (the cert is the second factor)</li>
+    <li><strong>Auth: certificate-based OAuth 2.0 JWT Bearer flow</strong> (server-to-server; no UI login, no MFA prompt &mdash; UI-login MFA enforcement does not apply to JWT Bearer). The JWT signing certificate is <em>access control</em>, not a second factor: protect the private key via HSM / vault custody and enforce mTLS / IP allowlist / app policy / refresh rotation. For any human login to the same user, require Salesforce MFA / FIDO2 directly. <a href="https://help.salesforce.com/s/articleView?id=xcloud.remoteaccess_oauth_jwt_flow_ca.htm&amp;type=5" target="_blank" rel="noopener">[OAuth 2.0 JWT Bearer Flow KB &#8599;]</a></li>
   </ul>
   <h3>Why one-per-integration matters</h3>
   <ul>
@@ -5485,7 +5495,7 @@ sequenceDiagram
     <li>Use a dedicated integration user for Pub/Sub subscribers</li>
     <li>Scope Permission Sets to the specific Platform Events / CDC channels needed (not "subscribe to all")</li>
     <li>Validate the published event content in the subscriber &mdash; do not trust event payloads as authoritative</li>
-    <li>Pub/Sub events are observable in Real-Time EM (ApiEvent + StreamingChannelEvent) &mdash; baseline normal subscriber rate, alert on drops (could indicate stolen credential being used elsewhere)</li>
+    <li>Pub/Sub API subscriber activity is observable in Real-Time EM via supported event types (e.g., <code>ApiEvent</code> for API calls, plus event-log files for subscriber connections) &mdash; baseline normal subscriber rate, alert on drops (could indicate stolen credential being used elsewhere). <a href="https://developer.salesforce.com/docs/platform/pub-sub-api/guide/supported-event-types.html" target="_blank" rel="noopener">[Pub/Sub API supported event types &#8599;]</a></li>
   </ul>
 </div>
 <!-- ════════════════════════════════════════════════════════════════════════
@@ -5671,22 +5681,29 @@ flowchart LR
   </p>
   <h3>Run-context decision tree</h3>
   <table>
-    <thead><tr><th>Flow type</th><th>Default run context</th><th>Override</th></tr></thead>
+    <thead><tr><th>Flow type</th><th>Default run context</th><th>User-context override available?</th></tr></thead>
     <tbody>
-      <tr><td><strong>Record-Triggered Flow</strong></td><td>System context (no sharing, no FLS)</td><td>Set "How to Run the Flow" to "User context, with sharing"</td></tr>
-      <tr><td><strong>Schedule-Triggered Flow</strong></td><td>System context</td><td>System context only</td></tr>
-      <tr><td><strong>Autolaunched Flow</strong> (subflow)</td><td>Inherits caller's context</td><td>Force user context per subflow</td></tr>
+      <tr><td><strong>Record-Triggered Flow</strong></td><td>System context (no sharing, no FLS)</td><td><strong>No</strong> &mdash; record-triggered flows run as the user that triggered the change but in <em>system context</em>; the "How to Run the Flow" picker does not include a user-context option for this flow type. Hardening = entry criteria, explicit permission checks in the flow, minimal field/record scope, and (where user-context is required for the operation) wrap the affected work in an invocable Apex method declared <code>with sharing</code> + USER_MODE.</td></tr>
+      <tr><td><strong>Schedule-Triggered Flow</strong></td><td>System context</td><td>No</td></tr>
+      <tr><td><strong>Autolaunched Flow</strong> (subflow)</td><td>Inherits caller's context</td><td>Yes &mdash; can be configured to "How to Run the Flow: System Context" or to inherit; choose explicitly per subflow</td></tr>
       <tr><td><strong>Screen Flow</strong></td><td>User context (with sharing &amp; FLS)</td><td>Can be set to system context (rarely needed)</td></tr>
-      <tr><td><strong>Platform Event-Triggered Flow</strong></td><td>System context</td><td>User context only via running-user override</td></tr>
+      <tr><td><strong>Platform Event-Triggered Flow</strong></td><td>System context</td><td>No native override; the running-user context is the "running user" configured on the flow, but the run context itself is system</td></tr>
     </tbody>
   </table>
+  <p style="font-size: 12px; margin-top: 6px;">
+    <a href="https://help.salesforce.com/s/articleView?id=platform.flow_distribute_context.htm&amp;type=5" target="_blank" rel="noopener">[Salesforce Help &mdash; Flow Run Context &#8599;]</a>
+  </p>
   <h3>Hardening rules</h3>
   <ul>
-    <li><strong>Default to user context</strong> for Record-Triggered Flows that touch user-visible objects.
-    Use system context only when the Flow's purpose is privilege escalation (e.g., system-managed audit
-    trail row inserts) and document the justification.</li>
+    <li><strong>Record-triggered flows run in system context &mdash; there is no user-context override.</strong>
+    Defend with (a) entry criteria that narrow the trigger set, (b) explicit Apex permission checks
+    (<code>FeatureManagement</code>, profile / PSG checks) inside the flow, (c) minimal field /
+    record scope on Update Records elements, (d) wrap user-context-required work in an invocable
+    Apex method declared <code>with sharing</code> + <code>AccessLevel.USER_MODE</code> on its DML.</li>
     <li><strong>Invocable Apex called from Flow inherits the Flow's run context</strong> &mdash; system-context
-    Flow with system-context Apex is a double bypass</li>
+    Flow with system-context Apex is a double bypass. The invocable-Apex wrap pattern above explicitly
+    declares <code>with sharing</code> on the class to <em>break</em> that inheritance for the wrapped
+    DML, when user-context is required.</li>
     <li><strong>Guest-accessible Flows are the high-risk surface.</strong> Flows reachable from a public
     Experience Cloud page execute in the guest user's context. Audit them with the same rigor as
     Pillar 3's <code>@AuraEnabled</code> review.</li>
@@ -5696,8 +5713,11 @@ flowchart LR
   </ul>
   <h3>Auditing Flow run-context</h3>
   <ul>
-    <li>Metadata API: <code>FlowDefinition</code> / <code>Flow</code> entities expose
-    <code>processMetadataValues</code> with <code>RunInMode</code> &mdash; query for system-context Flows</li>
+    <li><strong>Metadata API / source-format inspection</strong>: Flow metadata XML carries the
+    <code>&lt;runInMode&gt;</code> element on each <code>Flow</code> (values: <code>SystemModeWithoutSharing</code>,
+    <code>DefaultMode</code>, <code>SystemModeWithSharing</code> in newer flow versions). Retrieve via
+    Metadata API or sfdx source-format pull; SOQL against <code>FlowDefinition</code> does not surface
+    <code>runInMode</code> directly &mdash; this is a metadata-retrieval audit, not a record-query audit.</li>
     <li>Quarterly attestation: enumerate all Flows running in system context, justify each one</li>
     <li>Static-analysis CI gate: any new Flow PR that introduces a system-context Record-Triggered Flow
     requires explicit reviewer sign-off</li>
@@ -6314,8 +6334,8 @@ flowchart LR
   <p>
     Findings appear in Real-Time EM as structured event records (e.g., <code>ApiAnomalyEvent</code>,
     <code>CredentialStuffingEvent</code>, <code>ReportAnomalyEvent</code>, <code>SessionHijackingEvent</code>,
-    <code>GuestUserAnomalyEvent</code>, <code>AnomalousLoginEvent</code> &mdash; also referenced as
-    <code>LoginAnomalyEvent</code> in older API versions / docs, for anomalous authentication patterns).
+    <code>GuestUserAnomalyEvent</code>, <code>LoginAnomalyEvent</code> &mdash; the canonical Salesforce
+    object reference for anomalous authentication patterns is <a href="https://developer.salesforce.com/docs/atlas.en-us.platform_events.meta/platform_events/sforce_api_objects_loginanomalyevent.htm" target="_blank" rel="noopener"><code>LoginAnomalyEvent</code> / <code>LoginAnomalyEventStore</code></a>).
     Subscribe via the <strong>Pub/Sub API</strong> (gRPC streaming
     to a SIEM-side consumer), via <strong>Apex Subscribers</strong> on the platform event objects, or
     via <strong>Transaction Security policies</strong> for inline Block / MFA / Notify actions.
@@ -6360,7 +6380,7 @@ flowchart LR
     <thead><tr><th>Policy pattern (customer-authored)</th><th>Event</th><th>Action</th><th>Condition</th></tr></thead>
     <tbody>
       <tr><td>Anomalous Report Export</td><td>ReportEvent</td><td>MFA</td><td>RowsProcessed &gt; 10000 OR off-hours</td></tr>
-      <tr><td>Bulk API from non-trusted IP</td><td>BulkApiResultEvent</td><td>Block</td><td>SourceIP not in Trusted IP Ranges</td></tr>
+      <tr><td>Bulk API from non-approved source IP</td><td>BulkApiResultEvent</td><td>Block</td><td>SourceIP not in customer-maintained approved-source-IP list (Trusted IP Ranges is for skipping Identity Verification, not blocking; use Profile Login IP Ranges or app/ECA IP restrictions for actual enforcement &mdash; see <a href="https://help.salesforce.com/s/articleView?id=000386441&amp;type=1" target="_blank" rel="noopener">[Network Access vs Profile IP Restrictions KB]</a>)</td></tr>
       <tr><td>Mass record update</td><td>ApiEvent</td><td>MFA</td><td>RowCount &gt; 5000 on sensitive object</td></tr>
       <tr><td>New device login</td><td>LoginEvent</td><td>Notify</td><td>UserAgent / Device fingerprint not in known list</td></tr>
       <tr><td>Off-hours admin action</td><td>ApiEvent / UriEvent</td><td>Notify</td><td>Setup endpoint outside business hours</td></tr>
@@ -6390,10 +6410,14 @@ flowchart LR
       <strong>Default <code>ReportEvent</code> TSP for &gt;10,000-record UI exports.</strong> Salesforce
       ships a default Transaction Security Policy on <code>ReportEvent</code> for all Salesforce Shield +
       Event Monitoring customers. Trigger condition: report export via UI exceeds 10,000 records &rarr;
-      step-up authentication required. <strong>The default policy is deployed <em>disabled</em></strong>;
-      admins review it in sandbox first, then enable. Salesforce will <strong>not</strong> auto-enable the
-      default if (a) the admin has edited it, or (b) the org already has another <code>ReportEvent</code>
-      policy. Existing customer-authored policies are unaffected.
+      step-up authentication required. <strong>Deployment sequence:</strong> the default policy is
+      first <em>deployed disabled</em> in the pre-enforcement window so admins can review it in sandbox.
+      <strong>At the enforcement date the default will auto-enable</strong> &mdash; <em>unless</em>
+      (a) the admin has edited the default policy, or (b) the org already has another
+      <code>ReportEvent</code> policy. Existing customer-authored policies are unaffected. <strong>Action:</strong>
+      review the default in sandbox during the pre-enforcement window; either accept the default
+      (no edit = auto-enable at enforcement) or edit it (admin edit = no auto-enable; admin must
+      then explicitly enable on their schedule).
     </li>
   </ol>
   <p>
@@ -6723,7 +6747,7 @@ flowchart LR
   </ul>
   <h3>Hardening pattern</h3>
   <ul>
-    <li><strong>OIDC-based federation</strong> for CI providers that support it (GitHub Actions, GitLab) &mdash; CI runner exchanges its OIDC token for a short-lived Salesforce session via JWT bearer flow; no long-lived secret in the runner</li>
+    <li><strong>OIDC-based federation</strong> for CI providers that support it (GitHub Actions, GitLab) &mdash; <strong>Salesforce JWT Bearer flow does not accept a GitHub / GitLab OIDC token directly.</strong> The pattern: the CI runner authenticates via OIDC to a cloud STS / vault / HSM / secrets-broker (AWS IAM Roles for OIDC, HashiCorp Vault JWT auth method, Azure Workload Identity, etc.), which then either (a) signs a Salesforce JWT with a private key that never leaves vault / HSM custody and returns a short-lived Salesforce session, or (b) delivers a short-lived sf-auth-url to the runner with no long-lived secret in the runner image. <a href="https://docs.github.com/en/actions/concepts/security/openid-connect" target="_blank" rel="noopener">[GitHub OIDC &#8599;]</a> <a href="https://help.salesforce.com/s/articleView?id=xcloud.remoteaccess_oauth_jwt_flow_ca.htm&amp;type=5" target="_blank" rel="noopener">[Salesforce JWT Bearer Flow &#8599;]</a></li>
     <li><strong>Per-org service account</strong> &mdash; one CI integration user per Salesforce org; rotate independently</li>
     <li><strong>Per-environment scope</strong> &mdash; Dev / UAT / Prod CI runners have distinct credentials; promotion across environments is a separate approval</li>
     <li><strong>Secrets in vaults, not env vars</strong> &mdash; HashiCorp Vault, AWS Secrets Manager, GitHub OIDC + AWS STS, GCP Secret Manager &mdash; secrets pulled at runtime, never committed, never in plaintext env</li>
@@ -6760,15 +6784,22 @@ flowchart LR
 <div class="card" id="ix-unlocked-signed" data-search="unlocked package signed package package version sfdx force package versioned namespace promoted release">
   <h2>9.3 &middot; Unlocked Packages + Signed Package Enforcement</h2>
   <p>
-    Unlocked packages are the modern Salesforce DX deployment unit. Signing them adds a supply-chain
-    integrity check: the deployed package is verifiably the one your CI built, with no tampering
-    in flight.
+    Unlocked packages are the modern Salesforce DX deployment unit. They are <strong>immutable per
+    version</strong> &mdash; a package version, once promoted, cannot be modified in place; new content
+    requires a new version. That immutability is the platform-native supply-chain primitive.
+  </p>
+  <p>
+    <strong>Signing is a customer-built CI / deployment-gate control, not a platform-native
+    verification.</strong> Salesforce does <em>not</em> verify a customer-applied signature at install
+    time. The pattern below is a CI gate the customer builds on top of the package-version immutability
+    primitive &mdash; useful for tamper-evidence inside the customer's pipeline, but it does not
+    extend Salesforce's installer to enforce signatures.
   </p>
   <ul>
     <li>Use Salesforce DX scratch orgs as the build environment; scratch org reset on every build means clean state</li>
     <li>Promote package versions through Dev &rarr; UAT &rarr; Prod with progressively stricter approvers</li>
-    <li>Signing: hash the package version metadata; sign with a private key held only in the deployment vault; verify on install</li>
-    <li>Reject unsigned packages at the deployment gate</li>
+    <li><strong>Customer-built signing</strong>: hash the package version metadata; sign with a private key held only in the deployment vault; the CI / deployment-gate step verifies the signature before invoking <code>sfdx force:package:install</code></li>
+    <li>Reject unsigned packages <em>at the deployment gate</em> (your CI script does the verification; Salesforce does not)</li>
   </ul>
 </div>
 
@@ -6860,7 +6891,7 @@ flowchart LR
     (Mythos) is restricted to a research program (Project Glasswing), and the unauthorized-access
     incident in April 2026 was a third-party-vendor compromise, not a direct breach of Anthropic.
     Defenders have access to the next-tier model (Claude Opus 4.7) at scale through Claude Security
-    (in public beta as of May 2026); ChatGPT 5 and the OpenAI o-series cover equivalent workloads.
+    (in public beta as of May 2026); OpenAI GPT-5.2 and GPT-5.2-Codex cover equivalent workloads.
     Treat AI-assisted review as <em>one input</em> alongside controls and human review, not a
     replacement for either.
   </p>
@@ -6924,7 +6955,7 @@ flowchart LR
   <h3>Subsection map</h3>
   <ul>
     <li><a href="#x-claude-security">10.1 Claude Security (Opus 4.7) &mdash; what it does, what it doesn't</a></li>
-    <li><a href="#x-chatgpt-vs-claude">10.2 ChatGPT 5 / o-series &mdash; equivalent workflows</a></li>
+    <li><a href="#x-chatgpt-vs-claude">10.2 OpenAI GPT-5.2 / GPT-5.2-Codex &mdash; equivalent workflows</a></li>
     <li><a href="#x-trust-layer">10.3 Trust Layer pattern (zero-retention, PII scrub, deterministic re-run)</a></li>
     <li><a href="#x-anomaly-authoring">10.4 AI-assisted anomaly policy authoring</a></li>
     <li><a href="#x-irp-companion">10.5 AI as IRP companion (Claude Code on-call)</a></li>
@@ -6969,13 +7000,16 @@ flowchart LR
   </p>
 </div>
 
-<!-- 10.2 ChatGPT 5 / o-series -->
-<div class="card" id="x-chatgpt-vs-claude" data-search="chatgpt 5 o1 o3 openai equivalent workflows multi provider redundancy circuit breaker dual provider divergence">
-  <h2>10.2 &middot; ChatGPT 5 / o-Series &mdash; Equivalent Workflows</h2>
+<!-- 10.2 ChatGPT 5.2 / GPT-5.2-Codex -->
+<div class="card" id="x-chatgpt-vs-claude" data-search="chatgpt 5.2 gpt-5.2-codex openai equivalent workflows multi provider redundancy circuit breaker dual provider divergence">
+  <h2>10.2 &middot; OpenAI GPT-5.2 / GPT-5.2-Codex &mdash; Equivalent Workflows</h2>
   <p>
-    OpenAI's frontier security workloads run on <strong>GPT-5</strong> and the <strong>o-series</strong>
-    (o1, o3) reasoning models. For Salesforce-side hardening tasks, the workloads are equivalent:
-    code review, metadata audit, policy authoring, IRP runbook drafting.
+    OpenAI's frontier security workloads run on <strong>GPT-5.2</strong> (flagship) and
+    <strong>GPT-5.2-Codex</strong> (coding-specialized) as of late 2026. The earlier reasoning
+    o-series (o1, o3) has been superseded by GPT-5 generation models for current production use
+    per <a href="https://platform.openai.com/docs/guides/latest-model" target="_blank" rel="noopener">[OpenAI latest-model guide &#8599;]</a>.
+    For Salesforce-side hardening tasks, the workloads are equivalent: code review, metadata audit,
+    policy authoring, IRP runbook drafting.
   </p>
   <h3>Multi-provider use pattern</h3>
   <ul>
@@ -7111,7 +7145,7 @@ flowchart LR
   <ul>
     <li><strong>Claude.ai + Claude Security</strong> &mdash; codebase / metadata scanning at scale; long-context analysis; structured triage. Public beta May 2026.</li>
     <li><strong>Claude Code</strong> &mdash; CLI / IDE companion for repository-scoped work; well-suited to Salesforce DX repo scanning, PR review automation, IRP companion. (Used to co-build this whitepaper.)</li>
-    <li><strong>ChatGPT 5 / o-series</strong> &mdash; equivalent workloads; useful as second-provider in dual-provider Trust Layer pattern (10.3).</li>
+    <li><strong>OpenAI GPT-5.2 / GPT-5.2-Codex</strong> &mdash; equivalent workloads; useful as second-provider in dual-provider Trust Layer pattern (10.3).</li>
     <li><strong>Cursor / Continue.dev / Codeium</strong> &mdash; IDE-integrated AI for inline secure-coding suggestions; route to Claude or GPT under the hood.</li>
     <li><strong>OpenAI Codex CLI</strong> &mdash; non-interactive code-review and architecture-critique workflows. (Used to co-review this whitepaper's plan.)</li>
     <li><strong>Google Gemini CLI</strong> &mdash; equivalent non-interactive review; cross-validation with Codex on architectural decisions. (Used here.)</li>
@@ -7155,7 +7189,7 @@ flowchart LR
       <tr><td>Sandbox PII protection</td><td>Sandbox templates</td><td>Salesforce Data Mask</td><td>Data Mask add-on</td></tr>
       <tr><td>Backup &amp; recovery</td><td>Recycle Bin, Data Export</td><td>Salesforce Backup &amp; Restore, OwnBackup, Spanning, Odaseva</td><td>Backup vendor</td></tr>
       <tr><td>AppExchange supply-chain monitoring</td><td>OAuth Usage report</td><td>SSPM (Reco, AppOmni, Obsidian, Valence)</td><td>SSPM vendor</td></tr>
-      <tr><td>AI code &amp; metadata audit</td><td>Manual review</td><td>Claude Security (Opus 4.7); ChatGPT 5</td><td>Claude Enterprise / OpenAI Enterprise</td></tr>
+      <tr><td>AI code &amp; metadata audit</td><td>Manual review</td><td>Claude Security (Opus 4.7); GPT-5.2 / GPT-5.2-Codex</td><td>Claude Enterprise / OpenAI Enterprise</td></tr>
       <tr><td>SIEM streaming</td><td>CSV exports</td><td>Splunk / Sentinel / Chronicle / Elastic / New Relic / Sumo / Datadog</td><td>SIEM vendor</td></tr>
       <tr><td>Privacy / data subject rights</td><td>Manual SOQL + Data Loader</td><td>Privacy Center</td><td>Privacy Center add-on</td></tr>
     </tbody>
@@ -8759,7 +8793,7 @@ DIFF:
     });
     exportBtn.addEventListener('click', function() {
       var snapshot = {
-        framework: 'Salesforce CRM Security Hardening v1.5.35',
+        framework: 'Salesforce CRM Security Hardening v1.5.36',
         scored_at: new Date().toISOString(),
         scores: loadStored(),
         average: parseFloat(avgEl.textContent) || 0,
@@ -9090,8 +9124,8 @@ DIFF:
   </p>
   <h3>Document metadata</h3>
   <p style="font-size: 12px; font-family: 'Source Code Pro', monospace;">
-    version 1.5.35 &middot; last modified 2026-05-11 &middot; source snapshot 2026-05-11 &middot;
-    Build identifier: SF-CRM-HARDENING-1.5.35
+    version 1.5.36 &middot; last modified 2026-05-11 &middot; source snapshot 2026-05-11 &middot;
+    Build identifier: SF-CRM-HARDENING-1.5.36
   </p>
 </div>
 
