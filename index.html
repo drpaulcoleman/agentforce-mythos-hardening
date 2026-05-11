@@ -1,7 +1,7 @@
                                                                                                                                                               <!DOCTYPE html>
 <!--
   Salesforce CRM Security Hardening — A Defender's Encyclopedia for the Frontier-AI Era
-  Document version 1.5.36 · Last modified 2026-05-11
+  Document version 1.5.37 · Last modified 2026-05-11
   Copyright (c) 2026 Dr. Paul Coleman. All rights reserved.
 
   A vendor-neutral hardening reference for the customer side of the Salesforce
@@ -28,7 +28,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">                                  
 <title>The Mythos Imperative &mdash; Salesforce CRM Security Hardening</title>                                                      
-<meta name="document-version" content="1.5.36">
+<meta name="document-version" content="1.5.37">
 <meta name="last-modified" content="2026-05-06">
 <meta name="source-snapshot" content="2026-05-06">
 <meta name="description" content="The Mythos Imperative: a vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars from Identity to Defensive AI; nineteen appendices.">
@@ -38,7 +38,7 @@
 
 <!-- Open Graph / social-share metadata -->
 <meta property="og:type" content="article">
-<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.36">
+<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.37">
 <meta property="og:description" content="Vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars, 19 appendices, fully attributed.">
 <meta property="og:url" content="https://drpaulcoleman.github.io/agentforce-mythos-hardening/">
 <meta property="og:site_name" content="Salesforce CRM Security Hardening">
@@ -49,7 +49,7 @@
 
 <!-- Twitter / X card metadata -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.36">
+<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.37">
 <meta name="twitter:description" content="Threat-informed Salesforce hardening reference. Ten pillars from Identity to Defensive AI, with a companion Salesforce DX reference implementation.">
 
 <!-- Errata / contributions -->
@@ -1758,7 +1758,7 @@ pre.mermaid g.node[onclick]:hover > path {
 .ref-impl-callout code { font-size: 11px; }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   SCANNABLE LISTS + Q&A CARDS (v1.5.36)
+   SCANNABLE LISTS + Q&A CARDS (v1.5.37)
    For dense list/prose sections that need clearer item separation
    without changing line-height (which is already generous at 1.8).
    ═══════════════════════════════════════════════════════════════════════ */
@@ -1932,7 +1932,7 @@ pre.mermaid g.node[onclick]:hover > path {
     </div>
     <div>
       <h1><span class="phase-tag">The Mythos Imperative</span><span class="phase-sep">&mdash;</span>Salesforce CRM Security Hardening</h1>
-      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.36 &middot; last modified 2026-05-11</span>
+      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.37 &middot; last modified 2026-05-11</span>
     </div>
   </div>
   <div class="doc-meta">
@@ -2356,7 +2356,7 @@ gantt
 
 <!-- TECH · Hero ---------------------------------------------------------- -->
 <div class="card hero" id="hero" data-search="hero overview salesforce crm security hardening defender encyclopedia frontier ai mythos">
-  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.36 &middot; last modified 2026-05-11</p>
+  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.37 &middot; last modified 2026-05-11</p>
   <h1>The <span class="accent">Mythos Imperative</span><br/><span style="font-size:24px; font-weight:700; opacity:0.92; display:block; margin-top:6px;">A Defender's Encyclopedia for the Frontier-AI Era</span></h1>
   <p class="lede" style="border-left: 3px solid var(--sf-orange); padding: 6px 0 6px 16px; margin-left: 0;">
     <strong style="color: var(--sf-orange); letter-spacing: 0.04em;">Why this exists, why now.</strong>
@@ -3837,7 +3837,7 @@ flowchart LR
     <ul>
       <li>Same <code>LoginEvent</code> and <code>LoginHistory</code> records as TOTP; same SIEM ingest path (Appendix I).</li>
       <li><strong>What changes:</strong> the <code>AuthenticationMethodReference</code> column shows the AMR value (<code>fido2</code>, <code>webauthn</code>, <code>passkey</code>).</li>
-      <li><strong>Gap:</strong> SAML ACR values are not yet recorded in Login History as of v1.5.36 (planned future Salesforce release) &mdash; use a SAML tracer extension to inspect ACR until then.</li>
+      <li><strong>Gap:</strong> SAML ACR values are not yet recorded in Login History as of v1.5.37 (planned future Salesforce release) &mdash; use a SAML tracer extension to inspect ACR until then.</li>
     </ul>
   </div>
 
@@ -4067,13 +4067,14 @@ flowchart LR
   &lt;/userPermissions&gt;
 &lt;/Profile&gt;
 
-&lt;!-- AFTER: SalesManager.permissionsetgroup-meta.xml + composable PermSets --&gt;
-&lt;PermissionSetGroup&gt;
-  &lt;permissionSets&gt;
-    &lt;permissionSet&gt;Base_Sales_User&lt;/permissionSet&gt;       &lt;!-- read +CRUD on Opportunity to user's records --&gt;
-    &lt;permissionSet&gt;Manager_Scope&lt;/permissionSet&gt;          &lt;!-- adds Modify All Records on Opportunity, scoped --&gt;
-    &lt;permissionSet&gt;Quote_Creator&lt;/permissionSet&gt;          &lt;!-- adds Quote object permissions --&gt;
-  &lt;/permissionSets&gt;
+&lt;!-- AFTER: Sales_Manager.permissionsetgroup-meta.xml + composable PermSets --&gt;
+&lt;!-- Metadata API shape: repeated scalar &lt;permissionSets&gt; elements, one per member --&gt;
+&lt;PermissionSetGroup xmlns=&quot;http://soap.sforce.com/2006/04/metadata&quot;&gt;
+  &lt;label&gt;Sales Manager&lt;/label&gt;
+  &lt;description&gt;Composed manager scope: base sales + scoped modify all records + quotes&lt;/description&gt;
+  &lt;permissionSets&gt;Base_Sales_User&lt;/permissionSets&gt;       &lt;!-- read +CRUD on Opportunity to user's records --&gt;
+  &lt;permissionSets&gt;Manager_Scope&lt;/permissionSets&gt;          &lt;!-- adds Modify All Records on Opportunity, scoped --&gt;
+  &lt;permissionSets&gt;Quote_Creator&lt;/permissionSets&gt;          &lt;!-- adds Quote object permissions --&gt;
   &lt;status&gt;Updated&lt;/status&gt;
 &lt;/PermissionSetGroup&gt;
 </code></pre>
@@ -4468,11 +4469,14 @@ flowchart LR
   <div class="callout">
     <p style="margin: 0;"><strong>Audit order matters.</strong> Per Salesforce's
     <a href="https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/communities_secure_guest_users.pdf" target="_blank" rel="noopener">"Share Securely with Guest Users" guide &#8599;</a>:
-    <strong>system permissions first</strong> (closes the API surface so an attacker cannot enumerate
-    object permissions via Aura / GraphQL even if those are misconfigured), <strong>then object
-    permissions</strong> (closes the data), <strong>then Apex class access</strong> (closes the
-    controllers), <strong>then Visualforce / LWC component access</strong>. An admin who runs out of
-    time should always have closed the system-permission surface first.</p>
+    <strong>system permissions first</strong> (closes the public API / GraphQL exposure surface so an
+    attacker cannot query object data via the platform's public-facing API endpoints), <strong>then
+    object permissions</strong> (closes the data), <strong>then Apex class access</strong> (closes the
+    controllers), <strong>then Visualforce / LWC component access</strong>. <em>Note:</em> system-permission
+    revocation reduces public-API/GraphQL exposure, but Aura/LWC controller reachability also depends
+    on Apex class/component access and the code's own authorization checks &mdash; do not stop at
+    system perms. An admin who runs out of time should always have closed the system-permission surface
+    first; the other layers still need their own audit.</p>
   </div>
   <h3>System permissions (audit first &mdash; closes the API surface)</h3>
   <ul class="checklist" data-checklist-id="iii-profile-sys">
@@ -4642,8 +4646,11 @@ public static List&lt;Case&gt; getMyCases() {
   <ul>
     <li>Static resources accessed via guest-restricted profile are cached as <em>private</em> (browser-only)
     rather than CDN-shared</li>
-    <li>Switching a previously-unrestricted site to restricted has a <strong>45-day cache-expiry window</strong>
-    during which previously-cached content remains accessible &mdash; plan cutovers accordingly<sup><a href="#ref-24" class="ref-link">[24]</a></sup></li>
+    <li>Switching a previously-unrestricted site to restricted: rich-text-area images and certain
+    static-resource cache entries can persist up to <strong>45 days</strong> per
+    <a href="https://help.salesforce.com/s/articleView?id=platform.sites_caching.htm&amp;language=en_US&amp;type=5" target="_blank" rel="noopener">[Salesforce Sites caching KB &#8599;]</a>;
+    page and attachment TTLs depend on per-page cache settings and HTTP cache headers, not a blanket
+    45-day window. Plan cutovers accordingly<sup><a href="#ref-24" class="ref-link">[24]</a></sup></li>
   </ul>
   <h3>Audit pattern</h3>
   <ul>
@@ -4840,7 +4847,7 @@ sequenceDiagram
       <tr><td><strong>Client Credentials flow</strong></td><td>&#9989; Acceptable</td><td>Service-to-service without a user identity (avoid for record access; prefer JWT Bearer with named integration user)</td></tr>
       <tr><td><strong>User-Agent flow</strong> (implicit)</td><td>&#10071; Block at the org level</td><td>Per Salesforce official guidance; legacy SPA flow superseded by web-server + PKCE<sup><a href="#ref-26" class="ref-link">[26]</a></sup></td></tr>
       <tr><td><strong>Username-Password (ROPC) flow</strong></td><td>&#10071; Block at the org level</td><td>Salesforce official guidance: do not use; sends credentials directly to the app</td></tr>
-      <tr><td><strong>Device flow</strong></td><td>&#9888; Discouraged for vishing-target use; removed from Data Loader 2026-09-02</td><td>Originally surfaced in the UNC6040 phone-channel exploitation pattern (the verification-code prompt is what the attacker walks the victim through). Salesforce <strong>removed Device Flow from the auto-installed Data Loader Connected App on 2026-09-02</strong> &mdash; that canonical vishing target no longer supports the flow. Customer-created Connected Apps can still use Device Flow if explicitly enabled (legitimate IoT integrations) &mdash; treat it as a high-risk flow, restrict it to specific Connected Apps, and pair with admin pre-approval + Block Uninstalled Connected Apps so the victim cannot complete a verification-code grant on an attacker-controlled app. <a href="https://admin.salesforce.com/blog/2025/get-ready-for-changes-to-connected-app-usage-restrictions" target="_blank" rel="noopener">[Salesforce Admins blog Sep 2025 &#8599;]</a></td></tr>
+      <tr><td><strong>Device flow</strong></td><td>&#9888; Discouraged for vishing-target use; removed from Data Loader in early September 2025</td><td>Originally surfaced in the UNC6040 phone-channel exploitation pattern (the verification-code prompt is what the attacker walks the victim through). Salesforce <strong>removed Device Flow from the auto-installed Data Loader Connected App in early September 2025</strong> &mdash; that canonical vishing target no longer supports the flow. Customer-created Connected Apps can still use Device Flow if explicitly enabled (legitimate IoT integrations) &mdash; treat it as a high-risk flow, restrict it to specific Connected Apps, and pair with admin pre-approval + Block Uninstalled Connected Apps so the victim cannot complete a verification-code grant on an attacker-controlled app. <a href="https://admin.salesforce.com/blog/2025/get-ready-for-changes-to-connected-app-usage-restrictions" target="_blank" rel="noopener">[Salesforce Admins blog Sep 2025 &#8599;]</a></td></tr>
     </tbody>
   </table>
   <h3>Block at the org level</h3>
@@ -5232,7 +5239,7 @@ sequenceDiagram
     <li>From Setup, open <strong>Session Management</strong>. Review session origin, authentication method, connected app details for the affected user.</li>
     <li>Look for IP addresses from unfamiliar geographic locations, unexpected connected apps, or API calls outside the user's typical work hours. Reference the
       <a href="https://help.salesforce.com/s/articleView?id=005319571&amp;type=1" target="_blank" rel="noopener">KB 005319571 &mdash; Extended Login Anomaly Detections and Containment</a> for structured triage (same KB covers the companion anomaly program).</li>
-    <li>If activity reflects typical usage: unfreeze the user, instruct them to reauthenticate, reset password, and <strong>stop using the anonymizing VPN / proxy</strong> &mdash; continued use re-triggers containment.</li>
+    <li>If activity reflects typical usage: unfreeze the user, instruct them to reauthenticate and <strong>stop using the anonymizing VPN / proxy</strong> &mdash; continued use re-triggers containment. (Password reset is not required by KB 005318944 for the IP Reputation path; it is required by KB 005319571 for Extended Login Anomaly when password auth is the entry vector &mdash; do not conflate the two procedures.)</li>
     <li>If activity does NOT reflect typical usage: keep frozen; treat as suspected account takeover; engage IRP runbook (Pillar 8.6).</li>
     <li>Notify the user to <strong>reauthorize Connected Apps</strong> &mdash; the refresh-token revocation means existing OAuth grants no longer work for UI or API.</li>
   </ol>
@@ -5588,15 +5595,16 @@ flowchart LR
     System-mode Apex is the historical default and the historical bug source.
   </p>
   <div class="callout">
-    <p style="margin: 0;"><strong>API v67 (Summer '26) forward-looking note.</strong> Per the
-    <a href="https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_classes_enforce_usermode.htm" target="_blank" rel="noopener">Apex enforce user mode reference &#8599;</a>,
-    starting with API v67 plain SOQL / SOSL / DML operations <strong>default to USER_MODE</strong>
-    without explicit syntax &mdash; bumping the API version on the class file turns on user-mode for the
-    whole class. The explicit <code>WITH USER_MODE</code> clause and <code>AccessLevel.USER_MODE</code>
-    parameter remain valid and recommended for clarity / posture. Default class sharing keyword
-    (<em>no</em> keyword) historically behaves as <code>without sharing</code> in most contexts but is
-    technically context-dependent &mdash; always declare explicitly per
-    <a href="https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_classes_keywords_sharing.htm" target="_blank" rel="noopener">Apex class sharing keyword doc &#8599;</a>.</p>
+    <p style="margin: 0;"><strong>Apex defaults to system mode &mdash; user mode is opt-in per operation.</strong>
+    Plain Apex SOQL / SOSL / DML runs in <strong>system mode</strong> by default (no CRUD / FLS /
+    sharing enforcement) regardless of API version. To enforce user mode you must use one of:
+    <code>WITH USER_MODE</code> clause on the SOQL/SOSL, <code>AccessLevel.USER_MODE</code> on the
+    DML overload, or explicit <code>WITH SECURITY_ENFORCED</code> (legacy; FLS+CRUD on read only).
+    Bumping the API version on a class does <em>not</em> change this. Default class sharing keyword
+    (<em>no</em> keyword) is context-dependent and historically behaves as <code>without sharing</code>
+    in most contexts &mdash; always declare explicitly per
+    <a href="https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_classes_keywords_sharing.htm" target="_blank" rel="noopener">Apex class sharing keyword doc &#8599;</a>
+    and <a href="https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_classes_enforce_usermode.htm" target="_blank" rel="noopener">Apex enforce user mode reference &#8599;</a>.</p>
   </div>
   <h3>Migration order for legacy code</h3>
   <ol>
@@ -5618,14 +5626,13 @@ flowchart LR
     variables works. When dynamic SOQL is required, use <code>String.escapeSingleQuotes()</code> on
     user input. Bind variables are preferred.
   </p>
-  <h3>Patterns</h3>
-  <ul>
-    <li><strong>Static SOQL with bind</strong> &mdash; the default: <code>[SELECT Id FROM Contact WHERE Name = :userInput WITH USER_MODE]</code></li>
-    <li><strong>Dynamic SOQL with typed bind</strong> &mdash; for non-string types: build the query string,
-    use <code>Database.queryWithBinds(query, bindMap, AccessLevel.USER_MODE)</code></li>
-    <li><strong>escapeSingleQuotes</strong> &mdash; legacy fallback when neither of the above fits, e.g.,
-    column-name driven dynamic ORDER BY</li>
-  </ul>
+  <h3>Patterns (ordered by preference; use the first that fits the operation)</h3>
+  <ol>
+    <li><strong>Static SOQL with bind variables</strong> &mdash; the default: <code>[SELECT Id FROM Contact WHERE Name = :userInput WITH USER_MODE]</code>. No dynamic SOQL; no injection surface.</li>
+    <li><strong>Dynamic SOQL with typed binds</strong> &mdash; for queries that <em>must</em> be assembled at runtime: <code>Database.queryWithBinds(query, bindMap, AccessLevel.USER_MODE)</code>. Bind map enforces parameter typing.</li>
+    <li><strong>Typecasting / allowlisting for non-quoted fragments</strong> &mdash; numeric values, object names, field names, sort columns, ASC/DESC direction. Cast or allowlist against a fixed enum; never concatenate user input into these positions.</li>
+    <li><strong><code>String.escapeSingleQuotes()</code></strong> &mdash; <em>quoted string literals only</em>. Insufficient for numeric / unquoted / identifier injection per <a href="https://trailhead.salesforce.com/content/learn/modules/secure-serverside-development/mitigate-soql-injection" target="_blank" rel="noopener">[Trailhead &mdash; Mitigate SOQL Injection &#8599;]</a>. Legacy fallback at best.</li>
+  </ol>
   <p>
     SOQL injection lives in the OWASP Top 10<sup><a href="#ref-35" class="ref-link">[35]</a></sup>; treat it as a deployment-blocking finding
     in DevSecOps gates (Pillar 9).
@@ -6045,8 +6052,12 @@ flowchart LR
   </p>
   <ol>
     <li><strong>Encrypt</strong> &mdash; reversible with the key; data still present</li>
-    <li><strong>Mask</strong> &mdash; replace plaintext with consistent fake data (sandbox use case); reversible
-    only via mapping table you control</li>
+    <li><strong>Mask</strong> &mdash; replace plaintext with consistent fake data (sandbox use case).
+    <strong>Salesforce Data Mask is irreversible</strong> &mdash; masked sandbox data cannot be unmasked
+    by the platform per <a href="https://help.salesforce.com/s/articleView?id=platform.data_mask_overview.htm&amp;language=en_US&amp;type=5" target="_blank" rel="noopener">[Salesforce Data Mask overview KB &#8599;]</a>.
+    A customer who builds a separate re-identification map outside Data Mask creates a production-derived
+    sensitive artifact &mdash; that pattern is an exception, not the default, and the re-identification
+    map itself must be treated as restricted production data.</li>
     <li><strong>Anonymize</strong> &mdash; replace with content that cannot reconstruct the original; not reversible</li>
     <li><strong>Delete</strong> &mdash; record gone; in Salesforce, soft-delete then hard-delete; honor recycle
     bin emptying for true deletion</li>
@@ -6287,9 +6298,22 @@ flowchart LR
 <div class="card" id="viii-real-time-em" data-search="real time event monitoring event log objects 30 day retention queryable hyperforce login api report listview transactionsecurity event log file browser">
   <h2>8.3 &middot; Real-Time Event Monitoring &amp; Retention Reality</h2>
   <p>
-    Real-Time Event Monitoring is the customer-side telemetry surface: standard event types streaming
-    to SIEM, queryable Event Log Objects with retention up to 30 days. <strong>Plan for 30-day retention
-    in Salesforce; ship to SIEM for longer.</strong>
+    Real-Time Event Monitoring is the customer-side telemetry surface. Two storage models, often
+    conflated:
+  </p>
+  <ul>
+    <li><strong>Event Log Objects (ELO)</strong> &mdash; Hyperforce-only, queryable via SOQL,
+    <strong>30-day retention</strong> with 15-day query windows per
+    <a href="https://help.salesforce.com/s/articleView?id=xcloud.real_time_em_event_log_objects.htm&amp;language=en_US&amp;type=5" target="_blank" rel="noopener">[ELO KB &#8599;]</a>.</li>
+    <li><strong>Real-Time EM storage events</strong> (the streaming + storage primitive) &mdash; many
+    event types stored up to 6 months (some up to 10 years for compliance retention) per
+    <a href="https://help.salesforce.com/s/articleView?id=xcloud.real_time_event_monitoring_storage.htm&amp;language=en_US&amp;type=5" target="_blank" rel="noopener">[RTEM storage KB &#8599;]</a>.</li>
+    <li><strong>EventLogFile (ELF)</strong> &mdash; CSV-style daily/hourly download, available outside
+    Hyperforce as well.</li>
+  </ul>
+  <p>
+    <strong>Plan for ELO 30-day retention for live SOQL; rely on RTEM storage events or ship to SIEM
+    for longer-tail forensics.</strong>
   </p>
   <h3>Event types worth monitoring</h3>
   <ul>
@@ -6299,7 +6323,7 @@ flowchart LR
     <li><strong>ApiEvent</strong>: every inbound REST/SOAP API call (this is the catch-all for inbound API activity; not Apex outbound callouts)</li>
     <li><strong>ApiAnomalyEvent</strong>: Threat-Detection-flagged anomalous API behavior</li>
     <li><strong>BulkApiResultEvent</strong>: Bulk API operations &mdash; the UNC6040 detection hotspot</li>
-    <li><strong>UriEvent</strong>: page visits; gives you a sense of in-app navigation</li>
+    <li><strong>LightningUriEvent</strong> (Lightning Experience page visits) and <strong>UriEvent</strong> (Salesforce Classic page visits): in-app navigation. Use <code>LightningUriEvent</code> for modern Lightning UI activity; <code>UriEvent</code> remains for the Classic page surface.</li>
     <li><strong>LogoutEvent</strong>: end-of-session signal; Logout Event Triggers can run Apex</li>
     <li><strong>TransactionSecurityEvent</strong>: every Transaction Security action taken</li>
     <li><strong>ApexExecutionEvent</strong>: Apex performance + scope; large baseline</li>
@@ -6356,14 +6380,20 @@ flowchart LR
     <strong>require Multi-Factor Authentication</strong>, or <strong>Notify</strong>.
   </p>
   <p>
-    <strong>How "MFA" actually enforces.</strong> The MFA action does <em>not</em> inject a custom prompt
-    into the calling UI. It redirects the request to Salesforce's stock <em>Verify Your Identity</em>
-    page &mdash; the same High Assurance step-up flow used by Session Security Levels. On successful
-    verification the session is raised to High Assurance and the original request resumes.
-    Practical consequence: MFA enforcement requires a browser request path. For headless flows
-    (Bulk API export, REST API integrations, server-to-server jobs) there is no UI to redirect to,
-    so MFA degrades to a refusal &mdash; in those cases use <strong>Block</strong> as the action.
-    See <a href="https://developer.salesforce.com/docs/atlas.en-us.securityImplGuide.meta/securityImplGuide/enhanced_transaction_security_actions_notifs.htm" target="_blank" rel="noopener">Enhanced Transaction Security &mdash; Actions &amp; Notifications &#8599;</a>.
+    <strong>How "MFA" actually enforces &mdash; and where Salesforce silently substitutes Block.</strong>
+    The MFA action redirects the request to Salesforce's stock <em>Verify Your Identity</em> page &mdash;
+    the same High Assurance step-up flow used by Session Security Levels. On successful verification the
+    session is raised to High Assurance and the original request resumes.
+    <strong>Per the Salesforce Enhanced Transaction Security Condition Builder docs, the MFA action is
+    not available in the Salesforce mobile app, in Lightning Experience for some events, or via API for
+    any events</strong> &mdash; in those unsupported contexts Salesforce uses Block instead. The author
+    of a customer policy on <code>ApiEvent</code>, <code>ListViewEvent</code>, or <code>ReportEvent</code>
+    must expect Block in headless / API / mobile-app contexts even when MFA is configured.
+    For Bulk API export, REST API integrations, server-to-server jobs: configure <strong>Block</strong>
+    directly. See
+    <a href="https://developer.salesforce.com/docs/atlas.en-us.securityImplGuide.meta/securityImplGuide/enhanced_transaction_security_condition_builder.htm" target="_blank" rel="noopener">Enhanced Transaction Security &mdash; Condition Builder &#8599;</a>
+    and
+    <a href="https://developer.salesforce.com/docs/atlas.en-us.securityImplGuide.meta/securityImplGuide/enhanced_transaction_security_actions_notifs.htm" target="_blank" rel="noopener">Actions &amp; Notifications &#8599;</a>.
   </p>
   <h3>Anomaly policy library (concrete examples)</h3>
   <div class="callout warn">
@@ -6381,7 +6411,7 @@ flowchart LR
     <tbody>
       <tr><td>Anomalous Report Export</td><td>ReportEvent</td><td>MFA</td><td>RowsProcessed &gt; 10000 OR off-hours</td></tr>
       <tr><td>Bulk API from non-approved source IP</td><td>BulkApiResultEvent</td><td>Block</td><td>SourceIP not in customer-maintained approved-source-IP list (Trusted IP Ranges is for skipping Identity Verification, not blocking; use Profile Login IP Ranges or app/ECA IP restrictions for actual enforcement &mdash; see <a href="https://help.salesforce.com/s/articleView?id=000386441&amp;type=1" target="_blank" rel="noopener">[Network Access vs Profile IP Restrictions KB]</a>)</td></tr>
-      <tr><td>Mass record update</td><td>ApiEvent</td><td>MFA</td><td>RowCount &gt; 5000 on sensitive object</td></tr>
+      <tr><td>Mass record update</td><td>ApiEvent</td><td>MFA / Block</td><td>RowsProcessed &gt; 5000 on sensitive object (use the documented condition-builder field; <code>RowCount</code> is not the API field name)</td></tr>
       <tr><td>New device login</td><td>LoginEvent</td><td>Notify</td><td>UserAgent / Device fingerprint not in known list</td></tr>
       <tr><td>Off-hours admin action</td><td>ApiEvent / UriEvent</td><td>Notify</td><td>Setup endpoint outside business hours</td></tr>
       <tr><td>Session country change</td><td>LoginEvent</td><td>Block</td><td>Geo of new login != prior session geo within session window</td></tr>
@@ -6566,7 +6596,7 @@ flowchart LR
   <ol>
     <li>If you recognize the affected login: instruct the user to <strong>avoid VPNs with anonymizing proxies</strong>. If your business processes require an anonymizing proxy, open a Salesforce Support case to discuss alternatives.</li>
     <li>If you don't recognize the login: <strong>verify MFA is strictly enforced</strong> for the user; treat as a suspected account-takeover event; engage IRP runbook (Pillar 8.6).</li>
-    <li>Review logs for evidence of unauthorized activity using the <a href="https://help.salesforce.com/s/articleView?id=005319571&amp;type=1" target="_blank" rel="noopener">Salesforce Log Analysis Guide</a>.</li>
+    <li>Review logs for evidence of unauthorized activity per <a href="https://help.salesforce.com/s/articleView?id=005319571&amp;type=1" target="_blank" rel="noopener">KB 005319571 &mdash; Extended Login Anomaly Detections and Containment</a>.</li>
   </ol>
 
   <p style="margin-top:14px;">
@@ -6891,7 +6921,7 @@ flowchart LR
     (Mythos) is restricted to a research program (Project Glasswing), and the unauthorized-access
     incident in April 2026 was a third-party-vendor compromise, not a direct breach of Anthropic.
     Defenders have access to the next-tier model (Claude Opus 4.7) at scale through Claude Security
-    (in public beta as of May 2026); OpenAI GPT-5.2 and GPT-5.2-Codex cover equivalent workloads.
+    (in public beta as of May 2026); OpenAI GPT-5.5 and GPT-5.5-Codex cover equivalent workloads.
     Treat AI-assisted review as <em>one input</em> alongside controls and human review, not a
     replacement for either.
   </p>
@@ -6955,7 +6985,7 @@ flowchart LR
   <h3>Subsection map</h3>
   <ul>
     <li><a href="#x-claude-security">10.1 Claude Security (Opus 4.7) &mdash; what it does, what it doesn't</a></li>
-    <li><a href="#x-chatgpt-vs-claude">10.2 OpenAI GPT-5.2 / GPT-5.2-Codex &mdash; equivalent workflows</a></li>
+    <li><a href="#x-chatgpt-vs-claude">10.2 OpenAI GPT-5.5 / GPT-5.5-Codex &mdash; equivalent workflows</a></li>
     <li><a href="#x-trust-layer">10.3 Trust Layer pattern (zero-retention, PII scrub, deterministic re-run)</a></li>
     <li><a href="#x-anomaly-authoring">10.4 AI-assisted anomaly policy authoring</a></li>
     <li><a href="#x-irp-companion">10.5 AI as IRP companion (Claude Code on-call)</a></li>
@@ -7000,12 +7030,12 @@ flowchart LR
   </p>
 </div>
 
-<!-- 10.2 ChatGPT 5.2 / GPT-5.2-Codex -->
+<!-- 10.2 ChatGPT 5.2 / GPT-5.5-Codex -->
 <div class="card" id="x-chatgpt-vs-claude" data-search="chatgpt 5.2 gpt-5.2-codex openai equivalent workflows multi provider redundancy circuit breaker dual provider divergence">
-  <h2>10.2 &middot; OpenAI GPT-5.2 / GPT-5.2-Codex &mdash; Equivalent Workflows</h2>
+  <h2>10.2 &middot; OpenAI GPT-5.5 / GPT-5.5-Codex &mdash; Equivalent Workflows</h2>
   <p>
-    OpenAI's frontier security workloads run on <strong>GPT-5.2</strong> (flagship) and
-    <strong>GPT-5.2-Codex</strong> (coding-specialized) as of late 2026. The earlier reasoning
+    OpenAI's frontier security workloads run on <strong>GPT-5.5</strong> (flagship) and
+    <strong>GPT-5.5-Codex</strong> (coding-specialized) as of late 2026. The earlier reasoning
     o-series (o1, o3) has been superseded by GPT-5 generation models for current production use
     per <a href="https://platform.openai.com/docs/guides/latest-model" target="_blank" rel="noopener">[OpenAI latest-model guide &#8599;]</a>.
     For Salesforce-side hardening tasks, the workloads are equivalent: code review, metadata audit,
@@ -7145,7 +7175,7 @@ flowchart LR
   <ul>
     <li><strong>Claude.ai + Claude Security</strong> &mdash; codebase / metadata scanning at scale; long-context analysis; structured triage. Public beta May 2026.</li>
     <li><strong>Claude Code</strong> &mdash; CLI / IDE companion for repository-scoped work; well-suited to Salesforce DX repo scanning, PR review automation, IRP companion. (Used to co-build this whitepaper.)</li>
-    <li><strong>OpenAI GPT-5.2 / GPT-5.2-Codex</strong> &mdash; equivalent workloads; useful as second-provider in dual-provider Trust Layer pattern (10.3).</li>
+    <li><strong>OpenAI GPT-5.5 / GPT-5.5-Codex</strong> &mdash; equivalent workloads; useful as second-provider in dual-provider Trust Layer pattern (10.3).</li>
     <li><strong>Cursor / Continue.dev / Codeium</strong> &mdash; IDE-integrated AI for inline secure-coding suggestions; route to Claude or GPT under the hood.</li>
     <li><strong>OpenAI Codex CLI</strong> &mdash; non-interactive code-review and architecture-critique workflows. (Used to co-review this whitepaper's plan.)</li>
     <li><strong>Google Gemini CLI</strong> &mdash; equivalent non-interactive review; cross-validation with Codex on architectural decisions. (Used here.)</li>
@@ -7189,7 +7219,7 @@ flowchart LR
       <tr><td>Sandbox PII protection</td><td>Sandbox templates</td><td>Salesforce Data Mask</td><td>Data Mask add-on</td></tr>
       <tr><td>Backup &amp; recovery</td><td>Recycle Bin, Data Export</td><td>Salesforce Backup &amp; Restore, OwnBackup, Spanning, Odaseva</td><td>Backup vendor</td></tr>
       <tr><td>AppExchange supply-chain monitoring</td><td>OAuth Usage report</td><td>SSPM (Reco, AppOmni, Obsidian, Valence)</td><td>SSPM vendor</td></tr>
-      <tr><td>AI code &amp; metadata audit</td><td>Manual review</td><td>Claude Security (Opus 4.7); GPT-5.2 / GPT-5.2-Codex</td><td>Claude Enterprise / OpenAI Enterprise</td></tr>
+      <tr><td>AI code &amp; metadata audit</td><td>Manual review</td><td>Claude Security (Opus 4.7); GPT-5.5 / GPT-5.5-Codex</td><td>Claude Enterprise / OpenAI Enterprise</td></tr>
       <tr><td>SIEM streaming</td><td>CSV exports</td><td>Splunk / Sentinel / Chronicle / Elastic / New Relic / Sumo / Datadog</td><td>SIEM vendor</td></tr>
       <tr><td>Privacy / data subject rights</td><td>Manual SOQL + Data Loader</td><td>Privacy Center</td><td>Privacy Center add-on</td></tr>
     </tbody>
@@ -8793,7 +8823,7 @@ DIFF:
     });
     exportBtn.addEventListener('click', function() {
       var snapshot = {
-        framework: 'Salesforce CRM Security Hardening v1.5.36',
+        framework: 'Salesforce CRM Security Hardening v1.5.37',
         scored_at: new Date().toISOString(),
         scores: loadStored(),
         average: parseFloat(avgEl.textContent) || 0,
@@ -9124,8 +9154,8 @@ DIFF:
   </p>
   <h3>Document metadata</h3>
   <p style="font-size: 12px; font-family: 'Source Code Pro', monospace;">
-    version 1.5.36 &middot; last modified 2026-05-11 &middot; source snapshot 2026-05-11 &middot;
-    Build identifier: SF-CRM-HARDENING-1.5.36
+    version 1.5.37 &middot; last modified 2026-05-11 &middot; source snapshot 2026-05-11 &middot;
+    Build identifier: SF-CRM-HARDENING-1.5.37
   </p>
 </div>
 
