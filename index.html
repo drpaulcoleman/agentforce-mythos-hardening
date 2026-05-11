@@ -1,7 +1,7 @@
                                                                                                                                                               <!DOCTYPE html>
 <!--
   Salesforce CRM Security Hardening — A Defender's Encyclopedia for the Frontier-AI Era
-  Document version 1.5.32 · Last modified 2026-05-11
+  Document version 1.5.33 · Last modified 2026-05-11
   Copyright (c) 2026 Dr. Paul Coleman. All rights reserved.
 
   A vendor-neutral hardening reference for the customer side of the Salesforce
@@ -28,7 +28,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">                                  
 <title>The Mythos Imperative &mdash; Salesforce CRM Security Hardening</title>                                                      
-<meta name="document-version" content="1.5.32">
+<meta name="document-version" content="1.5.33">
 <meta name="last-modified" content="2026-05-06">
 <meta name="source-snapshot" content="2026-05-06">
 <meta name="description" content="The Mythos Imperative: a vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars from Identity to Defensive AI; nineteen appendices.">
@@ -38,7 +38,7 @@
 
 <!-- Open Graph / social-share metadata -->
 <meta property="og:type" content="article">
-<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.32">
+<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.33">
 <meta property="og:description" content="Vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars, 19 appendices, fully attributed.">
 <meta property="og:url" content="https://drpaulcoleman.github.io/agentforce-mythos-hardening/">
 <meta property="og:site_name" content="Salesforce CRM Security Hardening">
@@ -49,7 +49,7 @@
 
 <!-- Twitter / X card metadata -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.32">
+<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.33">
 <meta name="twitter:description" content="Threat-informed Salesforce hardening reference. Ten pillars from Identity to Defensive AI, with a companion Salesforce DX reference implementation.">
 
 <!-- Errata / contributions -->
@@ -1758,7 +1758,7 @@ pre.mermaid g.node[onclick]:hover > path {
 .ref-impl-callout code { font-size: 11px; }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   SCANNABLE LISTS + Q&A CARDS (v1.5.32)
+   SCANNABLE LISTS + Q&A CARDS (v1.5.33)
    For dense list/prose sections that need clearer item separation
    without changing line-height (which is already generous at 1.8).
    ═══════════════════════════════════════════════════════════════════════ */
@@ -1932,7 +1932,7 @@ pre.mermaid g.node[onclick]:hover > path {
     </div>
     <div>
       <h1><span class="phase-tag">The Mythos Imperative</span><span class="phase-sep">&mdash;</span>Salesforce CRM Security Hardening</h1>
-      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.32 &middot; last modified 2026-05-11</span>
+      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.33 &middot; last modified 2026-05-11</span>
     </div>
   </div>
   <div class="doc-meta">
@@ -2356,7 +2356,7 @@ gantt
 
 <!-- TECH · Hero ---------------------------------------------------------- -->
 <div class="card hero" id="hero" data-search="hero overview salesforce crm security hardening defender encyclopedia frontier ai mythos">
-  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.32 &middot; last modified 2026-05-11</p>
+  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.33 &middot; last modified 2026-05-11</p>
   <h1>The <span class="accent">Mythos Imperative</span><br/><span style="font-size:24px; font-weight:700; opacity:0.92; display:block; margin-top:6px;">A Defender's Encyclopedia for the Frontier-AI Era</span></h1>
   <p class="lede" style="border-left: 3px solid var(--sf-orange); padding: 6px 0 6px 16px; margin-left: 0;">
     <strong style="color: var(--sf-orange); letter-spacing: 0.04em;">Why this exists, why now.</strong>
@@ -2990,7 +2990,8 @@ sequenceDiagram
       <tr><td>SMS / voice OTP</td><td>&#10060; No (read aloud)</td><td>&#10060; No</td><td>Weak / No MFA</td><td>Backup only; deprecate</td></tr>
       <tr><td>TOTP app (Authenticator)</td><td>&#10060; No (read aloud)</td><td>&#10060; No (entered into phishing site)</td><td>Standard</td><td>Acceptable for non-admin baseline. <strong>Not acceptable for privileged users post-Jul 1, 2026.</strong></td></tr>
       <tr><td>Push notification</td><td>&#10060; No (user approves under social pressure)</td><td>&#9888; Partial (number-matching helps)</td><td>Standard</td><td>Acceptable for non-admin; <strong>not for privileged users post-Jul 1</strong></td></tr>
-      <tr><td>Lightning Login (passwordless)</td><td>&#9989; Yes (biometric)</td><td>&#9989; Yes (passkey-based)</td><td>Phishing-Resistant</td><td>Recommended phishing-resistant default per Salesforce</td></tr>
+      <tr><td>Lightning Login (Salesforce Authenticator-based password-free login)</td><td>&#9989; Partial (biometric on phone)</td><td>&#9888; Partial (push-approval; not origin-bound)</td><td>Standard</td><td>Salesforce Authenticator-based passwordless login &mdash; <strong>not</strong> WebAuthn / passkey. Useful for usability, but does <strong>not</strong> satisfy the Jul&nbsp;1, 2026 privileged-user phishing-resistant gate. <a href="https://help.salesforce.com/s/articleView?id=xcloud.security_ll_overview.htm" target="_blank" rel="noopener">[Lightning Login &#8599;]</a></td></tr>
+      <tr><td><strong>Passwordless login with passkeys</strong> (Security Key or Built-in Authenticator)</td><td>&#9989; Yes</td><td>&#9989; Yes (origin-bound WebAuthn assertion)</td><td>Phishing-Resistant</td><td><strong>Recommended phishing-resistant default per Salesforce.</strong> Enabled in Setup &rarr; Identity Verification &rarr; "Allow passwordless login with passkeys." See <a href="#i-fido2">Pillar 1.2</a> for the three-form taxonomy and <a href="#i-vault-passkeys">Pillar 1.2.1</a> for vault-stored variants.</td></tr>
       <tr><td><strong>FIDO2 / WebAuthn hardware key</strong></td><td>&#9989; <strong>Yes</strong></td><td>&#9989; <strong>Yes (origin-bound assertion)</strong></td><td>Phishing-Resistant</td><td><strong>Recommended highest-assurance default for privileged users (Admin profile, MAD, VAD, Customize Application, Author Apex); mandatory for the Pillar 1.5 break-glass admin.</strong> Built-in authenticators and vault-stored passkeys are also Salesforce-supported where the AMR/ACR signal lands in the Phishing-Resistant tier &mdash; see <a href="#i-vault-passkeys">Pillar 1.2.1</a>.</td></tr>
       <tr><td>Platform authenticator (Windows Hello / Touch ID / Face ID)</td><td>&#9989; Yes</td><td>&#9989; Yes</td><td>Phishing-Resistant</td><td>Acceptable substitute on managed devices for privileged + standard users</td></tr>
     </tbody>
@@ -3077,11 +3078,24 @@ sequenceDiagram
     use cases; not required for operator-only deployments.</li>
   </ul>
   <h3>The recovery-code problem (and the pattern that solves it)</h3>
+  <div class="callout warn">
+    <p style="margin: 0;"><strong>&#9888; Custom-build pattern below &mdash; not a Salesforce-native primitive.</strong>
+    Salesforce's documented MFA recovery is admin-generated <strong>Temporary Verification Codes</strong>
+    (1&ndash;24 hour TTL, generated by a co-admin holding the <em>Manage Multi-Factor Authentication
+    in User Interface</em> permission) + disconnect lost method + re-register, with Salesforce
+    Support escalation for solo-admin lockout (see <a href="#i-mfa-roadmap" class="pillar-link">Pillar 1.10
+    Resolution paths</a> and the <a href="https://help.salesforce.com/s/articleView?id=xcloud.mfa_access_recovery.htm" target="_blank" rel="noopener">MFA Access Recovery KB &#8599;</a>). The two-layer model
+    below is a <strong>recommended custom design</strong> for orgs that need a self-service multi-code
+    recovery story on top of Salesforce's primitives &mdash; implemented via Apex + custom UI on top of
+    <code>Auth.SessionManagement</code>. See <a href="#appendix-b" class="pillar-link">Appendix B</a>
+    for the reference implementation. Do not look for these toggles in standard Salesforce Setup;
+    they do not exist as platform-native controls.</p>
+  </div>
   <p>
     Hardware keys break. Operators travel without them. The recovery path must <strong>not weaken</strong>
-    the FIDO2 assurance. The pattern: <strong>two-layer recovery</strong> &mdash; (1) per-user recovery
-    codes (8 single-use codes generated at enrollment, 60-bit entropy, SHA-256 hashed with per-code
-    salt, displayed once) usable in place of a single touch; (2) when codes are exhausted,
+    the FIDO2 assurance. The <em>custom</em> pattern: <strong>two-layer recovery</strong> &mdash; (1) per-user
+    recovery codes (8 single-use codes generated at enrollment, 60-bit entropy, SHA-256 hashed with
+    per-code salt, displayed once) usable in place of a single touch; (2) when codes are exhausted,
     <strong>time-delayed self-recovery</strong> &mdash; first OTP to email starts a 72-hour hold during
     which alerts go to all admins; second OTP after 72 hours unlocks re-enrollment of a new key. A
     co-admin with their own hardware key can expedite the hold to 24 hours. Solo admin: 72 hours, no
@@ -3089,9 +3103,10 @@ sequenceDiagram
     compromise.
   </p>
   <p>
-    Recovery codes consume the same downstream gate as a hardware-key touch (a one-time
-    <code>X-Operator-Fido2-Token</code> with 60-second TTL, single-use, server-issued). They do not
-    short-circuit the FIDO2 enforcement layer; they substitute for the touch only.
+    In the reference implementation, recovery codes consume the same downstream gate as a hardware-key
+    touch (a one-time <code>X-Operator-Fido2-Token</code> with 60-second TTL, single-use, server-issued
+    &mdash; a custom HTTP header, <em>not</em> a Salesforce-issued primitive). They do not short-circuit
+    the FIDO2 enforcement layer; they substitute for the touch only.
   </p>
   <p style="margin-top:14px;"><a href="#appendix-b">&rarr; Full enrollment flow + recovery-code generation code &middot; Appendix B</a></p>
 </div>
@@ -3214,8 +3229,8 @@ sequenceDiagram
     <li><strong>Restrict simultaneous device count</strong> by querying the User Sessions object</li>
     <li><strong>Run an Apex prerun check</strong> (e.g., is the user's hardware key still attested? has their
     domain ACL been revoked?) and route to a remediation page on fail</li>
-    <li><strong>Log-out users on policy violation</strong> via <code>Auth.SessionManagement.finishLoginFlow()</code>
-    with a logout flag</li>
+    <li><strong>Log-out users on policy violation</strong> by calling <code>Auth.SessionManagement.finishLoginFlow(String&nbsp;startURL)</code>
+    with a redirect to the logout endpoint. Method overloads: <code>finishLoginFlow()</code> (no-arg, returns to default landing page) and <code>finishLoginFlow(String&nbsp;startURL)</code> (redirect URL). <a href="https://developer.salesforce.com/docs/atlas.en-us.apexref.meta/apexref/apex_class_Auth_SessionManagement.htm" target="_blank" rel="noopener">[Apex SessionManagement &#8599;]</a></li>
   </ul>
   <p>
     The pattern: <strong>one Login Flow per profile-tier</strong>, doing only the lightest checks in the
@@ -3279,8 +3294,8 @@ sequenceDiagram
     <tbody>
       <tr>
         <td><strong>Custom Auth Provider</strong></td>
-        <td><code>Auth.AuthProviderPlugin</code></td>
-        <td>Implement an entirely non-standard auth protocol (e.g., a partner's bespoke attestation, a hardware-bound key exchange) and surface it as a Salesforce Auth Provider. The platform handles routing; you handle the protocol.</td>
+        <td><code>Auth.AuthProviderPluginClass</code> <span style="font-size: 11px; color: var(--text-muted);">(abstract class; replaces the legacy <code>Auth.AuthProviderPlugin</code> interface as of API v39.0 / Spring '17)</span></td>
+        <td>Implement an entirely non-standard auth protocol (e.g., a partner's bespoke attestation, a hardware-bound key exchange) and surface it as a Salesforce Auth Provider. The platform handles routing; you handle the protocol. <a href="https://help.salesforce.com/s/articleView?id=xcloud.sso_provider_plugin_custom.htm" target="_blank" rel="noopener">[Custom External Auth Providers KB &#8599;]</a></td>
       </tr>
       <tr>
         <td><strong>Apex Registration Handler</strong> (OIDC / OAuth)</td>
@@ -3450,7 +3465,7 @@ sequenceDiagram
       </tr>
       <tr>
         <td><strong>Mid-session continuous authorization</strong></td>
-        <td>Custom Login Flow runs at login only. Mid-session context shifts (IP change, device attestation expiry) cannot trigger a re-challenge except by terminating the session via <code>Auth.SessionManagement.finishLoginFlow()</code> with a logout flag and forcing re-login. Acceptable for security-critical changes; clumsy for everything else.</td>
+        <td>Custom Login Flow runs at login only. Mid-session context shifts (IP change, device attestation expiry) cannot trigger a re-challenge except by terminating the session via <code>Auth.SessionManagement.finishLoginFlow(String&nbsp;startURL)</code> with a redirect to the logout endpoint, then forcing re-login. Acceptable for security-critical changes; clumsy for everything else.</td>
       </tr>
     </tbody>
   </table>
@@ -3649,10 +3664,10 @@ sequenceDiagram
 
   <h3>Resolution paths if a user is locked out</h3>
   <ul class="scannable-list">
-    <li><strong>Standard user.</strong> Org admin generates temporary identity verification code; user re-registers a verifier.</li>
-    <li><strong>Privileged user without phishing-resistant verifier.</strong> Contact Salesforce Support for a one-time login code; cannot proceed without that.</li>
+    <li><strong>Standard user.</strong> A co-admin holding the <em>Manage Multi-Factor Authentication in User Interface</em> permission generates a <strong>Temporary Verification Code</strong> (1&ndash;24 hour TTL, set per generation) via the locked-out user's record. The user uses the code to log in, then disconnects the lost / replaced verifier and registers a new one. Expire the temporary code when no longer needed. <a href="https://help.salesforce.com/s/articleView?id=xcloud.security_temp_id_verification_code_generate.htm" target="_blank" rel="noopener">[Generate a Temporary Verification Code &#8599;]</a></li>
+    <li><strong>Privileged user without a phishing-resistant verifier.</strong> <strong>First:</strong> a co-admin generates a Temporary Verification Code (same procedure as above). The locked-out privileged user uses the code to log in, then enrolls a phishing-resistant verifier (Security Key or Built-in Authenticator) before the temporary code expires. <strong>Second</strong> (only if no qualifying co-admin exists, or the privileged user cannot complete phishing-resistant enrollment): contact Salesforce Support for a one-time login code. <a href="https://help.salesforce.com/s/articleView?id=xcloud.mfa_access_recovery.htm" target="_blank" rel="noopener">[MFA Access Recovery &#8599;]</a></li>
     <li><strong>SSO signal issue.</strong> If your IdP performs phishing-resistant MFA but transmits an unrecognized AMR/ACR (most common: generic <code>webauthn</code> instead of <code>fido2</code>), users will see Salesforce MFA enrollment prompts despite a successful IdP MFA. Coordinate with the IdP vendor to update the signal.</li>
-    <li><strong>Org with only one Admin locked out.</strong> Salesforce Support is the only path. Document the contact procedure now.</li>
+    <li><strong>Org with only one Admin locked out (no co-admin available).</strong> Salesforce Support is the only path. Document the contact procedure now. <strong>Preventive guidance:</strong> every org should have at least two admins holding the <em>Manage Multi-Factor Authentication in User Interface</em> permission, and each admin should register at least two verification methods. <a href="https://help.salesforce.com/s/sfsupport" target="_blank" rel="noopener">[Salesforce Support &#8599;]</a></li>
   </ul>
 
   <h3>Pre-enforcement test plan &mdash; sandbox dress rehearsal (T-minus countdown to 2026-06-22)</h3>
@@ -3667,7 +3682,7 @@ sequenceDiagram
     <tbody>
       <tr><td>1</td><td>T-4 (wk of 2026-05-25)</td><td><strong>Privileged-user inventory.</strong> SOQL across <code>User</code>, <code>PermissionSetAssignment</code>, <code>PermissionSetGroupComponent</code>: enumerate users with System Administrator profile, or holding <code>ModifyAllData</code>, <code>ViewAllData</code>, <code>CustomizeApplication</code>, <code>AuthorApex</code> directly or via PS / PSG. Cross-check against expected admin list.</td><td>Every privileged user identified; no surprise holders.</td></tr>
       <tr><td>2</td><td>T-4</td><td><strong><code>Waive MFA</code> audit.</strong> SOQL: <code>SELECT AssigneeId FROM PermissionSetAssignment WHERE PermissionSet.PermissionsWaiveMfa = TRUE</code>. For each result, decide retain (file Support case) or remove (revoke permission).</td><td>Zero open-ended Waive MFA holders by T-2; Support cases filed for valid retains.</td></tr>
-      <tr><td>3</td><td>T-3 (wk of 2026-06-01)</td><td><strong>Hardware-key enrollment + login.</strong> Each privileged user enrolls a YubiKey via Identity Verification &rarr; Register Security Key; logs in to sandbox; confirms Login History shows AMR <code>fido2</code> or <code>fido</code> &rarr; Phishing-Resistant tier.</td><td>All privileged users land in Phishing-Resistant tier on Login History.</td></tr>
+      <tr><td>3</td><td>T-3 (wk of 2026-06-01)</td><td><strong>Hardware-key enrollment + login.</strong> <em>Admin (org-level)</em>: enable Security Keys in Setup &rarr; Identity Verification. <em>Each privileged user (per-user)</em>: register a YubiKey from their personal settings &rarr; Advanced User Details &rarr; Security Key &rarr; Register, or via the login enrollment prompt. (Admins cannot register a key on behalf of another user.) Each user then logs in to sandbox and confirms Login History shows AMR <code>fido2</code> or <code>fido</code> &rarr; Phishing-Resistant tier. <a href="https://help.salesforce.com/s/articleView?id=xcloud.security_u2f_register_security_key.htm" target="_blank" rel="noopener">[Register a Security Key &#8599;]</a></td><td>All privileged users land in Phishing-Resistant tier on Login History.</td></tr>
       <tr><td>4</td><td>T-3</td><td><strong>Platform authenticator enrollment + login.</strong> Non-privileged test user enrolls Touch ID or Windows Hello; logs in; records Login History AMR.</td><td>Platform authenticator lands in Phishing-Resistant; Standard MFA acceptable for non-privileged.</td></tr>
       <tr><td>5</td><td>T-3</td><td><strong>Vault-stored passkey enrollment + login (the test most customers skip).</strong> Enroll passkeys in 1Password, Bitwarden, and any vault your enterprise has standardized on. Log in as both privileged (test user) and non-privileged. Record the AMR value seen in Login History.</td><td>If AMR = <code>fido2</code> &rarr; OK for privileged. If AMR = <code>webauthn</code> / <code>passkey</code> (generic) &rarr; privileged-user login will be <strong>blocked at Jul&nbsp;1</strong>; switch privileged population to hardware keys or coordinate with IdP vendor to re-classify the upstream signal.</td></tr>
       <tr><td>6</td><td>T-3</td><td><strong>IdP SSO path.</strong> Verify Okta / Entra / Ping / ADFS emits a recognized AMR/ACR per factor (hardware key, platform auth, vault). SAML: SAML-tracer extension on the response. OIDC: Login History AMR column.</td><td>AMR/ACR matches Pillar 1.9 Phishing-Resistant column for all privileged users.</td></tr>
@@ -3761,7 +3776,7 @@ flowchart TD
 
   <div class="qa-card">
     <span class="qa-q">"What if a privileged user loses their key the morning of Jul 1?"</span>
-    <span class="qa-tldr">Two-layer recovery &mdash; recovery codes first, then time-delayed self-recovery.</span>
+    <span class="qa-tldr">Co-admin generates a Temporary Verification Code; Salesforce Support is the fallback when no co-admin exists.</span>
     <pre class="mermaid">
 %%{init: {'flowchart': {'htmlLabels': true, 'wrappingWidth': 360, 'nodeSpacing': 36, 'rankSpacing': 50, 'padding': 12}}}%%
 flowchart LR
@@ -3770,30 +3785,23 @@ flowchart LR
     classDef warn fill:#FF9A3C,stroke:#FF8000,color:#0D1B2A
 
     Lost(["Lost key&lt;br/&gt;Jul 1 AM"]):::start
-    A{"Recovery codes&lt;br/&gt;remaining?"}
-    B["Enter recovery code&lt;br/&gt;One-time session"]:::ok
-    C{"Co-admin with&lt;br/&gt;own hardware key?"}
-    D["24-hr hold&lt;br/&gt;co-admin expedites"]:::ok
-    E["72-hr hold&lt;br/&gt;alerts to all admins"]:::warn
-    F["Salesforce Support&lt;br/&gt;only path"]:::warn
+    A{"Co-admin available&lt;br/&gt;with Manage MFA&lt;br/&gt;in UI permission?"}
+    B["Co-admin generates&lt;br/&gt;Temporary Verification Code&lt;br/&gt;(1-24 hr TTL)"]:::ok
+    C["User logs in via code,&lt;br/&gt;disconnects lost verifier,&lt;br/&gt;enrolls a new one"]:::ok
+    F["Open Salesforce Support case&lt;br/&gt;for one-time login code&lt;br/&gt;(hours-to-days SLA)"]:::warn
     R["Re-enroll&lt;br/&gt;new key"]:::start
 
     Lost --&gt; A
     A --&gt;|"Yes"| B
-    A --&gt;|"No - exhausted"| C
-    C --&gt;|"Yes"| D
-    C --&gt;|"No - solo admin"| E
-    C --&gt;|"Solo + locked out"| F
-    B --&gt; R
-    D --&gt; R
-    E --&gt; R
+    A --&gt;|"No - solo admin locked out"| F
+    B --&gt; C
+    C --&gt; R
     F --&gt; R
     </pre>
     <ul>
-      <li><strong>First:</strong> user enters one of their 8 single-use recovery codes (60-bit entropy, hashed-with-salt) for a one-time session.</li>
-      <li><strong>Second:</strong> if codes exhausted, time-delayed self-recovery starts a 72-hour hold with alerts to all admins; co-admin with hardware key can expedite to 24 hours.</li>
-      <li><strong>Solo admin:</strong> 72 hours, no shortcut.</li>
-      <li><strong>Solo admin who is themselves locked out:</strong> Salesforce Support is the only path &mdash; document the contact procedure now.</li>
+      <li><strong>First (Salesforce-documented path):</strong> a co-admin holding the <em>Manage Multi-Factor Authentication in User Interface</em> permission generates a Temporary Verification Code (1&ndash;24 hour TTL). The locked-out user logs in with the code, disconnects the lost verifier, and enrolls a new phishing-resistant verifier before the code expires.</li>
+      <li><strong>Second (only if no qualifying co-admin exists):</strong> Salesforce Support is the only path &mdash; document the contact procedure now. Solo-admin lockout SLA is hours-to-days, so avoid this state by ensuring at least two admins hold the <em>Manage MFA in UI</em> permission at all times.</li>
+      <li><strong>Optional custom self-recovery layer</strong> (Appendix B): orgs that want a self-service multi-code recovery flow can build a Apex + custom UI design on top of <code>Auth.SessionManagement</code> &mdash; 8 single-use recovery codes, 72-hour time-delayed self-recovery with all-admin alerts, 24-hour co-admin expedite. <strong>This is not a Salesforce-native feature</strong>; see <a href="#i-fido2" class="pillar-link">Pillar 1.2</a> for the design pattern.</li>
     </ul>
   </div>
 
@@ -3833,7 +3841,7 @@ flowchart LR
     <ul>
       <li>Same <code>LoginEvent</code> and <code>LoginHistory</code> records as TOTP; same SIEM ingest path (Appendix I).</li>
       <li><strong>What changes:</strong> the <code>AuthenticationMethodReference</code> column shows the AMR value (<code>fido2</code>, <code>webauthn</code>, <code>passkey</code>).</li>
-      <li><strong>Gap:</strong> SAML ACR values are not yet recorded in Login History as of v1.5.32 (planned future Salesforce release) &mdash; use a SAML tracer extension to inspect ACR until then.</li>
+      <li><strong>Gap:</strong> SAML ACR values are not yet recorded in Login History as of v1.5.33 (planned future Salesforce release) &mdash; use a SAML tracer extension to inspect ACR until then.</li>
     </ul>
   </div>
 
@@ -8641,7 +8649,7 @@ DIFF:
     });
     exportBtn.addEventListener('click', function() {
       var snapshot = {
-        framework: 'Salesforce CRM Security Hardening v1.5.32',
+        framework: 'Salesforce CRM Security Hardening v1.5.33',
         scored_at: new Date().toISOString(),
         scores: loadStored(),
         average: parseFloat(avgEl.textContent) || 0,
@@ -8972,8 +8980,8 @@ DIFF:
   </p>
   <h3>Document metadata</h3>
   <p style="font-size: 12px; font-family: 'Source Code Pro', monospace;">
-    version 1.5.32 &middot; last modified 2026-05-11 &middot; source snapshot 2026-05-11 &middot;
-    Build identifier: SF-CRM-HARDENING-1.5.32
+    version 1.5.33 &middot; last modified 2026-05-11 &middot; source snapshot 2026-05-11 &middot;
+    Build identifier: SF-CRM-HARDENING-1.5.33
   </p>
 </div>
 
