@@ -1,0 +1,41 @@
+# Salesforce Code Analyzer v5 config — Pillar IX.2.
+# Replaces the retired sfdx-scanner v4 (@salesforce/sfdx-scanner) which Salesforce retired
+# in August 2025; v5 uses @salesforce/plugin-code-analyzer with the `sf code-analyzer run` topic.
+# Paired with ci/pmd-apex-rules.xml for the PMD engine.
+# Run with: sf code-analyzer run --config-file ci/code-analyzer-config.yml --workspace force-app
+# NOT official Salesforce documentation -- verify against current Code Analyzer release notes:
+#   https://developer.salesforce.com/docs/platform/salesforce-code-analyzer/guide/release-notes.html
+# Migration guide v4 -> v5:
+#   https://developer.salesforce.com/docs/platform/salesforce-code-analyzer/guide/migrate.html
+
+config_root: ./
+
+# Engines to run on this codebase. Code Analyzer v5 ships with: pmd, eslint, retire-js,
+# regex, flow, cpd. Enable per-engine config blocks under `engines:` below.
+engines:
+  pmd:
+    # Point at the project's curated PMD ruleset (Apex Security + Best Practices + Performance).
+    rule_set_files:
+      - ci/pmd-apex-rules.xml
+    # PMD v7 baseline engine version is the Code Analyzer default; pin if you need reproducibility.
+    # java_command: java
+  eslint:
+    # ESLint config is auto-discovered from .eslintrc.json / eslint.config.js at workspace root.
+    # auto_discoverable_eslint_config_files: true
+  retire-js:
+    # No additional config needed; uses the bundled Retire.js advisory feed.
+  regex:
+    # Optional custom regex rules for secret-pattern detection on metadata + source.
+    # custom_rules: ci/regex-rules.yml
+  flow:
+    # Flow Scanner runs against Flow metadata XML; enabled by default.
+
+# Rule selector applied at run time. Override via `--rule-selector` flag.
+# v5 uses a tag-based selector model instead of v4's `--category` filter.
+# Recommended baseline for CI: "Recommended" + "Security" tags across all engines.
+rule_selectors:
+  default: "Recommended;Security;BestPractices;Performance"
+
+# Severity threshold mapping (v5 uses 1-5 scale, 1 = Critical).
+# Findings at or above this severity cause non-zero exit (matches v4 violationsCauseError = true).
+severity_threshold: 3

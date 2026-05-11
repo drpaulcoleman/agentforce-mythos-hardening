@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
     ReportExportThresholdMfa (Transaction Security Policy)
-    Pillar VIII.5 / App. D.2 -- binds the ReportExportThresholdMfa Apex class
-    to the ReportEvent stream. Action: Multi-Factor Authentication.
+    Pillar VIII.5 / App. E.2 -- binds the ReportExportThresholdMfa Apex class
+    (implements TxnSecurity.EventCondition) to the Report event family.
+    Action: MultiFactorAuthentication (note: per Pillar 8.5 / Condition Builder
+    docs, the MFA action is not available in Salesforce mobile, in Lightning
+    Experience for some events, or via API for any events -- Salesforce
+    substitutes Block in those contexts).
 -->
 <TransactionSecurityPolicy xmlns="http://soap.sforce.com/2006/04/metadata">
     <active>false</active>
     <apexClass>ReportExportThresholdMfa</apexClass>
     <description>Require step-up MFA on report exports greater than 10,000 rows or off-business-hours. Tune ROW_THRESHOLD and BUSINESS_HOUR_* constants in ReportExportThresholdMfa before activating.</description>
-    <eventName>ReportEvent</eventName>
     <eventType>Report</eventType>
-    <executionUser>SfsAutomatedProcess</executionUser>
+    <action>MultiFactorAuthentication</action>
+    <executionUserType>CurrentUser</executionUserType>
     <masterLabel>Report Export Threshold MFA</masterLabel>
-    <resourceName>ReportEvent</resourceName>
-    <type>Transaction</type>
+    <type>EventBasedPolicy</type>
 </TransactionSecurityPolicy>

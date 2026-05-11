@@ -17,7 +17,7 @@ on:
 
 jobs:
   static-analysis:
-    name: PMD + SFDX Scanner
+    name: PMD + Salesforce Code Analyzer
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
@@ -33,21 +33,21 @@ jobs:
       - name: Install Salesforce CLI
         run: npm install -g @salesforce/cli
 
-      - name: Install SFDX Scanner plugin
-        run: sf plugins install @salesforce/sfdx-scanner
+      # Salesforce Code Analyzer v5 replaces the retired @salesforce/sfdx-scanner
+      # plugin (v4 retired August 2025). Topic: `sf code-analyzer run`.
+      - name: Install Salesforce Code Analyzer plugin
+        run: sf plugins install @salesforce/plugin-code-analyzer
 
-      - name: Run scanner (Apex + LWC)
+      - name: Run Code Analyzer (Apex + LWC)
         working-directory: reference-impl
         run: |
-          sf scanner run \
-            --target 'force-app/**/*.cls' \
-            --target 'force-app/**/*.trigger' \
-            --target 'force-app/**/lwc/**/*.js' \
-            --format table \
-            --engine pmd \
-            --pmdconfig ci/pmd-apex-rules.xml \
-            --severity-threshold 3 \
-            --violations-cause-error || EXIT=$?
+          sf code-analyzer run \
+            --workspace force-app \
+            --rule-selector "Recommended;Security;BestPractices;Performance" \
+            --config-file ci/code-analyzer-config.yml \
+            --view detail \
+            --output-file scanner-results.json \
+            --severity-threshold 3 || EXIT=$?
           exit ${EXIT:-0}
 
       - name: Upload scanner results

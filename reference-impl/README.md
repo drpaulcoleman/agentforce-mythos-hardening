@@ -18,8 +18,9 @@ sf org login web --alias hardening-scratch
 # 2. Validate the project compiles (no deployment, runs Apex tests)
 sf project deploy validate --source-dir force-app --test-level RunLocalTests --target-org hardening-scratch
 
-# 3. Run static analysis (requires SFDX Scanner plugin: sf plugins install @salesforce/sfdx-scanner)
-sf scanner run --target 'force-app/**/*.cls' --format table --engine pmd --pmdconfig ci/pmd-apex-rules.xml
+# 3. Run static analysis (requires Salesforce Code Analyzer v5: sf plugins install @salesforce/plugin-code-analyzer)
+#    Note: sfdx-scanner (v4) was retired August 2025; Code Analyzer v5 is the replacement.
+sf code-analyzer run --workspace force-app --rule-selector 'Recommended;Security' --config-file ci/code-analyzer-config.yml --view detail
 
 # 4. Run the Experience Cloud guest-profile scanner against your sandbox
 node tools/exp-cloud-scanner/index.js --target hardening-scratch
@@ -79,7 +80,7 @@ Each row has three loadable links:
 ### Pillar 9 — DevSecOps
 | Whitepaper anchor | Artifact (view) | Raw |
 |---|---|---|
-| [9.2 Static analysis as a gate](https://drpaulcoleman.github.io/agentforce-mythos-hardening/#ix-static-analysis) | [`ci/pmd-apex-rules.xml`](https://github.com/drpaulcoleman/agentforce-mythos-hardening/blob/main/reference-impl/ci/pmd-apex-rules.xml) · [`ci/sfdx-scanner-config.json`](https://github.com/drpaulcoleman/agentforce-mythos-hardening/blob/main/reference-impl/ci/sfdx-scanner-config.json) | [PMD raw](https://raw.githubusercontent.com/drpaulcoleman/agentforce-mythos-hardening/main/reference-impl/ci/pmd-apex-rules.xml) · [scanner-config raw](https://raw.githubusercontent.com/drpaulcoleman/agentforce-mythos-hardening/main/reference-impl/ci/sfdx-scanner-config.json) |
+| [9.2 Static analysis as a gate](https://drpaulcoleman.github.io/agentforce-mythos-hardening/#ix-static-analysis) | [`ci/pmd-apex-rules.xml`](https://github.com/drpaulcoleman/agentforce-mythos-hardening/blob/main/reference-impl/ci/pmd-apex-rules.xml) · [`ci/code-analyzer-config.yml`](https://github.com/drpaulcoleman/agentforce-mythos-hardening/blob/main/reference-impl/ci/code-analyzer-config.yml) | [PMD raw](https://raw.githubusercontent.com/drpaulcoleman/agentforce-mythos-hardening/main/reference-impl/ci/pmd-apex-rules.xml) · [code-analyzer-config raw](https://raw.githubusercontent.com/drpaulcoleman/agentforce-mythos-hardening/main/reference-impl/ci/code-analyzer-config.yml) |
 | [9.4 CI deployment gates](https://drpaulcoleman.github.io/agentforce-mythos-hardening/#ix-deployment-approval) | [`ci/github-actions/`](https://github.com/drpaulcoleman/agentforce-mythos-hardening/tree/main/reference-impl/ci/github-actions) | (folder; clone repo for raw access) |
 
 ### Data exports (machine-readable)

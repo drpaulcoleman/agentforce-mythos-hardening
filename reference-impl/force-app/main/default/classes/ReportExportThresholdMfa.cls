@@ -21,10 +21,13 @@ global class ReportExportThresholdMfa implements TxnSecurity.EventCondition {
     private static Integer ROW_THRESHOLD = 10000;
 
     // Business hours window expressed as inclusive [start, end) in UTC. Adjust per timezone.
+    // DateTime.hourGmt() returns 0-23, so the comparison "hr >= BUSINESS_HOUR_END_UTC_EXCLUSIVE"
+    // with value 24 means "before midnight UTC" -- i.e., off-hours runs from BUSINESS_HOUR_END_UTC_EXCLUSIVE
+    // (exclusive upper bound) wrapping through midnight to BUSINESS_HOUR_START_UTC (inclusive lower bound).
     @TestVisible
-    private static Integer BUSINESS_HOUR_START_UTC = 13; // ~07:00 MT
+    private static Integer BUSINESS_HOUR_START_UTC = 13;          // ~07:00 MT
     @TestVisible
-    private static Integer BUSINESS_HOUR_END_UTC = 24;   // ~18:00 MT
+    private static Integer BUSINESS_HOUR_END_UTC_EXCLUSIVE = 24;  // end-of-day shorthand (24 = midnight UTC); ~18:00 MT cutover
 
     public boolean evaluate(SObject event) {
         if (event == null) {
@@ -47,6 +50,6 @@ global class ReportExportThresholdMfa implements TxnSecurity.EventCondition {
     @TestVisible
     private static Boolean isOffHours(Datetime ts) {
         Integer hr = ts.hourGmt();
-        return (hr < BUSINESS_HOUR_START_UTC || hr >= BUSINESS_HOUR_END_UTC);
+        return (hr < BUSINESS_HOUR_START_UTC || hr >= BUSINESS_HOUR_END_UTC_EXCLUSIVE);
     }
 }

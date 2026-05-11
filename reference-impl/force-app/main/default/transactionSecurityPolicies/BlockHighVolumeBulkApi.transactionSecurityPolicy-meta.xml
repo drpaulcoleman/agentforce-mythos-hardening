@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
     BlockHighVolumeBulkApi (Transaction Security Policy)
-    Pillar VIII.5 / App. D.1 -- binds the BlockHighVolumeBulkApi Apex class
-    to the BulkApiEvent stream. Action: Block.
+    Pillar VIII.5 / App. E.1 -- binds the BlockHighVolumeBulkApi Apex class
+    (implements TxnSecurity.EventCondition) to the BulkApi event family.
+    Action: Block.
 
-    NOT official Salesforce documentation. The TransactionSecurityPolicy
-    metadata schema (action enum, eventType naming) varies by API version;
-    validate against the current Real-Time Event Monitoring docs.
+    NOT official Salesforce documentation. The current Enhanced Transaction
+    Security framework uses <eventType> only (no separate <eventName> /
+    <resourceName>), requires <action>, and uses <executionUserType> rather
+    than a literal username when running as the current user. See:
+    https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_transactionsecurity.htm
+    https://developer.salesforce.com/docs/atlas.en-us.securityImplGuide.meta/securityImplGuide/enhanced_transaction_security_actions_notifs.htm
 -->
 <TransactionSecurityPolicy xmlns="http://soap.sforce.com/2006/04/metadata">
     <active>false</active>
     <apexClass>BlockHighVolumeBulkApi</apexClass>
     <description>Block Bulk API exports greater than 5,000 rows from non-trusted CIDR. Tune ROW_THRESHOLD and TRUSTED_CIDRS in BlockHighVolumeBulkApi before activating in production.</description>
-    <eventName>BulkApiEvent</eventName>
     <eventType>BulkApi</eventType>
-    <executionUser>SfsAutomatedProcess</executionUser>
+    <action>Block</action>
+    <executionUserType>CurrentUser</executionUserType>
     <masterLabel>Block High Volume Bulk API</masterLabel>
-    <resourceName>BulkApiEvent</resourceName>
-    <type>Transaction</type>
+    <type>EventBasedPolicy</type>
 </TransactionSecurityPolicy>

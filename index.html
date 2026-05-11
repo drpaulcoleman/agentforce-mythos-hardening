@@ -1,7 +1,7 @@
                                                                                                                                                               <!DOCTYPE html>
 <!--
   Salesforce CRM Security Hardening — A Defender's Encyclopedia for the Frontier-AI Era
-  Document version 1.5.37 · Last modified 2026-05-11
+  Document version 1.5.38 · Last modified 2026-05-11
   Copyright (c) 2026 Dr. Paul Coleman. All rights reserved.
 
   A vendor-neutral hardening reference for the customer side of the Salesforce
@@ -28,7 +28,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">                                  
 <title>The Mythos Imperative &mdash; Salesforce CRM Security Hardening</title>                                                      
-<meta name="document-version" content="1.5.37">
+<meta name="document-version" content="1.5.38">
 <meta name="last-modified" content="2026-05-06">
 <meta name="source-snapshot" content="2026-05-06">
 <meta name="description" content="The Mythos Imperative: a vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars from Identity to Defensive AI; nineteen appendices.">
@@ -38,7 +38,7 @@
 
 <!-- Open Graph / social-share metadata -->
 <meta property="og:type" content="article">
-<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.37">
+<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.38">
 <meta property="og:description" content="Vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars, 19 appendices, fully attributed.">
 <meta property="og:url" content="https://drpaulcoleman.github.io/agentforce-mythos-hardening/">
 <meta property="og:site_name" content="Salesforce CRM Security Hardening">
@@ -49,7 +49,7 @@
 
 <!-- Twitter / X card metadata -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.37">
+<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.38">
 <meta name="twitter:description" content="Threat-informed Salesforce hardening reference. Ten pillars from Identity to Defensive AI, with a companion Salesforce DX reference implementation.">
 
 <!-- Errata / contributions -->
@@ -1758,7 +1758,7 @@ pre.mermaid g.node[onclick]:hover > path {
 .ref-impl-callout code { font-size: 11px; }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   SCANNABLE LISTS + Q&A CARDS (v1.5.37)
+   SCANNABLE LISTS + Q&A CARDS (v1.5.38)
    For dense list/prose sections that need clearer item separation
    without changing line-height (which is already generous at 1.8).
    ═══════════════════════════════════════════════════════════════════════ */
@@ -1932,7 +1932,7 @@ pre.mermaid g.node[onclick]:hover > path {
     </div>
     <div>
       <h1><span class="phase-tag">The Mythos Imperative</span><span class="phase-sep">&mdash;</span>Salesforce CRM Security Hardening</h1>
-      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.37 &middot; last modified 2026-05-11</span>
+      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.38 &middot; last modified 2026-05-11</span>
     </div>
   </div>
   <div class="doc-meta">
@@ -2356,7 +2356,7 @@ gantt
 
 <!-- TECH · Hero ---------------------------------------------------------- -->
 <div class="card hero" id="hero" data-search="hero overview salesforce crm security hardening defender encyclopedia frontier ai mythos">
-  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.37 &middot; last modified 2026-05-11</p>
+  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.38 &middot; last modified 2026-05-11</p>
   <h1>The <span class="accent">Mythos Imperative</span><br/><span style="font-size:24px; font-weight:700; opacity:0.92; display:block; margin-top:6px;">A Defender's Encyclopedia for the Frontier-AI Era</span></h1>
   <p class="lede" style="border-left: 3px solid var(--sf-orange); padding: 6px 0 6px 16px; margin-left: 0;">
     <strong style="color: var(--sf-orange); letter-spacing: 0.04em;">Why this exists, why now.</strong>
@@ -3837,7 +3837,7 @@ flowchart LR
     <ul>
       <li>Same <code>LoginEvent</code> and <code>LoginHistory</code> records as TOTP; same SIEM ingest path (Appendix I).</li>
       <li><strong>What changes:</strong> the <code>AuthenticationMethodReference</code> column shows the AMR value (<code>fido2</code>, <code>webauthn</code>, <code>passkey</code>).</li>
-      <li><strong>Gap:</strong> SAML ACR values are not yet recorded in Login History as of v1.5.37 (planned future Salesforce release) &mdash; use a SAML tracer extension to inspect ACR until then.</li>
+      <li><strong>Gap:</strong> SAML ACR values are not yet recorded in Login History as of v1.5.38 (planned future Salesforce release) &mdash; use a SAML tracer extension to inspect ACR until then.</li>
     </ul>
   </div>
 
@@ -7845,9 +7845,14 @@ return (List&lt;Contact&gt;) dec.getRecords();   // SSN__c stripped if running u
   <div style="background: rgba(255,154,60,0.10); border-left: 4px solid #FF9A3C; padding: 12px 16px; margin: 12px 0; border-radius: 4px; font-size: 13px;">
     <strong>Schema disclaimer.</strong> The XML below shows the architectural <em>shape</em> of these
     metadata types. Exact element names, attribute names, and enum values evolve across API versions;
-    several elements shown here (e.g., <code>rotateRefreshToken</code>, <code>sessionLevelRequired</code>
-    on <code>oauthConfig</code>; <code>protocol=Mtls</code> on <code>NamedCredential</code>) may differ
-    from the canonical schema in your target API version. <strong>Always validate against the current
+    <strong>several elements shown here will NOT deploy verbatim</strong>: <code>&lt;rotateRefreshToken&gt;</code>
+    and <code>&lt;sessionLevelRequired&gt;</code> on <code>oauthConfig</code> are not in the published
+    ConnectedApp schema (session-level requirement is configured via profile / permset session policies
+    or Custom Login Flow); the legacy <code>NamedCredential</code> schema requires <code>&lt;namedCredentialType&gt;Legacy&lt;/namedCredentialType&gt;</code>
+    and does not accept <code>&lt;protocol&gt;Mtls&lt;/protocol&gt;</code> &mdash; mTLS is configured via
+    <code>&lt;certificate&gt;</code> + transport-layer handshake, with <code>&lt;protocol&gt;NoAuthentication&lt;/protocol&gt;</code>
+    when there is no auth-header layer (or by pairing with an <code>ExternalCredential</code>).
+    <strong>Always validate against the current
     <a href="https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/" target="_blank" rel="noopener">Metadata API Developer Guide</a></strong>
     and the current <code>package.xml</code> version your org is on.
   </div>
@@ -7883,9 +7888,15 @@ return (List&lt;Contact&gt;) dec.getRecords();   // SSN__c stripped if running u
   &lt;authProvider&gt;TreasuryAuth&lt;/authProvider&gt;
   &lt;certificate&gt;Acme_mTLS_Client_Cert_2026Q2&lt;/certificate&gt;
   &lt;endpoint&gt;https://treasury.acme.com&lt;/endpoint&gt;
+  &lt;namedCredentialType&gt;Legacy&lt;/namedCredentialType&gt;
   &lt;principalType&gt;PerUser&lt;/principalType&gt;
-  &lt;protocol&gt;Mtls&lt;/protocol&gt;
+  &lt;protocol&gt;NoAuthentication&lt;/protocol&gt;     &lt;!-- mTLS = transport-layer cert + endpoint trust; no auth header --&gt;
 &lt;/NamedCredential&gt;
+&lt;!-- mTLS is configured at the transport layer via &lt;certificate&gt; on the NamedCredential plus the
+     server-side trust store. There is NO &lt;protocol&gt;Mtls&lt;/protocol&gt; enum value on NamedCredential
+     metadata; use &lt;protocol&gt;NoAuthentication&lt;/protocol&gt; (or pair with an &lt;ExternalCredential&gt;
+     block carrying the auth/principal config and reference it via &lt;externalCredential&gt;) and rely
+     on &lt;certificate&gt; for the client-side TLS handshake. --&gt;
 </code></pre>
 
   <h3>D.3 PermissionSetGroup with mute</h3>
@@ -7959,13 +7970,13 @@ return (List&lt;Contact&gt;) dec.getRecords();   // SSN__c stripped if running u
         // Off-hours window (UTC; adjust to your business timezone)
         Datetime ts = e.EventDate;
         Integer hr = ts.hourGmt();
-        return (hr &lt; 12 || hr &gt; 23);   // crude sample &mdash; refine per timezone
+        return (hr &lt; 8 || hr &gt;= 18);   // off-hours = before 8am OR at/after 6pm UTC; refine per business timezone
     }
 }
 </code></pre>
 
   <h3>E.3 Notify on Setup access by non-admin profile</h3>
-  <p>Configure via Condition Builder (declarative): <code>UriEvent.RequestUrl LIKE '/setup/%' AND User.Profile.Name != 'System Administrator'</code> &rarr; Action: Notify.</p>
+  <p>Configure via Condition Builder (declarative): for <strong>Lightning Experience</strong> use <code>LightningUriEvent.RequestUrl LIKE '/lightning/setup/%' AND User.Profile.Name != 'System Administrator'</code> &rarr; Action: Notify. For <strong>Salesforce Classic</strong> use <code>UriEvent.RequestUrl LIKE '/setup/%' AND User.Profile.Name != 'System Administrator'</code> &rarr; Action: Notify. Both events are needed if your org has users in both UIs; a single-event policy on either alone will miss Setup access in the other.</p>
 </div>
 
 <!-- ════════════════════════════════════════════════════════════════════════
@@ -8552,7 +8563,7 @@ DIFF:
       <tr><td>CC9</td><td>Risk Mitigation</td><td>Risk Register, <a href="#pillar-iv">IV (vendor mgmt)</a></td></tr>
       <tr><td>A1 (Availability)</td><td>System availability</td><td><a href="#vii-backup">7.6</a></td></tr>
       <tr><td>C1 (Confidentiality)</td><td>Confidential info protection</td><td><a href="#pillar-vii">VII</a></td></tr>
-      <tr><td>P1&ndash;P8 (Privacy)</td><td>Privacy criteria covering Notice (P1), Choice/Consent (P2), Collection (P3), Use/Retention/Disposal (P4), Access (P5), Disclosure (P6), Quality (P7), Monitoring/Enforcement (P8)</td><td><a href="#vii-compliance">7.9</a></td></tr>
+      <tr><td>P1.0&ndash;P8.0 (Privacy)</td><td>AICPA 2017 Trust Services Criteria Privacy category: Notice and Communication of Objectives (P1.0), Choice and Consent (P2.0), Collection (P3.0), Use, Retention, and Disposal (P4.0), Access (P5.0), Disclosure and Notification (P6.0), Quality (P7.0), Monitoring and Enforcement (P8.0). <em>Note:</em> the labels above match the 2017 TSC; earlier mappings sometimes referenced the retired Generally Accepted Privacy Principles (GAPP) framework, which used similar categories but distinct wording &mdash; do not conflate the two.</td><td><a href="#vii-compliance">7.9</a></td></tr>
     </tbody>
   </table>
 
@@ -8670,7 +8681,7 @@ DIFF:
       <tr><td><strong>Massachusetts</strong></td><td>"As soon as practicable and without unreasonable delay"</td><td>Personal information</td></tr>
       <tr><td><strong>New York (SHIELD)</strong></td><td>"In the most expedient time possible"</td><td>Private information</td></tr>
       <tr><td><strong>Ohio</strong></td><td>45 days</td><td>Personal information</td></tr>
-      <tr><td><strong>Texas</strong></td><td>60 days; AG notice if &ge; 250 residents</td><td>Sensitive personal information</td></tr>
+      <tr><td><strong>Texas</strong></td><td>60 days to affected individuals; <strong>30 days to AG</strong> if &ge; 250 residents (per <a href="https://capitol.texas.gov/tlodocs/88R/billtext/pdf/SB00768F.pdf" target="_blank" rel="noopener">SB 768</a>, effective 2023-09-01; Tex. Bus. &amp; Com. Code &sect;521.053)</td><td>Sensitive personal information</td></tr>
       <tr><td><strong>Vermont</strong></td><td>45 days</td><td>Personally identifiable information</td></tr>
       <tr><td><strong>Washington</strong></td><td>30 days; AG notice if &ge; 500 residents</td><td>Personal information</td></tr>
     </tbody>
@@ -8823,7 +8834,7 @@ DIFF:
     });
     exportBtn.addEventListener('click', function() {
       var snapshot = {
-        framework: 'Salesforce CRM Security Hardening v1.5.37',
+        framework: 'Salesforce CRM Security Hardening v1.5.38',
         scored_at: new Date().toISOString(),
         scores: loadStored(),
         average: parseFloat(avgEl.textContent) || 0,
@@ -8871,7 +8882,7 @@ DIFF:
         <td><strong><a href="#pillar-i">1 &middot; Identity &amp; Auth</a></strong></td>
         <td>
           <a href="https://trailhead.salesforce.com/content/learn/modules/identity_basics" target="_blank" rel="noopener">Identity Basics</a> &middot;
-          <a href="https://trailhead.salesforce.com/content/learn/modules/identity_external" target="_blank" rel="noopener">User Authentication</a> &middot;
+          <a href="https://trailhead.salesforce.com/content/learn/modules/identity_login" target="_blank" rel="noopener">User Authentication</a> &middot;
           <a href="https://trailhead.salesforce.com/content/learn/modules/multi-factor-authentication-and-mfa-essentials" target="_blank" rel="noopener">Multi-Factor Authentication Essentials</a>
         </td>
       </tr>
@@ -8879,15 +8890,15 @@ DIFF:
         <td><strong><a href="#pillar-ii">2 &middot; Access Control</a></strong></td>
         <td>
           <a href="https://trailhead.salesforce.com/content/learn/modules/data_security" target="_blank" rel="noopener">Data Security</a> &middot;
-          <a href="https://trailhead.salesforce.com/content/learn/modules/permission_sets_pdg_team" target="_blank" rel="noopener">Permission Set Groups</a> &middot;
+          <a href="https://trailhead.salesforce.com/content/learn/modules/permission-set-groups" target="_blank" rel="noopener">Permission Set Groups</a> &middot;
           <a href="https://trailhead.salesforce.com/content/learn/projects/migrate-to-permission-set-groups" target="_blank" rel="noopener">Migrate to Permission Set Groups (project)</a>
         </td>
       </tr>
       <tr>
         <td><strong><a href="#pillar-iii">3 &middot; Experience Cloud guest hardening</a></strong></td>
         <td>
-          <a href="https://trailhead.salesforce.com/content/learn/modules/experience-cloud-security" target="_blank" rel="noopener">Experience Cloud Security</a> &middot;
-          <a href="https://trailhead.salesforce.com/content/learn/modules/experience-cloud-guest-user-access" target="_blank" rel="noopener">Guest User Access in Experience Cloud</a>
+          <a href="https://trailhead.salesforce.com/content/learn/modules/experience-cloud-site-strategy" target="_blank" rel="noopener">Experience Cloud Site Strategy</a> &middot;
+          <a href="https://trailhead.salesforce.com/content/learn/modules/communities-in-financial-services-cloud/create-a-community-and-make-it-secure" target="_blank" rel="noopener">Create a Community and Make It Secure</a>
         </td>
       </tr>
       <tr>
@@ -8957,15 +8968,17 @@ DIFF:
 <div class="card" id="appendix-r" data-search="appendix r salesforce well architected framework lens trusted secure compliant reliable adaptable resilient composable governed value mapping">
   <h2>Appendix R &middot; Salesforce Well-Architected Framework Mapping</h2>
   <p>The Salesforce Well-Architected Framework structures architectural decisions across three lenses
-  (<strong>Trusted</strong>, <strong>Adaptable</strong>, <strong>Composable</strong>) with several
-  habits/principles per lens. This appendix maps the ten pillars into the framework so that teams using
+  &mdash; <strong>Trusted</strong>, <strong>Easy</strong>, and <strong>Adaptable</strong> &mdash;
+  with several habits per lens. This appendix maps the ten pillars into the framework so that teams using
   Well-Architected as their primary architectural discipline can locate the hardening guidance within
-  their existing structure.</p>
+  their existing structure.
+  <a href="https://architect.salesforce.com/well-architected/" target="_blank" rel="noopener">[architect.salesforce.com/well-architected &#8599;]</a></p>
 
   <p style="background: rgba(255,154,60,0.10); border-left: 4px solid #FF9A3C; padding: 10px 14px; font-size: 13px;">
     <strong>Note on framework currency.</strong> The Well-Architected Framework's lens / habit names
     evolve. Verify habit naming against <a href="https://architect.salesforce.com/well-architected/" target="_blank" rel="noopener">architect.salesforce.com/well-architected</a>
-    for the version you're aligning against; this mapping uses the published structure as of source-snapshot 2026-05-06.
+    for the version you're aligning against; this mapping uses the published <strong>Trusted / Easy /
+    Adaptable</strong> three-lens structure as of source-snapshot 2026-05-11.
   </p>
 
   <h3>R.1 Trusted lens</h3>
@@ -8980,23 +8993,24 @@ DIFF:
     </tbody>
   </table>
 
-  <h3>R.2 Adaptable lens</h3>
+  <h3>R.2 Easy lens</h3>
+  <table>
+    <thead><tr><th>Habit / Principle</th><th>Pillars</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Intentional</strong> &mdash; Decisions are deliberate, documented, audit-traceable</td><td><a href="#ii-permset-migration">2.2</a> (PSG migration), <a href="#pillar-ix">Pillar 9</a> (deployment approval), <a href="#provenance">Disclaimer</a></td></tr>
+      <tr><td><strong>Automated</strong> &mdash; Manual toil replaced by repeatable code</td><td><a href="#iii-scanner">3.8</a>, <a href="#iv-detection-attestation">4.9</a>, <a href="#ix-repo-scan">9.5</a> (customer-built scanner patterns)</td></tr>
+      <tr><td><strong>Engaging</strong> &mdash; UX serves the user, not the architecture</td><td><a href="#i-fido2">1.2</a> (passkey UX), <a href="#i-mfa-qa">1.10.1</a> (customer-concern Q&amp;A)</td></tr>
+    </tbody>
+  </table>
+
+  <h3>R.3 Adaptable lens</h3>
   <table>
     <thead><tr><th>Habit / Principle</th><th>Pillars</th></tr></thead>
     <tbody>
       <tr><td><strong>Resilient</strong> &mdash; Survives change without breaking</td><td><a href="#ii-permset-migration">2.2</a> (PSG migration), <a href="#v-cert-rotation">5.3</a> (cert rotation cadence)</td></tr>
+      <tr><td><strong>Composable</strong> &mdash; Discrete, recombinable building blocks (<em>a habit under Adaptable, not a separate lens</em>)</td><td><a href="#ii-permset-migration">2.2</a> (PSG composition), <a href="#v-named-credentials">5.1</a> (NC + EC decomposition), <a href="#pillar-vi">VI</a> (Apex run-mode boundaries), <a href="#x-trust-layer">10.3</a> (Trust Layer)</td></tr>
       <tr><td><strong>Future-proof</strong> &mdash; Architectural decisions that age well</td><td><a href="#iv-eca-transition">4.1</a> (ECA over ConnectedApp)</td></tr>
       <tr><td><strong>Maintainable</strong> &mdash; Sustained ops without heroics</td><td><a href="#pillar-ix">Pillar 9</a>, <a href="#appendix-m">Appendix M</a> (operational cadence)</td></tr>
-    </tbody>
-  </table>
-
-  <h3>R.3 Composable lens</h3>
-  <table>
-    <thead><tr><th>Habit / Principle</th><th>Pillars</th></tr></thead>
-    <tbody>
-      <tr><td><strong>Modular</strong> &mdash; Discrete, recombinable building blocks</td><td><a href="#ii-permset-migration">2.2</a> (PSG composition), <a href="#v-named-credentials">5.1</a> (NC + EC decomposition)</td></tr>
-      <tr><td><strong>Layered</strong> &mdash; Clear separation of concerns</td><td><a href="#pillar-vi">VI</a> (Apex run-mode boundaries), <a href="#x-trust-layer">10.3</a> (Trust Layer)</td></tr>
-      <tr><td><strong>Governed</strong> &mdash; Decisions are visible, auditable</td><td><a href="#pillar-ix">Pillar 9</a>, <a href="#provenance">Disclaimer</a></td></tr>
     </tbody>
   </table>
 
@@ -9014,7 +9028,7 @@ DIFF:
   <p>The ten pillars are general-purpose Salesforce CRM hardening; each industry vertical adds its own
   threat model, regulatory frame, and architectural specialization. This appendix sketches the deltas.</p>
 
-  <h3>5.1 Financial Services Cloud (FSC)</h3>
+  <h3>S.1 Financial Services Cloud (FSC)</h3>
   <ul>
     <li><strong>Compliance overlay:</strong> Gramm-Leach-Bliley Act (GLBA) Safeguards Rule, New York Department of Financial Services (NYDFS) Part 500, Federal Financial Institutions Examination Council (FFIEC), sectoral state regulators. <a href="#appendix-n">Appendix N</a>'s SOC 2 / PCI / GLBA mappings apply directly.</li>
     <li><strong>FSC-specific data sensitivity:</strong> the <code>FinancialAccount</code>, <code>Securities Holdings</code>, and <code>Card</code> objects carry by-default-sensitive data. Treat as Restricted classification (<a href="#pillar-vii" class="pillar-link">Pillar 7.1</a>).</li>
@@ -9023,7 +9037,7 @@ DIFF:
     <li><strong>Common breach motif:</strong> wire-transfer fraud via business email compromise (BEC) feeding back into a Salesforce-tracked deal flow; gate large-dollar workflows with Transaction Security policies (<a href="#pillar-viii" class="pillar-link">Pillar 8.5</a>).</li>
   </ul>
 
-  <h3>5.2 Health Cloud</h3>
+  <h3>S.2 Health Cloud</h3>
   <ul>
     <li><strong>Compliance overlay:</strong> Health Insurance Portability and Accountability Act (HIPAA) Privacy + Security + Breach Notification Rules, state HIE (health-information-exchange) statutes, 42 CFR Part 2 for substance-abuse records, and the HIPAA Right of Access (NOT covered by Privacy Center; bespoke Apex usually required).</li>
     <li><strong>Health Cloud-specific objects:</strong> <code>HealthCloudGA__EhrEncounter__c</code>, care plan, problem-list, medication objects carry PHI. Field Audit Trail mandatory; Shield Platform Encryption strongly recommended.</li>
@@ -9032,7 +9046,8 @@ DIFF:
     <li><strong>Hyperforce + EEE</strong> (<a href="#pillar-vii" class="pillar-link">Pillar 7.7</a>): increasingly relevant for HIPAA's "appropriate technical safeguards" standard, particularly around BYOK.</li>
   </ul>
 
-  <h3>5.3 Public Sector / Government Cloud</h3>
+  <h3>S.3 Public Sector Solutions (Agentforce Public Sector) / Government Cloud</h3>
+  <p style="font-size: 12px; color: var(--text-muted); margin-top: -8px;">Salesforce renamed Public Sector Solutions to <strong>Agentforce Public Sector</strong> in Q1 2026; both names appear in the wild &mdash; treat as synonymous for the next 12 months.</p>
   <ul>
     <li><strong>Authorization overlay:</strong> FedRAMP (Moderate / High depending on workload), StateRAMP (state-government cloud authorization program), IL2 / IL4 / IL5 for DoD-aligned tenants. Salesforce Government Cloud Plus carries FedRAMP High; Salesforce Government Cloud carries FedRAMP Moderate.</li>
     <li><strong>Identity overlay:</strong> typically Personal Identity Verification (PIV) / Common Access Card (CAC) / Derived-PIV smart card auth via SAML; <a href="#pillar-i" class="pillar-link">Pillar 1.5</a> SSO architecture extended with smart-card support; FIDO2 hardware key (YubiKey 5 FIPS) often acceptable as an alternative.</li>
@@ -9041,7 +9056,7 @@ DIFF:
     <li><strong>Common breach motif:</strong> Krebs-pattern Experience Cloud exposure of resident data (the Vermont incident is the canonical example); <a href="#pillar-iii" class="pillar-link">Pillar 3</a> hardening is the entire mitigation.</li>
   </ul>
 
-  <h3>5.4 Industries Cloud (Vlocity / OmniStudio)</h3>
+  <h3>S.4 Salesforce Industries (formerly Vlocity) / OmniStudio</h3>
   <ul>
     <li><strong>Architectural specialization:</strong> OmniScripts, FlexCards, Integration Procedures, DataRaptors. Each has a distinct security model that does not map 1:1 onto core Apex / LWC / Flow.</li>
     <li><strong>OmniScript / Integration Procedure security:</strong> these run via a managed-package Apex layer; understand who-runs-as semantics for each step. Treat as <a href="#pillar-vi" class="pillar-link">Pillar 6</a>, with Vlocity-specific verification needed.</li>
@@ -9050,7 +9065,7 @@ DIFF:
     <li><strong>Contract / claim / order data:</strong> typically Restricted classification; Field Audit Trail recommended.</li>
   </ul>
 
-  <h3>5.5 B2B Commerce / B2C Commerce</h3>
+  <h3>S.5 B2B Commerce / B2C Commerce</h3>
   <ul>
     <li><strong>Compliance overlay:</strong> PCI DSS v4.0 if cardholder data ever touches the org (it shouldn't &mdash; payment processors should tokenize at the page-load layer). <a href="#pillar-vii" class="pillar-link">Pillar 7.1</a> classification + <a href="#pillar-v" class="pillar-link">Pillar 5.2</a> mTLS to payment gateways.</li>
     <li><strong>B2C storefront (Experience Cloud):</strong> the entire <a href="#pillar-iii" class="pillar-link">Pillar 3</a> applies. The customer-facing site IS a guest-user surface; product-catalog metadata is intentionally exposed but customer accounts and order history are not.</li>
@@ -9154,8 +9169,8 @@ DIFF:
   </p>
   <h3>Document metadata</h3>
   <p style="font-size: 12px; font-family: 'Source Code Pro', monospace;">
-    version 1.5.37 &middot; last modified 2026-05-11 &middot; source snapshot 2026-05-11 &middot;
-    Build identifier: SF-CRM-HARDENING-1.5.37
+    version 1.5.38 &middot; last modified 2026-05-11 &middot; source snapshot 2026-05-11 &middot;
+    Build identifier: SF-CRM-HARDENING-1.5.38
   </p>
 </div>
 
