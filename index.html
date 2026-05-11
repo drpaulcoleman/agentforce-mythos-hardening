@@ -1,7 +1,7 @@
                                                                                                                                                               <!DOCTYPE html>
 <!--
   Salesforce CRM Security Hardening — A Defender's Encyclopedia for the Frontier-AI Era
-  Document version 1.5.31 · Last modified 2026-05-11
+  Document version 1.5.32 · Last modified 2026-05-11
   Copyright (c) 2026 Dr. Paul Coleman. All rights reserved.
 
   A vendor-neutral hardening reference for the customer side of the Salesforce
@@ -28,7 +28,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">                                  
 <title>The Mythos Imperative &mdash; Salesforce CRM Security Hardening</title>                                                      
-<meta name="document-version" content="1.5.31">
+<meta name="document-version" content="1.5.32">
 <meta name="last-modified" content="2026-05-06">
 <meta name="source-snapshot" content="2026-05-06">
 <meta name="description" content="The Mythos Imperative: a vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars from Identity to Defensive AI; nineteen appendices.">
@@ -38,7 +38,7 @@
 
 <!-- Open Graph / social-share metadata -->
 <meta property="og:type" content="article">
-<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.31">
+<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.32">
 <meta property="og:description" content="Vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars, 19 appendices, fully attributed.">
 <meta property="og:url" content="https://drpaulcoleman.github.io/agentforce-mythos-hardening/">
 <meta property="og:site_name" content="Salesforce CRM Security Hardening">
@@ -49,7 +49,7 @@
 
 <!-- Twitter / X card metadata -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.31">
+<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.32">
 <meta name="twitter:description" content="Threat-informed Salesforce hardening reference. Ten pillars from Identity to Defensive AI, with a companion Salesforce DX reference implementation.">
 
 <!-- Errata / contributions -->
@@ -1758,44 +1758,101 @@ pre.mermaid g.node[onclick]:hover > path {
 .ref-impl-callout code { font-size: 11px; }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   SCANNABLE LISTS + Q&A CARDS (v1.5.31)
+   SCANNABLE LISTS + Q&A CARDS (v1.5.32)
    For dense list/prose sections that need clearer item separation
    without changing line-height (which is already generous at 1.8).
    ═══════════════════════════════════════════════════════════════════════ */
-/* Hanging-indent list: markers (1., 2., •) sit flush-left at the same x-position
-   as the section heading. Wrapped text aligns at 1.7em so the body forms a
-   clean column under the bold lead. Per-item whitespace is generous; line-height
+/* Hanging-indent default for all <ul>/<ol> directly inside a .card.
+   Markers (1., 2., bullet) sit flush-left at the same x-position as the
+   section heading. Wrapped text aligns at 1.7em so the body forms a clean
+   column under the bold lead. Per-item whitespace is generous; line-height
    stays at the card default (1.8) so sentence rhythm is unchanged.
-   Reset browser default <ol>/<ul> padding to 0 so flush-left starts at the
-   card's prose edge -- same x as the <h3> heading. */
-.scannable-list {
+
+   Scope: applies to direct-child lists of .card AND lists tagged
+   .scannable-list. Excluded by selector specificity / scope:
+   - lists inside utility wrappers (.aside-learn, .callout, .qa-card,
+     .pillar-tldr, .ref-impl-callout, .sprint-90, table cells, mermaid
+     blocks) -- those have their own rules with tighter spacing
+   - explicit utility classes (.bullets, .numbered) -- keep their styling */
+.scannable-list,
+.card > ul,
+.card > ol {
   margin: 14px 0 20px;
-  padding-left: 0;
+  padding: 0;
   list-style-position: outside;
 }
-.scannable-list > li {
+.scannable-list > li,
+.card > ul > li,
+.card > ol > li {
   margin: 0 0 18px;
   padding-left: 1.7em;
   text-indent: -1.7em;
   list-style-position: inside;
 }
-.scannable-list > li:last-child { margin-bottom: 0; }
-.scannable-list > li > strong:first-child {
+.scannable-list > li:last-child,
+.card > ul > li:last-child,
+.card > ol > li:last-child { margin-bottom: 0; }
+.scannable-list > li > strong:first-child,
+.card > ul > li > strong:first-child,
+.card > ol > li > li > strong:first-child {
   color: var(--sf-blue-light);
   font-weight: 700;
 }
-/* Nested bullets inside a scannable-list item: reset text-indent so they nest
-   cleanly, and use a tighter per-item rhythm */
-.scannable-list ul, .scannable-list ol {
+/* Lists with .bullets or .numbered keep their original tighter styling -- they
+   are utility classes used elsewhere in the doc and should not get hanging-indent */
+.card > ul.bullets,
+.card > ol.numbered {
+  padding-left: 22px;
+  margin: 12px 0;
+}
+.card > ul.bullets > li,
+.card > ol.numbered > li {
+  padding-left: 0;
+  text-indent: 0;
+  list-style-position: outside;
+  margin: 6px 0;
+}
+/* Nested bullets inside a scannable-list item or card list: reset hanging-indent,
+   use tighter spacing, render markers in the conventional outside position */
+.scannable-list ul, .scannable-list ol,
+.card > ul ul, .card > ul ol,
+.card > ol ul, .card > ol ol {
   margin: 8px 0 4px;
   padding-left: 1.6em;
   list-style-position: outside;
 }
-.scannable-list ul li, .scannable-list ol li {
+.scannable-list ul li, .scannable-list ol li,
+.card > ul ul li, .card > ul ol li,
+.card > ol ul li, .card > ol ol li {
   margin: 4px 0;
   padding-left: 0;
   text-indent: 0;
   list-style-position: outside;
+}
+/* Lists inside the sprint-90 card need their own tighter rhythm (existing rule
+   sets margin: 8px 0 0 22px; preserve that) */
+.card.sprint-90 > ol {
+  margin: 8px 0 0 22px;
+  padding-left: 0;
+}
+.card.sprint-90 > ol > li {
+  padding-left: 0;
+  text-indent: 0;
+  list-style-position: outside;
+  margin: 4px 0;
+}
+/* Lists inside the bluf card -- inherits bluf's white-background styling */
+.card.bluf > ul,
+.card.bluf > ol {
+  padding-left: 22px;
+  margin: 12px 0;
+}
+.card.bluf > ul > li,
+.card.bluf > ol > li {
+  padding-left: 0;
+  text-indent: 0;
+  list-style-position: outside;
+  margin: 6px 0;
 }
 
 /* Q&A card -- per-question visual block with TL;DR ribbon */
@@ -1875,7 +1932,7 @@ pre.mermaid g.node[onclick]:hover > path {
     </div>
     <div>
       <h1><span class="phase-tag">The Mythos Imperative</span><span class="phase-sep">&mdash;</span>Salesforce CRM Security Hardening</h1>
-      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.31 &middot; last modified 2026-05-11</span>
+      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.32 &middot; last modified 2026-05-11</span>
     </div>
   </div>
   <div class="doc-meta">
@@ -2299,7 +2356,7 @@ gantt
 
 <!-- TECH · Hero ---------------------------------------------------------- -->
 <div class="card hero" id="hero" data-search="hero overview salesforce crm security hardening defender encyclopedia frontier ai mythos">
-  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.31 &middot; last modified 2026-05-11</p>
+  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.32 &middot; last modified 2026-05-11</p>
   <h1>The <span class="accent">Mythos Imperative</span><br/><span style="font-size:24px; font-weight:700; opacity:0.92; display:block; margin-top:6px;">A Defender's Encyclopedia for the Frontier-AI Era</span></h1>
   <p class="lede" style="border-left: 3px solid var(--sf-orange); padding: 6px 0 6px 16px; margin-left: 0;">
     <strong style="color: var(--sf-orange); letter-spacing: 0.04em;">Why this exists, why now.</strong>
@@ -3776,7 +3833,7 @@ flowchart LR
     <ul>
       <li>Same <code>LoginEvent</code> and <code>LoginHistory</code> records as TOTP; same SIEM ingest path (Appendix I).</li>
       <li><strong>What changes:</strong> the <code>AuthenticationMethodReference</code> column shows the AMR value (<code>fido2</code>, <code>webauthn</code>, <code>passkey</code>).</li>
-      <li><strong>Gap:</strong> SAML ACR values are not yet recorded in Login History as of v1.5.31 (planned future Salesforce release) &mdash; use a SAML tracer extension to inspect ACR until then.</li>
+      <li><strong>Gap:</strong> SAML ACR values are not yet recorded in Login History as of v1.5.32 (planned future Salesforce release) &mdash; use a SAML tracer extension to inspect ACR until then.</li>
     </ul>
   </div>
 
@@ -8584,7 +8641,7 @@ DIFF:
     });
     exportBtn.addEventListener('click', function() {
       var snapshot = {
-        framework: 'Salesforce CRM Security Hardening v1.5.31',
+        framework: 'Salesforce CRM Security Hardening v1.5.32',
         scored_at: new Date().toISOString(),
         scores: loadStored(),
         average: parseFloat(avgEl.textContent) || 0,
@@ -8915,8 +8972,8 @@ DIFF:
   </p>
   <h3>Document metadata</h3>
   <p style="font-size: 12px; font-family: 'Source Code Pro', monospace;">
-    version 1.5.31 &middot; last modified 2026-05-11 &middot; source snapshot 2026-05-11 &middot;
-    Build identifier: SF-CRM-HARDENING-1.5.31
+    version 1.5.32 &middot; last modified 2026-05-11 &middot; source snapshot 2026-05-11 &middot;
+    Build identifier: SF-CRM-HARDENING-1.5.32
   </p>
 </div>
 
