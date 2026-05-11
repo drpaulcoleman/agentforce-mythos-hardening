@@ -1,7 +1,7 @@
                                                                                                                                                               <!DOCTYPE html>
 <!--
   Salesforce CRM Security Hardening — A Defender's Encyclopedia for the Frontier-AI Era
-  Document version 1.5.34 · Last modified 2026-05-11
+  Document version 1.5.35 · Last modified 2026-05-11
   Copyright (c) 2026 Dr. Paul Coleman. All rights reserved.
 
   A vendor-neutral hardening reference for the customer side of the Salesforce
@@ -28,7 +28,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">                                  
 <title>The Mythos Imperative &mdash; Salesforce CRM Security Hardening</title>                                                      
-<meta name="document-version" content="1.5.34">
+<meta name="document-version" content="1.5.35">
 <meta name="last-modified" content="2026-05-06">
 <meta name="source-snapshot" content="2026-05-06">
 <meta name="description" content="The Mythos Imperative: a vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars from Identity to Defensive AI; nineteen appendices.">
@@ -38,7 +38,7 @@
 
 <!-- Open Graph / social-share metadata -->
 <meta property="og:type" content="article">
-<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.34">
+<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.35">
 <meta property="og:description" content="Vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars, 19 appendices, fully attributed.">
 <meta property="og:url" content="https://drpaulcoleman.github.io/agentforce-mythos-hardening/">
 <meta property="og:site_name" content="Salesforce CRM Security Hardening">
@@ -49,7 +49,7 @@
 
 <!-- Twitter / X card metadata -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.34">
+<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.35">
 <meta name="twitter:description" content="Threat-informed Salesforce hardening reference. Ten pillars from Identity to Defensive AI, with a companion Salesforce DX reference implementation.">
 
 <!-- Errata / contributions -->
@@ -1758,7 +1758,7 @@ pre.mermaid g.node[onclick]:hover > path {
 .ref-impl-callout code { font-size: 11px; }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   SCANNABLE LISTS + Q&A CARDS (v1.5.34)
+   SCANNABLE LISTS + Q&A CARDS (v1.5.35)
    For dense list/prose sections that need clearer item separation
    without changing line-height (which is already generous at 1.8).
    ═══════════════════════════════════════════════════════════════════════ */
@@ -1932,7 +1932,7 @@ pre.mermaid g.node[onclick]:hover > path {
     </div>
     <div>
       <h1><span class="phase-tag">The Mythos Imperative</span><span class="phase-sep">&mdash;</span>Salesforce CRM Security Hardening</h1>
-      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.34 &middot; last modified 2026-05-11</span>
+      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.35 &middot; last modified 2026-05-11</span>
     </div>
   </div>
   <div class="doc-meta">
@@ -2268,8 +2268,8 @@ gantt
   </pre>
   <p style="margin-top:14px;">
     <strong>Vendor-driven deadlines anchoring this sprint:</strong>
-    <em>Phishing-resistant MFA for privileged users</em> &mdash; sandbox 2026-06-22, production 2026-07-01.
-    <em>MFA for all employees</em> &mdash; sandbox 2026-06-22, production 2026-07-20.
+    <em>Phishing-resistant MFA for privileged users</em> &mdash; sandbox 2026-06-22 (7-day stagger), production starts 2026-07-01 (30-day rolling window through 2026-07-27).
+    <em>MFA for all employees</em> &mdash; sandbox 2026-06-22 (7-day stagger), production starts 2026-07-20 (30-day rolling window through 2026-08-17).
     Customer-side hardening sprint dates above must complete <em>before</em> these.
     See <a href="#platform-roadmap">Platform Roadmap</a> for the full vendor schedule.
   </p>
@@ -2356,7 +2356,7 @@ gantt
 
 <!-- TECH · Hero ---------------------------------------------------------- -->
 <div class="card hero" id="hero" data-search="hero overview salesforce crm security hardening defender encyclopedia frontier ai mythos">
-  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.34 &middot; last modified 2026-05-11</p>
+  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.35 &middot; last modified 2026-05-11</p>
   <h1>The <span class="accent">Mythos Imperative</span><br/><span style="font-size:24px; font-weight:700; opacity:0.92; display:block; margin-top:6px;">A Defender's Encyclopedia for the Frontier-AI Era</span></h1>
   <p class="lede" style="border-left: 3px solid var(--sf-orange); padding: 6px 0 6px 16px; margin-left: 0;">
     <strong style="color: var(--sf-orange); letter-spacing: 0.04em;">Why this exists, why now.</strong>
@@ -2902,7 +2902,7 @@ flowchart LR
     <span class="metaphor">A passkey is like a house key &mdash; the kind on your physical keyring (hardware security key), the kind built into your phone (platform authenticator), or the kind in a locked family safe (vault-stored passkey). All three forms can't be photographed, screenshotted, read aloud over the phone, or copied across the internet. The door doesn't open without the key being physically present at the device requesting access.</span>
     <ul>
       <li><a href="https://help.salesforce.com/s/articleView?id=sf.security_overview.htm" target="_blank" rel="noopener">Salesforce Help &mdash; Security overview</a></li>
-      <li><a href="https://trailhead.salesforce.com/content/learn/modules/identity_login" target="_blank" rel="noopener">Trailhead &mdash; Identity Basics</a></li>
+      <li><a href="https://trailhead.salesforce.com/content/learn/modules/identity_login" target="_blank" rel="noopener">Trailhead &mdash; User Authentication</a></li>
       <li><a href="https://en.wikipedia.org/wiki/WebAuthn" target="_blank" rel="noopener">Wikipedia &mdash; WebAuthn / FIDO2</a></li>
       <li><a href="https://en.wikipedia.org/wiki/Multi-factor_authentication" target="_blank" rel="noopener">Wikipedia &mdash; Multi-factor authentication</a></li>
     </ul>
@@ -2980,7 +2980,7 @@ sequenceDiagram
   <h2>1.1 &middot; MFA Factor Matrix &mdash; What Survives Vishing</h2>
   <p>
     Salesforce contractually requires MFA for all customers (since February 2022) and Device Activation
-    for SSO logins (since February 2026)<sup><a href="#ref-20" class="ref-link">[20]</a></sup>. The contractual minimum is not the security
+    for SSO logins (since <strong>2026-02-09</strong> per <a href="https://help.salesforce.com/s/articleView?id=005237070&amp;type=1" target="_blank" rel="noopener">KB 005237070</a>)<sup><a href="#ref-20" class="ref-link">[20]</a></sup>. The contractual minimum is not the security
     minimum. The factor matrix below is what actually matters in 2026:
   </p>
   <table>
@@ -3151,12 +3151,8 @@ sequenceDiagram
 
   <h3>AMR/ACR signal reality &mdash; verify in sandbox per vendor</h3>
   <ul class="scannable-list">
-    <li><strong>1Password.</strong> Emits <code>webauthn</code> (generic) in most IdP integrations as of late
-    2025. Confirm via SAML tracer / OIDC Login History on a sandbox login.</li>
-    <li><strong>Bitwarden, Keeper, Dashlane, NordPass, Proton Pass.</strong> Same generic <code>webauthn</code>
-    in most integrations. Some IdPs (Okta with FastPass policy, Entra with Phishing-Resistant Authentication
-    policy) re-classify the signal to <code>fido2</code> / <code>x509</code> upstream of Salesforce &mdash; that
-    re-classification is what lets a vault-stored passkey satisfy the privileged-user gate.</li>
+    <li><strong>1Password.</strong> When a stored 1Password passkey is presented to most IdPs <em>without further policy enrichment</em>, the IdP transmits the generic <code>webauthn</code> AMR to Salesforce. The AMR value is what the <strong>IdP</strong> emits to Salesforce, not what the vault decides &mdash; verify in sandbox.</li>
+    <li><strong>Bitwarden, Keeper, Dashlane, NordPass, Proton Pass.</strong> Same default behavior &mdash; the IdP typically transmits generic <code>webauthn</code> when receiving a vault-stored passkey. Some IdPs (<a href="https://help.okta.com/en-us/Content/Topics/Security/mfa-webauthn.htm" target="_blank" rel="noopener">Okta with FastPass policy</a>, <a href="https://learn.microsoft.com/en-us/entra/identity/authentication/concept-authentication-strengths" target="_blank" rel="noopener">Microsoft Entra with Phishing-Resistant Authentication strength</a>) can be configured to re-classify the signal to <code>fido2</code> / <code>x509</code> upstream of Salesforce &mdash; that re-classification is what lets a vault-stored passkey satisfy the privileged-user gate.</li>
     <li><strong>The test is one button.</strong> Enroll a vault-stored passkey on a sandbox test user with the
     System Administrator profile; log in; inspect Login History &rarr; AMR column. If you see <code>fido2</code>
     &rarr; OK for privileged. If you see <code>webauthn</code> or <code>passkey</code> &rarr; privileged-user
@@ -3226,7 +3222,7 @@ sequenceDiagram
     <li><strong>Read context attributes</strong> (IP, browser, time, day) and conditionally branch</li>
     <li><strong>Display a banner / disclosure / acceptable-use notice</strong> requiring acknowledgment</li>
     <li><strong>Limit concurrent sessions</strong> per user (terminate older sessions)</li>
-    <li><strong>Restrict simultaneous device count</strong> by querying the User Sessions object</li>
+    <li><strong>Restrict simultaneous device count</strong> by querying <code>AuthSession</code> (the SObject backing the "Session Management" / "User Sessions" Setup UI)</li>
     <li><strong>Run an Apex prerun check</strong> (e.g., is the user's hardware key still attested? has their
     domain ACL been revoked?) and route to a remediation page on fail</li>
     <li><strong>Log-out users on policy violation</strong> by calling <code>Auth.SessionManagement.finishLoginFlow(String&nbsp;startURL)</code>
@@ -3588,7 +3584,7 @@ sequenceDiagram
 
   <div class="pillar-tldr">
     <strong>TL;DR</strong>
-    Salesforce blocks logins for <em>privileged</em> users without phishing-resistant MFA starting <strong>2026-06-22 (sandbox)</strong> / <strong>2026-07-01 (production)</strong>, and for <em>all</em> employee users without any MFA starting <strong>2026-06-22 (sandbox)</strong> / <strong>2026-07-20 (production)</strong>. Sandbox MFA enforcement is <strong>new</strong> &mdash; previously sandboxes were excluded.
+    Salesforce blocks logins for <em>privileged</em> users without phishing-resistant MFA starting <strong>2026-06-22 (sandbox, 7-day stagger)</strong> / <strong>2026-07-01 (production, rolling through 2026-07-27)</strong>, and for <em>all</em> employee users without any MFA starting <strong>2026-06-22 (sandbox)</strong> / <strong>2026-07-20 (production, rolling through 2026-08-17)</strong>. Sandbox MFA enforcement is <strong>new</strong> &mdash; previously sandboxes were excluded.
     <span class="one-action">Today's single highest-leverage action: pull a list of every user with System Administrator profile, Modify All Data, View All Data, Customize Application, or Author Apex (directly or via permission set); enroll each in a Security Key or Built-in Authenticator <em>this week</em>. Salesforce Authenticator and TOTP apps no longer count for this population after Jul 1.</span>
   </div>
 
@@ -3620,7 +3616,7 @@ sequenceDiagram
       </tr>
       <tr>
         <td><code>Waive Multi-Factor Authentication for Exempt Users</code> permission</td>
-        <td><strong>No longer auto-exempts.</strong> Users with this permission are prompted to enroll and use MFA. To preserve exemption for valid use cases (e.g. automated test tooling), <strong>contact Salesforce Support</strong> for explicit approval.</td>
+        <td><strong>No longer auto-exempts.</strong> Users with this permission are prompted to enroll and use MFA. To preserve exemption for valid use cases (e.g. automated test tooling), <strong>contact Salesforce Support</strong> for explicit approval. <strong>Note &mdash; automatic carve-outs that remain in place:</strong> Experience Cloud (Community) users and users holding the <em>API-Only User</em> permission remain exempt from the UI-login MFA mandate without needing Support approval &mdash; those exemptions are platform-automatic.</td>
       </tr>
       <tr>
         <td>Trial Org &rarr; subscription transition</td>
@@ -3640,7 +3636,7 @@ sequenceDiagram
       </tr>
       <tr>
         <td>Mobile SDK 13.2.0 and earlier</td>
-        <td>Default WebView authentication mode <strong>cannot complete browser-mediated phishing-resistant MFA</strong> &mdash; security key, platform authenticator, <em>and</em> vault-stored passkey all require the browser path. Workarounds: (a) configure Advanced Authentication in My Domain settings and use My Domain as login server, or (b) Salesforce Mobile App users can use the <em>Login with Email</em> option. <strong>Mobile SDK 13.2.1 (May 2026)</strong> adds a <em>Login for Admin</em> menu item that forces browser-based authentication.</td>
+        <td>Default WebView authentication mode <strong>cannot complete browser-mediated phishing-resistant MFA</strong> &mdash; security key, platform authenticator, <em>and</em> vault-stored passkey all require the browser path. Workarounds: (a) configure Advanced Authentication in My Domain settings and use My Domain as login server, or (b) Salesforce Mobile App users can use the <em>Login with Email</em> option. <strong>Mobile SDK 13.2.1</strong> (anticipated May 2026 per KB 005321563 &mdash; confirm against current release notes) adds a <em>Login for Admins</em> menu item that forces browser-based authentication.</td>
       </tr>
       <tr>
         <td>OAuth flows affected</td>
@@ -3830,7 +3826,7 @@ flowchart LR
     <ul>
       <li>Security key, platform authenticator, <em>or</em> vault-stored passkey all require the browser path.</li>
       <li><strong>Workaround (a):</strong> configure Advanced Authentication in My Domain and use My Domain as the login server.</li>
-      <li><strong>Workaround (b) &mdash; recommended:</strong> upgrade to <strong>Mobile SDK 13.2.1</strong> (May 2026 release) which adds a "Login for Admin" menu item forcing browser-based authentication.</li>
+      <li><strong>Workaround (b) &mdash; recommended:</strong> upgrade to <strong>Mobile SDK 13.2.1</strong> (anticipated May 2026 per KB 005321563 &mdash; confirm against current Mobile SDK release notes) which adds a <em>Login for Admins</em> menu item forcing browser-based authentication.</li>
       <li><strong>Action:</strong> inventory custom Mobile SDK apps now; schedule the upgrade for Q2 2026.</li>
     </ul>
   </div>
@@ -3841,7 +3837,7 @@ flowchart LR
     <ul>
       <li>Same <code>LoginEvent</code> and <code>LoginHistory</code> records as TOTP; same SIEM ingest path (Appendix I).</li>
       <li><strong>What changes:</strong> the <code>AuthenticationMethodReference</code> column shows the AMR value (<code>fido2</code>, <code>webauthn</code>, <code>passkey</code>).</li>
-      <li><strong>Gap:</strong> SAML ACR values are not yet recorded in Login History as of v1.5.34 (planned future Salesforce release) &mdash; use a SAML tracer extension to inspect ACR until then.</li>
+      <li><strong>Gap:</strong> SAML ACR values are not yet recorded in Login History as of v1.5.35 (planned future Salesforce release) &mdash; use a SAML tracer extension to inspect ACR until then.</li>
     </ul>
   </div>
 
@@ -4469,13 +4465,16 @@ flowchart LR
     should be removed. <em>Tick items as you verify them; checked state is preserved across page reloads.
     Print-friendly &mdash; checkboxes render as blank boxes for hand-checking on a paper audit copy.</em>
   </p>
-  <h3>Object permissions</h3>
-  <ul class="checklist" data-checklist-id="iii-profile-obj">
-    <li><input type="checkbox" id="ck-iii-obj-1"><label for="ck-iii-obj-1">Default-deny: <strong>no</strong> object permissions on standard objects unless required by the public UX.</label></li>
-    <li><input type="checkbox" id="ck-iii-obj-2"><label for="ck-iii-obj-2">For required objects, prefer <em>Read</em> only; never <em>Edit</em>, <em>Create</em>, <em>Delete</em> unless the public UX demands record creation (e.g., Web-to-Lead alternatives).</label></li>
-    <li><input type="checkbox" id="ck-iii-obj-3"><label for="ck-iii-obj-3">Never grant <em>View All</em> or <em>Modify All</em> on any object.</label></li>
-  </ul>
-  <h3>System permissions</h3>
+  <div class="callout">
+    <p style="margin: 0;"><strong>Audit order matters.</strong> Per Salesforce's
+    <a href="https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/communities_secure_guest_users.pdf" target="_blank" rel="noopener">"Share Securely with Guest Users" guide &#8599;</a>:
+    <strong>system permissions first</strong> (closes the API surface so an attacker cannot enumerate
+    object permissions via Aura / GraphQL even if those are misconfigured), <strong>then object
+    permissions</strong> (closes the data), <strong>then Apex class access</strong> (closes the
+    controllers), <strong>then Visualforce / LWC component access</strong>. An admin who runs out of
+    time should always have closed the system-permission surface first.</p>
+  </div>
+  <h3>System permissions (audit first &mdash; closes the API surface)</h3>
   <ul class="checklist" data-checklist-id="iii-profile-sys">
     <li><input type="checkbox" id="ck-iii-sys-1"><label for="ck-iii-sys-1"><strong>API Enabled</strong>: <em>off</em> (guest users should not be able to call the SOAP/REST APIs directly).</label></li>
     <li><input type="checkbox" id="ck-iii-sys-2"><label for="ck-iii-sys-2"><strong>View All Users</strong>: <em>off</em> (this exposes all User records to the guest).</label></li>
@@ -4484,13 +4483,19 @@ flowchart LR
     <li><input type="checkbox" id="ck-iii-sys-5"><label for="ck-iii-sys-5"><strong>Manage Public Documents / Files</strong>: <em>off</em>.</label></li>
     <li><input type="checkbox" id="ck-iii-sys-6"><label for="ck-iii-sys-6"><strong>Modify Metadata Through Metadata API Functions</strong>: <em>off</em> (obvious, but check).</label></li>
   </ul>
-  <h3>Apex class access</h3>
+  <h3>Object permissions (audit second &mdash; closes the data)</h3>
+  <ul class="checklist" data-checklist-id="iii-profile-obj">
+    <li><input type="checkbox" id="ck-iii-obj-1"><label for="ck-iii-obj-1">Default-deny: <strong>no</strong> object permissions on standard objects unless required by the public UX.</label></li>
+    <li><input type="checkbox" id="ck-iii-obj-2"><label for="ck-iii-obj-2">For required objects, prefer <em>Read</em> only; never <em>Edit</em>, <em>Create</em>, <em>Delete</em> unless the public UX demands record creation (e.g., Web-to-Lead alternatives).</label></li>
+    <li><input type="checkbox" id="ck-iii-obj-3"><label for="ck-iii-obj-3">Never grant <em>View All</em> or <em>Modify All</em> on any object.</label></li>
+  </ul>
+  <h3>Apex class access (audit third &mdash; closes the controllers)</h3>
   <ul class="checklist" data-checklist-id="iii-profile-apex">
     <li><input type="checkbox" id="ck-iii-apex-1"><label for="ck-iii-apex-1">Audit <em>every</em> Apex class granted to the guest profile.</label></li>
     <li><input type="checkbox" id="ck-iii-apex-2"><label for="ck-iii-apex-2">For each class: confirm it uses <code>with sharing</code> + <code>USER_MODE</code> + explicit FLS checks.</label></li>
     <li><input type="checkbox" id="ck-iii-apex-3"><label for="ck-iii-apex-3">Custom REST resources granted to guest are <strong>especially</strong> sensitive &mdash; many were written before USER_MODE existed.</label></li>
   </ul>
-  <h3>Visualforce / LWC component access</h3>
+  <h3>Visualforce / LWC component access (audit fourth)</h3>
   <ul class="checklist" data-checklist-id="iii-profile-vfclwc">
     <li><input type="checkbox" id="ck-iii-vfclwc-1"><label for="ck-iii-vfclwc-1">Each granted component reviewed for what it queries and what it returns.</label></li>
     <li><input type="checkbox" id="ck-iii-vfclwc-2"><label for="ck-iii-vfclwc-2">Any component that does <code>SELECT ... FROM User</code> or <code>SELECT ... FROM Account</code> is a candidate for hardening &mdash; verify the WHERE clauses.</label></li>
@@ -4566,7 +4571,9 @@ public static List&lt;Case&gt; getMyCases() {
         // ... or throw, if the method is internal-only and shouldn't be guest-reachable at all:
         // throw new AuraHandledException('Access denied');
     }
-    // Authenticated path
+    // Authenticated path -- guest users falling through here get an empty result set
+    // because OwnerId will never match a guest user's Id (defense in depth, but the
+    // explicit guest check above is the primary gate)
     return [SELECT Id, CaseNumber, ContactEmail FROM Case
             WHERE OwnerId = :UserInfo.getUserId() WITH USER_MODE LIMIT 50];
 }</code></pre></li>
@@ -4646,8 +4653,17 @@ public static List&lt;Case&gt; getMyCases() {
 </div>
 
 <!-- 3.8 Automated scanner pattern -->
-<div class="card" id="iii-scanner" data-search="automated metadata scanner public site crawl guest profile audit script ci cd quarterly attestation">
+<div class="card" id="iii-scanner" data-search="automated metadata scanner public site crawl guest profile audit script ci cd quarterly attestation customer build not salesforce shipped">
   <h2>3.8 &middot; Automated Scanner + Public-Site Crawl Pattern</h2>
+  <div class="callout warn">
+    <p style="margin: 0;"><strong>&#9888; Important: this is not a Salesforce-shipped feature.</strong>
+    The two scanners described below are a <strong>customer-built pattern</strong> (typically Node.js or
+    Python, a few hundred lines each) that runs against Salesforce's Metadata API and your public site.
+    Customers must build them or contract for them &mdash; Setup has no toggle for "Metadata Scanner" /
+    "Public Site Crawler" / "approved baseline manifest." The OAuth Usage Report (Setup &rarr; Connected
+    Apps OAuth Usage) <em>is</em> Salesforce-shipped; the dual-scanner + cross-validator architecture
+    on top of it is not.</p>
+  </div>
   <p>
     Manual quarterly review captures most of the value but misses drift between reviews. The pattern
     that catches drift is two coordinated scanners running on a shorter cadence:
@@ -4821,7 +4837,7 @@ sequenceDiagram
       <tr><td><strong>Client Credentials flow</strong></td><td>&#9989; Acceptable</td><td>Service-to-service without a user identity (avoid for record access; prefer JWT Bearer with named integration user)</td></tr>
       <tr><td><strong>User-Agent flow</strong> (implicit)</td><td>&#10071; Block at the org level</td><td>Per Salesforce official guidance; legacy SPA flow superseded by web-server + PKCE<sup><a href="#ref-26" class="ref-link">[26]</a></sup></td></tr>
       <tr><td><strong>Username-Password (ROPC) flow</strong></td><td>&#10071; Block at the org level</td><td>Salesforce official guidance: do not use; sends credentials directly to the app</td></tr>
-      <tr><td><strong>Device flow</strong></td><td>&#9888; Discouraged for vishing-target use</td><td>Originally surfaced in the UNC6040 phone-channel exploitation pattern (the verification-code prompt is what the attacker walks the victim through). Salesforce continues to support OAuth 2.0 Device Authorization Flow for legitimate IoT integrations &mdash; treat it as a high-risk flow, restrict it to specific Connected Apps, and pair with admin pre-approval + Block Uninstalled Connected Apps so the victim cannot complete a verification-code grant on an attacker-controlled app.</td></tr>
+      <tr><td><strong>Device flow</strong></td><td>&#9888; Discouraged for vishing-target use; removed from Data Loader 2026-09-02</td><td>Originally surfaced in the UNC6040 phone-channel exploitation pattern (the verification-code prompt is what the attacker walks the victim through). Salesforce <strong>removed Device Flow from the auto-installed Data Loader Connected App on 2026-09-02</strong> &mdash; that canonical vishing target no longer supports the flow. Customer-created Connected Apps can still use Device Flow if explicitly enabled (legitimate IoT integrations) &mdash; treat it as a high-risk flow, restrict it to specific Connected Apps, and pair with admin pre-approval + Block Uninstalled Connected Apps so the victim cannot complete a verification-code grant on an attacker-controlled app. <a href="https://admin.salesforce.com/blog/2025/get-ready-for-changes-to-connected-app-usage-restrictions" target="_blank" rel="noopener">[Salesforce Admins blog Sep 2025 &#8599;]</a></td></tr>
     </tbody>
   </table>
   <h3>Block at the org level</h3>
@@ -4833,8 +4849,12 @@ sequenceDiagram
 </div>
 
 <!-- 4.3 Block Uninstalled / Admin pre-approval -->
-<div class="card" id="iv-block-uninstalled" data-search="block uninstalled connected apps admin pre approved users pre authorized critical update september 2025 default high assurance auto replication cross org consumer key client id stub shadow registration unc6040 vishing oauth error invalid client managed package installed">
+<div class="card" id="iv-block-uninstalled" data-search="block uninstalled connected apps admin pre approved users pre authorized critical update september 2025 default high assurance auto replication cross org consumer key client id stub shadow registration unc6040 vishing oauth error invalid client managed package installed kb 005321563 admins blog">
   <h2>4.3 &middot; Block Uninstalled Connected Apps + Admin Pre-Approval</h2>
+  <p style="font-size: 12px; margin-bottom: 8px;">
+    <a href="https://admin.salesforce.com/blog/2025/get-ready-for-changes-to-connected-app-usage-restrictions" target="_blank" rel="noopener">[Salesforce Admins blog Sep 2025 &#8599;]</a>
+    confirms the rollout schedule and default-on activation for most orgs.
+  </p>
 
   <h3>The default behavior this turns off</h3>
   <p>
@@ -4939,17 +4959,17 @@ sequenceDiagram
     <li><strong>IP relaxation: <em>disabled</em></strong> for high-trust apps &mdash; tokens only valid from
     the IP they were issued to</li>
   </ul>
-  <h3>Revocation surface</h3>
+  <h3>Revocation surface (ordered by incident-response speed)</h3>
   <ul>
-    <li><strong>OAuth Connected Apps page</strong>: revoke per-user / per-app</li>
-    <li><strong>Connected Apps OAuth Usage</strong>: per-user revoke</li>
-    <li><strong>User detail &rarr; Connected Apps</strong>: per-user revoke for that user's apps</li>
-    <li><strong>Apex / Tooling API</strong>: programmatic revoke (incident response automation)</li>
+    <li><strong>Apex / Tooling API &mdash; programmatic revoke (fastest; for active incident)</strong>. A single script revokes for all users of a Connected App in seconds; in an active OAuth-token-theft incident you do not have time to click through Setup per user. This is the IR-speed default.</li>
+    <li><strong>Connected Apps OAuth Usage</strong>: per-user revoke (targeted single-user response)</li>
+    <li><strong>User detail &rarr; Connected Apps</strong>: per-user revoke for that user's apps (offboarding)</li>
+    <li><strong>OAuth Connected Apps Setup page</strong>: per-user / per-app (administrative removal, lowest urgency)</li>
   </ul>
   <p>
     <strong>Pattern.</strong> An incident-response runbook that does the revoke programmatically across
-    all users for a given Connected App. Pillar 8 covers IRP; the OAuth-revoke runbook is one of the
-    high-velocity playbooks worth pre-building.
+    all users for a given Connected App is one of the high-velocity playbooks worth pre-building. Pillar 8
+    covers the IRP loop; revoke automation is invoked from the Contain phase.
   </p>
 </div>
 
@@ -5061,7 +5081,7 @@ sequenceDiagram
     <li><strong>Bulk extraction.</strong> Attacker runs Bulk API queries; data leaves; persistent refresh
     token enables continued access</li>
   </ol>
-  <h3>Customer-side controls (every one of these breaks the chain)</h3>
+  <h3>Preventive controls (deploy in advance &mdash; every one of these breaks the chain)</h3>
   <ul>
     <li><strong>Block Uninstalled Connected Apps</strong> (4.3) &mdash; the unknown Data Loader instance is
     refused at step 4</li>
@@ -5074,6 +5094,16 @@ sequenceDiagram
     <li><strong>Operator training that names the attack</strong> &mdash; "you will receive a call from someone
     claiming to be IT support; that person is an attacker; here is the script"</li>
   </ul>
+  <h3>Active-incident response (vishing detected in flight)</h3>
+  <p>
+    If you detect a vishing attempt or successful compromise <em>in progress</em>, do not execute the
+    preventive controls above &mdash; those are pre-incident. Run the
+    <a href="#viii-irp" class="pillar-link">Pillar 8.6 IRP loop</a>: <strong>kill active sessions first</strong>
+    (Setup &rarr; Session Management or Apex / Tooling API), <strong>then</strong> revoke OAuth tokens
+    (access + refresh), then deactivate user, disable the malicious Connected App, flip kill-switch.
+    Order matters: revoking tokens before killing sessions can leave an in-flight Bulk API export
+    running to completion in the session-cache window.
+  </p>
 </div>
 
 <!-- 4.8 Browser extensions -->
@@ -5113,8 +5143,16 @@ sequenceDiagram
 </div>
 
 <!-- 4.9 Detection + dual-agent metadata scan -->
-<div class="card" id="iv-detection-attestation" data-search="oauth usage report attestation metadata api dual agent scan connected app diff detection cadence">
+<div class="card" id="iv-detection-attestation" data-search="oauth usage report attestation metadata api dual agent scan connected app diff detection cadence customer build not salesforce shipped">
   <h2>4.9 &middot; OAuth Usage Attestation + Dual-Agent Metadata Scan</h2>
+  <div class="callout warn">
+    <p style="margin: 0;"><strong>&#9888; OAuth Usage Report = Salesforce-shipped. Dual-Agent scan = customer build.</strong>
+    The <strong>OAuth Usage Report</strong> (quarterly attestation) <em>is</em> Salesforce-shipped at
+    Setup &rarr; Connected Apps OAuth Usage. The dual-agent continuous scan / cross-validator /
+    HMAC-signed log / FIDO2-bound review described below is a <strong>customer-built pattern</strong>
+    on top of the Metadata API + the OAuth Usage / <code>ConnectedApplication</code> / <code>OauthToken</code>
+    SOQL surface. Setup has no "Dual-Agent Scanner" toggle.</p>
+  </div>
   <h3>Quarterly OAuth Usage attestation (the report)</h3>
   <p>
     Setup &rarr; Connected Apps OAuth Usage. The standard cadence:
@@ -5183,7 +5221,7 @@ sequenceDiagram
   <ol>
     <li>From Setup, open <strong>Session Management</strong>. Review session origin, authentication method, connected app details for the affected user.</li>
     <li>Look for IP addresses from unfamiliar geographic locations, unexpected connected apps, or API calls outside the user's typical work hours. Reference the
-      <a href="https://help.salesforce.com/s/articleView?id=005319571&amp;type=1" target="_blank" rel="noopener">Salesforce Log Analysis Guide</a> for structured triage.</li>
+      <a href="https://help.salesforce.com/s/articleView?id=005319571&amp;type=1" target="_blank" rel="noopener">KB 005319571 &mdash; Extended Login Anomaly Detections and Containment</a> for structured triage (same KB covers the companion anomaly program).</li>
     <li>If activity reflects typical usage: unfreeze the user, instruct them to reauthenticate, reset password, and <strong>stop using the anonymizing VPN / proxy</strong> &mdash; continued use re-triggers containment.</li>
     <li>If activity does NOT reflect typical usage: keep frozen; treat as suspected account takeover; engage IRP runbook (Pillar 8.6).</li>
     <li>Notify the user to <strong>reauthorize Connected Apps</strong> &mdash; the refresh-token revocation means existing OAuth grants no longer work for UI or API.</li>
@@ -5282,8 +5320,13 @@ sequenceDiagram
 <div class="card" id="v-named-credentials" data-search="named credentials external credentials per user named principal anti pattern custom settings custom metadata apex strings static resources jwt oauth api key">
   <h2>5.1 &middot; Named Credentials &amp; External Credentials</h2>
   <p>
-    Named Credentials (NC) and External Credentials (EC) are the only sanctioned places for integration
-    secrets. They are auditable, rotatable, and isolated from your codebase.
+    <strong>Both Named Credentials (NC) and External Credentials (EC) are part of the current sanctioned
+    architecture &mdash; they work together.</strong> A modern integration uses an External Credential
+    (auth configuration + secret) referenced by one or more Named Credentials (endpoint URLs). The
+    Named Credential SObject now carries a <code>Type</code> field: new pairs show <code>Type = Secured Endpoint</code>
+    (modern NC+EC pattern); legacy all-in-one Named Credentials show <code>Type = Legacy</code> and
+    should be migrated. They are auditable, rotatable, and isolated from your codebase.
+    <a href="https://help.salesforce.com/s/articleView?id=xcloud.nc_named_creds_and_ext_creds.htm" target="_blank" rel="noopener">[Create Named Credentials and External Credentials KB &#8599;]</a>
   </p>
   <h3>Anti-patterns (every one of these is a finding)</h3>
   <ul>
@@ -5293,20 +5336,19 @@ sequenceDiagram
     <li>Secrets passed in URL query parameters to outbound callouts</li>
     <li>Secrets in Visualforce page expressions</li>
   </ul>
-  <h3>Named Credentials</h3>
+  <h3>Named Credentials (the endpoint half of the pair)</h3>
   <ul>
-    <li>Hold the endpoint URL + auth (OAuth, JWT bearer, password, basic, AWS SigV4, certificate)</li>
-    <li>Apex callout uses <code>callout:My_Named_Cred/path</code> &mdash; no secret in code</li>
+    <li>Hold the endpoint URL + references the External Credential for auth (modern pattern), <em>or</em> hold endpoint + auth together (<code>Type = Legacy</code> pattern, retained for backward compatibility)</li>
+    <li>Apex callout uses <code>callout:My_Named_Cred/path</code> &mdash; no secret in code regardless of which Type</li>
     <li>Setup Audit Trail logs every change to a Named Credential (creation, rotation, deletion)</li>
     <li>Permission Set grants determine which users can callout via which NC</li>
   </ul>
-  <h3>External Credentials</h3>
+  <h3>External Credentials (the auth half of the pair)</h3>
   <ul>
-    <li>Newer, more granular than Named Credentials</li>
-    <li>Separates the credential (auth + secret) from the endpoint (Named Principal)</li>
-    <li>Supports <strong>Per-User Named Principals</strong>: each user has their own credential, scoped
-    to them alone &mdash; no shared integration secret</li>
-    <li>Supports <strong>multiple credentials per endpoint</strong> for different user populations</li>
+    <li>Separates the credential (auth + secret) from the endpoint &mdash; the modern pattern: one EC referenced by one or more NCs</li>
+    <li>Supports OAuth, JWT Bearer, AWS SigV4, OAuth Token Exchange, OAuth Per-User, Custom auth providers, Basic, plus several others</li>
+    <li>Supports <strong>Per-User Named Principals</strong>: each user has their own credential, scoped to them alone &mdash; no shared integration secret</li>
+    <li>Supports <strong>multiple credentials per endpoint</strong> for different user populations (one NC + multiple ECs by principal type)</li>
   </ul>
   <h3>Per-user named principal pattern</h3>
   <p>
@@ -5374,8 +5416,8 @@ sequenceDiagram
   </table>
   <h3>What's in scope</h3>
   <ul>
-    <li><strong>Named-credential certs</strong> (Salesforce-managed) &mdash; rotation is automatic; no action</li>
-    <li><strong>Self-signed certs you uploaded</strong> &mdash; <em>not in scope</em>; manage rotation yourself</li>
+    <li><strong>Named-credential certs</strong> (Salesforce-managed) &mdash; rotation is automatic on the Salesforce side, <strong>but the customer's first action is to audit every downstream system consuming a Salesforce-managed cert to verify it trusts DigiCert Global Root G2</strong> before 2026-02-05. Trust-store audit is the customer's responsibility; rotation itself is then transparent. Skipping the audit is the #1 cause of post-rotation outages.</li>
+    <li><strong>Self-signed certs you uploaded</strong> &mdash; <em>not in scope</em> for the Salesforce-managed transition; manage rotation yourself per your CA policy</li>
     <li><strong>CA-signed certs you uploaded</strong> &mdash; check the issuing CA's lifespan policy; many CAs are following the same trajectory</li>
     <li><strong>Mutual auth client certs</strong> &mdash; lifespan policy depends on issuing CA; rotate on the CA's cadence</li>
   </ul>
@@ -5384,7 +5426,7 @@ sequenceDiagram
     Certificate rotation moves from being a once-a-year project to a recurring operational discipline.
     Build a rotation runbook (Appendix H), assign rotation ownership, set calendar reminders, and treat
     expired-cert-induced outages as P1 incidents. Per <a href="https://vantagepoint.io/blog/sf/salesforce-certificate-transitions-2026-what-financial-services-firms-need-to-know-now" target="_blank" rel="noopener">Vantage Point analysis</a><sup><a href="#ref-32" class="ref-link">[32]</a></sup>,
-    financial services firms should expect monthly cert work as a steady-state cost.
+    financial services firms should expect monthly cert work as a steady-state cost. <em>Note: the "47-day projected by 2029" lifespan is a CA/Browser Forum industry projection (not a Salesforce-published commitment).</em>
   </p>
   <p style="margin-top:14px;"><a href="#appendix-h">&rarr; Cert rotation runbook (Feb/Mar 2026 changes, dependency map, cutover plan) &middot; Appendix H</a></p>
 </div>
@@ -5527,7 +5569,7 @@ flowchart LR
 </div>
 
 <!-- 6.1 Apex run modes -->
-<div class="card" id="vi-apex-runmodes" data-search="apex user mode security enforced stripinaccessible accesslevel sharing keyword run mode soql dml">
+<div class="card" id="vi-apex-runmodes" data-search="apex user mode security enforced stripinaccessible accesslevel sharing keyword run mode soql dml api v67 summer 26 default user mode">
   <h2>6.1 &middot; Apex Run Modes &mdash; USER_MODE as the Default</h2>
   <p>
     The hierarchy was covered in <a href="#ii-fls" class="pillar-link">Pillar 2.6</a>. The rule for new code: <strong><code>WITH USER_MODE</code></strong>
@@ -5535,6 +5577,17 @@ flowchart LR
     sharing</code></strong> or <strong><code>inherited sharing</code></strong> on every class. Default
     System-mode Apex is the historical default and the historical bug source.
   </p>
+  <div class="callout">
+    <p style="margin: 0;"><strong>API v67 (Summer '26) forward-looking note.</strong> Per the
+    <a href="https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_classes_enforce_usermode.htm" target="_blank" rel="noopener">Apex enforce user mode reference &#8599;</a>,
+    starting with API v67 plain SOQL / SOSL / DML operations <strong>default to USER_MODE</strong>
+    without explicit syntax &mdash; bumping the API version on the class file turns on user-mode for the
+    whole class. The explicit <code>WITH USER_MODE</code> clause and <code>AccessLevel.USER_MODE</code>
+    parameter remain valid and recommended for clarity / posture. Default class sharing keyword
+    (<em>no</em> keyword) historically behaves as <code>without sharing</code> in most contexts but is
+    technically context-dependent &mdash; always declare explicitly per
+    <a href="https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_classes_keywords_sharing.htm" target="_blank" rel="noopener">Apex class sharing keyword doc &#8599;</a>.</p>
+  </div>
   <h3>Migration order for legacy code</h3>
   <ol>
     <li>Classes accessible to the guest user profile (Pillar 3) &mdash; highest priority</li>
@@ -6261,7 +6314,9 @@ flowchart LR
   <p>
     Findings appear in Real-Time EM as structured event records (e.g., <code>ApiAnomalyEvent</code>,
     <code>CredentialStuffingEvent</code>, <code>ReportAnomalyEvent</code>, <code>SessionHijackingEvent</code>,
-    <code>GuestUserAnomalyEvent</code>). Subscribe via the <strong>Pub/Sub API</strong> (gRPC streaming
+    <code>GuestUserAnomalyEvent</code>, <code>AnomalousLoginEvent</code> &mdash; also referenced as
+    <code>LoginAnomalyEvent</code> in older API versions / docs, for anomalous authentication patterns).
+    Subscribe via the <strong>Pub/Sub API</strong> (gRPC streaming
     to a SIEM-side consumer), via <strong>Apex Subscribers</strong> on the platform event objects, or
     via <strong>Transaction Security policies</strong> for inline Block / MFA / Notify actions.
     (Logout Event Triggers fire on logout specifically &mdash; useful for tying anomaly cleanup to
@@ -6316,7 +6371,7 @@ flowchart LR
   <h3>Authoring</h3>
   <ul>
     <li>Condition Builder: declarative; covers most cases without code</li>
-    <li>Apex condition: implement <code>TxnSecurity.EventCondition</code>; full programmatic flexibility for anything Condition Builder can't express</li>
+    <li>Apex condition: implement <code>TxnSecurity.EventCondition</code> (modern Enhanced Transaction Security interface; Winter '20+); full programmatic flexibility for anything Condition Builder can't express. <strong>Do not use</strong> the legacy <code>TxnSecurity.PolicyCondition</code> interface &mdash; per <a href="https://developer.salesforce.com/docs/atlas.en-us.apexref.meta/apexref/apex_interface_TxnSecurity_EventCondition.htm" target="_blank" rel="noopener">Apex Reference</a> Salesforce is retiring the legacy framework in a future release.</li>
   </ul>
 
   <h3>Transaction Security Policy Enhancements (Available 2026-06-01 sandbox / 2026-06-15 prod; Enforced 2026-06-22 sandbox / 2026-07-13 prod)</h3>
@@ -6443,7 +6498,7 @@ flowchart LR
     <li><strong>MAM</strong> enforces app-level controls within Salesforce Mobile: clipboard restrict, screenshot block, "open in" allowlist, data-wipe on policy violation</li>
     <li><strong>Connected App: Mobile App-specific OAuth scopes + IP / device restriction</strong></li>
     <li><strong>Login History filter on Application = Salesforce for iOS / Android</strong> &mdash; baseline normal mobile traffic; alert on anomalies</li>
-    <li><strong>Mobile SDK 13.2.0 and earlier limitation:</strong> default WebView authentication mode <em>cannot</em> complete browser-mediated phishing-resistant MFA &mdash; security key, platform authenticator, <em>or</em> vault-stored passkey all require the browser path. Privileged users blocked from logging in unless My Domain is configured for Advanced Authentication. <strong>Mobile SDK 13.2.1 (May 2026)</strong> adds a <em>Login for Admin</em> menu item that forces browser-based authentication, enabling phishing-resistant MFA automatically. Salesforce Mobile App users can also use <em>Login with Email</em> as a workaround. See <a href="#i-mfa-roadmap" class="pillar-link">Pillar 1.10</a>.</li>
+    <li><strong>Mobile SDK 13.2.0 and earlier limitation:</strong> default WebView authentication mode <em>cannot</em> complete browser-mediated phishing-resistant MFA &mdash; security key, platform authenticator, <em>or</em> vault-stored passkey all require the browser path. Privileged users blocked from logging in unless My Domain is configured for Advanced Authentication. <strong>Mobile SDK 13.2.1</strong> (anticipated May 2026 per KB 005321563 &mdash; confirm against current release notes) adds a <em>Login for Admins</em> menu item that forces browser-based authentication, enabling phishing-resistant MFA automatically. Salesforce Mobile App users can also use <em>Login with Email</em> as a workaround. See <a href="#i-mfa-roadmap" class="pillar-link">Pillar 1.10</a>.</li>
   </ul>
 </div>
 
@@ -6520,7 +6575,7 @@ flowchart LR
       <code>Identity Verification &rarr; Session Security Level Policies &rarr; Reports and Dashboards
       &rarr; "Require step-up authentication within cool-down period"</code>.</li>
     <li><strong>Trigger is "run or VIEW" the report</strong> &mdash; not just on click of Download / Export. This broader trigger is intentional: it catches UI-based screen-scraping and browser data capture that happens without an explicit export click.</li>
-    <li><strong>MFA at login does NOT reset the step-up timer.</strong> The cool-down clock is <em>separate</em> from the login session. A user who logged in with MFA 30 minutes ago will still be challenged on report run if cool-down has expired since their last step-up.</li>
+    <li><strong>MFA at login does NOT reset the step-up timer.</strong> The cool-down clock is <em>separate</em> from the login session. A user who logged in with MFA 30 minutes ago will still be challenged on report run if cool-down has expired since their last step-up. <a href="https://help.salesforce.com/s/articleView?id=005321566&amp;type=1" target="_blank" rel="noopener">[KB 005321566 &#8599;]</a></li>
     <li><strong>Trusted IP / corporate network does NOT exempt.</strong> The check is enforced regardless of network position.</li>
     <li><strong>Mandatory for SSO users too.</strong> SSO users without a registered Salesforce MFA verifier are challenged via <strong>SMS or email OTP</strong>. SSO users without a reachable email or phone are blocked &mdash; ensure all users have at least one reachable channel registered.</li>
     <li><strong>Fail-closed posture:</strong> if the MFA service is unavailable, the report is blocked. Plan accordingly for DR and availability scenarios.</li>
@@ -6730,8 +6785,17 @@ flowchart LR
 </div>
 
 <!-- 9.5 Repo scan -->
-<div class="card" id="ix-repo-scan" data-search="metadata git repo dual agent scan diff based static pattern cross validator 8 attack vectors privilege escalation backdoor route rls weakening migration tampering credential leak auth bypass">
+<div class="card" id="ix-repo-scan" data-search="metadata git repo dual agent scan diff based static pattern cross validator 8 attack vectors privilege escalation backdoor route rls weakening migration tampering credential leak auth bypass customer build not salesforce shipped">
   <h2>9.5 &middot; Metadata Git-Repo Dual-Agent Scanning</h2>
+  <div class="callout warn">
+    <p style="margin: 0;"><strong>&#9888; Customer-build pattern &mdash; not a Salesforce-shipped feature.</strong>
+    <strong>Salesforce Code Analyzer</strong> (formerly sfdx-scanner) provides single-tree PMD + RetireJS +
+    ESLint + Flow Scanner against a source tree. <strong>DevOps Center</strong> provides pipeline / promotion
+    management. <strong>Setup Audit Trail</strong> captures setup changes. The dual-agent (diff +
+    static-pattern) architecture with cross-validator and HMAC-chained audit log described below is a
+    pattern customers (or consultants) build on top of the Metadata API + Code Analyzer + git; Setup has
+    no toggle for it.</p>
+  </div>
   <p>
     A pattern adapted from operator-security practice: <strong>two independent scanners</strong> watching
     the metadata repo from different perspectives, with a cross-validator that flags divergence as
@@ -6776,11 +6840,11 @@ flowchart LR
   </p>
   <ol>
     <li><strong>Run Data Mask</strong> on the refreshed sandbox before any user logs in &mdash; PII anonymized</li>
+    <li><strong>Lock Login IP Ranges</strong> to sandbox-allowed sources &mdash; <strong>network-layer containment first</strong>; this prevents external login attempts during the refresh window before any identity verification happens</li>
     <li><strong>Re-provision integration users</strong> with sandbox-specific JWT keys / OAuth client_ids; never inherit production secrets</li>
     <li><strong>Verify MFA / FIDO2 enrollment</strong> for sandbox users &mdash; profiles inherit production defaults but user-level MFA is per-environment</li>
-    <li><strong>Lock Login IP Ranges</strong> to sandbox-allowed sources</li>
     <li><strong>Disable production-pointing integrations</strong> &mdash; Named Credentials updated to sandbox endpoints</li>
-    <li><strong>Verify masked data</strong> &mdash; sample-query each Restricted-classified field; confirm masked values returned</li>
+    <li><strong>Verify masked data</strong> &mdash; sample-query each Restricted-classified field; confirm masked values returned. <strong>STOP-gate:</strong> if any Restricted field returns unmasked data, <em>halt the runbook</em>, re-run Data Mask, and re-verify before proceeding to step 7. Do <strong>not</strong> open user access on a sandbox where masking is unverified or incomplete.</li>
     <li><strong>Open access</strong> only after the checklist completes; deploy a "Sandbox Hardening Verified" custom setting that gates user-facing flows</li>
   </ol>
 </div>
@@ -8695,7 +8759,7 @@ DIFF:
     });
     exportBtn.addEventListener('click', function() {
       var snapshot = {
-        framework: 'Salesforce CRM Security Hardening v1.5.34',
+        framework: 'Salesforce CRM Security Hardening v1.5.35',
         scored_at: new Date().toISOString(),
         scores: loadStored(),
         average: parseFloat(avgEl.textContent) || 0,
@@ -9026,8 +9090,8 @@ DIFF:
   </p>
   <h3>Document metadata</h3>
   <p style="font-size: 12px; font-family: 'Source Code Pro', monospace;">
-    version 1.5.34 &middot; last modified 2026-05-11 &middot; source snapshot 2026-05-11 &middot;
-    Build identifier: SF-CRM-HARDENING-1.5.34
+    version 1.5.35 &middot; last modified 2026-05-11 &middot; source snapshot 2026-05-11 &middot;
+    Build identifier: SF-CRM-HARDENING-1.5.35
   </p>
 </div>
 
