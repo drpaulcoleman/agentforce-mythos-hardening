@@ -1,7 +1,7 @@
                                                                                                                                                               <!DOCTYPE html>
 <!--
   Salesforce CRM Security Hardening — A Defender's Encyclopedia for the Frontier-AI Era
-  Document version 1.5.33 · Last modified 2026-05-11
+  Document version 1.5.34 · Last modified 2026-05-11
   Copyright (c) 2026 Dr. Paul Coleman. All rights reserved.
 
   A vendor-neutral hardening reference for the customer side of the Salesforce
@@ -28,7 +28,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">                                  
 <title>The Mythos Imperative &mdash; Salesforce CRM Security Hardening</title>                                                      
-<meta name="document-version" content="1.5.33">
+<meta name="document-version" content="1.5.34">
 <meta name="last-modified" content="2026-05-06">
 <meta name="source-snapshot" content="2026-05-06">
 <meta name="description" content="The Mythos Imperative: a vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars from Identity to Defensive AI; nineteen appendices.">
@@ -38,7 +38,7 @@
 
 <!-- Open Graph / social-share metadata -->
 <meta property="og:type" content="article">
-<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.33">
+<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.34">
 <meta property="og:description" content="Vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars, 19 appendices, fully attributed.">
 <meta property="og:url" content="https://drpaulcoleman.github.io/agentforce-mythos-hardening/">
 <meta property="og:site_name" content="Salesforce CRM Security Hardening">
@@ -49,7 +49,7 @@
 
 <!-- Twitter / X card metadata -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.33">
+<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.34">
 <meta name="twitter:description" content="Threat-informed Salesforce hardening reference. Ten pillars from Identity to Defensive AI, with a companion Salesforce DX reference implementation.">
 
 <!-- Errata / contributions -->
@@ -1758,7 +1758,7 @@ pre.mermaid g.node[onclick]:hover > path {
 .ref-impl-callout code { font-size: 11px; }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   SCANNABLE LISTS + Q&A CARDS (v1.5.33)
+   SCANNABLE LISTS + Q&A CARDS (v1.5.34)
    For dense list/prose sections that need clearer item separation
    without changing line-height (which is already generous at 1.8).
    ═══════════════════════════════════════════════════════════════════════ */
@@ -1932,7 +1932,7 @@ pre.mermaid g.node[onclick]:hover > path {
     </div>
     <div>
       <h1><span class="phase-tag">The Mythos Imperative</span><span class="phase-sep">&mdash;</span>Salesforce CRM Security Hardening</h1>
-      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.33 &middot; last modified 2026-05-11</span>
+      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.34 &middot; last modified 2026-05-11</span>
     </div>
   </div>
   <div class="doc-meta">
@@ -2356,7 +2356,7 @@ gantt
 
 <!-- TECH · Hero ---------------------------------------------------------- -->
 <div class="card hero" id="hero" data-search="hero overview salesforce crm security hardening defender encyclopedia frontier ai mythos">
-  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.33 &middot; last modified 2026-05-11</p>
+  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.34 &middot; last modified 2026-05-11</p>
   <h1>The <span class="accent">Mythos Imperative</span><br/><span style="font-size:24px; font-weight:700; opacity:0.92; display:block; margin-top:6px;">A Defender's Encyclopedia for the Frontier-AI Era</span></h1>
   <p class="lede" style="border-left: 3px solid var(--sf-orange); padding: 6px 0 6px 16px; margin-left: 0;">
     <strong style="color: var(--sf-orange); letter-spacing: 0.04em;">Why this exists, why now.</strong>
@@ -2482,7 +2482,7 @@ gantt
       <tr><td><strong>Data Mask</strong></td><td>Salesforce add-on for sandbox PII anonymization.</td><td><a href="#vii-sandbox">7.5</a></td><td><a href="https://help.salesforce.com/s/articleView?id=sf.data_mask_overview.htm" target="_blank" rel="noopener">SF Help</a></td></tr>
       <tr><td><strong>Device Activation</strong></td><td>Required for SSO logins as of Feb 2026; confirms device authorization separately from user.</td><td><a href="#i-my-domain">1.7</a></td><td><a href="https://vantagepoint.io/blog/sf/salesforce-security-overhaul-2026-email-verification-mfa-preparation-guide" target="_blank" rel="noopener">Vantage Point</a></td></tr>
       <tr><td><strong>EEE (External Encryption Ecosystem)</strong></td><td>Customer key material managed in external KMS; integrates with Shield.</td><td><a href="#vii-hyperforce">7.7</a></td><td>SF Shield docs</td></tr>
-      <tr><td><strong>Einstein Data Detect</strong></td><td>Bundled data classifier; finds sensitive data patterns.</td><td><a href="#vii-detect">7.4</a></td><td>SF Help</td></tr>
+      <tr><td><strong>Einstein Data Detect</strong></td><td>Paid licensed data classifier (often bundled with Shield, also sold standalone); finds sensitive data patterns.</td><td><a href="#vii-detect">7.4</a></td><td>SF Help</td></tr>
       <tr><td><strong>Event Log Object</strong></td><td>Queryable Real-Time EM event store; 30-day retention; SOQL-only on Hyperforce.</td><td><a href="#viii-real-time-em">8.3</a> &middot; <a href="#appendix-i">Appendix I</a></td><td>SF Help</td></tr>
       <tr><td><strong>External Client App (ECA)</strong></td><td>Spring '26 replacement for Connected Apps; finer-grained policy.</td><td><a href="#iv-eca-transition">4.1</a></td><td>SF Help</td></tr>
       <tr><td><strong>External Credential</strong></td><td>Newer credential primitive; supports per-user named principals.</td><td><a href="#v-named-credentials">5.1</a> &middot; <a href="#appendix-d">Appendix D</a></td><td>SF Help</td></tr>
@@ -3841,7 +3841,7 @@ flowchart LR
     <ul>
       <li>Same <code>LoginEvent</code> and <code>LoginHistory</code> records as TOTP; same SIEM ingest path (Appendix I).</li>
       <li><strong>What changes:</strong> the <code>AuthenticationMethodReference</code> column shows the AMR value (<code>fido2</code>, <code>webauthn</code>, <code>passkey</code>).</li>
-      <li><strong>Gap:</strong> SAML ACR values are not yet recorded in Login History as of v1.5.33 (planned future Salesforce release) &mdash; use a SAML tracer extension to inspect ACR until then.</li>
+      <li><strong>Gap:</strong> SAML ACR values are not yet recorded in Login History as of v1.5.34 (planned future Salesforce release) &mdash; use a SAML tracer extension to inspect ACR until then.</li>
     </ul>
   </div>
 
@@ -4998,8 +4998,12 @@ sequenceDiagram
     The August 2025 incident is the canonical example: attackers compromised <a href="https://www.mitiga.io/blog/shinyhunters-and-unc6395-inside-the-salesforce-and-salesloft-breaches" target="_blank" rel="noopener">Salesloft's GitHub repositories</a><sup><a href="#ref-29" class="ref-link">[29]</a></sup>
     March&ndash;June 2025. The repos contained &mdash; or led to &mdash; the OAuth refresh tokens that the Drift
     integration had stored on behalf of its Salesforce customers. Attackers used those tokens to
-    authenticate as the Drift app against 700+ Salesforce orgs, including Cloudflare, Zscaler, and Palo
-    Alto Networks. Drift was pulled from AppExchange in August 2025; tokens were revoked.
+    authenticate as the Drift app against <strong>700+ Salesforce orgs</strong>. Per primary
+    <a href="https://cloud.google.com/blog/topics/threat-intelligence/data-theft-salesforce-instances-via-salesloft-drift" target="_blank" rel="noopener">Google Cloud / Mandiant reporting</a> and corroborating coverage
+    (Anomali, SecurityAffairs, Hacker News), named victims include
+    <strong>Google itself, Cloudflare, Zscaler, Palo Alto Networks, PagerDuty, Proofpoint, SpyCloud, and Tanium</strong>
+    &mdash; the named-victim list expanded substantially in the weeks after initial disclosure, and additional
+    names continue to surface. Drift was pulled from AppExchange in August 2025; tokens were revoked.
   </p>
   <h3>The kill chain</h3>
   <ol>
@@ -5031,11 +5035,13 @@ sequenceDiagram
   <p>
     The 2025 vishing wave <sup><a href="#ref-16" class="ref-link">[16]</a><a href="#ref-17" class="ref-link">[17]</a></sup> targeted English-speaking employees with calls impersonating
     IT support. Per primary reporting (Google Threat Intelligence Group + Mandiant<sup><a href="#ref-17" class="ref-link">[17]</a></sup>;
-    Mitiga<sup><a href="#ref-29" class="ref-link">[29]</a></sup>) confirmed targets include Google itself, Cisco, Adidas, Qantas,
-    Allianz Life, and LVMH-group brands (Louis Vuitton, Dior, Tiffany &amp; Co.). Additional names
-    that appear in secondary coverage but are <em>not</em> attributed in primary sources include
-    Pandora, Chanel, and Starbucks Singapore &mdash; treat as unverified pending primary-source
-    confirmation. Tracker: UNC6040 (Google Threat Intelligence Group designation). UNC6040 has publicly
+    Mitiga<sup><a href="#ref-29" class="ref-link">[29]</a></sup>;
+    <a href="https://www.bleepingcomputer.com/news/security/shinyhunters-behind-salesforce-data-theft-attacks-at-qantas-allianz-life-and-lvmh/" target="_blank" rel="noopener">BleepingComputer</a>) confirmed
+    targets include <strong>Google itself, Cisco, Adidas, Qantas, Allianz Life, LVMH-group brands (Louis Vuitton, Dior, Tiffany &amp; Co.), and Chanel</strong>
+    (BleepingComputer attribution specifically names Chanel's U.S. client-care database).
+    Additional names that appear in secondary coverage but are <em>not</em> attributed in primary sources
+    include Pandora and Starbucks Singapore &mdash; treat as unverified pending primary-source confirmation.
+    Tracker: UNC6040 (Google Threat Intelligence Group designation). UNC6040 has publicly
     <em>claimed</em> affiliation with ShinyHunters; researchers also discuss overlap with
     Scattered Spider / Lapsus$ tradecraft, but those linkages are not all formally confirmed in
     primary threat-intel attributions and should not be conflated as a single ecosystem.
@@ -5096,7 +5102,7 @@ sequenceDiagram
     <li><strong>Quarterly extension audit.</strong> Endpoint-management report listing every extension
     on every endpoint; cross-reference against a CVE feed</li>
     <li><strong>Incident-response playbook for extension compromise.</strong> Force-logout all sessions,
-    revoke OAuth tokens, change passwords, review Setup Audit Trail and Login History for the affected
+    kill active sessions first, then revoke OAuth tokens (access + refresh), force password reset, review Setup Audit Trail and Login History for the affected
     user, force re-MFA enrollment</li>
   </ul>
   <p>
@@ -5160,14 +5166,17 @@ sequenceDiagram
 
   <h3>What happens automatically when detected</h3>
   <ol>
-    <li>The affected user account is <strong>frozen</strong>.</li>
-    <li>All <strong>OAuth refresh tokens</strong> granted to the user are <strong>revoked</strong>.</li>
+    <li>The affected user account is <strong>frozen</strong> and all active sessions are terminated.</li>
+    <li>All <strong>OAuth access AND refresh tokens</strong> granted to the user are <strong>revoked</strong> &mdash; both bearer tokens active in the session and any persisted refresh tokens.</li>
+    <li>At unfreeze the user is required to <strong>reset their password</strong> (if they authenticate with a password) before regaining access.</li>
     <li>An email titled <em>"Salesforce Security notification"</em> is delivered to (a) the affected user and (b) all org admins / users with <code>Modify All Data</code>.</li>
     <li>The user must contact their org admin to restore access.</li>
   </ol>
   <p>
     <strong>Containment applies <em>before</em> admin review.</strong> Users may lose access
-    several minutes before the notification email is read.
+    several minutes before the notification email is read. The same containment side-effects apply
+    for the Extended Login Anomaly program in <a href="#viii-login-anomaly" class="pillar-link">Pillar 8.9</a>
+    &mdash; both programs converge on the same enforcement primitives.
   </p>
 
   <h3>Restoration runbook for SOC / admin team</h3>
@@ -5854,13 +5863,15 @@ flowchart LR
 </div>
 
 <!-- 7.4 Einstein Data Detect -->
-<div class="card" id="vii-detect" data-search="einstein data detect classification scan automated discovery sensitive data pii pattern recognition">
+<div class="card" id="vii-detect" data-search="einstein data detect salesforce data detect classification scan automated discovery sensitive data pii pattern recognition shield add-on licensed paid product">
   <h2>7.4 &middot; Einstein Data Detect &mdash; Continuous Discovery</h2>
   <p>
-    Salesforce's bundled data classifier scans your org for sensitive data patterns (SSN, credit card,
-    health identifiers, etc.) without exporting data to third-party services. Findings update the
-    classification metadata; the classification update flows downstream to encryption / FAT / audit
-    decisions.
+    <strong>Salesforce Data Detect</strong> (also called Einstein Data Detect; a <strong>paid licensed
+    product</strong>, often bundled with Shield but available as a standalone add-on per the
+    <a href="https://www.salesforce.com/platform/cloud-data-security/pricing/" target="_blank" rel="noopener">Salesforce Cloud Data Security &amp; Privacy pricing page &#8599;</a>)
+    scans your org for sensitive data patterns (SSN, credit card, health identifiers, etc.) without
+    exporting data to third-party services. Findings update the classification metadata; the
+    classification update flows downstream to encryption / FAT / audit decisions.
   </p>
   <ul>
     <li>Run quarterly on every standard and custom object holding free-text or unstructured fields</li>
@@ -5991,8 +6002,8 @@ flowchart LR
 </div>
 
 <!-- 7.x Outbound Email Verified Sender Domain Enforcement -->
-<div class="card" id="vii-verified-sender-domain" data-search="outbound email verified sender domain enforcement mandatory sending email domain verification dkim authorized email domain list spring 26 patch 11 phase 1 phase 2 allowlist substitute email address salesforce now sends email only from verified domains kb 005316660 march 24 march 26 april 13 april 14 2026 trust status deliverability">
-  <h2>7.10 &middot; Outbound Email &mdash; Verified Sender Domain Enforcement (in effect 2026-04-13)</h2>
+<div class="card" id="vii-verified-sender-domain" data-search="outbound email verified sender domain enforcement mandatory sending email domain verification dkim authorized email domain list spring 26 patch 10 patch 11 phase 1 phase 2 allowlist substitute email address salesforce now sends email only from verified domains kb 005316660 march 9 march 24 march 30 april 27 2026 trust status deliverability existing 30 day active domains new orgs new sandboxes">
+  <h2>7.10 &middot; Outbound Email &mdash; Verified Sender Domain Enforcement (Spring '26 staged rollout)</h2>
   <p>
     Salesforce no longer delivers emails sent from <strong>unverified sending domains</strong>, even
     if the individual email address is verified. The check applies to the domain after the
@@ -6002,33 +6013,47 @@ flowchart LR
     <a href="#vi-email-intake" class="pillar-link">Pillar 6</a>.
   </p>
 
-  <h3>Rollout phases</h3>
+  <div class="callout warn">
+    <p style="margin: 0;"><strong>&#9888; Date precision &mdash; verify against KB 005316660 for your org.</strong>
+    Salesforce has revised the Verified Sender Domain timeline multiple times. The dates below reflect the
+    most-current public reporting (Salesforce Ben, Salesforce Time, Salesforce Break, Vantage Point as of
+    May 2026 retrieval) plus the canonical KB 005316660. Confirm against your org's Trust Status page
+    (instance Maintenance tab) and the live KB before scheduling cutover work &mdash; calendar dates have shifted.
+    <a href="https://help.salesforce.com/s/articleView?id=005316660&amp;type=1" target="_blank" rel="noopener">[KB 005316660 &mdash; Mandatory Sending-Email Domain Verification Timeline &#8599;]</a></p>
+  </div>
+
+  <h3>Rollout phases (per KB 005316660 + Salesforce Ben + Salesforce Time public reporting)</h3>
   <table>
-    <thead><tr><th>Phase</th><th>Scope</th><th>Sandbox</th><th>Production</th></tr></thead>
+    <thead><tr><th>Patch / Phase</th><th>Scope</th><th>Sandbox</th><th>Production</th></tr></thead>
     <tbody>
       <tr>
-        <td><strong>Spring '26 patch 11 deployment</strong></td>
-        <td>Patch that activates the verification check in your org</td>
-        <td>Started 2026-03-24</td>
-        <td>Started 2026-03-26</td>
+        <td><strong>Spring '26 Patch 10 deployment</strong></td>
+        <td>Verification check activates for <strong>new orgs, new sandboxes, scratch orgs</strong>, and any <strong>new sending domain</strong> added to an existing org &mdash; these require immediate verification with no grace period.</td>
+        <td colspan="2" style="text-align:center;">Began <strong>2026-03-09</strong></td>
       </tr>
       <tr>
-        <td><strong>Phase 1</strong></td>
-        <td>New sending domains (added after 2026-02-25) + existing domains <em>not</em> on the temporary allowlist</td>
-        <td>2026-03-24 &ndash; 2026-04-10</td>
-        <td>Starting <strong>2026-04-13</strong></td>
+        <td><strong>Spring '26 Patch 11 deployment</strong></td>
+        <td>Additional rollout for new sending domains across all orgs (extends Patch 10 enforcement to populations that didn't receive Patch 10 first).</td>
+        <td colspan="2" style="text-align:center;">Began <strong>2026-03-24</strong></td>
       </tr>
       <tr>
-        <td><strong>Phase 2</strong></td>
-        <td>Allowlisted domains must also be verified</td>
-        <td>Starting 2026-04-14</td>
-        <td>TBD</td>
+        <td><strong>Phase 1 deadline &mdash; existing domains in existing orgs</strong></td>
+        <td>Domains in existing orgs that have been used to send mail within the last <strong>30 days</strong> (the "30-day-active" cohort) must be verified by this date or outbound mail from them stops delivering. Domains <em>not</em> on the temporary allowlist were the first wave.</td>
+        <td><strong>2026-03-30</strong></td>
+        <td><strong>2026-04-27</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Phase 2 &mdash; allowlisted domains</strong></td>
+        <td>Domains on the temporary allowlist (auto-generated late February 2026 from observed usage) must also be verified. Allowlisting buys time, not a permanent exemption.</td>
+        <td colspan="2"><em>TBD &mdash; check KB 005316660 for current Phase 2 dates</em></td>
       </tr>
     </tbody>
   </table>
   <p>
     To check what patch your org is on: <strong>Trust Status &rarr;</strong> search for your My Domain
-    name or instance &rarr; Maintenance tab.
+    name or instance &rarr; Maintenance tab. Salesforce Ben + Salesforce Time + Salesforce Break public
+    reporting all triangulate on these dates per KB 005316660 as of May 2026; if your org was notified of
+    a different date in a Salesforce communication, the KB is the canonical source &mdash; verify there first.
   </p>
 
   <h3>Allowlist (temporary breathing room)</h3>
@@ -6122,7 +6147,7 @@ flowchart LR
 
     D["&lt;b&gt;DETECT&lt;/b&gt;&lt;br/&gt;Posture (Health Check) ·&lt;br/&gt;Logs (Audit + Login History) ·&lt;br/&gt;Events (Real-Time EM) ·&lt;br/&gt;Anomaly (Threat Detection) ·&lt;br/&gt;AI silent-compromise indicators"]:::detect
     T["&lt;b&gt;TRIAGE&lt;/b&gt;&lt;br/&gt;signal &rarr; ticket"]:::triage
-    C["&lt;b&gt;CONTAIN (sub-15 min)&lt;/b&gt;&lt;br/&gt;Revoke OAuth tokens ·&lt;br/&gt;End user sessions · Freeze user ·&lt;br/&gt;Revoke Connected App ·&lt;br/&gt;Kill-switch feature flag"]:::contain
+    C["&lt;b&gt;CONTAIN (sub-15 min)&lt;/b&gt;&lt;br/&gt;Kill active sessions FIRST ·&lt;br/&gt;Revoke OAuth tokens (access + refresh) ·&lt;br/&gt;Freeze user ·&lt;br/&gt;Disable Connected App ·&lt;br/&gt;Kill-switch feature flag"]:::contain
     I["&lt;b&gt;IDENTIFY&lt;/b&gt;&lt;br/&gt;scope of compromise"]:::triage
     E["&lt;b&gt;ERADICATE&lt;/b&gt;&lt;br/&gt;residual access"]:::triage
     P["&lt;b&gt;PRESERVE&lt;/b&gt;&lt;br/&gt;evidence (chain of custody)"]:::recover
@@ -6266,8 +6291,18 @@ flowchart LR
     See <a href="https://developer.salesforce.com/docs/atlas.en-us.securityImplGuide.meta/securityImplGuide/enhanced_transaction_security_actions_notifs.htm" target="_blank" rel="noopener">Enhanced Transaction Security &mdash; Actions &amp; Notifications &#8599;</a>.
   </p>
   <h3>Anomaly policy library (concrete examples)</h3>
+  <div class="callout warn">
+    <p style="margin: 0;"><strong>&#9888; Customer-authored examples &mdash; not shipped policies.</strong>
+    Each row below is a policy <em>pattern</em> a customer implements via Condition Builder (declarative)
+    or <code>TxnSecurity.EventCondition</code> Apex (programmatic). Salesforce ships <strong>zero</strong>
+    pre-built Transaction Security Policies before the 2026-07-13 default <code>ReportEvent</code> TSP
+    (which arrives <em>disabled</em>, awaiting admin enable per KB 005321565 &mdash; see the
+    "Transaction Security Policy Enhancements" section below). A reader searching Setup &rarr; Transaction
+    Security Policies for "Anomalous Report Export TSP" or "Bulk API from non-trusted IP" will not find
+    a pre-built option &mdash; these are the customer's to author.</p>
+  </div>
   <table>
-    <thead><tr><th>Policy</th><th>Event</th><th>Action</th><th>Condition</th></tr></thead>
+    <thead><tr><th>Policy pattern (customer-authored)</th><th>Event</th><th>Action</th><th>Condition</th></tr></thead>
     <tbody>
       <tr><td>Anomalous Report Export</td><td>ReportEvent</td><td>MFA</td><td>RowsProcessed &gt; 10000 OR off-hours</td></tr>
       <tr><td>Bulk API from non-trusted IP</td><td>BulkApiResultEvent</td><td>Block</td><td>SourceIP not in Trusted IP Ranges</td></tr>
@@ -6324,7 +6359,7 @@ flowchart LR
     Standard 5-phase IR loop applies to most Salesforce incidents:
   </p>
   <ol>
-    <li><strong>Contain</strong> &mdash; revoke OAuth tokens, kill sessions, deactivate user, disable Connected App, flip kill-switch</li>
+    <li><strong>Contain</strong> &mdash; <strong>kill active sessions first</strong> (Setup &rarr; Session Management; or Apex / Tooling API for speed), <strong>then</strong> revoke OAuth tokens (access + refresh) &mdash; this order matters: revoking tokens before killing sessions can leave an in-flight Bulk API export running to completion in the session-cache window. Then deactivate user, disable Connected App, flip kill-switch.</li>
     <li><strong>Identify</strong> &mdash; pull Setup Audit / Login History / Real-Time EM for the incident window; scope</li>
     <li><strong>Eradicate</strong> &mdash; rotate JWT secrets / certs / passwords, remove backdoor metadata, redeploy from known-good</li>
     <li><strong>Notify</strong> &mdash; internal stakeholders, customers, regulators per applicable timelines</li>
@@ -6336,8 +6371,19 @@ flowchart LR
     outputs that <em>look like normal authorized operation</em>. Classical detection signals (auth
     failures, error spikes, infrastructure health) all stay green. The detection signals are different.
   </p>
+  <div class="callout warn">
+    <p style="margin: 0;"><strong>&#9888; Customer-built detection pattern &mdash; not Einstein Trust Layer telemetry.</strong>
+    The table below describes a <strong>customer-built detection pattern</strong>. The <code>__c</code>
+    suffix on <code>Agent_Decision_Log__c</code> is the giveaway &mdash; that is a custom object, not platform
+    telemetry. Einstein Trust Layer ships zero-retention, PII masking, toxicity filters, and audit
+    logging; it <strong>does not</strong> ship deterministic-re-run hash comparison, cross-provider
+    divergence monitoring, or output-hash deviation alerting out of the box. Customers build these on
+    top of Real-Time EM + Apex + their own decision-logging custom object (Pillar 10 covers the build).
+    A reader searching Setup for "AI Agent Compromise Detection" will find nothing &mdash; this is design
+    pattern, not a Setup toggle.</p>
+  </div>
   <table>
-    <thead><tr><th>Threat class</th><th>Detection signal</th></tr></thead>
+    <thead><tr><th>Threat class</th><th>Detection signal (customer-built)</th></tr></thead>
     <tbody>
       <tr><td>Prompt-injection manipulation (web form &rarr; agent)</td><td>Filter-flag rate spike on intake objects; deterministic re-run hash mismatch</td></tr>
       <tr><td>Fabricated agent decisions</td><td>Output-hash deviation vs. deterministic re-run</td></tr>
@@ -6352,8 +6398,8 @@ flowchart LR
     accounts, rebuild from last known-good image, rotate secrets).
   </p>
   <p>
-    The full pattern is generalized in this document from operator-security practice; the implementation
-    surface in Salesforce uses Real-Time EM events + custom <code>Agent_Decision_Log__c</code> +
+    The full pattern is generalized in this document from operator-security practice; the Salesforce-side
+    implementation uses Real-Time EM events + custom <code>Agent_Decision_Log__c</code> +
     deterministic re-run jobs + dual-provider failover (Pillar 10 covers this).
   </p>
 </div>
@@ -6551,7 +6597,7 @@ flowchart LR
   </p>
   <ul>
     <li>No long-lived secrets in deployment pipelines or Git repos &mdash; use short-lived federated authentication (your CI system mints a token at deploy time and discards it)</li>
-    <li>Automated security checks (PMD, SFDX Scanner) gate every deployment; security findings block the merge until they're addressed</li>
+    <li>Automated security checks (PMD, Salesforce Code Analyzer) gate every deployment; security findings block the merge until they're addressed</li>
     <li>Modern Salesforce deployment units with cryptographic signing on every promotion to production</li>
     <li>Two-reviewer minimum on every production deployment; high-risk changes (sharing model, profiles) require additional sign-off</li>
     <li>Sandbox refresh follows a hardening checklist (data masked, integration users re-provisioned, MFA verified) before users get access</li>
@@ -6564,7 +6610,7 @@ flowchart LR
   <h2>Pillar 9 &middot; DevSecOps for Salesforce DX &amp; Org Lifecycle</h2>
   <div class="pillar-tldr">
     <strong>TL;DR &middot; Pillar 9</strong>
-    The supply chain into your Salesforce org is the same one the August 2025 Drift breach exploited (compromised GitHub repos &rarr; harvested OAuth tokens &rarr; 700+ orgs). Pipeline hygiene is now a Salesforce concern. <span class="one-action">Today's single highest-leverage action: rotate any SFDX auth URLs ever committed to a repo; move CI auth to OIDC + JWT bearer; gate deploys on PMD + SFDX Scanner.</span>
+    The supply chain into your Salesforce org is the same one the August 2025 Drift breach exploited (compromised GitHub repos &rarr; harvested OAuth tokens &rarr; 700+ orgs). Pipeline hygiene is now a Salesforce concern. <span class="one-action">Today's single highest-leverage action: rotate any SFDX auth URLs ever committed to a repo; move CI auth to OIDC + JWT bearer; gate deploys on PMD + Salesforce Code Analyzer.</span>
   </div>
   <p>
     Salesforce orgs increasingly look like software products: source-of-truth in Git, branches per
@@ -6585,7 +6631,7 @@ flowchart LR
 
     A["DX Repo&lt;br/&gt;force-app/main"]:::src
     B["PR Review&lt;br/&gt;2-reviewer minimum"]:::gate
-    C["CI Static Analysis&lt;br/&gt;PMD + SFDX Scanner"]:::gate
+    C["CI Static Analysis&lt;br/&gt;PMD + Salesforce Code Analyzer"]:::gate
     D["Dual-Agent&lt;br/&gt;Metadata Scan"]:::gate
     E["Scratch Org&lt;br/&gt;Build &amp; Test"]:::build
     F["Unlocked Package&lt;br/&gt;Versioned + Signed"]:::sign
@@ -6602,7 +6648,7 @@ flowchart LR
   <h3>Subsection map</h3>
   <ul>
     <li><a href="#ix-secret-mgmt">9.1 CI/CD secret management &mdash; auth URLs, JWT keys, scratch creds</a></li>
-    <li><a href="#ix-static-analysis">9.2 Static analysis as a gate &mdash; PMD, SFDX Scanner, custom rules</a></li>
+    <li><a href="#ix-static-analysis">9.2 Static analysis as a gate &mdash; PMD, Salesforce Code Analyzer, custom rules</a></li>
     <li><a href="#ix-unlocked-signed">9.3 Unlocked packages + signed package enforcement</a></li>
     <li><a href="#ix-deployment-approval">9.4 Deployment approval workflow</a></li>
     <li><a href="#ix-repo-scan">9.5 Metadata git-repo dual-agent scanning</a></li>
@@ -6636,7 +6682,7 @@ flowchart LR
   <h3>Tools</h3>
   <ul>
     <li><strong>PMD with the Apex rules</strong> &mdash; standard for Apex code quality and security</li>
-    <li><strong>SFDX Scanner</strong> &mdash; Salesforce-published scanner; wraps PMD + ESLint + RetireJS + custom Salesforce rules</li>
+    <li><strong>Salesforce Code Analyzer (SFCA)</strong> &mdash; formerly <code>sfdx-scanner</code>; v4 (<code>@salesforce/sfdx-scanner</code> npm package, <code>sf scanner</code> topic) was <strong>retired in August 2025</strong>. The current artifact is <strong>v5</strong> (<code>@salesforce/code-analyzer</code> npm package, <code>sf code-analyzer</code> topic), which wraps PMD + ESLint + RetireJS + Flow Scanner + custom Salesforce rules. <a href="https://developer.salesforce.com/docs/platform/salesforce-code-analyzer/guide/release-notes.html" target="_blank" rel="noopener">[Code Analyzer release notes &#8599;]</a> &middot; <a href="https://developer.salesforce.com/docs/platform/salesforce-code-analyzer/guide/migrate.html" target="_blank" rel="noopener">[v4 &rarr; v5 migration &#8599;]</a></li>
     <li><strong>ESLint (with @lwc/eslint-plugin-lwc)</strong> &mdash; LWC-specific code quality</li>
     <li><strong>Custom rules</strong> &mdash; org-specific patterns (e.g., flag every <code>without sharing</code>, every <code>@AuraEnabled</code> on a guest-accessible class without explicit type check)</li>
   </ul>
@@ -8649,7 +8695,7 @@ DIFF:
     });
     exportBtn.addEventListener('click', function() {
       var snapshot = {
-        framework: 'Salesforce CRM Security Hardening v1.5.33',
+        framework: 'Salesforce CRM Security Hardening v1.5.34',
         scored_at: new Date().toISOString(),
         scores: loadStored(),
         average: parseFloat(avgEl.textContent) || 0,
@@ -8980,8 +9026,8 @@ DIFF:
   </p>
   <h3>Document metadata</h3>
   <p style="font-size: 12px; font-family: 'Source Code Pro', monospace;">
-    version 1.5.33 &middot; last modified 2026-05-11 &middot; source snapshot 2026-05-11 &middot;
-    Build identifier: SF-CRM-HARDENING-1.5.33
+    version 1.5.34 &middot; last modified 2026-05-11 &middot; source snapshot 2026-05-11 &middot;
+    Build identifier: SF-CRM-HARDENING-1.5.34
   </p>
 </div>
 
@@ -9675,7 +9721,7 @@ DIFF:
     ],
     'pillar-ix': [
       "Why does the document talk about SDLC and CI/CD in a Salesforce security guide?",
-      "Explain what static analysis (PMD / SFDX Scanner) does for Apex code.",
+      "Explain what static analysis (PMD / Salesforce Code Analyzer, formerly SFDX Scanner) does for Apex code.",
       "What is sandbox refresh governance, and why does it matter for security?",
       "How do I build a 'security gate' in a Salesforce CI pipeline?"
     ],
