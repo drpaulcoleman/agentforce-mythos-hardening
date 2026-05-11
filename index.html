@@ -1,7 +1,7 @@
                                                                                                                                                               <!DOCTYPE html>
 <!--
   Salesforce CRM Security Hardening — A Defender's Encyclopedia for the Frontier-AI Era
-  Document version 1.5.30 · Last modified 2026-05-11
+  Document version 1.5.31 · Last modified 2026-05-11
   Copyright (c) 2026 Dr. Paul Coleman. All rights reserved.
 
   A vendor-neutral hardening reference for the customer side of the Salesforce
@@ -28,7 +28,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">                                  
 <title>The Mythos Imperative &mdash; Salesforce CRM Security Hardening</title>                                                      
-<meta name="document-version" content="1.5.30">
+<meta name="document-version" content="1.5.31">
 <meta name="last-modified" content="2026-05-06">
 <meta name="source-snapshot" content="2026-05-06">
 <meta name="description" content="The Mythos Imperative: a vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars from Identity to Defensive AI; nineteen appendices.">
@@ -38,7 +38,7 @@
 
 <!-- Open Graph / social-share metadata -->
 <meta property="og:type" content="article">
-<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.30">
+<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.31">
 <meta property="og:description" content="Vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars, 19 appendices, fully attributed.">
 <meta property="og:url" content="https://drpaulcoleman.github.io/agentforce-mythos-hardening/">
 <meta property="og:site_name" content="Salesforce CRM Security Hardening">
@@ -49,7 +49,7 @@
 
 <!-- Twitter / X card metadata -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.30">
+<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.31">
 <meta name="twitter:description" content="Threat-informed Salesforce hardening reference. Ten pillars from Identity to Defensive AI, with a companion Salesforce DX reference implementation.">
 
 <!-- Errata / contributions -->
@@ -1756,6 +1756,108 @@ pre.mermaid g.node[onclick]:hover > path {
   color: var(--sf-green-light);
 }
 .ref-impl-callout code { font-size: 11px; }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   SCANNABLE LISTS + Q&A CARDS (v1.5.31)
+   For dense list/prose sections that need clearer item separation
+   without changing line-height (which is already generous at 1.8).
+   ═══════════════════════════════════════════════════════════════════════ */
+/* Hanging-indent list: markers (1., 2., •) sit flush-left at the same x-position
+   as the section heading. Wrapped text aligns at 1.7em so the body forms a
+   clean column under the bold lead. Per-item whitespace is generous; line-height
+   stays at the card default (1.8) so sentence rhythm is unchanged.
+   Reset browser default <ol>/<ul> padding to 0 so flush-left starts at the
+   card's prose edge -- same x as the <h3> heading. */
+.scannable-list {
+  margin: 14px 0 20px;
+  padding-left: 0;
+  list-style-position: outside;
+}
+.scannable-list > li {
+  margin: 0 0 18px;
+  padding-left: 1.7em;
+  text-indent: -1.7em;
+  list-style-position: inside;
+}
+.scannable-list > li:last-child { margin-bottom: 0; }
+.scannable-list > li > strong:first-child {
+  color: var(--sf-blue-light);
+  font-weight: 700;
+}
+/* Nested bullets inside a scannable-list item: reset text-indent so they nest
+   cleanly, and use a tighter per-item rhythm */
+.scannable-list ul, .scannable-list ol {
+  margin: 8px 0 4px;
+  padding-left: 1.6em;
+  list-style-position: outside;
+}
+.scannable-list ul li, .scannable-list ol li {
+  margin: 4px 0;
+  padding-left: 0;
+  text-indent: 0;
+  list-style-position: outside;
+}
+
+/* Q&A card -- per-question visual block with TL;DR ribbon */
+.qa-card {
+  margin: 22px 0;
+  padding: 14px 20px 14px;
+  border-left: 4px solid var(--sf-blue);
+  border-radius: 0 6px 6px 0;
+  background: rgba(0,112,210,0.05);
+}
+.qa-card + .qa-card { margin-top: 22px; }
+.qa-card.warn    { border-left-color: var(--sf-orange); background: rgba(255,154,60,0.05); }
+.qa-card.success { border-left-color: var(--sf-green);  background: rgba(4,132,75,0.05); }
+.qa-card .qa-q {
+  display: block;
+  color: var(--sf-blue-light);
+  font-size: 13.5px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  letter-spacing: 0.01em;
+  line-height: 1.55;
+}
+.qa-card .qa-q::before {
+  content: "Q · ";
+  color: var(--text-muted);
+  font-weight: 400;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+}
+.qa-card.warn .qa-q { color: var(--sf-orange); }
+.qa-card .qa-tldr {
+  display: block;
+  font-weight: 600;
+  color: var(--sf-white);
+  margin: 10px 0 12px;
+  padding: 8px 12px;
+  background: rgba(4,132,75,0.10);
+  border-left: 3px solid var(--sf-green);
+  border-radius: 0 4px 4px 0;
+  line-height: 1.6;
+  font-size: 13.5px;
+}
+.qa-card.warn .qa-tldr {
+  background: rgba(255,154,60,0.10);
+  border-left-color: var(--sf-orange);
+}
+.qa-card .qa-tldr::before {
+  content: "Short answer · ";
+  color: var(--sf-green-light);
+  font-weight: 700;
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-family: 'Source Code Pro', monospace;
+  margin-right: 4px;
+}
+.qa-card.warn .qa-tldr::before { color: var(--sf-orange); }
+.qa-card ul { margin: 8px 0 4px 18px; padding: 0; }
+.qa-card ul li { margin: 8px 0; line-height: 1.7; }
+.qa-card p { margin: 8px 0; }
+.qa-card pre.mermaid { margin: 12px 0 6px; }
 </style>
 </head>
 <body data-view="tech">
@@ -1773,7 +1875,7 @@ pre.mermaid g.node[onclick]:hover > path {
     </div>
     <div>
       <h1><span class="phase-tag">The Mythos Imperative</span><span class="phase-sep">&mdash;</span>Salesforce CRM Security Hardening</h1>
-      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.30 &middot; last modified 2026-05-11</span>
+      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.31 &middot; last modified 2026-05-11</span>
     </div>
   </div>
   <div class="doc-meta">
@@ -2197,7 +2299,7 @@ gantt
 
 <!-- TECH · Hero ---------------------------------------------------------- -->
 <div class="card hero" id="hero" data-search="hero overview salesforce crm security hardening defender encyclopedia frontier ai mythos">
-  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.30 &middot; last modified 2026-05-11</p>
+  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.31 &middot; last modified 2026-05-11</p>
   <h1>The <span class="accent">Mythos Imperative</span><br/><span style="font-size:24px; font-weight:700; opacity:0.92; display:block; margin-top:6px;">A Defender's Encyclopedia for the Frontier-AI Era</span></h1>
   <p class="lede" style="border-left: 3px solid var(--sf-orange); padding: 6px 0 6px 16px; margin-left: 0;">
     <strong style="color: var(--sf-orange); letter-spacing: 0.04em;">Why this exists, why now.</strong>
@@ -2908,7 +3010,7 @@ sequenceDiagram
     passkeys for everyone else &mdash; with explicit AMR/ACR verification per Pillar 1.9 + Pillar 1.10 test plan.
   </p>
   <h3>Relying-party configuration choices</h3>
-  <ul>
+  <ul class="scannable-list">
     <li><strong>authenticatorAttachment</strong>: <code>cross-platform</code> (hardware keys only) for
     high-assurance operators; <code>platform</code> (Touch ID / Windows Hello) for end-users on managed
     devices. <em>Mixing them per-population is the right call.</em></li>
@@ -2949,7 +3051,7 @@ sequenceDiagram
   </p>
 
   <h3>Where vault-stored passkeys fit</h3>
-  <ul>
+  <ul class="scannable-list">
     <li><strong>All non-privileged employee users.</strong> A vault-stored passkey satisfies the Jul&nbsp;20,
     2026 all-employee enforcement gate. Phishing-resistant by construction &mdash; the vault refuses to autofill
     on look-alike origins. AMR signal typically lands in Standard tier, which is acceptable for non-privileged.</li>
@@ -2963,7 +3065,7 @@ sequenceDiagram
   </ul>
 
   <h3>What vault-stored passkeys do NOT replace</h3>
-  <ul>
+  <ul class="scannable-list">
     <li><strong>The hardware-key requirement on the Pillar 1.5 isolated break-glass admin.</strong> A vault-stored
     passkey on the break-glass account creates a <em>circular dependency</em>: compromise the vault, compromise the
     recovery account. Hardware key + recovery code in a sealed envelope is the only acceptable pattern.</li>
@@ -2976,7 +3078,7 @@ sequenceDiagram
   </ul>
 
   <h3>AMR/ACR signal reality &mdash; verify in sandbox per vendor</h3>
-  <ul>
+  <ul class="scannable-list">
     <li><strong>1Password.</strong> Emits <code>webauthn</code> (generic) in most IdP integrations as of late
     2025. Confirm via SAML tracer / OIDC Login History on a sandbox login.</li>
     <li><strong>Bitwarden, Keeper, Dashlane, NordPass, Proton Pass.</strong> Same generic <code>webauthn</code>
@@ -3013,7 +3115,7 @@ sequenceDiagram
     gate are challenged for a stronger factor before the operation proceeds.
   </p>
   <h3>Where to enforce High Assurance</h3>
-  <ul>
+  <ul class="scannable-list">
     <li><strong>Mass-export reports and list views</strong> (the UNC6040 exfil path)</li>
     <li><strong>Bulk API and Data Loader sessions</strong></li>
     <li><strong>Connected App authorization</strong> (admin pre-approval flow)</li>
@@ -3047,7 +3149,7 @@ sequenceDiagram
     Login Flows.
   </p>
   <h3>What you can do in a login flow</h3>
-  <ul>
+  <ul class="scannable-list">
     <li><strong>Force a fresh MFA challenge</strong> for sensitive sessions, even if the SSO assertion satisfied MFA</li>
     <li><strong>Read context attributes</strong> (IP, browser, time, day) and conditionally branch</li>
     <li><strong>Display a banner / disclosure / acceptable-use notice</strong> requiring acknowledgment</li>
@@ -3136,7 +3238,7 @@ sequenceDiagram
     </tbody>
   </table>
   <h3>Patterns worth implementing</h3>
-  <ul>
+  <ul class="scannable-list">
     <li><strong>Group-driven entitlement.</strong> IdP returns a <code>groups</code> claim. Handler hashes
     the groups, looks them up in a custom-metadata mapping table (<code>IdP_Group_Permission_Mapping__mdt</code>),
     grants and revokes Permission Set Groups on every login. Result: zero permission drift; admin changes
@@ -3390,7 +3492,7 @@ sequenceDiagram
     Salesforce notes "these values are subject to change."</em></p>
 
   <h3>Counter-intuitive findings worth flagging to your IdP team</h3>
-  <ul>
+  <ul class="scannable-list">
     <li><strong>The AMR values <code>passkey</code> and <code>webauthn</code> land in <em>Standard</em> tier</strong> &mdash; not Phishing-Resistant. Despite WebAuthn being the underlying technology, Salesforce's classification only treats the more specific signals (<code>fido</code>, <code>fido2</code>, <code>cert</code>, etc.) as phishing-resistant. If your IdP transmits the generic <code>webauthn</code> AMR for hardware-key logins, your privileged users will be blocked at Salesforce despite using a security key end-to-end.</li>
     <li><strong>Default behavior is Weak / No MFA</strong>: a missing AMR/ACR claim is interpreted as no MFA. Confirm your IdP transmits one of the recognized values for every login type.</li>
     <li><strong>SAML ACR values are NOT yet recorded in Login History</strong> (planned for a future Salesforce release). Use a third-party SAML tracer to inspect responses today. The Salesforce SAML Validator currently classifies signals as "strong" / "weak" only &mdash; not aligned with the new three-tier nomenclature.</li>
@@ -3398,7 +3500,7 @@ sequenceDiagram
   </ul>
 
   <h3>How to verify your IdP's signals</h3>
-  <ul>
+  <ul class="scannable-list">
     <li><strong>OIDC AMR</strong>: confirm via Login History &mdash; Salesforce records the AMR claim from the OIDC ID token.</li>
     <li><strong>SAML ACR</strong>: use a SAML tracer browser extension (e.g. SAML-tracer for Firefox / Chrome) to inspect the <code>&lt;saml:AuthnContextClassRef&gt;</code> element in the IdP's response.</li>
     <li><strong>Test now, before Jul 1 / Jul 20</strong>: enroll a privileged test user in your IdP's phishing-resistant MFA, log in to a sandbox via SSO, confirm the AMR/ACR you actually receive matches the Phishing-Resistant column above. If not, work with your IdP vendor to update the configuration.</li>
@@ -3476,7 +3578,7 @@ sequenceDiagram
   </table>
 
   <h3>Customer prep checklist</h3>
-  <ol>
+  <ol class="scannable-list">
     <li><strong>Audit privileged population.</strong> SOQL: enumerate users with System Administrator profile + each of the four permissions (MAD, VAD, Customize Application, Author Apex), via direct assignment and via Permission Sets / PSGs. Use User Access and Permissions Assistant if available.</li>
     <li><strong>Inventory <code>Waive MFA</code> assignments.</strong> Any user holding this permission today will lose auto-exemption on the enforcement date. For valid retain cases, open a Salesforce Support case <em>now</em> &mdash; do not assume default behavior.</li>
     <li><strong>Enable Security Keys + Built-in Authenticators in Setup &mdash; Identity Verification.</strong> Once enabled, these are available to <em>all</em> org users (no admin-only restriction is possible).</li>
@@ -3489,7 +3591,7 @@ sequenceDiagram
   </ol>
 
   <h3>Resolution paths if a user is locked out</h3>
-  <ul>
+  <ul class="scannable-list">
     <li><strong>Standard user.</strong> Org admin generates temporary identity verification code; user re-registers a verifier.</li>
     <li><strong>Privileged user without phishing-resistant verifier.</strong> Contact Salesforce Support for a one-time login code; cannot proceed without that.</li>
     <li><strong>SSO signal issue.</strong> If your IdP performs phishing-resistant MFA but transmits an unrecognized AMR/ACR (most common: generic <code>webauthn</code> instead of <code>fido2</code>), users will see Salesforce MFA enrollment prompts despite a successful IdP MFA. Coordinate with the IdP vendor to update the signal.</li>
@@ -3537,72 +3639,148 @@ sequenceDiagram
     2026-07-01 will field roughly the same eight questions. Pre-answered here so the consulting / sales /
     customer-success team can lift verbatim.
   </p>
-  <dl>
-    <dt><strong>"We've standardized on 1Password (or LastPass, Bitwarden, Keeper) for the company. Do we throw it away?"</strong></dt>
-    <dd>No. Keep the vault. 1Password-stored passkeys satisfy the 2026-07-20 all-employee MFA gate and remain
-    the right primitive for the seven categories in <a href="#i-vault-role" class="pillar-link">Pillar 1.11</a>
-    (break-glass passwords, service-account credentials, JWT private keys, Connected App secrets, SCIM certs,
-    API tokens, shared-credential handoffs). The one caveat: 1Password emits the generic <code>webauthn</code>
-    AMR signal in most integrations, which Salesforce reads as Standard tier &mdash; that blocks privileged logins
-    after Jul&nbsp;1 unless your upstream IdP re-classifies the signal. Verify in sandbox (test-plan row #5)
-    before assuming a System Admin can log in with a 1Password passkey.</dd>
 
-    <dt><strong>"Our admins use YubiKeys, but our consultants use BYOD laptops with no security keys. What's the right path?"</strong></dt>
-    <dd>Two-tier issuance. Hardware keys for the privileged population (System Admin profile, MAD, VAD,
-    Customize Application, Author Apex). Vault-stored passkeys via the enterprise vault's business / team plan
-    for consultants and BYOD users &mdash; phishing-resistant, travels across the consultant's personal devices via
-    the vault's sync. Document the consultant offboarding step: revoke vault access first; Salesforce
-    deprovisioning follows automatically via SCIM.</dd>
+  <h3>Passkey form decision tree &mdash; which factor for which population</h3>
+  <pre class="mermaid">
+%%{init: {'flowchart': {'htmlLabels': true, 'wrappingWidth': 400, 'nodeSpacing': 40, 'rankSpacing': 60, 'padding': 14}}}%%
+flowchart TD
+    classDef start fill:#1B96FF,stroke:#0070D2,color:#FFFFFF
+    classDef hw fill:#04844B,stroke:#0F8C5F,color:#FFFFFF
+    classDef pa fill:#0070D2,stroke:#1589EE,color:#FFFFFF
+    classDef vs fill:#FF9A3C,stroke:#FF8000,color:#0D1B2A
+    classDef verify fill:#5867E8,stroke:#5C5CFF,color:#FFFFFF
 
-    <dt><strong>"We run Okta (or Entra, Ping, ADFS) SSO with MFA enforced upstream. Do we need to do anything at Salesforce?"</strong></dt>
-    <dd>Yes &mdash; two things. (1) Verify the AMR/ACR signal Okta transmits to Salesforce matches the
-    Phishing-Resistant column at <a href="#i-strength-tiers" class="pillar-link">Pillar 1.9</a>. A common failure
-    mode is Okta performing hardware-key MFA upstream but transmitting the generic <code>webauthn</code> value,
-    which Salesforce reads as Standard tier and blocks privileged logins. Use a SAML tracer extension or the
-    Login History AMR column to confirm. (2) The <a href="#viii-stepup-reports" class="pillar-link">Pillar 8.10
-    report step-up policy</a> ignores upstream SSO MFA &mdash; your SSO users still need a Salesforce-side reachable
-    channel (registered verifier, email, or SMS).</dd>
+    Start(["2026 MFA enforcement&lt;br/&gt;readiness"]):::start
+    Q1{"Privileged user?&lt;br/&gt;Sys Admin / MAD / VAD /&lt;br/&gt;Customize App / Author Apex"}
+    HW1["Hardware key&lt;br/&gt;+ sealed envelope&lt;br/&gt;+ recovery codes"]:::hw
+    HW2["Hardware key recommended&lt;br/&gt;OR built-in authenticator&lt;br/&gt;if AMR signal verified"]:::hw
+    PA["Platform authenticator&lt;br/&gt;Touch ID / Windows Hello / Face ID"]:::pa
+    VS["Vault-stored passkey&lt;br/&gt;1Password / Bitwarden / Keeper&lt;br/&gt;via business or team plan"]:::vs
+    Verify["Verify AMR/ACR signal&lt;br/&gt;in sandbox before Jul 1&lt;br/&gt;see Pillar 1.10 test plan row #5"]:::verify
 
-    <dt><strong>"What if a privileged user loses their key the morning of Jul 1?"</strong></dt>
-    <dd>Two-layer recovery (Pillar 1.2). First, the user enters one of their 8 single-use recovery codes &mdash;
-    generated at enrollment, 60-bit entropy, hashed-with-salt &mdash; to unlock a one-time session. Second, if codes
-    are exhausted, the time-delayed self-recovery flow starts a 72-hour hold during which alerts go to all
-    admins; a co-admin with their own hardware key can expedite to 24 hours. Solo admin: 72 hours, no shortcut.
-    Solo admin who is themselves locked out: Salesforce Support is the only path &mdash; document the contact
-    procedure now.</dd>
+    Start --&gt; Q1
+    Q1 --&gt;|"Pillar 1.5 break-glass admin"| HW1
+    Q1 --&gt;|"Other privileged user"| HW2
+    Q1 --&gt;|"Non-privileged, corporate device"| PA
+    Q1 --&gt;|"BYOD / consultant / contractor"| VS
+    HW1 --&gt; Verify
+    HW2 --&gt; Verify
+    PA --&gt; Verify
+    VS --&gt; Verify
+  </pre>
 
-    <dt><strong>"Our test automation logs in as a privileged user. How does that survive enforcement?"</strong></dt>
-    <dd>It doesn't, in its current form. Three options. (1) <strong>Convert the test user to an integration
-    user</strong> using JWT Bearer or Client Credentials OAuth flows &mdash; these are not subject to MFA enforcement
-    (Pillar 1.10). This is the architecturally correct path. (2) If you must keep UI-driven test automation,
-    file a Salesforce Support case requesting <code>Waive MFA</code> retention for that specific test user; the
-    permission no longer auto-exempts after the enforcement date. (3) Update Selenium / Provar / Copado / sfdx
-    test scripts for the username-first login flow (the username and password / passkey fields are now on
-    separate pages).</dd>
+  <h3>The eight questions, answered</h3>
 
-    <dt><strong>"We have a shared 'integration admin' user. How does ONE user register a passkey shared across the team?"</strong></dt>
-    <dd>The user can't &mdash; passkeys are user-bound. The architectural fix is to retire the shared user. Replace
-    with (a) an integration user authenticated via JWT Bearer or Client Credentials (no UI login, no MFA), or
-    (b) per-person admin accounts where each admin holds their own passkey. If a transition period is required,
-    a vault-stored passkey under a business-plan shared item gives you bounded shared access during the
-    migration &mdash; with the understanding that this is a 90-day migration window, not a permanent pattern.</dd>
+  <div class="qa-card success">
+    <span class="qa-q">"We've standardized on 1Password (or LastPass, Bitwarden, Keeper) for the company. Do we throw it away?"</span>
+    <span class="qa-tldr">No. Keep the vault. It is not obsolete &mdash; its surface area shifts.</span>
+    <ul>
+      <li>1Password passkeys satisfy the 2026-07-20 all-employee MFA gate.</li>
+      <li>The vault still owns the seven credential categories in <a href="#i-vault-role" class="pillar-link">Pillar 1.11</a> &mdash; break-glass passwords, service-account credentials, JWT private keys, Connected App secrets, SCIM certs, API tokens, shared-credential handoffs.</li>
+      <li><strong>Caveat:</strong> 1Password emits the generic <code>webauthn</code> AMR signal in most integrations &mdash; Salesforce reads that as Standard tier and blocks privileged logins after Jul&nbsp;1 unless the upstream IdP re-classifies the signal.</li>
+      <li><strong>Action:</strong> verify in sandbox (test-plan row #5) before assuming a System Admin can log in with a 1Password passkey.</li>
+    </ul>
+  </div>
 
-    <dt><strong>"How does this work for Salesforce Mobile SDK custom apps we built?"</strong></dt>
-    <dd>Mobile SDK 13.2.0 and earlier cannot complete browser-mediated phishing-resistant MFA in the default
-    WebView authentication mode &mdash; security key, platform authenticator, <em>or</em> vault-stored passkey all
-    require the browser path. Workarounds: (a) configure Advanced Authentication in My Domain and use My Domain
-    as the login server, or (b) upgrade to <strong>Mobile SDK 13.2.1</strong> (May 2026 release) which adds a
-    "Login for Admin" menu item forcing browser-based authentication. Inventory your custom Mobile SDK apps now
-    and schedule the upgrade for Q2 2026.</dd>
+  <div class="qa-card">
+    <span class="qa-q">"Our admins use YubiKeys, but our consultants use BYOD laptops with no security keys. What's the right path?"</span>
+    <span class="qa-tldr">Two-tier issuance &mdash; hardware keys for admins, vault-stored passkeys for consultants.</span>
+    <ul>
+      <li>Hardware keys for the privileged population (System Admin profile, MAD, VAD, Customize Application, Author Apex).</li>
+      <li>Vault-stored passkeys via the enterprise vault's business / team plan for consultants and BYOD users &mdash; phishing-resistant, travels across the consultant's personal devices via the vault's sync.</li>
+      <li><strong>Offboarding:</strong> revoke vault access first; Salesforce deprovisioning follows automatically via SCIM.</li>
+    </ul>
+  </div>
 
-    <dt><strong>"Do passkeys give us the same audit trail (Login History, EventLogFile) as TOTP did?"</strong></dt>
-    <dd>Yes &mdash; same Login History row, same <code>LoginEvent</code> and <code>LoginHistory</code> records, same
-    SIEM ingest path (Appendix I). What changes: the <code>AuthenticationMethodReference</code> column shows the
-    AMR value (<code>fido2</code>, <code>webauthn</code>, <code>passkey</code>), and <strong>SAML ACR values are
-    not yet recorded in Login History</strong> as of v1.5.30 (planned future Salesforce release). Use a SAML
-    tracer extension to inspect ACR until then.</dd>
-  </dl>
-  <p style="margin-top:14px;"><a href="#i-mfa-roadmap" class="pillar-link">&rarr; MFA Enforcement Roadmap &middot;
+  <div class="qa-card warn">
+    <span class="qa-q">"We run Okta (or Entra, Ping, ADFS) SSO with MFA enforced upstream. Do we need to do anything at Salesforce?"</span>
+    <span class="qa-tldr">Yes &mdash; two things, both mandatory before Jul 1.</span>
+    <ul>
+      <li><strong>(1) Verify the AMR/ACR signal</strong> Okta transmits to Salesforce matches the Phishing-Resistant column at <a href="#i-strength-tiers" class="pillar-link">Pillar 1.9</a>. A common failure mode: Okta performs hardware-key MFA upstream but transmits the generic <code>webauthn</code> value &mdash; Salesforce reads that as Standard tier and blocks privileged logins.</li>
+      <li><strong>Verification tool:</strong> SAML tracer browser extension or the Login History AMR column.</li>
+      <li><strong>(2) Pillar 8.10 report step-up policy ignores upstream SSO MFA</strong> &mdash; SSO users still need a Salesforce-side reachable channel (registered verifier, email, or SMS).</li>
+    </ul>
+  </div>
+
+  <div class="qa-card">
+    <span class="qa-q">"What if a privileged user loses their key the morning of Jul 1?"</span>
+    <span class="qa-tldr">Two-layer recovery &mdash; recovery codes first, then time-delayed self-recovery.</span>
+    <pre class="mermaid">
+%%{init: {'flowchart': {'htmlLabels': true, 'wrappingWidth': 360, 'nodeSpacing': 36, 'rankSpacing': 50, 'padding': 12}}}%%
+flowchart LR
+    classDef start fill:#1B96FF,stroke:#0070D2,color:#FFFFFF
+    classDef ok fill:#04844B,stroke:#0F8C5F,color:#FFFFFF
+    classDef warn fill:#FF9A3C,stroke:#FF8000,color:#0D1B2A
+
+    Lost(["Lost key&lt;br/&gt;Jul 1 AM"]):::start
+    A{"Recovery codes&lt;br/&gt;remaining?"}
+    B["Enter recovery code&lt;br/&gt;One-time session"]:::ok
+    C{"Co-admin with&lt;br/&gt;own hardware key?"}
+    D["24-hr hold&lt;br/&gt;co-admin expedites"]:::ok
+    E["72-hr hold&lt;br/&gt;alerts to all admins"]:::warn
+    F["Salesforce Support&lt;br/&gt;only path"]:::warn
+    R["Re-enroll&lt;br/&gt;new key"]:::start
+
+    Lost --&gt; A
+    A --&gt;|"Yes"| B
+    A --&gt;|"No - exhausted"| C
+    C --&gt;|"Yes"| D
+    C --&gt;|"No - solo admin"| E
+    C --&gt;|"Solo + locked out"| F
+    B --&gt; R
+    D --&gt; R
+    E --&gt; R
+    F --&gt; R
+    </pre>
+    <ul>
+      <li><strong>First:</strong> user enters one of their 8 single-use recovery codes (60-bit entropy, hashed-with-salt) for a one-time session.</li>
+      <li><strong>Second:</strong> if codes exhausted, time-delayed self-recovery starts a 72-hour hold with alerts to all admins; co-admin with hardware key can expedite to 24 hours.</li>
+      <li><strong>Solo admin:</strong> 72 hours, no shortcut.</li>
+      <li><strong>Solo admin who is themselves locked out:</strong> Salesforce Support is the only path &mdash; document the contact procedure now.</li>
+    </ul>
+  </div>
+
+  <div class="qa-card warn">
+    <span class="qa-q">"Our test automation logs in as a privileged user. How does that survive enforcement?"</span>
+    <span class="qa-tldr">It doesn't, in its current form. Three migration options.</span>
+    <ul>
+      <li><strong>Option 1 (architecturally correct):</strong> convert the test user to an integration user using JWT Bearer or Client Credentials OAuth flows &mdash; these are not subject to MFA enforcement (Pillar 1.10).</li>
+      <li><strong>Option 2:</strong> if UI-driven test automation is unavoidable, file a Salesforce Support case requesting <code>Waive MFA</code> retention for that specific test user &mdash; the permission no longer auto-exempts after the enforcement date.</li>
+      <li><strong>Option 3:</strong> update Selenium / Provar / Copado / sfdx test scripts for the username-first login flow (username and password / passkey fields are now on separate pages).</li>
+    </ul>
+  </div>
+
+  <div class="qa-card">
+    <span class="qa-q">"We have a shared 'integration admin' user. How does ONE user register a passkey shared across the team?"</span>
+    <span class="qa-tldr">The user can't &mdash; passkeys are user-bound. Retire the shared user.</span>
+    <ul>
+      <li><strong>Replace with:</strong> (a) an integration user authenticated via JWT Bearer or Client Credentials (no UI login, no MFA), or (b) per-person admin accounts where each admin holds their own passkey.</li>
+      <li><strong>Transition bridge:</strong> a vault-stored passkey under a business-plan shared item gives bounded shared access during migration &mdash; <em>90-day window only</em>, not a permanent pattern.</li>
+    </ul>
+  </div>
+
+  <div class="qa-card warn">
+    <span class="qa-q">"How does this work for Salesforce Mobile SDK custom apps we built?"</span>
+    <span class="qa-tldr">Mobile SDK 13.2.0 and earlier blocks phishing-resistant MFA in default WebView.</span>
+    <ul>
+      <li>Security key, platform authenticator, <em>or</em> vault-stored passkey all require the browser path.</li>
+      <li><strong>Workaround (a):</strong> configure Advanced Authentication in My Domain and use My Domain as the login server.</li>
+      <li><strong>Workaround (b) &mdash; recommended:</strong> upgrade to <strong>Mobile SDK 13.2.1</strong> (May 2026 release) which adds a "Login for Admin" menu item forcing browser-based authentication.</li>
+      <li><strong>Action:</strong> inventory custom Mobile SDK apps now; schedule the upgrade for Q2 2026.</li>
+    </ul>
+  </div>
+
+  <div class="qa-card success">
+    <span class="qa-q">"Do passkeys give us the same audit trail (Login History, EventLogFile) as TOTP did?"</span>
+    <span class="qa-tldr">Yes &mdash; same Login History row, same LoginEvent, same SIEM ingest path.</span>
+    <ul>
+      <li>Same <code>LoginEvent</code> and <code>LoginHistory</code> records as TOTP; same SIEM ingest path (Appendix I).</li>
+      <li><strong>What changes:</strong> the <code>AuthenticationMethodReference</code> column shows the AMR value (<code>fido2</code>, <code>webauthn</code>, <code>passkey</code>).</li>
+      <li><strong>Gap:</strong> SAML ACR values are not yet recorded in Login History as of v1.5.31 (planned future Salesforce release) &mdash; use a SAML tracer extension to inspect ACR until then.</li>
+    </ul>
+  </div>
+
+  <p style="margin-top:22px;"><a href="#i-mfa-roadmap" class="pillar-link">&rarr; MFA Enforcement Roadmap &middot;
   Pillar 1.10</a> &middot; <a href="#i-vault-passkeys" class="pillar-link">&rarr; Vault-stored passkeys &middot;
   Pillar 1.2.1</a> &middot; <a href="#i-vault-role" class="pillar-link">&rarr; Pillar 1.11 vault role</a></p>
 </div>
@@ -3619,7 +3797,7 @@ sequenceDiagram
   </div>
 
   <h3>Seven categories where the vault is still the right home</h3>
-  <ol>
+  <ol class="scannable-list">
     <li><strong>Break-glass admin password.</strong> The <a href="#i-sso" class="pillar-link">Pillar 1.5</a>
     isolated backup account keeps a long random password (sealed-envelope analog), plus a hardware-key recovery
     code, plus the hardware key itself in a tamper-evident container. The vault stores the password and the
@@ -8406,7 +8584,7 @@ DIFF:
     });
     exportBtn.addEventListener('click', function() {
       var snapshot = {
-        framework: 'Salesforce CRM Security Hardening v1.5.30',
+        framework: 'Salesforce CRM Security Hardening v1.5.31',
         scored_at: new Date().toISOString(),
         scores: loadStored(),
         average: parseFloat(avgEl.textContent) || 0,
@@ -8737,8 +8915,8 @@ DIFF:
   </p>
   <h3>Document metadata</h3>
   <p style="font-size: 12px; font-family: 'Source Code Pro', monospace;">
-    version 1.5.30 &middot; last modified 2026-05-11 &middot; source snapshot 2026-05-11 &middot;
-    Build identifier: SF-CRM-HARDENING-1.5.30
+    version 1.5.31 &middot; last modified 2026-05-11 &middot; source snapshot 2026-05-11 &middot;
+    Build identifier: SF-CRM-HARDENING-1.5.31
   </p>
 </div>
 
