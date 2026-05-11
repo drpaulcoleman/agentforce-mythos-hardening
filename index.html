@@ -3729,13 +3729,13 @@ flowchart TD
   <h3>The eight questions, answered</h3>
 
   <div class="qa-card success">
-    <span class="qa-q">"We've standardized on 1Password (or LastPass, Bitwarden, Keeper) for the company. Do we throw it away?"</span>
-    <span class="qa-tldr">No. Keep the vault. It is not obsolete &mdash; its surface area shifts.</span>
+    <span class="qa-q">"We've standardized on 1Password (or LastPass, Bitwarden, Keeper) as our enterprise password vault. What role does it play in our identity strategy after passkey enforcement?"</span>
+    <span class="qa-tldr">It remains the authoritative store for the seven credential categories passkeys cannot cover. Surface area shifts; value does not diminish.</span>
     <ul>
-      <li>1Password passkeys satisfy the 2026-07-20 all-employee MFA gate.</li>
-      <li>The vault still owns the seven credential categories in <a href="#i-vault-role" class="pillar-link">Pillar 1.11</a> &mdash; break-glass passwords, service-account credentials, JWT private keys, Connected App secrets, SCIM certs, API tokens, shared-credential handoffs.</li>
-      <li><strong>Caveat:</strong> 1Password emits the generic <code>webauthn</code> AMR signal in most integrations &mdash; Salesforce reads that as Standard tier and blocks privileged logins after Jul&nbsp;1 unless the upstream IdP re-classifies the signal.</li>
-      <li><strong>Action:</strong> verify in sandbox (test-plan row #5) before assuming a System Admin can log in with a 1Password passkey.</li>
+      <li>1Password-stored passkeys satisfy the 2026-07-20 all-employee MFA gate &mdash; the vault is now both a passkey provider and a secrets store.</li>
+      <li>The vault retains exclusive ownership of the seven credential categories enumerated in <a href="#i-vault-role" class="pillar-link">Pillar 1.11</a>: break-glass admin passwords, service-account credentials, JWT private keys, Connected App consumer secrets, SCIM certificates, API tokens, and shared-credential handoffs.</li>
+      <li><strong>Caveat for privileged users:</strong> 1Password emits the generic <code>webauthn</code> AMR signal in most integrations &mdash; Salesforce classifies that as Standard tier and blocks privileged logins after Jul&nbsp;1 unless the upstream IdP re-classifies the signal to <code>fido2</code>.</li>
+      <li><strong>Required action:</strong> verify in sandbox (test-plan row #5) before treating a vault-stored passkey deployment as compliant for the privileged-user population.</li>
     </ul>
   </div>
 
