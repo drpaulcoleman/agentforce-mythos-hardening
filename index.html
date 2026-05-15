@@ -1,7 +1,7 @@
                                                                                                                                                               <!DOCTYPE html>
 <!--
   Salesforce CRM Security Hardening — A Defender's Encyclopedia for the Frontier-AI Era
-  Document version 1.5.38 · Last modified 2026-05-11
+  Document version 1.5.39 · Last modified 2026-05-15
   Copyright (c) 2026 Dr. Paul Coleman. All rights reserved.
 
   A vendor-neutral hardening reference for the customer side of the Salesforce
@@ -28,9 +28,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">                                  
 <title>The Mythos Imperative &mdash; Salesforce CRM Security Hardening</title>                                                      
-<meta name="document-version" content="1.5.38">
-<meta name="last-modified" content="2026-05-06">
-<meta name="source-snapshot" content="2026-05-06">
+<meta name="document-version" content="1.5.39">
+<meta name="last-modified" content="2026-05-15">
+<meta name="source-snapshot" content="2026-05-15">
 <meta name="description" content="The Mythos Imperative: a vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars from Identity to Defensive AI; nineteen appendices.">
 <meta name="author" content="Dr. Paul Coleman">
 <meta name="robots" content="index, follow">
@@ -38,18 +38,18 @@
 
 <!-- Open Graph / social-share metadata -->
 <meta property="og:type" content="article">
-<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.38">
+<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.39">
 <meta property="og:description" content="Vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars, 19 appendices, fully attributed.">
 <meta property="og:url" content="https://drpaulcoleman.github.io/agentforce-mythos-hardening/">
 <meta property="og:site_name" content="Salesforce CRM Security Hardening">
 <meta property="og:locale" content="en_US">
 <meta property="article:author" content="Dr. Paul Coleman">
 <meta property="article:published_time" content="2026-05-06T00:00:00Z">
-<meta property="article:modified_time" content="2026-05-06T00:00:00Z">
+<meta property="article:modified_time" content="2026-05-15T00:00:00Z">
 
 <!-- Twitter / X card metadata -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.38">
+<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.39">
 <meta name="twitter:description" content="Threat-informed Salesforce hardening reference. Ten pillars from Identity to Defensive AI, with a companion Salesforce DX reference implementation.">
 
 <!-- Errata / contributions -->
@@ -5401,12 +5401,14 @@ sequenceDiagram
     <li>API endpoints validate the inbound client's cert against the uploaded CA</li>
     <li>Each inbound client gets a distinct cert &mdash; per-client revocability</li>
   </ul>
-  <h3>2026 dual-use cert ban impact</h3>
+  <h3>2026 dual-use cert ban impact (Effective: June 15, 2026)</h3>
   <p>
-    Per <a href="https://docs.enosix.io/release/salesforce-root-certificate-change-2026" target="_blank" rel="noopener">enosix</a><sup><a href="#ref-31" class="ref-link">[31]</a></sup>:
-    Chrome will enforce a strict ban on dual-use certificates &mdash; certs used for both server
-    authentication and client authentication. This affects how customers implement mTLS. Migration: issue
-    separate server-auth and client-auth certs from your CA; do not reuse one cert for both purposes.
+    Per <a href="https://docs.enosix.io/release/salesforce-root-certificate-change-2026" target="_blank" rel="noopener">enosix</a><sup><a href="#ref-31" class="ref-link">[31]</a></sup>
+    and <a href="https://support.google.com/chrome/a/answer/14093391" target="_blank" rel="noopener">Chrome Policy Updates</a>:
+    Chrome will enforce a strict ban on dual-use certificates starting <strong>June 15, 2026</strong> &mdash; certs used for both server
+    authentication and client authentication simultaneously. This affects how customers implement mTLS. <strong>Action required by June 15, 2026:</strong>
+    Audit all mTLS implementations, and issue separate server-auth and client-auth certificates from your CA; do not reuse one certificate for both purposes.
+    Self-signed and custom CA-signed certificates in non-dual-use configurations are unaffected.
   </p>
 </div>
 
@@ -5414,7 +5416,7 @@ sequenceDiagram
 <div class="card" id="v-cert-rotation" data-search="certificate rotation 2026 february 5 digicert global root g2 march 15 200 day max lifespan google apple browser industry pressure named credential customer uploaded">
   <h2>5.3 &middot; 2026 Certificate Transitions</h2>
   <p>
-    Two milestones. Every Salesforce customer has work to do.
+    Three critical milestones. Every Salesforce customer has work to do.
   </p>
   <table>
     <thead><tr><th>Date</th><th>Change</th><th>Customer impact</th></tr></thead>
@@ -5428,6 +5430,11 @@ sequenceDiagram
         <td><strong>March 15, 2026</strong></td>
         <td>Maximum certificate lifespan drops to <strong>200 days</strong></td>
         <td>Annual rotation is no longer sufficient. Quarterly rotation cadence becomes the operational norm. By 2029 the max drops further (47 days projected). Plan for monthly rotation by 2028.</td>
+      </tr>
+      <tr>
+        <td><strong>June 15, 2026</strong></td>
+        <td>Chrome enforces <strong>dual-use certificate ban</strong></td>
+        <td>Any mTLS implementation using a single certificate for both server and client authentication will break in Chrome. Audit all client certificates; issue separate server-auth and client-auth certs from your CA. Self-signed and non-dual-use custom CA certificates are unaffected.</td>
       </tr>
     </tbody>
   </table>
