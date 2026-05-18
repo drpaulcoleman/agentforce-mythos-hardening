@@ -9,6 +9,7 @@ Thumbs.db
 *.swo
 .vscode/
 .idea/
+references/
 
 # Temporary scratch files
 *.tmp

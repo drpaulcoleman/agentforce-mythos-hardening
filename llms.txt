@@ -2,8 +2,8 @@
 
 > A vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars from Identity to Defensive AI; nineteen appendices. Companion Salesforce DX reference implementation included.
 
-Document version: 1.5.40
-Last modified: 2026-05-15
+Document version: 1.5.41
+Last modified: 2026-05-18
 Author: Dr. Paul Coleman
 Canonical URL: https://drpaulcoleman.github.io/agentforce-mythos-hardening/
 Repository: https://github.com/drpaulcoleman/agentforce-mythos-hardening
@@ -77,15 +77,19 @@ The document is threat-informed by these real-world campaigns:
 - 2026 certificate transitions (DigiCert Global Root G2)
 - Integration Users & per-user Named Principals
 - API Client Allowlist + Pub/Sub API hardening
+- Session ID handling — prohibited use cases, JWT-based ECA replacement, managed-package namespace-bypass risk
 
 ### Pillar 6: Secure Code, Components & Automation
 - Apex run modes (USER_MODE as default)
-- SOQL injection (bind variables, not concatenation)
-- LWC + Visualforce XSS, sanitization, manual DOM
-- CSRF defaults and the constructor-DML anti-pattern
-- Flow security (run context and guest-accessible problem)
+- SOQL injection (bind variables, not concatenation; `Database.queryWithBinds()` as preferred dynamic pattern)
+- LWC + Visualforce XSS, sanitization, manual DOM (Lightning Locker vs. LWS, CSP directive table, unsafe-tag table)
+- CSRF defaults and the constructor-DML anti-pattern (incl. `renderedCallback`, "Require CSRF protection on GET requests" VF setting)
+- Flow security (run context, guest-accessible problem, Apex-invoked-flow unconditional system mode, input validation)
 - Shadow Flow / Outbound Messages (silent exfil vector)
 - Email-to-Case / Web-to-Lead / Web-to-Case intake hardening
+- Arbitrary redirect — `retURL` / `startURL` open-redirect hardening
+- `postMessage`, clickjacking, and iframe embedding (`frame-ancestors`, origin validation, sandbox attribute)
+- WebSocket security — origin validation and Cross-Site WebSocket Hijacking (CSWSH)
 
 ### Pillar 7: Data Classification, Encryption, Sandboxes & Backup
 - Data classification (the prerequisite)

@@ -1,7 +1,7 @@
                                                                                                                                                               <!DOCTYPE html>
 <!--
   Salesforce CRM Security Hardening — A Defender's Encyclopedia for the Frontier-AI Era
-  Document version 1.5.40 · Last modified 2026-05-15
+  Document version 1.5.41 · Last modified 2026-05-18
   Copyright (c) 2026 Dr. Paul Coleman. All rights reserved.
 
   A vendor-neutral hardening reference for the customer side of the Salesforce
@@ -28,9 +28,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">                                  
 <title>The Mythos Imperative &mdash; Salesforce CRM Security Hardening</title>                                                      
-<meta name="document-version" content="1.5.40">
-<meta name="last-modified" content="2026-05-15">
-<meta name="source-snapshot" content="2026-05-15">
+<meta name="document-version" content="1.5.41">
+<meta name="last-modified" content="2026-05-18">
+<meta name="source-snapshot" content="2026-05-18">
 <meta name="description" content="The Mythos Imperative: a vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars from Identity to Defensive AI; nineteen appendices.">
 <meta name="author" content="Dr. Paul Coleman">
 <meta name="robots" content="index, follow">
@@ -38,18 +38,18 @@
 
 <!-- Open Graph / social-share metadata -->
 <meta property="og:type" content="article">
-<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.40">
+<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.41">
 <meta property="og:description" content="Vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars, 19 appendices, fully attributed.">
 <meta property="og:url" content="https://drpaulcoleman.github.io/agentforce-mythos-hardening/">
 <meta property="og:site_name" content="Salesforce CRM Security Hardening">
 <meta property="og:locale" content="en_US">
 <meta property="article:author" content="Dr. Paul Coleman">
 <meta property="article:published_time" content="2026-05-06T00:00:00Z">
-<meta property="article:modified_time" content="2026-05-15T00:00:00Z">
+<meta property="article:modified_time" content="2026-05-18T00:00:00Z">
 
 <!-- Twitter / X card metadata -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.40">
+<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.41">
 <meta name="twitter:description" content="Threat-informed Salesforce hardening reference. Ten pillars from Identity to Defensive AI, with a companion Salesforce DX reference implementation.">
 
 <!-- Errata / contributions -->
@@ -5330,6 +5330,7 @@ sequenceDiagram
     <li><a href="#v-cert-rotation">5.3 2026 certificate transitions (Feb 5 root, Mar 15 200-day cap)</a></li>
     <li><a href="#v-integration-users">5.4 Integration users and per-user named principals</a></li>
     <li><a href="#v-api-allowlist">5.5 API client allowlist + Pub/Sub API hardening</a></li>
+    <li><a href="#v-session-id">5.6 Session ID handling &mdash; prohibited use cases and the namespace-bypass risk</a></li>
   </ul>
 </div>
 
@@ -5512,6 +5513,48 @@ sequenceDiagram
     <li>Pub/Sub API subscriber activity is observable in Real-Time EM via supported event types (e.g., <code>ApiEvent</code> for API calls, plus event-log files for subscriber connections) &mdash; baseline normal subscriber rate, alert on drops (could indicate stolen credential being used elsewhere). <a href="https://developer.salesforce.com/docs/platform/pub-sub-api/guide/supported-event-types.html" target="_blank" rel="noopener">[Pub/Sub API supported event types &#8599;]</a></li>
   </ul>
 </div>
+
+<!-- 5.6 Session ID handling -->
+<div class="card" id="v-session-id" data-search="session id sessionid getsessionid prohibited use cases jwt-based eca external client app managed package namespace bypass authorization handler page session integration api access token oauth bearer">
+  <h2>5.6 &middot; Session ID Handling &mdash; Prohibited Use Cases and the Namespace-Bypass Risk</h2>
+  <p>
+    The Salesforce Secure Coding Guide<sup><a href="#ref-45" class="ref-link">[45]</a></sup> dedicates a chapter to session-ID handling because every
+    pattern except a small allowlisted set is a footgun. The native session ID
+    (<code>UserInfo.getSessionId()</code> / <code>{!$Api.Session_ID}</code>) is a long-lived bearer
+    token with full user privileges &mdash; treat it like a password.
+  </p>
+  <h3>Prohibited use cases</h3>
+  <ul>
+    <li><strong>Session ID in a URL query string</strong> &mdash; ever. URLs leak via <code>Referer</code> headers, browser history, server access logs, screenshots, and analytics. Once a session ID is in a URL, treat the session as compromised.</li>
+    <li><strong>Session ID in a hidden form field</strong> &mdash; nearly as bad. Hidden fields are visible in DevTools, dumped in error reports, and sometimes mirrored back to the user in error messages.</li>
+    <li><strong>Session ID stored in a custom field on a custom object</strong> &mdash; persisted bearer credential. Treat as if you stored the user's password.</li>
+    <li><strong>Session ID passed to an external system as the auth token</strong> &mdash; the external system now holds a credential equivalent to "log in as this user, full privileges, until expiry." The recommended replacement: the external system authenticates via OAuth Web Server / JWT Bearer flow against an External Client App, with its own scoped token.</li>
+    <li><strong>Hardcoded session ID in static resources / Visualforce pages</strong> &mdash; rendered once when the page is cached, served to every subsequent visitor.</li>
+  </ul>
+  <h3>Permitted patterns</h3>
+  <ul>
+    <li><strong>Apex callout authenticating back to the same org</strong> via <code>UserInfo.getSessionId()</code> in an HTTP <code>Authorization</code> header &mdash; this is the documented self-callout pattern. Even here, prefer Named Credentials with the org's own External Credential.</li>
+    <li><strong>Server-side use within a single transaction</strong> where the session ID is never written to disk, returned to a client, or passed cross-org.</li>
+    <li><strong>JWT-based ECA tokens</strong> &mdash; the modern replacement for any "I need to authenticate as this user from outside Salesforce" pattern. Scoped, short-lived, replaceable without resetting the user's password.</li>
+  </ul>
+  <h3>The managed-package namespace-bypass risk</h3>
+  <p>
+    The Secure Coding Guide<sup><a href="#ref-45" class="ref-link">[45]</a></sup> calls out a subtle issue specific to managed packages: in some platform
+    contexts, code running in a managed-package namespace can obtain a session ID that crosses the
+    namespace boundary &mdash; meaning a compromised managed package's Apex can act with the installing
+    org's user privileges, beyond what the package's declared component scope would suggest. This is
+    one reason the Pillar 4 dual-agent metadata scan watches for unexpected Connected Apps installed
+    by managed packages, and why the AppExchange Security Review (Pillar 4.5) is necessary but not
+    sufficient: the review validates the package as submitted, but cannot prove the absence of
+    namespace-crossing session-ID handling in every code path.
+  </p>
+  <h3>Audit pattern</h3>
+  <ul>
+    <li>Grep org metadata for <code>getSessionId()</code>, <code>$Api.Session_ID</code>, <code>{!$Api.</code> in VF; flag every occurrence and verify it falls into the permitted-patterns list above</li>
+    <li>For every managed package installed: review its Connected Apps, its Auth Providers, and its declared callout endpoints; cross-reference against the package's documented integration surface</li>
+    <li>For any custom object field named <code>Session_*</code>, <code>Token_*</code>, <code>API_Key_*</code>, etc., verify it is encrypted (Shield Platform Encryption) and access-restricted; better, move to External Credentials</li>
+  </ul>
+</div>
 <!-- ════════════════════════════════════════════════════════════════════════
      PILLAR VI  ::  APEX / LWC / SOQL / FLOW SECURE CODING
      ════════════════════════════════════════════════════════════════════════ -->
@@ -5584,11 +5627,14 @@ flowchart LR
   <ul>
     <li><a href="#vi-apex-runmodes">6.1 Apex run modes &mdash; USER_MODE as the default</a></li>
     <li><a href="#vi-soql">6.2 SOQL injection &mdash; bind variables, not concatenation</a></li>
-    <li><a href="#vi-lwc">6.3 LWC + Visualforce XSS, sanitization, manual DOM</a></li>
+    <li><a href="#vi-lwc">6.3 LWC + Visualforce XSS, sanitization, manual DOM (LLS vs. LWS, CSP table, unsafe-tag table)</a></li>
     <li><a href="#vi-csrf">6.4 CSRF defaults and the constructor-DML anti-pattern</a></li>
     <li><a href="#vi-flow">6.5 Flow security &mdash; run context and the guest-accessible problem</a></li>
     <li><a href="#vi-shadow-flow">6.6 Shadow Flow / Outbound Messages &mdash; the silent exfil vector</a></li>
     <li><a href="#vi-email-intake">6.7 Email-to-Case / Web-to-Lead / Web-to-Case intake hardening</a></li>
+    <li><a href="#vi-redirect">6.8 Arbitrary redirect &mdash; <code>retURL</code> / <code>startURL</code> hardening</a></li>
+    <li><a href="#vi-iframe">6.9 <code>postMessage</code>, clickjacking, and iframe embedding</a></li>
+    <li><a href="#vi-websocket">6.10 WebSocket security &mdash; origin validation and CSWSH</a></li>
   </ul>
 </div>
 
@@ -5629,16 +5675,18 @@ flowchart LR
 <div class="card" id="vi-soql" data-search="soql injection bind variable escapesinglequotes dynamic soql concatenation owasp top 10">
   <h2>6.2 &middot; SOQL Injection &mdash; Bind Variables, Not Concatenation</h2>
   <p>
-    Salesforce's official position<sup><a href="#ref-34" class="ref-link">[34]</a></sup>: avoid dynamic SOQL where static SOQL with bind
-    variables works. When dynamic SOQL is required, use <code>String.escapeSingleQuotes()</code> on
-    user input. Bind variables are preferred.
+    Salesforce's official position<sup><a href="#ref-34" class="ref-link">[34]</a></sup><sup><a href="#ref-45" class="ref-link">[45]</a></sup>: bind variables eliminate the
+    injection surface entirely; static SOQL with binds is the default, and <code>Database.queryWithBinds()</code>
+    is the preferred pattern when SOQL must be assembled at runtime. <code>String.escapeSingleQuotes()</code>
+    is a partial defense for one specific position (single-quoted string literals) &mdash; treat it as a
+    legacy fallback, not the primary control.
   </p>
   <h3>Patterns (ordered by preference; use the first that fits the operation)</h3>
   <ol>
     <li><strong>Static SOQL with bind variables</strong> &mdash; the default: <code>[SELECT Id FROM Contact WHERE Name = :userInput WITH USER_MODE]</code>. No dynamic SOQL; no injection surface.</li>
-    <li><strong>Dynamic SOQL with typed binds</strong> &mdash; for queries that <em>must</em> be assembled at runtime: <code>Database.queryWithBinds(query, bindMap, AccessLevel.USER_MODE)</code>. Bind map enforces parameter typing.</li>
-    <li><strong>Typecasting / allowlisting for non-quoted fragments</strong> &mdash; numeric values, object names, field names, sort columns, ASC/DESC direction. Cast or allowlist against a fixed enum; never concatenate user input into these positions.</li>
-    <li><strong><code>String.escapeSingleQuotes()</code></strong> &mdash; <em>quoted string literals only</em>. Insufficient for numeric / unquoted / identifier injection per <a href="https://trailhead.salesforce.com/content/learn/modules/secure-serverside-development/mitigate-soql-injection" target="_blank" rel="noopener">[Trailhead &mdash; Mitigate SOQL Injection &#8599;]</a>. Legacy fallback at best.</li>
+    <li><strong><code>Database.queryWithBinds()</code> with a typed bind map</strong> &mdash; the preferred dynamic-SOQL pattern (introduced Spring '23<sup><a href="#ref-45" class="ref-link">[45]</a></sup>): <code>Database.queryWithBinds(query, bindMap, AccessLevel.USER_MODE)</code>. The bind map enforces parameter typing and removes the need for <code>String.escapeSingleQuotes()</code> in the WHERE clause; the only position-typing concern remaining is for non-quoted fragments below.</li>
+    <li><strong>Typecasting / allowlisting for non-quoted fragments</strong> &mdash; numeric values, object names, field names, sort columns, ASC/DESC direction. Cast or allowlist against a fixed enum; never concatenate user input into these positions. Bind variables do <em>not</em> cover these &mdash; they go straight into the parsed query string.</li>
+    <li><strong><code>String.escapeSingleQuotes()</code></strong> &mdash; <em>quoted string literals only</em>. Insufficient for numeric / unquoted / identifier injection per <a href="https://trailhead.salesforce.com/content/learn/modules/secure-serverside-development/mitigate-soql-injection" target="_blank" rel="noopener">[Trailhead &mdash; Mitigate SOQL Injection &#8599;]</a>. Legacy fallback at best &mdash; if a query lands here in code review, the question is "why isn't this <code>queryWithBinds</code>?"</li>
   </ol>
   <p>
     SOQL injection lives in the OWASP Top 10<sup><a href="#ref-35" class="ref-link">[35]</a></sup>; treat it as a deployment-blocking finding
@@ -5647,16 +5695,70 @@ flowchart LR
 </div>
 
 <!-- 6.3 LWC + VF XSS -->
-<div class="card" id="vi-lwc" data-search="lwc visualforce xss cross site scripting sanitize lightning formatted rich text lwc dom manual encoded innerhtml jsencode urlencode">
+<div class="card" id="vi-lwc" data-search="lwc visualforce xss cross site scripting sanitize lightning formatted rich text lwc dom manual encoded innerhtml jsencode urlencode lws locker service csp content security policy unsafe inline unsafe eval frame ancestors clickjacking">
   <h2>6.3 &middot; LWC + Visualforce XSS, Sanitization, Manual DOM</h2>
+  <h3>Lightning Locker Service vs. Lightning Web Security &mdash; know which sandbox applies</h3>
+  <p>
+    The platform has <em>two</em> JavaScript-isolation models<sup><a href="#ref-45" class="ref-link">[45]</a></sup>, and they apply to different
+    component types &mdash; the distinction matters because each enforces different sandbox rules:
+  </p>
+  <ul>
+    <li><strong>Lightning Locker Service (LLS)</strong> &mdash; legacy isolation model. Applies to
+    <em>Aura</em> components and to LWCs in orgs where LWS has not been enabled. Enforces a per-namespace
+    secure wrapper around <code>window</code>, <code>document</code>, and DOM APIs. Stricter and slower
+    than LWS; some browser APIs are unavailable.</li>
+    <li><strong>Lightning Web Security (LWS)</strong> &mdash; current isolation model for LWCs. Uses
+    <em>JavaScript realms</em> (browser-native sandbox boundaries) instead of wrapping. Faster, supports
+    more APIs, and namespace-isolated. <strong>Enable LWS</strong> in Setup &rarr; Session Settings &rarr;
+    Lightning Web Security if you are still on Locker for LWCs &mdash; new component development should
+    target LWS, not Locker.</li>
+    <li><strong>Both sandboxes are bypassed by</strong> <code>lwc:dom="manual"</code> (LWC) and the
+    legacy "no-locker" Aura access-level escape hatch &mdash; treat any code reachable through these as
+    living outside the sandbox.</li>
+  </ul>
   <h3>LWC</h3>
   <ul>
-    <li>Lightning Web Security (LWS) sandboxes components by default; sanitization is automatic for normal binding</li>
+    <li>Default property binding (<code>{property}</code>) auto-escapes HTML &mdash; no developer action required for normal text</li>
     <li><code>lwc:dom="manual"</code> opts <em>out</em> of the sanitizer &mdash; required for some integrations
     but a magnet for XSS bugs; minimize use, sanitize manually before <code>innerHTML</code></li>
     <li><code>lightning-formatted-rich-text</code> auto-sanitizes; prefer it over hand-rolled HTML rendering</li>
     <li>External scripts in LWC require Trusted CSP entries; review the trust list quarterly</li>
   </ul>
+  <h3>Lightning CSP directive reference</h3>
+  <p>Per the Salesforce Secure Coding Guide<sup><a href="#ref-45" class="ref-link">[45]</a></sup>, the Lightning runtime ships a strict default Content Security Policy. Defenders should know what is enforced by default vs. what requires explicit allowlisting.</p>
+  <table>
+    <thead><tr><th>CSP directive</th><th>Default value</th><th>What it controls</th><th>Customer action</th></tr></thead>
+    <tbody>
+      <tr><td><code>script-src</code></td><td><code>'self'</code></td><td>JavaScript sources (no <code>unsafe-inline</code>, no <code>unsafe-eval</code> by default)</td><td>External JS &rarr; CSP Trusted Sites entry; never relax to <code>unsafe-inline</code></td></tr>
+      <tr><td><code>style-src</code></td><td><code>'self' 'unsafe-inline'</code></td><td>CSS sources; <code>unsafe-inline</code> allowed for legacy compatibility</td><td>Move inline styles into static resources where possible</td></tr>
+      <tr><td><code>connect-src</code></td><td><code>'self'</code></td><td><code>fetch</code> / <code>XMLHttpRequest</code> / <code>WebSocket</code> / <code>EventSource</code> targets</td><td>External APIs &rarr; CSP Trusted Sites entry; covers the WebSocket case in &sect;6.10</td></tr>
+      <tr><td><code>frame-src</code></td><td><code>'self'</code></td><td>Iframe sources</td><td>External iframes &rarr; CSP Trusted Sites entry; consider whether the embedded site is a phishing risk</td></tr>
+      <tr><td><code>frame-ancestors</code></td><td><code>'self'</code></td><td>Who is allowed to embed <em>this</em> page in <em>their</em> iframe</td><td>Clickjacking control; see &sect;6.9 &mdash; tighten for any guest-accessible page</td></tr>
+      <tr><td><code>img-src</code></td><td><code>'self' data: https:</code></td><td>Image sources</td><td>Generally permissive; not a common XSS vector once <code>script-src</code> is locked</td></tr>
+      <tr><td><code>font-src</code></td><td><code>'self' data:</code></td><td>Font sources</td><td>Web fonts from external CDNs require Trusted Sites entry</td></tr>
+      <tr><td><code>media-src</code></td><td><code>'self'</code></td><td><code>&lt;audio&gt;</code> / <code>&lt;video&gt;</code> sources</td><td>External media &rarr; Trusted Sites entry</td></tr>
+      <tr><td><code>object-src</code></td><td><code>'none'</code></td><td><code>&lt;object&gt;</code> / <code>&lt;embed&gt;</code> &mdash; legacy plugin loaders</td><td>Already locked; do not relax</td></tr>
+    </tbody>
+  </table>
+  <h3>Unsafe HTML constructs blocked by Lightning sanitization</h3>
+  <p>The default Lightning sanitizer (in either LLS or LWS) strips or escapes the following from any
+  bound HTML &mdash; relevant whenever you are reviewing a <code>lwc:dom="manual"</code> path or a
+  Visualforce <code>escape="false"</code> path that bypasses these defaults:</p>
+  <table>
+    <thead><tr><th>Construct</th><th>Status</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td><code>&lt;script&gt;</code></td><td>Blocked</td><td>Script execution from bound HTML is the canonical XSS &mdash; always blocked</td></tr>
+      <tr><td><code>&lt;iframe&gt;</code>, <code>&lt;frame&gt;</code>, <code>&lt;frameset&gt;</code></td><td>Blocked</td><td>Embedding controlled separately via <code>frame-src</code> on trusted pages</td></tr>
+      <tr><td><code>&lt;object&gt;</code>, <code>&lt;embed&gt;</code>, <code>&lt;applet&gt;</code></td><td>Blocked</td><td>Legacy plugin loaders; also blocked by <code>object-src 'none'</code></td></tr>
+      <tr><td><code>&lt;form&gt;</code></td><td>Blocked</td><td>Prevents bound HTML from posting credentials to attacker-controlled endpoints</td></tr>
+      <tr><td><code>&lt;link&gt;</code>, <code>&lt;meta&gt;</code>, <code>&lt;base&gt;</code></td><td>Blocked</td><td>Prevent base-tag hijack and stylesheet injection</td></tr>
+      <tr><td>Event-handler attributes (<code>onclick</code>, <code>onload</code>, <code>onerror</code>, ...)</td><td>Stripped</td><td>All <code>on*=</code> attributes are removed before render</td></tr>
+      <tr><td><code>javascript:</code> URI scheme</td><td>Stripped</td><td>In <code>href</code>, <code>src</code>, <code>action</code>, <code>formaction</code>, <code>xlink:href</code></td></tr>
+      <tr><td><code>data:</code> URI in <code>src</code>/<code>href</code> contexts that execute</td><td>Restricted</td><td>Allowed in <code>img-src</code>; blocked where it could carry executable content</td></tr>
+      <tr><td><code>srcdoc</code> on <code>&lt;iframe&gt;</code></td><td>Blocked</td><td>Inline-document iframes carry the same risk as <code>&lt;script&gt;</code></td></tr>
+      <tr><td>SVG <code>&lt;script&gt;</code> / <code>foreignObject</code> / event handlers</td><td>Stripped</td><td>SVG is a frequent XSS bypass vector; sanitizer handles namespaced events too</td></tr>
+    </tbody>
+  </table>
   <h3>Visualforce</h3>
   <ul>
     <li>Standard <code>&lt;apex:*&gt;</code> tags include built-in HTML escape; do not <code>escape="false"</code> without justification</li>
@@ -5679,10 +5781,18 @@ flowchart LR
   <h3>Specifically avoid</h3>
   <ul>
     <li>DML in a Visualforce page constructor (executes on GET; bypasses CSRF token check)</li>
-    <li>DML in an LWC <code>connectedCallback</code> with no user gesture</li>
+    <li>DML in any LWC lifecycle hook with no user gesture &mdash; <code>connectedCallback</code>, <code>renderedCallback</code>, or Aura <code>init</code> handler. <code>renderedCallback</code> is the most insidious of the three because it can fire repeatedly during a render cycle, multiplying the side effect.</li>
     <li>DML in <code>@AuraEnabled(cacheable=true)</code> methods (cacheable methods cannot DML; this is enforced)</li>
     <li>Any "side effect on page load" pattern &mdash; defer to user-initiated action handler</li>
   </ul>
+  <h3>"Require CSRF protection on GET requests" &mdash; the Visualforce setting</h3>
+  <p>
+    Per the Salesforce Secure Coding Guide<sup><a href="#ref-45" class="ref-link">[45]</a></sup>, Visualforce pages that perform DML on initial GET (legacy pattern that
+    cannot be refactored immediately) should enable <strong>"Require CSRF protection on GET requests"</strong>
+    at the page level (Setup &rarr; Visualforce Pages &rarr; <em>Edit</em>). This forces the page to require an
+    anti-CSRF token even for GET, blocking the constructor-DML attack class without rewriting the page logic.
+    Treat it as a stop-gap: the correct long-term fix is moving the DML to a user-action handler.
+  </p>
 </div>
 
 <!-- 6.5 Flow security -->
@@ -5709,6 +5819,13 @@ flowchart LR
   </p>
   <h3>Hardening rules</h3>
   <ul>
+    <li><strong>Apex-invoked flows run as System Mode Without Sharing &mdash; <em>unconditionally</em>.</strong>
+    Per the Salesforce Secure Coding Guide<sup><a href="#ref-45" class="ref-link">[45]</a></sup>: <em>"If invoked from an Apex class, the flow always runs
+    in System Mode Without Sharing, irrespective of the flow settings."</em> The flow's "How to Run the
+    Flow" picker has no effect when the flow is launched from Apex. This is not a default that can be
+    overridden &mdash; it is the only behavior. Wrap the privileged operation in a subflow whose
+    <em>caller</em> Apex class is declared <code>with sharing</code> + <code>AccessLevel.USER_MODE</code>
+    on its DML, and accept that the flow itself cannot enforce sharing in this code path.</li>
     <li><strong>Record-triggered flows run in system context &mdash; there is no user-context override.</strong>
     Defend with (a) entry criteria that narrow the trigger set, (b) explicit Apex permission checks
     (<code>FeatureManagement</code>, profile / PSG checks) inside the flow, (c) minimal field /
@@ -5724,6 +5841,15 @@ flowchart LR
     <li><strong>Flow with no Apex actions, but with Get Records / Update Records elements that ignore sharing</strong>
     is the silent leak path. The Flow Builder UI does not warn you; Setup Audit Trail records the
     creation but does not flag the run-context.</li>
+    <li><strong>Validate every flow variable marked "Available for input"</strong> per the Salesforce
+    Secure Coding Guide<sup><a href="#ref-45" class="ref-link">[45]</a></sup>. Inputs from screen flows, URL parameters, or invocable callers are
+    untrusted. Add explicit Decision elements (or Apex action validators) that bound each input
+    before it reaches a Get/Update/Create Records element. Treat input-marked variables the same as
+    user-supplied parameters in an Apex controller.</li>
+    <li><strong>Decompose privileged operations into subflows.</strong> Per the Secure Coding Guide,
+    isolating sensitive Get/Update logic in a subflow lets you audit and reuse the privileged path
+    independently of the calling flow's run context, and makes it easier to reason about whether a
+    given flow execution can reach the sensitive operation.</li>
   </ul>
   <h3>Auditing Flow run-context</h3>
   <ul>
@@ -5812,6 +5938,117 @@ flowchart LR
     <a href="#vii-verified-sender-domain" class="pillar-link">Pillar 7.10 &mdash; Outbound Email Verified Sender Domain Enforcement</a>.
   </p>
 </div>
+
+<!-- 6.8 Arbitrary Redirect -->
+<div class="card" id="vi-redirect" data-search="arbitrary redirect open redirect returl starturl retarg phishing url validation experience cloud unauthenticated whitelist allowlist redirect parameter">
+  <h2>6.8 &middot; Arbitrary Redirect &mdash; Open-Redirect Hardening on <code>retURL</code> / <code>startURL</code></h2>
+  <p>
+    The Salesforce Secure Coding Guide<sup><a href="#ref-45" class="ref-link">[45]</a></sup> calls out a class of bug missed by most XSS reviews:
+    <strong>arbitrary redirect</strong>. A page accepts a URL parameter (commonly <code>retURL</code>,
+    <code>startURL</code>, <code>retarg</code>, or a custom equivalent) and redirects the browser to
+    that URL on form submit or page load. If the parameter is not validated against an allowlist, an
+    attacker crafts a phishing link that looks like a Salesforce URL but bounces the user to an
+    attacker-controlled clone of the login page.
+  </p>
+  <h3>Attack pattern</h3>
+  <ol>
+    <li>Attacker sends a victim a link that begins with the legitimate Salesforce origin: <code>https://yourcompany.my.site.com/path?retURL=https://attacker.example/fake-login</code></li>
+    <li>Victim clicks; URL inspection looks fine because the host is genuine</li>
+    <li>The page reads <code>retURL</code> and redirects unconditionally (e.g. <code>window.location = retURL</code> or <code>PageReference</code> with the unvalidated value)</li>
+    <li>Victim lands on attacker's clone, enters credentials</li>
+  </ol>
+  <h3>Defenses (in order of preference)</h3>
+  <ol>
+    <li><strong>Allowlist by origin</strong> &mdash; validate the redirect target's origin against a fixed list of permitted hosts (your <code>my.site.com</code> domain, your community domain, your CRM Analytics domain). Reject anything else and redirect to a known-safe default.</li>
+    <li><strong>Allowlist by relative path</strong> &mdash; if the redirect is always intra-org, require the target to start with <code>/</code> and reject anything that contains a scheme (<code>://</code>), a backslash, or starts with <code>//</code> (protocol-relative URLs are open-redirect bypass vectors).</li>
+    <li><strong>Indirection via lookup</strong> &mdash; instead of accepting a URL, accept a token (e.g. <code>retKey=quoteApproval</code>) and look up the destination in a server-side map. The user-supplied value is never a URL.</li>
+    <li><strong>VF-page redirect helpers</strong> &mdash; when using <code>PageReference</code>, set <code>setRedirect(true)</code> only on a value derived from the allowlist, never directly from <code>ApexPages.currentPage().getParameters()</code>.</li>
+  </ol>
+  <h3>Audit pattern</h3>
+  <ul>
+    <li>Grep for <code>retURL</code>, <code>startURL</code>, <code>retarg</code>, and <code>window.location =</code> across LWC / Aura / VF metadata; flag every occurrence reading from a URL parameter without origin validation</li>
+    <li>For Apex: every <code>new PageReference(...)</code> or <code>Page.<em>X</em></code> + <code>setRedirect(true)</code> where the URL contains a value sourced from request parameters</li>
+    <li>For Experience Cloud: this class of bug is highest-risk because the entry point is unauthenticated &mdash; cross-reference with Pillar 3 guest-user audits</li>
+  </ul>
+</div>
+
+<!-- 6.9 PostMessage + Clickjacking + iframe embedding -->
+<div class="card" id="vi-iframe" data-search="postmessage clickjacking iframe x-frame-options frame-ancestors csp window targetorigin origin validation cross frame ui redressing experience cloud lwc embed">
+  <h2>6.9 &middot; <code>postMessage</code>, Clickjacking, and Iframe Embedding</h2>
+  <p>
+    Three related attacks all exploit cross-origin trust boundaries in the browser. The Salesforce
+    Secure Coding Guide<sup><a href="#ref-45" class="ref-link">[45]</a></sup> covers each separately; this section consolidates them because the
+    audit and the defenses overlap.
+  </p>
+  <h3>Cross-origin <code>postMessage</code> &mdash; origin validation is mandatory</h3>
+  <p>
+    LWCs and embedded iframes communicate across origins via <code>window.postMessage()</code>. The
+    receiving side <em>must</em> validate the message's <code>origin</code> against an allowlist before
+    acting on the data &mdash; otherwise any third party that gets a reference to the <code>window</code>
+    can inject messages.
+  </p>
+  <ul>
+    <li><strong>Receiver: validate <code>event.origin</code></strong> against a hardcoded allowlist of permitted origins. Never trust the message contents to identify the sender.</li>
+    <li><strong>Sender: never use <code>'*'</code> as <code>targetOrigin</code></strong> &mdash; specify the exact destination origin. <code>postMessage(data, '*')</code> means "any embedded frame can read this message," which is a credential / record-data leak path when the page contains anything sensitive.</li>
+    <li><strong>Validate the message structure</strong> after origin validation &mdash; treat <code>event.data</code> as untrusted input even from a trusted origin (the trusted origin may itself contain a compromised script).</li>
+    <li><strong>Audit pattern</strong>: grep for <code>addEventListener('message'</code>, <code>postMessage(</code>, and <code>targetOrigin</code> across LWC / Aura / VF; flag every receiver missing an origin check and every sender passing <code>'*'</code></li>
+  </ul>
+  <h3>Clickjacking &mdash; <code>frame-ancestors</code> for guest-accessible pages</h3>
+  <p>
+    Clickjacking puts your Salesforce page inside an attacker's iframe with a transparent overlay; the
+    user thinks they are clicking the attacker's UI but is actually clicking through to your page,
+    triggering actions in their authenticated session. Defense is a CSP <code>frame-ancestors</code>
+    directive that restricts who is allowed to embed your page.
+  </p>
+  <ul>
+    <li><strong>Setup &rarr; Session Settings &rarr; Clickjack Protection</strong> &mdash; enable for Setup pages, non-Setup Salesforce pages, customer Visualforce pages with standard headers, and customer Visualforce pages with headers disabled. The default settings are sane; do not relax without justification.</li>
+    <li><strong>Experience Cloud (LWR / Aura sites)</strong> &mdash; the framing policy is configured per site under Experience Builder &rarr; Settings &rarr; Security &amp; Privacy. The default <em>does</em> permit framing in some templates &mdash; lock it to <em>same-origin only</em> unless a specific business case requires external embedding.</li>
+    <li><strong>Visualforce pages with <code>showHeader="false"</code></strong> &mdash; particularly important; without the standard header, the platform's default click-jack defenses are weaker.</li>
+    <li><strong>Audit pattern</strong>: enumerate every Experience Cloud site's framing setting; enumerate every VF page with <code>showHeader="false"</code> or <code>standardController</code> overrides; flag any guest-accessible page without explicit <code>frame-ancestors</code> restriction.</li>
+  </ul>
+  <h3>Iframe embedding &mdash; the inverse problem</h3>
+  <p>
+    When <em>your</em> Salesforce page embeds an external iframe (e.g. a third-party widget, a PDF
+    viewer, an analytics dashboard), that iframe runs in your page's context. Treat embedded iframes
+    the same as external scripts: only embed from origins on the CSP Trusted Sites list, and use the
+    <code>sandbox</code> attribute to drop dangerous capabilities (<code>allow-scripts</code>,
+    <code>allow-forms</code>, <code>allow-same-origin</code>) unless explicitly required.
+  </p>
+</div>
+
+<!-- 6.10 WebSocket / CSWSH -->
+<div class="card" id="vi-websocket" data-search="websocket cswsh cross site websocket hijacking origin header streaming api pub sub api token authentication wss tls connect-src">
+  <h2>6.10 &middot; WebSocket Security &mdash; Origin Validation and CSWSH</h2>
+  <p>
+    Salesforce's real-time channels (Streaming API, Pub/Sub API) and any custom WebSocket consumer in
+    LWC carry the same threat class as XHR/fetch &mdash; with one twist: WebSocket connections are
+    <em>not</em> bound by the browser's same-origin policy at the protocol level. The platform relies
+    on the server validating the <code>Origin</code> header on the upgrade handshake. When that
+    validation is missing, the attack class is <strong>Cross-Site WebSocket Hijacking (CSWSH)</strong><sup><a href="#ref-45" class="ref-link">[45]</a></sup>.
+  </p>
+  <h3>CSWSH attack pattern</h3>
+  <ol>
+    <li>Victim is logged into Salesforce; their session cookie is in the browser</li>
+    <li>Attacker tricks victim into visiting an attacker-controlled page</li>
+    <li>Attacker's page opens a WebSocket to the Salesforce streaming endpoint &mdash; the browser includes the victim's session cookie automatically</li>
+    <li>If the server does not validate the <code>Origin</code> header against an allowlist, the connection succeeds and the attacker's page can subscribe to the victim's event channels</li>
+    <li>Records, platform events, change-data-capture events stream to attacker-controlled JS</li>
+  </ol>
+  <h3>Defenses</h3>
+  <ul>
+    <li><strong>Server-side <code>Origin</code> validation</strong> on every WebSocket upgrade &mdash; for the Salesforce Streaming API and Pub/Sub API, this is platform-managed; for any custom Heroku / external WebSocket service that integrates with Salesforce, the server must validate <code>Origin</code> against your CSP Trusted Sites list.</li>
+    <li><strong>Token-based auth on the WebSocket itself</strong> &mdash; do not rely solely on the session cookie. The Pub/Sub API uses an OAuth bearer token passed in the connection metadata, which is not auto-included by browsers in cross-origin WebSocket opens.</li>
+    <li><strong>CSP <code>connect-src</code> directive</strong> &mdash; restricts which WebSocket endpoints the browser is allowed to open from your page. Lock to your specific Salesforce instance and any allowlisted streaming services; do not leave at <code>*</code>.</li>
+    <li><strong>TLS-only (<code>wss://</code>)</strong> &mdash; never <code>ws://</code> for any channel carrying record data</li>
+  </ul>
+  <h3>Audit pattern</h3>
+  <ul>
+    <li>Grep for <code>new WebSocket(</code> across LWC / Aura / VF; verify every endpoint is <code>wss://</code> and on the CSP Trusted Sites list</li>
+    <li>For custom Heroku / Node / Python WebSocket services bridging to Salesforce: code review the upgrade handler for explicit <code>Origin</code> validation</li>
+    <li>For Pub/Sub API consumers: verify the OAuth bearer-token flow is in use (not session-cookie inheritance)</li>
+  </ul>
+</div>
+
 <!-- ════════════════════════════════════════════════════════════════════════
      PILLAR VII  ::  DATA CLASSIFICATION, ENCRYPTION, SANDBOXES & BACKUP
      ════════════════════════════════════════════════════════════════════════ -->
@@ -9176,8 +9413,8 @@ DIFF:
   </p>
   <h3>Document metadata</h3>
   <p style="font-size: 12px; font-family: 'Source Code Pro', monospace;">
-    version 1.5.40 &middot; last modified 2026-05-15 &middot; source snapshot 2026-05-15 &middot;
-    Build identifier: SF-CRM-HARDENING-1.5.40
+    version 1.5.41 &middot; last modified 2026-05-18 &middot; source snapshot 2026-05-18 &middot;
+    Build identifier: SF-CRM-HARDENING-1.5.41
   </p>
 </div>
 
@@ -9189,7 +9426,7 @@ DIFF:
 <div class="card" id="references" data-search="references citations bibliography apa sources salesforce ben apex hours reco withsecure mitiga appomni krebs anthropic claude security divd nist owasp">
   <h2>References</h2>
   <p style="font-size: 13px; color: var(--text-secondary); margin: 0 0 6px 0;">Footnote markers <code>[N]</code> throughout the document link here. Format: APA 7th edition with retrieval-date timestamps for web sources (this material is changing rapidly; rigor on retrieval dates is essential).</p>
-  <p style="font-size: 12px; color: var(--text-muted); font-style: italic; margin: 0 0 16px 0;">Entries are sorted alphabetically by author/organization. Vendor research is labeled where the vendor sells a competing product; readers should weigh accordingly. Last reference snapshot: <strong>May 6, 2026</strong> (titles re-verified against live source where reachable; entries still showing May 4 retrieval reflect URLs that were paywalled, bot-blocked, or had stable canonical titles).</p>
+  <p style="font-size: 12px; color: var(--text-muted); font-style: italic; margin: 0 0 16px 0;">Entries are sorted alphabetically by author/organization. Vendor research is labeled where the vendor sells a competing product; readers should weigh accordingly. Last reference snapshot: <strong>May 18, 2026</strong> (titles re-verified against live source where reachable; entries still showing May 4 retrieval reflect URLs that were paywalled, bot-blocked, or had stable canonical titles). Latest addition: <strong>ref-45</strong> (Salesforce Developers, <em>Secure Coding Guide</em> v66.0, retrieved May 18, 2026) &mdash; primary source for the Pillar 6 secure-coding expansions in v1.5.41 (arbitrary redirect, <code>postMessage</code>, WebSocket / CSWSH, clickjacking, session ID prohibited uses, CSP directives, LLS vs. LWS).</p>
   <ol class="apa-refs" style="list-style: none; padding-left: 28px; margin-left: 0;">
     <li id="ref-39" style="margin-bottom: 10px;"><span class="ref-marker">[39]</span> <strong>AICPA.</strong> (n.d.). <em>SOC 2 Trust Services Criteria (TSC)</em>. American Institute of Certified Public Accountants. Retrieved May 4, 2026, from <a href="https://www.aicpa-cima.com/topic/audit-assurance/audit-and-assurance-greater-than-soc-2" target="_blank" rel="noopener">https://www.aicpa-cima.com/topic/audit-assurance/audit-and-assurance-greater-than-soc-2</a></li>
     <li id="ref-2" style="margin-bottom: 10px;"><span class="ref-marker">[2]</span> <strong>Anthropic.</strong> (n.d.). <em>Project Glasswing</em>. Anthropic. Retrieved May 4, 2026, from <a href="https://www.anthropic.com/glasswing" target="_blank" rel="noopener">https://www.anthropic.com/glasswing</a></li>
@@ -9217,6 +9454,7 @@ DIFF:
     <li id="ref-23" style="margin-bottom: 10px;"><span class="ref-marker">[23]</span> <strong>Salesforce.</strong> (2026, Spring). <em>Security Implementation Guide v66 (Spring &rsquo;26)</em> [PDF]. Salesforce. Retrieved May 4, 2026, from <a href="https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/securityImplGuide.pdf" target="_blank" rel="noopener">https://resources.docs.salesforce.com/latest/latest/en-us/sfdc/pdf/securityImplGuide.pdf</a></li>
     <li id="ref-1" style="margin-bottom: 10px;"><span class="ref-marker">[1]</span> <strong>Salesforce Ben / Martin, H.</strong> (2026, April 22). <em>Claude Mythos security breach: Salesforce architects warned of critical danger</em>. Salesforce Ben. Retrieved May 4, 2026, from <a href="https://www.salesforceben.com/claude-mythos-security-breach-salesforce-architects-warned-of-critical-danger/" target="_blank" rel="noopener">https://www.salesforceben.com/claude-mythos-security-breach-salesforce-architects-warned-of-critical-danger/</a></li>
     <li id="ref-34" style="margin-bottom: 10px;"><span class="ref-marker">[34]</span> <strong>Salesforce Developers.</strong> (n.d.). <em>Apex security and sharing</em>. Salesforce Developer Documentation. Retrieved May 4, 2026, from <a href="https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_classes_perms_enforcing.htm" target="_blank" rel="noopener">https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_classes_perms_enforcing.htm</a></li>
+    <li id="ref-45" style="margin-bottom: 10px;"><span class="ref-marker">[45]</span> <strong>Salesforce Developers.</strong> (2026, March 31). <em>Secure Coding Guide</em> (v66.0, Spring &rsquo;26) [PDF]. Salesforce Developer Documentation. Retrieved May 18, 2026, from <a href="https://resources.docs.salesforce.com/262/latest/en-us/sfdc/pdf/secure_coding.pdf" target="_blank" rel="noopener">https://resources.docs.salesforce.com/262/latest/en-us/sfdc/pdf/secure_coding.pdf</a> &middot; HTML edition: <a href="https://developer.salesforce.com/docs/atlas.en-us.secure_coding_guide.meta/secure_coding_guide/" target="_blank" rel="noopener">developer.salesforce.com/docs/.../secure_coding_guide</a>. Primary source for Pillar 6 (Apex / LWC / SOQL / Flow secure coding) including: arbitrary redirect (Ch&nbsp;9), session ID prohibited uses (Ch&nbsp;3), Lightning Locker / LWS distinction and CSP directives (Ch&nbsp;11), <code>postMessage</code> origin validation (Ch&nbsp;13), WebSocket / CSWSH (Ch&nbsp;14), clickjacking protections (Ch&nbsp;15), Flow input-validation requirements and Apex-invoked-flow run-context (Ch&nbsp;2), and the <em>"Require CSRF protection on GET requests"</em> Visualforce setting (Ch&nbsp;6).</li>
     <li id="ref-27" style="margin-bottom: 10px;"><span class="ref-marker">[27]</span> <strong>Salesforce Developers.</strong> (n.d.). <em>Prepare for the AppExchange Security Review</em>. Salesforce Developer Documentation. Retrieved May 4, 2026, from <a href="https://developer.salesforce.com/docs/atlas.en-us.packagingGuide.meta/packageGuide/security_review_prepare.htm" target="_blank" rel="noopener">https://developer.salesforce.com/docs/atlas.en-us.packagingGuide.meta/packageGuide/security_review_prepare.htm</a></li>
     <li id="ref-33" style="margin-bottom: 10px;"><span class="ref-marker">[33]</span> <strong>Salesforce Developers.</strong> (n.d.). <em>Pub/Sub API guide</em>. Salesforce Developer Documentation. Retrieved May 4, 2026, from <a href="https://developer.salesforce.com/docs/platform/pub-sub-api/guide/intro.html" target="_blank" rel="noopener">https://developer.salesforce.com/docs/platform/pub-sub-api/guide/intro.html</a></li>
     <li id="ref-26" style="margin-bottom: 10px;"><span class="ref-marker">[26]</span> <strong>Salesforce Help.</strong> (n.d.). <em>Connected Apps overview</em>. Salesforce Help. Retrieved May 4, 2026, from <a href="https://help.salesforce.com/s/articleView?id=sf.connected_app_overview.htm" target="_blank" rel="noopener">https://help.salesforce.com/s/articleView?id=sf.connected_app_overview.htm</a></li>
