@@ -1,7 +1,7 @@
                                                                                                                                                               <!DOCTYPE html>
 <!--
   Salesforce CRM Security Hardening — A Defender's Encyclopedia for the Frontier-AI Era
-  Document version 1.5.41 · Last modified 2026-05-18
+  Document version 1.5.42 · Last modified 2026-06-08
   Copyright (c) 2026 Dr. Paul Coleman. All rights reserved.
 
   A vendor-neutral hardening reference for the customer side of the Salesforce
@@ -28,9 +28,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">                                  
 <title>The Mythos Imperative &mdash; Salesforce CRM Security Hardening</title>                                                      
-<meta name="document-version" content="1.5.41">
-<meta name="last-modified" content="2026-05-18">
-<meta name="source-snapshot" content="2026-05-18">
+<meta name="document-version" content="1.5.42">
+<meta name="last-modified" content="2026-06-08">
+<meta name="source-snapshot" content="2026-06-08">
 <meta name="description" content="The Mythos Imperative: a vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars from Identity to Defensive AI; nineteen appendices.">
 <meta name="author" content="Dr. Paul Coleman">
 <meta name="robots" content="index, follow">
@@ -38,18 +38,18 @@
 
 <!-- Open Graph / social-share metadata -->
 <meta property="og:type" content="article">
-<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.41">
+<meta property="og:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.42">
 <meta property="og:description" content="Vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars, 19 appendices, fully attributed.">
 <meta property="og:url" content="https://drpaulcoleman.github.io/agentforce-mythos-hardening/">
 <meta property="og:site_name" content="Salesforce CRM Security Hardening">
 <meta property="og:locale" content="en_US">
 <meta property="article:author" content="Dr. Paul Coleman">
 <meta property="article:published_time" content="2026-05-06T00:00:00Z">
-<meta property="article:modified_time" content="2026-05-18T00:00:00Z">
+<meta property="article:modified_time" content="2026-06-08T00:00:00Z">
 
 <!-- Twitter / X card metadata -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.41">
+<meta name="twitter:title" content="The Mythos Imperative &mdash; Salesforce CRM Security Hardening v1.5.42">
 <meta name="twitter:description" content="Threat-informed Salesforce hardening reference. Ten pillars from Identity to Defensive AI, with a companion Salesforce DX reference implementation.">
 
 <!-- Errata / contributions -->
@@ -1932,7 +1932,7 @@ pre.mermaid g.node[onclick]:hover > path {
     </div>
     <div>
       <h1><span class="phase-tag">The Mythos Imperative</span><span class="phase-sep">&mdash;</span>Salesforce CRM Security Hardening</h1>
-      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.41 &middot; last modified 2026-05-18</span>
+      <span class="subtitle">Defender's Encyclopedia for the Frontier-AI Era &middot; v1.5.42 &middot; last modified 2026-06-08</span>
     </div>
   </div>
   <div class="doc-meta">
@@ -2065,7 +2065,7 @@ pre.mermaid g.node[onclick]:hover > path {
 
 <!-- EXEC · Hero ---------------------------------------------------------- -->
 <div class="card hero" id="exec-hero" data-exec-only data-search="hero executive overview elevator pitch security hardening salesforce">
-  <p class="eyebrow">Executive Summary &middot; Salesforce CRM Security Hardening &middot; v1.5.41 &middot; last modified 2026-05-18</p>
+  <p class="eyebrow">Executive Summary &middot; Salesforce CRM Security Hardening &middot; v1.5.42 &middot; last modified 2026-06-08</p>
   <h1>Most Salesforce breaches aren't <span class="accent">platform breaches.</span></h1>
   <p class="lede">
     They are <strong>customer-side configuration, integration, and human-factor breaches</strong> &mdash; vishing,
@@ -2356,7 +2356,7 @@ gantt
 
 <!-- TECH · Hero ---------------------------------------------------------- -->
 <div class="card hero" id="hero" data-search="hero overview salesforce crm security hardening defender encyclopedia frontier ai mythos">
-  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.41 &middot; last modified 2026-05-18</p>
+  <p class="eyebrow">The Mythos Imperative &middot; Salesforce CRM Security Hardening &middot; v1.5.42 &middot; last modified 2026-06-08</p>
   <h1>The <span class="accent">Mythos Imperative</span><br/><span style="font-size:24px; font-weight:700; opacity:0.92; display:block; margin-top:6px;">A Defender's Encyclopedia for the Frontier-AI Era</span></h1>
   <p class="lede" style="border-left: 3px solid var(--sf-orange); padding: 6px 0 6px 16px; margin-left: 0;">
     <strong style="color: var(--sf-orange); letter-spacing: 0.04em;">Why this exists, why now.</strong>
@@ -2820,8 +2820,8 @@ flowchart LR
         <td>6</td>
         <td><strong>Step-up Auth for Report Activities</strong> (Time-Based Session Level Policy)<br/>
           <a href="https://help.salesforce.com/s/articleView?id=005321566&amp;type=1" target="_blank" rel="noopener">KB 005321566 &#8599;</a></td>
-        <td>Avail 2026-05-27 (7d) &rarr; Enforced 2026-06-03 (7d)</td>
-        <td>Avail 2026-05-27 (15d) &rarr; Enforced <strong>2026-06-10</strong> (20d)</td>
+        <td>Avail 2026-05-27 (7d) &rarr; Enforced 2026-06-17 (7d)</td>
+        <td>Avail 2026-05-27 (15d) &rarr; Enforced <strong>2026-07-01</strong> (30d)</td>
         <td>&#9888; Upcoming</td>
         <td><a href="#viii-stepup-reports" class="pillar-link">Pillar 8.x</a></td>
       </tr>
@@ -2848,11 +2848,11 @@ flowchart LR
 
   <h3>The next 75 days</h3>
   <ul>
-    <li><strong>2026-05-27</strong> &mdash; Time-Based Session Level Policy for Reports becomes <em>available</em> in sandbox + production. Configure cool-down (2&ndash;120 min, default 120) at Identity Verification &rarr; Session Security Level Policies &rarr; Reports and Dashboards.</li>
+    <li><strong>2026-05-27</strong> &mdash; Time-Based Session Level Policy for Reports becomes <em>available</em> in sandbox + production. Configure the Step-Up Authentication Period (2&ndash;120 min) at Identity Verification &rarr; Session Security Level Policies &rarr; Reports and Dashboards &rarr; "Require periodic step-up authentication".</li>
     <li><strong>2026-06-01 / 2026-06-15</strong> &mdash; TSP Enhancements <em>available</em> (sandbox / prod); review the new <code>Modify Transaction Security Policy</code> permission and the default disabled ReportEvent TSP.</li>
-    <li><strong>2026-06-03 / 2026-06-10</strong> &mdash; Time-Based Session Level Policy <em>enforced</em> (sandbox / prod). Fail-closed: MFA service unavailable &rarr; report blocked. No trusted-IP exemption.</li>
+    <li><strong>2026-06-17</strong> &mdash; Time-Based Session Level Policy <em>enforced in sandbox</em> (~7-day stagger). Fail-closed: MFA service unavailable &rarr; report blocked. No trusted-IP exemption.</li>
     <li><strong>2026-06-22</strong> &mdash; Sandbox Day. Five enforcements activate together: phishing-resistant MFA for privileged users, MFA for all employees, anomalous-report-export step-up, TSP enhancements enforced, and end of TSP-management read-only grace.</li>
-    <li><strong>2026-07-01</strong> &mdash; Privileged-user phishing-resistant MFA <em>enforced</em> in production. Salesforce Authenticator + TOTP no longer acceptable for users with System Administrator profile, MAD, VAD, Customize Application, or Author Apex.</li>
+    <li><strong>2026-07-01</strong> &mdash; Two production enforcements: (1) Time-Based Session Level Policy for Reports <em>enforced</em> in production (~30-day stagger) &mdash; fail-closed, no trusted-IP exemption; (2) Privileged-user phishing-resistant MFA <em>enforced</em> in production &mdash; Salesforce Authenticator + TOTP no longer acceptable for users with System Administrator profile, MAD, VAD, Customize Application, or Author Apex.</li>
     <li><strong>2026-07-13</strong> &mdash; Anomalous-report-export step-up enforced in production; TSP enhancements enforced in production.</li>
     <li><strong>2026-07-20</strong> &mdash; MFA for all employee users enforced in production. End-state for the platform-side enforcement program.</li>
   </ul>
@@ -6849,42 +6849,60 @@ flowchart LR
 </div>
 
 <!-- 8.10 Time-Based Session Level Policy for Reports -->
-<div class="card" id="viii-stepup-reports" data-search="time based session level policy step up authentication report run view export cool down period 2 120 minutes identity verification session security level policies reports dashboards trusted ip exemption fail closed mfa service unavailable kb 005321566 may 27 june 3 june 10 2026 sso users sms email otp passkey security key salesforce authenticator totp">
-  <h2>8.10 &middot; Time-Based Session Level Policy for Reports (Available 2026-05-27, Enforced 2026-06-10 prod)</h2>
+<div class="card" id="viii-stepup-reports" data-search="time based session level policy step up authentication report run view export require periodic step-up authentication period minutes 2 120 minutes identity verification session security level policies reports dashboards trusted ip exemption fail closed mfa service unavailable kb 005321566 may 27 june 17 july 1 2026 sso users sms email otp passkey security key salesforce authenticator totp exempt api scheduled subscribed embedded experience cloud login as mobile app soql developer console workbench non-paid developer edition trial scratch in-app access">
+  <h2>8.10 &middot; Time-Based Session Level Policy for Reports (Available 2026-05-27, Enforced 2026-07-01 prod)</h2>
   <p>
     A new mandatory time-based step-up MFA framework, distinct from the customer-authored
     <a href="#viii-transaction-security" class="pillar-link">Transaction Security policies</a> in
     Pillar 8.5. Salesforce-shipped, default-on, and configured at <strong>Identity Verification &rarr;
-    Session Security Level Policies &rarr; Reports and Dashboards</strong>. Report Export is the first
-    sensitive action covered; more action types are expected in subsequent waves.
+    Session Security Level Policies &rarr; Reports and Dashboards</strong>. The control applies to
+    <strong>all reports &amp; dashboards actions from day one</strong> &mdash; accessing/viewing,
+    running, <em>and</em> exporting (per the June 2 KB revision, this is in-app access, not just
+    Report Export activity).
   </p>
 
   <h3>Timeline</h3>
   <ul>
-    <li><strong>Available in Sandboxes:</strong> 2026-05-27 (7-day stagger)</li>
-    <li><strong>Available in Production:</strong> 2026-05-27 (15-day stagger)</li>
-    <li><strong>Enforced in Sandboxes:</strong> 2026-06-03 (7-day stagger)</li>
-    <li><strong>Enforced in Production:</strong> <strong>2026-06-10</strong> (20-day stagger)</li>
+    <li><strong>Available in Sandboxes:</strong> 2026-05-27 (~7-day stagger)</li>
+    <li><strong>Available in Production:</strong> 2026-05-27 (~15-day stagger)</li>
+    <li><strong>Enforced in Sandboxes:</strong> 2026-06-17 (~7-day stagger)</li>
+    <li><strong>Enforced in Production:</strong> <strong>2026-07-01</strong> (~30-day stagger)</li>
   </ul>
 
   <h3>How it works</h3>
   <ul>
-    <li><strong>Configurable cool-down period:</strong> 2&ndash;120 minutes (default 120). Setup via
+    <li><strong>Configurable step-up period:</strong> 2&ndash;120 minutes. Setup via
       <code>Identity Verification &rarr; Session Security Level Policies &rarr; Reports and Dashboards
-      &rarr; "Require step-up authentication within cool-down period"</code>.</li>
+      &rarr; "Require periodic step-up authentication"</code>; the cadence field is
+      <code>"Step-Up Authentication Period (Minutes)"</code>. (The June 2 KB revision removed the
+      earlier "cool-down" terminology.)</li>
     <li><strong>Trigger is "run or VIEW" the report</strong> &mdash; not just on click of Download / Export. This broader trigger is intentional: it catches UI-based screen-scraping and browser data capture that happens without an explicit export click.</li>
-    <li><strong>MFA at login does NOT reset the step-up timer.</strong> The cool-down clock is <em>separate</em> from the login session. A user who logged in with MFA 30 minutes ago will still be challenged on report run if cool-down has expired since their last step-up. <a href="https://help.salesforce.com/s/articleView?id=005321566&amp;type=1" target="_blank" rel="noopener">[KB 005321566 &#8599;]</a></li>
+    <li><strong>MFA at login does NOT reset the step-up timer.</strong> The period clock is <em>separate</em> from the login session. A user who logged in with MFA 30 minutes ago will still be challenged on report run if the Step-Up Authentication Period has expired since their last step-up. <a href="https://help.salesforce.com/s/articleView?id=005321566&amp;type=1" target="_blank" rel="noopener">[KB 005321566 &#8599;]</a></li>
     <li><strong>Trusted IP / corporate network does NOT exempt.</strong> The check is enforced regardless of network position.</li>
-    <li><strong>Mandatory for SSO users too.</strong> SSO users without a registered Salesforce MFA verifier are challenged via <strong>SMS or email OTP</strong>. SSO users without a reachable email or phone are blocked &mdash; ensure all users have at least one reachable channel registered.</li>
+    <li><strong>Mandatory for SSO users too.</strong> SSO users without a registered Salesforce MFA verifier are challenged via <strong>email or SMS OTP</strong>. SSO users without a reachable email or phone are blocked &mdash; ensure all users have at least one reachable channel registered. The step-up cannot be delegated to the external SSO IdP; it must be satisfied with a Salesforce-native verifier or an email/SMS OTP.</li>
     <li><strong>Fail-closed posture:</strong> if the MFA service is unavailable, the report is blocked. Plan accordingly for DR and availability scenarios.</li>
     <li><strong>Supported challenge methods:</strong> Passkeys, Security Keys, Salesforce Authenticator, TOTP apps, SMS OTP, email OTP.</li>
   </ul>
 
+  <h3>What is exempt</h3>
+  <p>Per the June 2 &amp; June 4 KB revisions, the step-up challenge does <strong>not</strong> fire for:</p>
+  <ul>
+    <li><strong>API access</strong> &mdash; all non-interactive API sessions (integrations, connected apps, programmatic retrieval). Only interactive UI sessions trigger step-up.</li>
+    <li><strong>Scheduled / subscribed reports</strong> &mdash; background delivery is bypassed. <em>But</em> clicking the link in a subscription email opens an active UI session, which <em>will</em> trigger step-up.<sup>*</sup></li>
+    <li><strong>Embedded reports &amp; dashboards</strong> &mdash; e.g. placed on a Lightning App Builder page; exempt from the session-level policy check.</li>
+    <li><strong>Experience Cloud external users</strong> (customers, partners, community members) are fully exempt.<sup>*</sup> <strong>Internal/employee users</strong> accessing a report <em>through</em> an Experience Cloud site are <strong>not</strong> exempt and will be <strong>blocked</strong> &mdash; they must use their internal org.</li>
+    <li><strong>"Login As"</strong> sessions &mdash; fully exempt.<sup>*</sup></li>
+    <li><strong>Salesforce Mobile App</strong> &mdash; report/dashboard access via the mobile app is exempt.<sup>*</sup></li>
+    <li><strong>SOQL in Developer Console / Workbench</strong> &mdash; exempt.<sup>*</sup></li>
+    <li><strong>Non-paid orgs</strong> &mdash; enforcement is scoped to <strong>paid Production and Sandbox orgs only</strong>. Developer Edition, trial, and scratch orgs are not subject to enforcement.<sup>*</sup></li>
+  </ul>
+  <p style="font-size:0.9em;"><sup>*</sup> The KB flags these behaviors with a note: bugs have been reported and fixes are targeted for patch releases in Summer&nbsp;'26. Validate the exemption in your own org before relying on it operationally.</p>
+
   <h3>Customer prep checklist</h3>
   <ol>
-    <li>When the feature lands in your sandbox (after May 27), open <strong>Identity Verification &rarr; Session Security Level Policies &rarr; Reports and Dashboards</strong>. Select <em>"Require step-up authentication within cool-down period."</em> Adjust the cool-down value within the 2&ndash;120 minute range.</li>
+    <li>When the feature lands in your sandbox (after May 27), open <strong>Identity Verification &rarr; Session Security Level Policies &rarr; Reports and Dashboards</strong>. Select <em>"Require periodic step-up authentication"</em> and adjust <em>"Step-Up Authentication Period (Minutes)"</em> within the 2&ndash;120 minute range.</li>
     <li>Confirm every user has at least one reachable verification channel: registered Salesforce MFA verifier, current email address, or SMS phone number. SSO-only users are at highest risk; in-app prompts for unconfigured users start rolling out in May 2026.</li>
-    <li>Test in sandbox before the production enforcement on Jun 10. Confirm report-running, not just exporting, triggers the challenge as expected.</li>
+    <li>Test in sandbox (enforced 2026-06-17) before the production enforcement on Jul 1. Confirm report-running, not just exporting, triggers the challenge as expected.</li>
     <li>Update SOC monitoring to expect step-up challenge events; baseline the rate so you can detect anomalies.</li>
     <li>Update operational runbooks: a fail-closed event during MFA-service incident means business reports stop. Pre-arrange Salesforce Support contact path.</li>
   </ol>
@@ -6899,7 +6917,7 @@ flowchart LR
 <div class="card" id="viii-stepup-anomalous" data-search="anomalous report export step up authentication ml machine learning behavioral anomaly detection ui report download report only mode auto containment gradual activation kb 005321567 june 22 july 13 2026 sandbox production sensitive action sms email otp registered mfa">
   <h2>8.11 &middot; Anomalous Report Export Step-up (ML-driven; Enforced 2026-07-13 prod)</h2>
   <p>
-    Distinct from the time-based policy in 8.10 (deterministic, runs every cool-down window), this
+    Distinct from the time-based policy in 8.10 (deterministic, runs every Step-Up Authentication Period), this
     is a <strong>machine-learning</strong> control that evaluates user behavior continuously and
     fires step-up MFA when a deviation is detected. <strong>Currently scoped to UI report
     downloads only</strong> &mdash; despite the parent roadmap article framing this as "anomalous
@@ -8198,7 +8216,7 @@ return (List&lt;Contact&gt;) dec.getRecords();   // SSN__c stripped if running u
 
   <h3>E.2 MFA challenge on report export &gt; 10K rows or off-hours</h3>
   <div style="background: rgba(255,154,60,0.10); border-left: 4px solid #FF9A3C; padding: 12px 16px; margin: 12px 0; border-radius: 4px; font-size: 13px;">
-    <strong>Platform-shipped overlap (2026-06-10 prod / 2026-07-13 prod).</strong> Salesforce now ships
+    <strong>Platform-shipped overlap (2026-07-01 prod / 2026-07-13 prod).</strong> Salesforce now ships
     a default <code>ReportEvent</code> Transaction Security Policy that triggers step-up auth on UI
     exports exceeding 10,000 records (see <a href="#viii-transaction-security" class="pillar-link">Pillar 8.5 &mdash; TSP Enhancements</a>),
     plus a Time-Based Session Level Policy for report run / view (see <a href="#viii-stepup-reports" class="pillar-link">Pillar 8.10</a>).
@@ -9413,8 +9431,8 @@ DIFF:
   </p>
   <h3>Document metadata</h3>
   <p style="font-size: 12px; font-family: 'Source Code Pro', monospace;">
-    version 1.5.41 &middot; last modified 2026-05-18 &middot; source snapshot 2026-05-18 &middot;
-    Build identifier: SF-CRM-HARDENING-1.5.41
+    version 1.5.42 &middot; last modified 2026-06-08 &middot; source snapshot 2026-06-08 &middot;
+    Build identifier: SF-CRM-HARDENING-1.5.42
   </p>
 </div>
 
