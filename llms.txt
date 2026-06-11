@@ -2,8 +2,8 @@
 
 > A vendor-neutral, threat-informed hardening reference for the customer side of the Salesforce shared-responsibility partnership. Ten pillars from Identity to Defensive AI; nineteen appendices. Companion Salesforce DX reference implementation included.
 
-Document version: 1.5.41
-Last modified: 2026-05-18
+Document version: 1.5.43
+Last modified: 2026-06-11
 Author: Dr. Paul Coleman
 Canonical URL: https://drpaulcoleman.github.io/agentforce-mythos-hardening/
 Repository: https://github.com/drpaulcoleman/agentforce-mythos-hardening
@@ -18,10 +18,13 @@ This is the customer-side defender's encyclopedia for Salesforce CRM security in
 The document is threat-informed by these real-world campaigns:
 - UNC6040: Vishing → malicious Connected App OAuth grant chain
 - UNC6395: Salesloft/Drift ISV supply-chain compromise (700+ orgs)
+- Gainsight: second ISV/OAuth-token compromise (Oct–Nov 2025, partial actor overlap with Drift)
 - Krebs-pattern / DIVD-2026-00005: Experience Cloud guest user data exposure
 - Browser-extension OAuth hijack (33 Chrome extensions, 2.6M users)
-- AI prompt-injection via web forms
+- AI prompt-injection via web forms — ForcedLeak (Noma Labs PoC): Web-to-Lead payload → Agentforce/Einstein agent → exfil to re-registered expired domain; defended by the Agentforce/Einstein Trusted URL allowlist
+- AitM vishing against SSO identities (Okta/Entra), January 2026 — real-time MFA relay, defended only by origin-bound passkeys
 - Mythos supply-chain incident (April 2026): third-party vendor compromise, not direct Anthropic breach
+- Threat telemetry: WithSecure Salesforce Threat Landscape 2026 (98.26% of detections URL-based; PDF 68.29% of malicious files)
 
 ## Ten Hardening Pillars
 

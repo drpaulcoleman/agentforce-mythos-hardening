@@ -12,7 +12,7 @@ A vendor-neutral, threat-informed hardening reference for the **customer side** 
 
 ## What this is
 
-A single-page, self-contained HTML whitepaper that addresses real Salesforce CRM threats from the 2024–2026 corpus (UNC6040 vishing, UNC6395 / Salesloft Drift OAuth supply-chain, Krebs-pattern Experience Cloud guest exposure, browser-extension session hijack, AI prompt-injection via web forms, and the April 2026 Mythos third-party-vendor incident) and provides the customer-side hardening playbook for each.
+A single-page, self-contained HTML whitepaper that addresses real Salesforce CRM threats from the 2024–2026 corpus (UNC6040 vishing, UNC6395 / Salesloft Drift OAuth supply-chain, the Gainsight ISV compromise, Krebs-pattern Experience Cloud guest exposure, browser-extension session hijack, AI prompt-injection via web forms — including the ForcedLeak PoC, AitM vishing against SSO identities, and the April 2026 Mythos third-party-vendor incident) and provides the customer-side hardening playbook for each.
 
 **Audience.** Salesforce admins, developers, architects, SIs, ISVs, partners, and CISOs / executives. The document carries two view modes (Executive Summary ↔ Full Technical Readout) on a folder-tab fold so the same content can be read at two depths.
 
